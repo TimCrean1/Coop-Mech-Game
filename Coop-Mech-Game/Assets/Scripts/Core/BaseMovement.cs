@@ -25,7 +25,7 @@ public abstract class BaseMovement : MonoBehaviour
 
     [Header("Character - Component/Object References")]
     //[SerializeField] protected Animator animator; //The animator component of this character
-    [SerializeField] protected Rigidbody rigidbody; //The rigidbody component of this character
+    [SerializeField] protected new Rigidbody rigidbody; //The rigidbody component of this character
     [SerializeField] protected CapsuleCollider capsuleCollider; //The capsule collider component of this character
     [SerializeField] protected AudioSource audioSource; //The audio source component of this character
     [SerializeField] protected Transform characterModel; //The model of this character
@@ -35,11 +35,15 @@ public abstract class BaseMovement : MonoBehaviour
     #region Input
     //Virtual functions can have base implementations 
     //and can be overridden by derived/in child classes
-    public virtual void SetP1MovementInput(Vector2 input)
-    {
-        movementInput = input;
-    }
-    public virtual void SetP2MovementInput(Vector2 input)
+    // public virtual void SetP1MovementInput(Vector2 input)
+    // {
+    //     movementInput = input;
+    // }
+    // public virtual void SetP2MovementInput(Vector2 input)
+    // {
+    //     movementInput = input;
+    // }
+    public virtual void SetMovementInput(Vector2 input)
     {
         movementInput = input;
     }

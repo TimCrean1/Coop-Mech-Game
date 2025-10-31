@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class CharacterMovement : BaseMovement
@@ -11,10 +12,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
-    [SerializeField] private float maxSprintSpeed = 7f;
     [SerializeField] private float maxVerticalSpeed = 25f;
-    private bool isSprinting = false;
-    //private float currentMaxSpeed;
 
     [Header("Character - Air Movement")]
     [SerializeField] private int maxJumps = 2;
@@ -35,6 +33,9 @@ public class CharacterMovement : BaseMovement
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private CinemachineImpulseSource impulseSource;
+    [SerializeField][Range(0.01f, 3)] private float impulseRate;
+    private float impulseTimer;
 
     #endregion
 
@@ -55,29 +56,31 @@ public class CharacterMovement : BaseMovement
     private void Update()
     {
         RotateCharacter();
+        if (rigidbody.velocity.sqrMagnitude > 0.1f)
+        {
+            impulseTimer += Time.deltaTime;
+            if (impulseTimer >= impulseRate)
+            {
+                impulseSource.GenerateImpulse();
+                impulseTimer = 0f;
+            }
+        }
+        else
+        {
+            impulseTimer = 0f;
+        }
     }
 
     #endregion
 
     #region Input
 
-    public override void SetP1MovementInput(Vector2 input)
+    public override void SetMovementInput(Vector2 input)
     {
-        base.SetP1MovementInput(input);
+        base.SetMovementInput(input);
 
         // movementDirection.x = rotation input (A/D)
         // movementDirection.z = forward/back input (W/S)
-        movementDirection = new Vector3(input.x, 0, input.y);
-        if (movementDirection.sqrMagnitude > 1f)
-            movementDirection.Normalize();
-    }
-
-    public override void SetP2MovementInput(Vector2 input)
-    {
-        base.SetP2MovementInput(input);
-
-        // movementDirection.x = rotation input (Left/Right)
-        // movementDirection.z = forward/back input (Up/Down)
         movementDirection = new Vector3(input.x, 0, input.y);
         if (movementDirection.sqrMagnitude > 1f)
             movementDirection.Normalize();
@@ -168,18 +171,6 @@ public class CharacterMovement : BaseMovement
         {
             rigidbody.AddForce(Vector3.down * (rigidbody.velocity.y * 0.5f), ForceMode.VelocityChange);
         }
-    }
-
-    public override void StartSprinting()
-    {
-        isSprinting = true;
-        currentMaxSpeed = maxSprintSpeed;
-    }
-
-    public override void StopSprinting()
-    {
-        isSprinting = false;
-        currentMaxSpeed = maxWalkSpeed;
     }
 
     #endregion

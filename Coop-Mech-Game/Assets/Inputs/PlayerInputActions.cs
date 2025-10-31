@@ -120,18 +120,36 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Sprint"",
+                    ""name"": ""P1Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""4a5b3142-2077-4afa-ae8a-36ca891bfaa6"",
+                    ""id"": ""243b4bcd-6adf-4c8b-a0d3-31af2fdcc8fc"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""P2Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""4a0151f9-4169-4a3c-affd-c32402dcb892"",
+                    ""id"": ""9ecb44ce-e139-4199-a80a-e24e5dd5eff9"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfc802c9-6bac-4a30-bfd0-f0f26e59e1b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""6b2a5915-7a50-4a53-acd9-bde21b006366"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -262,23 +280,45 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3c17ae8e-e41f-4434-a9aa-6a0449db6d79"",
-                    ""path"": ""<Keyboard>/leftShift"",
+                    ""id"": ""f9ff1e0e-674e-4280-b9f5-15785c00b601"",
+                    ""path"": ""<Keyboard>/e"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Sprint"",
+                    ""action"": ""P1Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""66a0bc1f-5df2-4432-b804-e0804604dcf8"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""71832266-e0ae-4f7e-971a-1a4147ec13cf"",
+                    ""path"": ""<Keyboard>/p"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Interact"",
+                    ""action"": ""P2Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62074e7f-da4f-45fc-a68b-b117d402c998"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fc1732d1-ba1f-48fa-8905-99b11e03d122"",
+                    ""path"": ""<Keyboard>/o"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -320,8 +360,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P1Move = m_Player.FindAction("P1Move", throwIfNotFound: true);
         m_Player_P2Move = m_Player.FindAction("P2Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
-        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
+        m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
+        m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
+        m_Player_P1Melee = m_Player.FindAction("P1Melee", throwIfNotFound: true);
+        m_Player_P2Melee = m_Player.FindAction("P2Melee", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -409,8 +451,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P1Move;
     private readonly InputAction m_Player_P2Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Sprint;
-    private readonly InputAction m_Player_Interact;
+    private readonly InputAction m_Player_P1Shoot;
+    private readonly InputAction m_Player_P2Shoot;
+    private readonly InputAction m_Player_P1Melee;
+    private readonly InputAction m_Player_P2Melee;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -435,13 +479,21 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Sprint".
+        /// Provides access to the underlying input action "Player/P1Shoot".
         /// </summary>
-        public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
+        public InputAction @P1Shoot => m_Wrapper.m_Player_P1Shoot;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Interact".
+        /// Provides access to the underlying input action "Player/P2Shoot".
         /// </summary>
-        public InputAction @Interact => m_Wrapper.m_Player_Interact;
+        public InputAction @P2Shoot => m_Wrapper.m_Player_P2Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Melee".
+        /// </summary>
+        public InputAction @P1Melee => m_Wrapper.m_Player_P1Melee;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Melee".
+        /// </summary>
+        public InputAction @P2Melee => m_Wrapper.m_Player_P2Melee;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -477,12 +529,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @Sprint.started += instance.OnSprint;
-            @Sprint.performed += instance.OnSprint;
-            @Sprint.canceled += instance.OnSprint;
-            @Interact.started += instance.OnInteract;
-            @Interact.performed += instance.OnInteract;
-            @Interact.canceled += instance.OnInteract;
+            @P1Shoot.started += instance.OnP1Shoot;
+            @P1Shoot.performed += instance.OnP1Shoot;
+            @P1Shoot.canceled += instance.OnP1Shoot;
+            @P2Shoot.started += instance.OnP2Shoot;
+            @P2Shoot.performed += instance.OnP2Shoot;
+            @P2Shoot.canceled += instance.OnP2Shoot;
+            @P1Melee.started += instance.OnP1Melee;
+            @P1Melee.performed += instance.OnP1Melee;
+            @P1Melee.canceled += instance.OnP1Melee;
+            @P2Melee.started += instance.OnP2Melee;
+            @P2Melee.performed += instance.OnP2Melee;
+            @P2Melee.canceled += instance.OnP2Melee;
         }
 
         /// <summary>
@@ -503,12 +561,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @Sprint.started -= instance.OnSprint;
-            @Sprint.performed -= instance.OnSprint;
-            @Sprint.canceled -= instance.OnSprint;
-            @Interact.started -= instance.OnInteract;
-            @Interact.performed -= instance.OnInteract;
-            @Interact.canceled -= instance.OnInteract;
+            @P1Shoot.started -= instance.OnP1Shoot;
+            @P1Shoot.performed -= instance.OnP1Shoot;
+            @P1Shoot.canceled -= instance.OnP1Shoot;
+            @P2Shoot.started -= instance.OnP2Shoot;
+            @P2Shoot.performed -= instance.OnP2Shoot;
+            @P2Shoot.canceled -= instance.OnP2Shoot;
+            @P1Melee.started -= instance.OnP1Melee;
+            @P1Melee.performed -= instance.OnP1Melee;
+            @P1Melee.canceled -= instance.OnP1Melee;
+            @P2Melee.started -= instance.OnP2Melee;
+            @P2Melee.performed -= instance.OnP2Melee;
+            @P2Melee.canceled -= instance.OnP2Melee;
         }
 
         /// <summary>
@@ -667,19 +731,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Sprint" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "P1Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnSprint(InputAction.CallbackContext context);
+        void OnP1Shoot(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Interact" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "P2Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnInteract(InputAction.CallbackContext context);
+        void OnP2Shoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Melee(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Melee(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
