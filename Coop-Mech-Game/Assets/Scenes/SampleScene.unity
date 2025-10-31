@@ -157,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9bb6cc4b683245e99e3f284158cbbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentMaxSpeed: 7
+  currentMaxSpeed: 4
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 31114482}
@@ -181,7 +181,7 @@ MonoBehaviour:
   isGrounded: 0
   playerCamera: {fileID: 330585545}
   impulseSource: {fileID: 31114486}
-  impulseRate: 2.23
+  impulseRate: 0.75
 --- !u!82 &31114480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ MonoBehaviour:
     DissipationMode: 2
     DissipationDistance: 100
     PropagationSpeed: 343
-  DefaultVelocity: {x: 0, y: -1, z: 0}
+  DefaultVelocity: {x: 0, y: -0.1, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,7 +965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ApplyAfter: 2
   ChannelMask: -1
-  Gain: 1
+  Gain: 0.5
   Use2DDistance: 0
   UseCameraSpace: 1
   SignalCombinationMode: 0
