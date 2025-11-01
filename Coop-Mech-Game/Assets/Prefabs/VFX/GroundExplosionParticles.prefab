@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1710213366651252756}
   - component: {fileID: 7466613158816834811}
   - component: {fileID: 7409671262974342111}
+  - component: {fileID: 2410310692715079676}
   m_Layer: 0
   m_Name: GroundExplosionParticles
   m_TagString: Untagged
@@ -111,3 +112,15 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &2410310692715079676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2807435954066772489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d9fc9dc53c8d5b4aa46e2005e08cca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
