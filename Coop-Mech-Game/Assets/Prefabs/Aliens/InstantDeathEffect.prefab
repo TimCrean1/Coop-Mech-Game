@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7593730984661678857}
-  - component: {fileID: 8776371406161285452}
   - component: {fileID: 786643304763850509}
   - component: {fileID: 6878235631125804430}
+  - component: {fileID: 7185006388803588007}
   m_Layer: 0
   m_Name: InstantDeathEffect
   m_TagString: Untagged
@@ -34,20 +34,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8776371406161285452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1445986067368507711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d250f8c56f569341b74c471d175a10e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  effect: {fileID: 786643304763850509}
-  parent: {fileID: 0}
 --- !u!2083052967 &786643304763850509
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -126,3 +112,17 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7185006388803588007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1445986067368507711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1aae652f931ba6b4e8d2b5f434cfbe9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effect: {fileID: 786643304763850509}
+  parent: {fileID: 0}

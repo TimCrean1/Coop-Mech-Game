@@ -9,13 +9,10 @@ public class AlienInstantEffect : MonoBehaviour
     [SerializeField] private GameObject parent;
     private MeshRenderer mRend;
 
-    private void Start()
-    {
-        mRend = parent.GetComponent<MeshRenderer>();
-    }
-
     private void OnEnable()
     {
+        mRend = parent.GetComponent<MeshRenderer>();
+
         StartCoroutine(InstantDeathRoutine(effect.GetVector2("LifetimeRange").y));
     }
 

@@ -8,15 +8,16 @@ public class Alien : MonoBehaviour
     [SerializeField] private MeshRenderer meshRend;
     [SerializeField] private GameObject gradualEffect;
     [SerializeField] private GameObject instantEffect;
+    [Tooltip("X and Z set range start and stop, Y sets midpoint for effect selection, all should be non-negative")]
+    [SerializeField] private Vector3 effectRangeAndMid;
 
-
-    private float projectileDistance;
+    private float rand;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Projectile"))
         {
-            Debug.Log("pprojectile trigger entered by alien");
+            Debug.Log("projectile trigger entered by alien");
 
             StartCoroutine(DistRoutine(other));
         }
@@ -24,23 +25,25 @@ public class Alien : MonoBehaviour
 
     private IEnumerator DistRoutine(Collider other)
     {
-        yield return new WaitForSeconds(0.15f);
+        yield return null;
 
-        Debug.Log("Distance routine done waiting");
+        rand = Random.Range(effectRangeAndMid.x, effectRangeAndMid.z);
 
-        projectileDistance = Vector3.Distance(transform.position, other.transform.position);
+        //gradualEffect.SetActive(true);
 
-        if (projectileDistance <= 1.5f)
+
+        if (rand <= effectRangeAndMid.y)
         {
             instantEffect.SetActive(true);
+            yield return null;
         }
-        else
+        else if(rand > effectRangeAndMid.y)
         {
             gradualEffect.SetActive(true);
+            yield return null;
         }
+
+        yield return null;
+
     }
-
-    
-
-    
 }
