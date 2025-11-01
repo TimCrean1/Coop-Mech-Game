@@ -6,9 +6,8 @@ using UnityEngine.VFX;
 public class Alien : MonoBehaviour
 {
     [SerializeField] private MeshRenderer meshRend;
-    [SerializeField] private VisualEffect gradualEffect;
-    [SerializeField] private VisualEffect instantEffect;
-    [SerializeField] private VisualEffect smokeEffect;
+    [SerializeField] private GameObject gradualEffect;
+    [SerializeField] private GameObject instantEffect;
 
 
     private float projectileDistance;
@@ -17,6 +16,8 @@ public class Alien : MonoBehaviour
     {
         if (other.CompareTag("Projectile"))
         {
+            Debug.Log("pprojectile trigger entered by alien");
+
             StartCoroutine(DistRoutine(other));
         }
     }
@@ -25,36 +26,21 @@ public class Alien : MonoBehaviour
     {
         yield return new WaitForSeconds(0.15f);
 
+        Debug.Log("Distance routine done waiting");
+
         projectileDistance = Vector3.Distance(transform.position, other.transform.position);
 
         if (projectileDistance <= 1.5f)
         {
-            StartCoroutine(InstantDeathRoutine(instantEffect.GetVector2("LifetimeRange").y));
+            instantEffect.SetActive(true);
         }
         else
         {
-            StartCoroutine(GradualDeathRoutine(gradualEffect.GetVector2("LifetimeRange").y));
+            gradualEffect.SetActive(true);
         }
     }
 
-    private IEnumerator InstantDeathRoutine(float waitTime)
-    {
-        instantEffect.SendEvent("PlayDeathInst");
-        meshRend.enabled = false;
-        yield return new WaitForSeconds(waitTime + 0.5f);
-        gameObject.SetActive(false);
-    }
+    
 
-    private IEnumerator GradualDeathRoutine(float waitTime)
-    {
-        gradualEffect.SendEvent("PlayDeathGrad");
-        
-        yield return new WaitForSeconds(waitTime - 0.1f);
-        gradualEffect.SetBool("IsEnabled", false);
-        meshRend.enabled = false;
-
-        yield return null;
-        gameObject.SetActive(false);
-        yield return null;
-    }
+    
 }
