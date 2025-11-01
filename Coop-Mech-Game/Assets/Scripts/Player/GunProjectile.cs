@@ -7,10 +7,14 @@ public class GunProjectile : MonoBehaviour
     [SerializeField] private Rigidbody rb;
     [SerializeField] private SphereCollider radius;
     [SerializeField] private BoxCollider proj;
+    [SerializeField] private MeshRenderer mRend;
 
     [SerializeField] private float launchForce = 100f;
     [SerializeField] private GameObject groundExplosion;
     [SerializeField] private GameObject airExplosion;
+
+    private ContactPoint contactPoint;
+    private Vector3 point;
 
     void OnEnable() //will play when this object is instantiated by gun when fired
     {
@@ -29,22 +33,26 @@ public class GunProjectile : MonoBehaviour
     {
         if(collision.gameObject.layer == 3)
         {
+            contactPoint = collision.contacts[0];
+            point = contactPoint.point;
+
             StartCoroutine(ExplosionRoutine(true));
         }
     }
 
     private IEnumerator ExplosionRoutine(bool hitGround)
     {
+
         if (hitGround)
         {
-            //play ground explosion
+            Instantiate(groundExplosion, point, Quaternion.identity);
         }
         else
         {
-            //play air explosion
+            Instantiate(airExplosion, transform.position, Quaternion.identity);
         }
+        yield return null;
 
-        yield return new WaitForSeconds(5f);
         Destroy(gameObject);
     }
 }

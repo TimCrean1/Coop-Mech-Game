@@ -23,7 +23,7 @@ public class AlienGradualEffect : MonoBehaviour
         float addit = effect.GetFloat("EndDelay");
         effect.SendEvent("PlayDeathGrad");
 
-        yield return new WaitForSeconds(waitTime + (addit - 0.4f));
+        yield return new WaitForSeconds(addit);
         effect.SetBool("IsEnabled", false);
         mRend.enabled = false;
 
