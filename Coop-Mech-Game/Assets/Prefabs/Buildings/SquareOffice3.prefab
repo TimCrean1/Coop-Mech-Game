@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 4932458520501883547}
   - component: {fileID: 1030604503350259727}
   - component: {fileID: 8929547669108421391}
+  - component: {fileID: 6754423000368762167}
+  - component: {fileID: 2147934973828958869}
   m_Layer: 0
   m_Name: SquareOffice3
   m_TagString: Untagged
@@ -172,3 +174,45 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 40.021336, y: 53.124214, z: 15.50714}
   m_Center: {x: 0.0035572052, y: 26.342384, z: -19.166115}
+--- !u!65 &6754423000368762167
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7169410888728142763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.638315, y: 9.124214, z: 24.475807}
+  m_Center: {x: -9.367081, y: 38.342384, z: -1.5541908e-13}
+--- !u!65 &2147934973828958869
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7169410888728142763}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7.638315, y: 9.124214, z: 24.475807}
+  m_Center: {x: -9.367081, y: 19.3, z: -1.5541908e-13}
