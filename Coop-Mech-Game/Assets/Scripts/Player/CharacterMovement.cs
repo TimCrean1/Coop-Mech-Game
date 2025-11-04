@@ -24,6 +24,7 @@ public class CharacterMovement : BaseMovement
     [Header("Player - Rotation")]
     [SerializeField] private float groundRotationRate = 90f; // degrees/sec
     [SerializeField] private float airRotationRate = 45f;
+    [SerializeField] private float upDownRotationRate = 45f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -54,6 +55,7 @@ public class CharacterMovement : BaseMovement
     {
         CheckIsGrounded();
         MoveCharacter();
+        CharacterLook();
         LimitVelocity();
     }
 
@@ -91,6 +93,12 @@ public class CharacterMovement : BaseMovement
             movementDirection.Normalize();
     }
 
+    public override void SetLookInput(float input)
+    {
+        base.SetLookInput(input);
+
+    }
+
     #endregion
 
     #region Movement
@@ -122,6 +130,24 @@ public class CharacterMovement : BaseMovement
                 Vector3 counteract = -horizontalVel.normalized;
                 rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
             }
+        }
+    }
+
+    private void CharacterLook()
+    {
+        // Up/down look
+        if (lookInput != 0)
+        {
+            float rotationAmount = lookInput * upDownRotationRate * Time.deltaTime;
+            Vector3 currentEuler = playerCamera.transform.localEulerAngles;
+            float desiredX = currentEuler.x - rotationAmount;
+
+            // Clamp between 300 and 60 degrees
+            if (desiredX > 180f)
+                desiredX -= 360f;
+            desiredX = Mathf.Clamp(desiredX, -60f, 60f);
+
+            playerCamera.transform.localEulerAngles = new Vector3(desiredX, currentEuler.y, currentEuler.z);
         }
     }
 

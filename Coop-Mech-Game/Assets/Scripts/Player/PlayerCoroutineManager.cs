@@ -14,6 +14,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     [Header("Time Counters")]
     private float p1MoveTime;
     private float p2MoveTime;
+    private float p1LookTime;
+    private float p2LookTime;
     private float p1ShootTime;
     private float p2ShootTime;
     private float p1MeleeTime;
@@ -22,6 +24,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
     private Vector2 p2MoveInput;
+    private float p1LookInput;
+    private float p2LookInput;
     private Vector2 combinedShootInput;
     private Vector2 combinedMeleeInput;
 
@@ -36,6 +40,17 @@ public class PlayerCoroutineManager : MonoBehaviour
     {
         p2MoveInput = MoveInput;
         p2MoveTime = Time.time;
+    }
+
+    public void SetP1LookInput(float LookInput)
+    {
+        p1LookInput = LookInput;
+        p1LookTime = Time.time;
+    }
+    public void SetP2LookInput(float LookInput)
+    {
+        p2LookInput = LookInput;
+        p2LookTime = Time.time;
     }
     public void setP1ShootInput(float ShootInput)
     {
@@ -75,6 +90,25 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Reset times so it only triggers once
             p1MoveTime = -1;
             p2MoveTime = -1;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool TryGetSyncedLook(out float syncedInput)
+    {
+        syncedInput = 0f;
+
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1LookTime - p2LookTime) <= movementSyncWindow && Mathf.Approximately(p1LookInput, p2LookInput))
+        {
+            // Inputs are synced
+            syncedInput = (p1LookInput + p2LookInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1LookTime = -1;
+            p2LookTime = -1;
             return true;
         }
 
