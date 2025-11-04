@@ -1,0 +1,145 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MechBody
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Armature
+    m_Weight: 1
+  - m_Path: Armature/Empty
+    m_Weight: 0
+  - m_Path: Armature/leg_handle.L
+    m_Weight: 0
+  - m_Path: Armature/leg_handle.L/ankle.L
+    m_Weight: 1
+  - m_Path: Armature/leg_handle.L/ankle.L/ankle.L_end
+    m_Weight: 1
+  - m_Path: Armature/leg_handle.R
+    m_Weight: 0
+  - m_Path: Armature/leg_handle.R/ankle.R
+    m_Weight: 1
+  - m_Path: Armature/leg_handle.R/ankle.R/ankle.R_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/firstlayerfist
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/firstlayerfist/lowerfingers
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/firstlayerfist/lowerfingers/lowerfingers.001
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/firstlayerfist/lowerfingers/lowerfingers.001/lowerfingers.001_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/EmptyShell
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/EmptyShell/EmptyShell_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/FullShell
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/FullShell/FullShell_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/gun.003
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/gun.003/gun.003_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/LeftEjectionArm
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/LeftEjectionArm/LeftEjectionArm_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/RightEjectionArm
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/RightEjectionArm/RightEjectionArm_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/ShellAction
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/ShellAction/ShellAction_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/ShellHolder
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/gun/ShellHolder/ShellHolder_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/secondlayerfist
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/secondlayerfist/secondlayerfist_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/thirdlayerfist
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/thirdlayerfist/thirdlayerfist_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/torso
+    m_Weight: 1
+  - m_Path: Armature/main_handle/midtorso/torso/torso_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.L
+    m_Weight: 0
+  - m_Path: Armature/main_handle/shoulder.L/upperleg.L
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.L/upperleg.L/lowerleg.L
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.L/upperleg.L/lowerleg.L/lowerleg.L_end
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.R
+    m_Weight: 0
+  - m_Path: Armature/main_handle/shoulder.R/upperleg.R
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.R/upperleg.R/lowerleg.R
+    m_Weight: 1
+  - m_Path: Armature/main_handle/shoulder.R/upperleg.R/lowerleg.R/lowerleg.R_end
+    m_Weight: 1
+  - m_Path: Cockpit
+    m_Weight: 1
+  - m_Path: Cube.001
+    m_Weight: 1
+  - m_Path: Cube.003
+    m_Weight: 1
+  - m_Path: Cube.004
+    m_Weight: 1
+  - m_Path: Cylinder
+    m_Weight: 1
+  - m_Path: Cylinder.001
+    m_Weight: 1
+  - m_Path: Cylinder.003
+    m_Weight: 1
+  - m_Path: Cylinder.004
+    m_Weight: 1
+  - m_Path: Cylinder.005
+    m_Weight: 1
+  - m_Path: Cylinder.007
+    m_Weight: 1
+  - m_Path: Cylinder.010
+    m_Weight: 1
+  - m_Path: Cylinder.011
+    m_Weight: 1
+  - m_Path: Cylinder.012
+    m_Weight: 1
+  - m_Path: Cylinder.016
+    m_Weight: 1
+  - m_Path: Cylinder.019
+    m_Weight: 1
+  - m_Path: Cylinder.020
+    m_Weight: 1
+  - m_Path: Cylinder.024
+    m_Weight: 1
+  - m_Path: Icosphere
+    m_Weight: 1
+  - m_Path: Icosphere.002
+    m_Weight: 1
+  - m_Path: Icosphere.003
+    m_Weight: 1
+  - m_Path: Icosphere.004
+    m_Weight: 1
+  - m_Path: Icosphere.005
+    m_Weight: 1
+  - m_Path: Icosphere.011
+    m_Weight: 1
