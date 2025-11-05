@@ -3155,6 +3155,7 @@ GameObject:
   - component: {fileID: 543450651680480070}
   - component: {fileID: 5866666019885629756}
   - component: {fileID: 5866666019885629757}
+  - component: {fileID: 5866666019885629758}
   m_Layer: 0
   m_Name: MechRig
   m_TagString: Untagged
@@ -5945,6 +5946,55 @@ MonoBehaviour:
   - m_Rig: {fileID: 1619084012}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &5866666019885629758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147962266108}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2d8418b0b9634b1892b0268dd9c2743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  boneShape: 1
+  drawBones: 1
+  drawTripods: 0
+  boneSize: 1
+  tripodSize: 1
+  boneColor: {r: 0, g: 0, b: 1, a: 0.5}
+  m_Transforms:
+  - {fileID: 2994328522616014386}
+  - {fileID: 5557381571042764754}
+  - {fileID: 3805388479853196244}
+  - {fileID: 1776525888515376619}
+  - {fileID: 1853491985324126545}
+  - {fileID: 821226039788665717}
+  - {fileID: 4284846955340344802}
+  - {fileID: 4654444419784517336}
+  - {fileID: 1329434034965076915}
+  - {fileID: 4014761345216286978}
+  - {fileID: 5764704928244862216}
+  - {fileID: 5116392164853835720}
+  - {fileID: 797438872928636586}
+  - {fileID: 7497594214360931710}
+  - {fileID: 691616973828007630}
+  - {fileID: 6363960262150683094}
+  - {fileID: 4742335953279278073}
+  - {fileID: 4675254789800612688}
+  - {fileID: 2123592030779601343}
+  - {fileID: 6922161235797451925}
+  - {fileID: 1225076043055065456}
+  - {fileID: 6013330122313931714}
+  - {fileID: 4380145807104113970}
+  - {fileID: 1707401336561320664}
+  - {fileID: 5028708773535258951}
+  - {fileID: 3819245321311582863}
+  - {fileID: 888845030735780567}
+  - {fileID: 5613148151773175844}
+  - {fileID: 5632823390551430958}
+  - {fileID: 9090738662535004774}
 --- !u!4 &5879218331820046743
 Transform:
   m_ObjectHideFlags: 0
@@ -6330,7 +6380,7 @@ Transform:
   m_GameObject: {fileID: 8513859188432018846}
   serializedVersion: 2
   m_LocalRotation: {x: -0.00000003774895, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.856731, y: 6.3633533, z: -0.724979}
+  m_LocalPosition: {x: -1.856731, y: 6.363, z: -0.733}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_ConstrainProportionsScale: 0
   m_Children: []
