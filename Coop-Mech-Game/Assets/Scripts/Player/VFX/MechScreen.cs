@@ -5,13 +5,13 @@ using UnityEngine;
 public class MechScreen : MonoBehaviour
 {
     public Camera targetCamera;
-    public float renderInterval = 0.1f; // Render every 0.1 seconds (10 FPS)
+    public float renderInterval = 0.1f; //0.1 seconds = 10 fps
 
     void Start()
     {
         if (targetCamera != null)
         {
-            targetCamera.enabled = false; // Disable the camera component
+            targetCamera.enabled = false;
             StartCoroutine(RenderCameraRoutine());
         }
     }
@@ -21,7 +21,7 @@ public class MechScreen : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(renderInterval);
-            targetCamera.Render(); // Manually render the camera
+            targetCamera.Render();
         }
     }
 }
