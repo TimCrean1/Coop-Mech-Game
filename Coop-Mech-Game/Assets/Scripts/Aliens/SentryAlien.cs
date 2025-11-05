@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class SentryAlien : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject player;
+    [SerializeField] private float lookSpeed = 5f;
+    [SerializeField] private float range = 40f;
+    [SerializeField] private float fireInterval = 0.5f;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private GameObject projectile;
+    private Vector3 target = Vector3.zero;
+    private Vector3 dir;
+    private Quaternion lookRot;
+
+    private void OnEnable()
     {
-        
+        StartCoroutine(FireRoutine());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        StopCoroutine(FireRoutine());
+    }
+
+    private IEnumerator FireRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(fireInterval);
+
+            if(Vector3.Distance(transform.position, target) <= range)
+            {
+                dir = (target - transform.position).normalized;
+                lookRot = Quaternion.LookRotation(dir);
+                rb.MoveRotation(lookRot);
+
+                yield return null;
+
+                Instantiate(projectile, transform.position + transform.forward, Quaternion.identity);
+            }
+
+            yield return null;
+        }
     }
 }
