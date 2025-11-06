@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: 5e574ce6122eb1148b68eb998deb71e9
+  m_OcclusionCullingData: {fileID: 36300000, guid: 4d28f825460b16e41a893bfa021d54b8,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -122,6 +123,32 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &27821275 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8002658830655992391, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &27821278 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7707530435187595147, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &27821279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27821275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823ccde4ce7f0904fa96d5e838ee3c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 27821278}
+  renderInterval: 0.1
 --- !u!1001 &50418711
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -512,6 +539,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice8 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -733,6 +765,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -843,6 +880,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &215921230 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8002754555688709170, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &215921233 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1123477835399499679, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &215921234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215921230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823ccde4ce7f0904fa96d5e838ee3c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 215921233}
+  renderInterval: 0.1
 --- !u!1001 &263896708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1042,6 +1105,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice4
       objectReference: {fileID: 0}
+    - target: {fileID: 2399341082474554557, guid: caeb5acca4f2d0f43bb9fc891b092860,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1124,6 +1192,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice7 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8214209661158167662, guid: 23e42725ba1eac14aa916504dda1b8c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1345,6 +1418,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1413,11 +1491,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b989ce732f8b4ed4e845991e6023f71b, type: 3}
+--- !u!1 &474378839 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 831551647753317083, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &474378842 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3717217347032526112, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &474378843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474378839}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823ccde4ce7f0904fa96d5e838ee3c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 474378842}
+  renderInterval: 0.1
 --- !u!1001 &488161987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1491,6 +1600,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1508,6 +1622,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice2 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 129026144529111094, guid: f3d510e2aafc36d48b73376771103721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3229003854808853925, guid: f3d510e2aafc36d48b73376771103721,
         type: 3}
@@ -1632,6 +1751,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b1b820c8b725a24390f3d1982a00266, type: 3}
+--- !u!1 &540340223 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6708010553487329872, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &540340226 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8506906911692907480, guid: 1f39bf5ecf8058e4abb819267ea23202,
+    type: 3}
+  m_PrefabInstance: {fileID: 1150167148}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &540340227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 540340223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 823ccde4ce7f0904fa96d5e838ee3c69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetCamera: {fileID: 540340226}
+  renderInterval: 0.1
 --- !u!1001 &543042713
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1644,6 +1789,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice8 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
@@ -1851,6 +2001,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice7 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8214209661158167662, guid: 23e42725ba1eac14aa916504dda1b8c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1919,6 +2074,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1986,6 +2146,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice4 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2399341082474554557, guid: caeb5acca4f2d0f43bb9fc891b092860,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2075,6 +2240,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice7 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8214209661158167662, guid: 23e42725ba1eac14aa916504dda1b8c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2142,6 +2312,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice1 (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2228,6 +2403,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice8 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
@@ -2347,6 +2527,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice5 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 3691700220846174637, guid: 0b9abe17cdcb03441952339636f704cb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2415,6 +2600,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice5
       objectReference: {fileID: 0}
+    - target: {fileID: 3691700220846174637, guid: 0b9abe17cdcb03441952339636f704cb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2482,6 +2672,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7169410888728142763, guid: 32c7f3b62a3ccce4a8cd8476bb448292,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2565,6 +2760,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice1 (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2785,6 +2985,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice3 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7169410888728142763, guid: 32c7f3b62a3ccce4a8cd8476bb448292,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2921,6 +3126,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice4 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2399341082474554557, guid: caeb5acca4f2d0f43bb9fc891b092860,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2938,6 +3148,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice2 (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 129026144529111094, guid: f3d510e2aafc36d48b73376771103721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3229003854808853925, guid: f3d510e2aafc36d48b73376771103721,
         type: 3}
@@ -3142,6 +3357,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice2 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 129026144529111094, guid: f3d510e2aafc36d48b73376771103721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3229003854808853925, guid: f3d510e2aafc36d48b73376771103721,
         type: 3}
@@ -3414,6 +3634,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4207642710550439425, guid: a74786af2cdd71744bb35fc0f4e3e875,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8382454928796027753, guid: a74786af2cdd71744bb35fc0f4e3e875,
         type: 3}
@@ -3736,6 +3961,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3854,6 +4084,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2037855185297776370, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6643574229511854540, guid: 1f39bf5ecf8058e4abb819267ea23202,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3914,15 +4149,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: -1.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8064100874765271420, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9079739241062082858, guid: 1f39bf5ecf8058e4abb819267ea23202,
         type: 3}
       propertyPath: m_Name
       value: PlayerViewIter1
       objectReference: {fileID: 0}
+    - target: {fileID: 9079739241062082858, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6708010553487329872, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 540340227}
+    - targetCorrespondingSourceObject: {fileID: 831551647753317083, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 474378843}
+    - targetCorrespondingSourceObject: {fileID: 8002754555688709170, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 215921234}
+    - targetCorrespondingSourceObject: {fileID: 8002658830655992391, guid: 1f39bf5ecf8058e4abb819267ea23202,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 27821279}
   m_SourcePrefab: {fileID: 100100000, guid: 1f39bf5ecf8058e4abb819267ea23202, type: 3}
 --- !u!1001 &1160816914
 PrefabInstance:
@@ -4392,6 +4653,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4614,6 +4880,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice8 (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4732,6 +5003,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4749,6 +5025,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice8 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
@@ -4901,6 +5182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice2 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 129026144529111094, guid: f3d510e2aafc36d48b73376771103721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     - target: {fileID: 3229003854808853925, guid: f3d510e2aafc36d48b73376771103721,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4968,6 +5254,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice8
+      objectReference: {fileID: 0}
+    - target: {fileID: 2097971862113786232, guid: 004373d43db6a514ea00f85b8a32d7ed,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 8308194991536859879, guid: 004373d43db6a514ea00f85b8a32d7ed,
         type: 3}
@@ -5155,6 +5446,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5172,6 +5468,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice2
+      objectReference: {fileID: 0}
+    - target: {fileID: 129026144529111094, guid: f3d510e2aafc36d48b73376771103721,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 3229003854808853925, guid: f3d510e2aafc36d48b73376771103721,
         type: 3}
@@ -5631,6 +5932,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice1 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5714,6 +6020,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SquareOffice7
       objectReference: {fileID: 0}
+    - target: {fileID: 8214209661158167662, guid: 23e42725ba1eac14aa916504dda1b8c0,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5781,6 +6092,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice1 (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5917,6 +6233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice5 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3691700220846174637, guid: 0b9abe17cdcb03441952339636f704cb,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6063,6 +6384,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SquareOffice1 (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4937498350056967907, guid: b989ce732f8b4ed4e845991e6023f71b,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
