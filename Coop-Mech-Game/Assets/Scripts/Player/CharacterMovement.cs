@@ -37,6 +37,10 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
 
+    [Header("Audio References")]
+    [SerializeField] private MovementSFXManager movementSFXManager;
+
+
     #endregion
 
     #region Unity Functions
@@ -63,6 +67,7 @@ public class CharacterMovement : BaseMovement
             {
                 impulseSource.GenerateImpulse();
                 impulseTimer = 0f;
+                movementSFXManager.PlayFootstepSound();
             }
         }
         else
