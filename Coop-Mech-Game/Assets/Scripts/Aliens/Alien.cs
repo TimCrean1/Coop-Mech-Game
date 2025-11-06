@@ -15,7 +15,7 @@ public class Alien : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Projectile")) //handle death
+        if (other.CompareTag("Projectile"))
         {
             Debug.Log("projectile trigger entered by alien");
 
