@@ -133,21 +133,18 @@ public class CharacterMovement : BaseMovement
         }
     }
 
+    [SerializeField] private float cameraPitch = 0f;
+
     private void CharacterLook()
     {
-        // Up/down look
         if (lookInput != 0)
         {
-            float rotationAmount = lookInput * upDownRotationRate * Time.deltaTime;
-            Vector3 currentEuler = playerCamera.transform.localEulerAngles;
-            float desiredX = currentEuler.x - rotationAmount;
+            cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
+            cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
 
-            // Clamp between 300 and 60 degrees
-            if (desiredX > 180f)
-                desiredX -= 360f;
-            desiredX = Mathf.Clamp(desiredX, -60f, 60f);
-
-            playerCamera.transform.localEulerAngles = new Vector3(desiredX, currentEuler.y, currentEuler.z);
+            // Only modify pitch (local x-rotation)
+            Vector3 euler = playerCamera.transform.localEulerAngles;
+            playerCamera.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
         }
     }
 

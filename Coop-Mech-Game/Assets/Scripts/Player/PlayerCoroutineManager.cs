@@ -101,7 +101,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         syncedInput = 0f;
 
         // Check if inputs are within the sync window and that inputs are identical
-        if (Mathf.Abs(p1LookTime - p2LookTime) <= movementSyncWindow && Mathf.Approximately(p1LookInput, p2LookInput))
+        if (Mathf.Abs(p1LookTime - p2LookTime) <= movementSyncWindow && p1LookInput == p2LookInput)
         {
             // Inputs are synced
             syncedInput = (p1LookInput + p2LookInput) * 0.5f;
