@@ -154,6 +154,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""d05fbe4b-04d0-4ecd-9933-aa9f78dbb5b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""P2Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""152bdb89-d608-4522-a85d-59304627233c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -321,6 +339,72 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""P2Melee"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""7cc4a387-4b6e-4874-b6d1-08f7f8011f3f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""4c3a7cc3-9659-4c23-b81b-29083af4f049"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""04d17950-ea34-473e-8ed3-d003d1ada86e"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""13e9ef1e-1d4a-42f5-bb9b-2d55609f366f"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Look"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""311d997a-d6bd-41e0-ae34-199152a578e9"",
+                    ""path"": ""<Keyboard>/rightAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""1a28ccea-6bb4-499e-91ca-52ccc544b244"",
+                    ""path"": ""<Keyboard>/rightShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -364,6 +448,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
         m_Player_P1Melee = m_Player.FindAction("P1Melee", throwIfNotFound: true);
         m_Player_P2Melee = m_Player.FindAction("P2Melee", throwIfNotFound: true);
+        m_Player_P1Look = m_Player.FindAction("P1Look", throwIfNotFound: true);
+        m_Player_P2Look = m_Player.FindAction("P2Look", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -455,6 +541,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P2Shoot;
     private readonly InputAction m_Player_P1Melee;
     private readonly InputAction m_Player_P2Melee;
+    private readonly InputAction m_Player_P1Look;
+    private readonly InputAction m_Player_P2Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -494,6 +582,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/P2Melee".
         /// </summary>
         public InputAction @P2Melee => m_Wrapper.m_Player_P2Melee;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Look".
+        /// </summary>
+        public InputAction @P1Look => m_Wrapper.m_Player_P1Look;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Look".
+        /// </summary>
+        public InputAction @P2Look => m_Wrapper.m_Player_P2Look;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -541,6 +637,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Melee.started += instance.OnP2Melee;
             @P2Melee.performed += instance.OnP2Melee;
             @P2Melee.canceled += instance.OnP2Melee;
+            @P1Look.started += instance.OnP1Look;
+            @P1Look.performed += instance.OnP1Look;
+            @P1Look.canceled += instance.OnP1Look;
+            @P2Look.started += instance.OnP2Look;
+            @P2Look.performed += instance.OnP2Look;
+            @P2Look.canceled += instance.OnP2Look;
         }
 
         /// <summary>
@@ -573,6 +675,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Melee.started -= instance.OnP2Melee;
             @P2Melee.performed -= instance.OnP2Melee;
             @P2Melee.canceled -= instance.OnP2Melee;
+            @P1Look.started -= instance.OnP1Look;
+            @P1Look.performed -= instance.OnP1Look;
+            @P1Look.canceled -= instance.OnP1Look;
+            @P2Look.started -= instance.OnP2Look;
+            @P2Look.performed -= instance.OnP2Look;
+            @P2Look.canceled -= instance.OnP2Look;
         }
 
         /// <summary>
@@ -758,6 +866,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Melee(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Look(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Look(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
