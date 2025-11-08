@@ -805,6 +805,7 @@ GameObject:
   - component: {fileID: 58315918625129984}
   - component: {fileID: 6470574472023464954}
   - component: {fileID: 6372011580641735950}
+  - component: {fileID: 6111908657377286407}
   m_Layer: 0
   m_Name: MechRig
   m_TagString: Untagged
@@ -938,6 +939,26 @@ MonoBehaviour:
   - {fileID: 4205216093334403398}
   - {fileID: 7636398970826910609}
   - {fileID: 4816179822626467488}
+--- !u!114 &6111908657377286407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068658526228549506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 507cb7f15705ad74e9120cf7edd9177d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _limbTargets:
+  - {fileID: 6327712647077146682}
+  - {fileID: 7467280017745212824}
+  _stepSize: 10
+  _groundLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
+  _raycastRange: 10
 --- !u!1 &1373936025449363775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2690,6 +2711,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7467280017745212824}
+  - component: {fileID: 4461325773013263676}
   m_Layer: 0
   m_Name: Foot.R-IK_target
   m_TagString: Untagged
@@ -2712,6 +2734,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1258449407001085737}
   m_LocalEulerAnglesHint: {x: 0, y: 87.433, z: -91.103}
+--- !u!114 &4461325773013263676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4779494372062956322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78159d24b75a1041b5ef261434c9777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3307147453121848998}
+  otherFoot: {fileID: 2455506686887486929}
+  stepSpeed: 4
+  stepDistance: 4
+  stepLength: 4
+  stepHeight: 1
+  footOffset: {x: 0, y: 0, z: 0}
+  raycastDistance: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &4852464080752965904
 GameObject:
   m_ObjectHideFlags: 0
@@ -3217,6 +3262,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6327712647077146682}
+  - component: {fileID: 2455506686887486929}
   m_Layer: 0
   m_Name: Foot.L-IK_target
   m_TagString: Untagged
@@ -3239,6 +3285,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5317765482235014673}
   m_LocalEulerAnglesHint: {x: 0, y: -87.433, z: 91.104}
+--- !u!114 &2455506686887486929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327696497253630397}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f78159d24b75a1041b5ef261434c9777, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  body: {fileID: 3307147453121848998}
+  otherFoot: {fileID: 4461325773013263676}
+  stepSpeed: 4
+  stepDistance: 4
+  stepLength: 4
+  stepHeight: 1
+  footOffset: {x: 0, y: 0, z: 0}
+  raycastDistance: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &6438100986547407425
 GameObject:
   m_ObjectHideFlags: 0
