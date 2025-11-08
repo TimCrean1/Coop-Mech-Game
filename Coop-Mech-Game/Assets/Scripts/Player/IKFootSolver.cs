@@ -39,9 +39,7 @@ public class IKFootSolver : MonoBehaviour
     void Update()
     {
 
-        Debug.DrawRay(transform.position, transform.up, Color.green);
-        Debug.DrawRay(transform.position, transform.forward, Color.blue);
-        Debug.DrawRay(transform.position, transform.right, Color.red);
+       
 
         // Align this foot with the current position and orientation
         transform.position = currentPosition;

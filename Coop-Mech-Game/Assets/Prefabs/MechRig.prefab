@@ -805,7 +805,6 @@ GameObject:
   - component: {fileID: 58315918625129984}
   - component: {fileID: 6470574472023464954}
   - component: {fileID: 6372011580641735950}
-  - component: {fileID: 6111908657377286407}
   m_Layer: 0
   m_Name: MechRig
   m_TagString: Untagged
@@ -939,26 +938,6 @@ MonoBehaviour:
   - {fileID: 4205216093334403398}
   - {fileID: 7636398970826910609}
   - {fileID: 4816179822626467488}
---- !u!114 &6111908657377286407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1068658526228549506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 507cb7f15705ad74e9120cf7edd9177d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _limbTargets:
-  - {fileID: 6327712647077146682}
-  - {fileID: 7467280017745212824}
-  _stepSize: 10
-  _groundLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  _raycastRange: 10
 --- !u!1 &1373936025449363775
 GameObject:
   m_ObjectHideFlags: 0
@@ -3278,13 +3257,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6327696497253630397}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.49336004, y: -0.4839443, z: 0.5159742, w: 0.5061269}
+  m_LocalRotation: {x: -0.71388626, y: 0.031106243, z: 0.00026204836, w: 0.69957054}
   m_LocalPosition: {x: -3.5834076, y: 0.40485847, z: -7.693769}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5317765482235014673}
-  m_LocalEulerAnglesHint: {x: 0, y: -87.433, z: 91.104}
+  m_LocalEulerAnglesHint: {x: -87.245, y: -243.831, z: 246.374}
 --- !u!114 &2455506686887486929
 MonoBehaviour:
   m_ObjectHideFlags: 0
