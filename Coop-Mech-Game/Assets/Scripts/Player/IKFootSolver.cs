@@ -38,6 +38,11 @@ public class IKFootSolver : MonoBehaviour
 
     void Update()
     {
+
+        Debug.DrawRay(transform.position, transform.up, Color.green);
+        Debug.DrawRay(transform.position, transform.forward, Color.blue);
+        Debug.DrawRay(transform.position, transform.right, Color.red);
+
         // Align this foot with the current position and orientation
         transform.position = currentPosition;
         transform.up = currentNormal;
@@ -65,6 +70,7 @@ public class IKFootSolver : MonoBehaviour
                     int direction = body.InverseTransformPoint(hit.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
                     newPosition = hit.point + (body.forward * stepLength * direction) + footOffset;
                     newNormal = hit.normal;
+                    
                 }
             }
         }
