@@ -43,7 +43,7 @@ public class IKFootSolver : MonoBehaviour
 
         // Align this foot with the current position and orientation
         transform.position = currentPosition;
-        transform.up = currentNormal;
+        //transform.up = currentNormal;
 
         // If the other foot isn't moving and this foot isn't moving
         // try to find a new point to step to
