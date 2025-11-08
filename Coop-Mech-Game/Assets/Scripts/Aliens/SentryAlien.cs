@@ -13,15 +13,38 @@ public class SentryAlien : MonoBehaviour
     private Vector3 target = Vector3.zero;
     private Vector3 dir;
     private Quaternion lookRot;
+    [SerializeField] private bool isPartOfWave = false;
+    [SerializeField] private GameObject waveTarget;
+
 
     private void OnEnable()
     {
         StartCoroutine(FireRoutine());
+        if (isPartOfWave)
+        {
+            StartCoroutine(MoveToPos());
+        }
     }
 
     private void OnDisable()
     {
         StopCoroutine(FireRoutine());
+    }
+
+    private IEnumerator MoveToPos()
+    {
+        float distToPos = Vector3.Distance(transform.position, waveTarget.transform.position);
+
+        while(distToPos > 0.5f)
+        {
+
+            distToPos = Vector3.Distance(transform.position, waveTarget.transform.position);
+
+            Vector3.MoveTowards(transform.position, waveTarget.transform.position, 5 * Time.deltaTime);
+            yield return null;
+        }
+
+        yield return null;
     }
 
     private IEnumerator FireRoutine()
