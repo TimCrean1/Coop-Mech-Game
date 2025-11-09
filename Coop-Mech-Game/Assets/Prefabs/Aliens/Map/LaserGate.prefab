@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 306638615667867937}
   - component: {fileID: 1057006028086837537}
   - component: {fileID: 4308786311170407876}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LaserGate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35,6 +35,7 @@ Transform:
   m_Children:
   - {fileID: 6593392185657075994}
   - {fileID: 9012534047490459568}
+  - {fileID: 5857691742683736739}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &496981255762670033
@@ -130,6 +131,76 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.871521, y: 18.383556, z: 2.1467907}
   m_Center: {x: -9.342155, y: 9.000784, z: 0.07339537}
+--- !u!1 &2822048050360509447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5857691742683736739}
+  - component: {fileID: 8324033513077379699}
+  - component: {fileID: 7946558126153738283}
+  m_Layer: 0
+  m_Name: NextAreaTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5857691742683736739
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822048050360509447}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5011684464376186549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8324033513077379699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822048050360509447}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 50.651077, y: 16.109625, z: 7.9015274}
+  m_Center: {x: -3.17387, y: 7.5548124, z: -7.477524}
+--- !u!114 &7946558126153738283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2822048050360509447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a6300c0444d53f47a8afc683be24f04, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toActivate: []
+  overTime: 0
+  interval: 1
+  trigger: {fileID: 8324033513077379699}
 --- !u!1 &3569154574264408752
 GameObject:
   m_ObjectHideFlags: 0

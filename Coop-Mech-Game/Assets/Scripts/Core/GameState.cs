@@ -23,6 +23,7 @@ public class GameState : MonoBehaviour
     public UnityEvent OnGameResumed;
     public UnityEvent OnPlayerWon;
     public UnityEvent OnPlayerLost;
+    public UnityEvent OnFinalWaveStart;
 
 
     /// <summary>
@@ -35,9 +36,9 @@ public class GameState : MonoBehaviour
     /// The last two should eventually be changed to a public enum BarChangeType and what happens on each damage type should then be defined in the PlayerStatusManager
     /// </summary
 
-    private bool _playerHasBall = false;
+    [SerializeField] private GameObject _playerObject;
 
-    public bool PlayerHasBall {  get { return _playerHasBall; } }
+    public GameObject PlayerObject {  get { return _playerObject; } }
     
 
     // Static (global) reference to the single existing instance of the object
@@ -144,6 +145,7 @@ public class GameState : MonoBehaviour
         OnGameResumed.RemoveAllListeners();
         OnPlayerWon.RemoveAllListeners();
         OnPlayerLost.RemoveAllListeners();
+        OnFinalWaveStart.RemoveAllListeners();
        
 
     }
@@ -156,10 +158,7 @@ public class GameState : MonoBehaviour
         }
     }
 
-    public void SetPlayerHasBall(bool hasBall)
-    {
-        _playerHasBall = hasBall;
-    }
+    
 
 
     #endregion

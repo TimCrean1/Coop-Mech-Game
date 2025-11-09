@@ -266,6 +266,7 @@ GameObject:
   - component: {fileID: 7595989348721313295}
   - component: {fileID: 9045770178123170671}
   - component: {fileID: 5767453941376694269}
+  - component: {fileID: 5992501742435993445}
   m_Layer: 0
   m_Name: Sentinel
   m_TagString: Alien
@@ -282,7 +283,7 @@ Transform:
   m_GameObject: {fileID: 8527021578618848465}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 1, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -405,3 +406,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.0891404, y: 1.9174373, z: 1.8963077}
   m_Center: {x: -0.000000059604645, y: 0.027286977, z: 0.022160292}
+--- !u!114 &5992501742435993445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8527021578618848465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58983b0ed71f3134b9484f1125f899b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  lookSpeed: 5
+  range: 40
+  fireInterval: 0.5
+  rb: {fileID: 9045770178123170671}
+  projectile: {fileID: 0}
+  isPartOfWave: 0
+  waveTarget: {fileID: 0}

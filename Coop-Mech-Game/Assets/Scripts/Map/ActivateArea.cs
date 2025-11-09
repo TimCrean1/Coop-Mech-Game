@@ -11,6 +11,14 @@ public class ActivateArea : MonoBehaviour
     [SerializeField] private float interval = 1f;
     [SerializeField] private BoxCollider trigger;
 
+    void Start()
+    {
+        foreach (GameObject go in toActivate)
+        {
+            go.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

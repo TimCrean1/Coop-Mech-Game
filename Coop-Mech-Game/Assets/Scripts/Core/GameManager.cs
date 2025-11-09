@@ -121,11 +121,5 @@ public class GameManager : MonoBehaviour
 
     }
 
-    
-    public void SetPlayerHasBall(bool hasBall)
-    {
-        gameState.SetPlayerHasBall(hasBall);
-    }
-
     #endregion
 }
