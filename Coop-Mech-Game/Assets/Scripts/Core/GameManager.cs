@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     // Static (global) reference to the single existing instance of the object
     private static GameManager _instance = null;
 
-    public int playerLives = 3;
+    [SerializeField] private float _playerHealth = 50;
     public int playerScore = 0;
     
 
@@ -119,6 +119,11 @@ public class GameManager : MonoBehaviour
         gameState.UpdateGameStatus(GameStatus.PlayerLost);
         Debug.Log("Player lost!");
 
+    }
+
+    public void DamagePlayer(float damage)
+    {
+        _playerHealth = _playerHealth - damage;
     }
 
     #endregion

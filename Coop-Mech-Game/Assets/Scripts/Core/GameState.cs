@@ -39,7 +39,12 @@ public class GameState : MonoBehaviour
     [SerializeField] private GameObject _playerObject;
 
     public GameObject PlayerObject {  get { return _playerObject; } }
-    
+
+    private float _selectedDifficultyTiming;
+    public float SelectedDifficultyTiming { get { return  _selectedDifficultyTiming; } }
+
+    [SerializeField] private List<float> _timings = new List<float>();
+    public List<float> TimingsList { get { return _timings; } }
 
     // Static (global) reference to the single existing instance of the object
     private static GameState _instance = null;
@@ -158,7 +163,10 @@ public class GameState : MonoBehaviour
         }
     }
 
-    
+    public void SetDifficulty(int timingIndex)
+    {
+        _selectedDifficultyTiming = _timings[timingIndex];
+    }
 
 
     #endregion

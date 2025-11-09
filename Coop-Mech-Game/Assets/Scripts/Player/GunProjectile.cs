@@ -13,17 +13,32 @@ public class GunProjectile : MonoBehaviour
     [SerializeField] private GameObject groundExplosion;
     [SerializeField] private GameObject airExplosion;
 
+    [SerializeField] private bool isAlien = false;
+    [SerializeField] private bool isKinematic = false;
+    [SerializeField] private float kinematicSpeed = 5;
+
     private ContactPoint contactPoint;
     private Vector3 point;
 
     void OnEnable() //will play when this object is instantiated by gun when fired
     {
-        rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+        if(isKinematic == false)
+        {
+            rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+        }
+        else
+        {
+            StartCoroutine(KinematicProjectile());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Alien"))
+        if (isAlien == false && other.CompareTag("Alien"))
+        {
+            StartCoroutine(ExplosionRoutine(false));
+        }
+        else if(isAlien == true && other.CompareTag("Player"))
         {
             StartCoroutine(ExplosionRoutine(false));
         }
@@ -54,5 +69,11 @@ public class GunProjectile : MonoBehaviour
         yield return null;
 
         Destroy(gameObject);
+    }
+
+    private IEnumerator KinematicProjectile()
+    {
+        rb.MovePosition(transform.position + Vector3.forward * Time.deltaTime);
+        yield return null;
     }
 }
