@@ -14,14 +14,16 @@ public class SentryAlien : MonoBehaviour
     private Vector3 dir;
     private Quaternion lookRot;
     [SerializeField] private bool isPartOfWave = false;
-    [SerializeField] private GameObject waveTarget;
-
+    [SerializeField] public Transform waveTarget;
 
     private void OnEnable()
     {
+        player = GameState.Instance.PlayerObject;
+
         StartCoroutine(FireRoutine());
         if (isPartOfWave)
         {
+            range = range * 3f;
             StartCoroutine(MoveToPos());
         }
     }

@@ -16,6 +16,7 @@ public class MovingAlien : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+        player = GameState.Instance.PlayerObject;
     }
 
     private void OnEnable()
