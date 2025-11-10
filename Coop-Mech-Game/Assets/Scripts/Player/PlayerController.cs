@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
 
             if (playerCoroutineManager.TryGetSyncedShoot(out Vector2 syncedShootInput))
             {
-                print("Both Players Shooting!");
+                //print("Both Players Shooting!");
                 // Handle shooting logic here
                 shootingManager.Shoot();
             }
