@@ -117,7 +117,7 @@ public class CharacterMovement : BaseMovement
             Vector3 move = camForward * movementDirection.z;
 
             if (isGrounded)
-                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
+                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration); //TODO: i think here is mech rig, don't use physics?
             else
                 rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
         }
@@ -130,6 +130,11 @@ public class CharacterMovement : BaseMovement
                 Vector3 counteract = -horizontalVel.normalized;
                 rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
             }
+        }
+
+        if(movementDirection.z == 0)
+        {
+            rigidbody.velocity = Vector3.zero;
         }
     }
 
@@ -145,6 +150,8 @@ public class CharacterMovement : BaseMovement
             // Only modify pitch (local x-rotation)
             Vector3 euler = playerCamera.transform.localEulerAngles;
             playerCamera.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
+
+            //TODO: call lose event in game state and apply ragdoll
         }
     }
 
