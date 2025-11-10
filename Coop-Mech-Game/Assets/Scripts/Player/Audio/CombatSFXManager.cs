@@ -6,6 +6,7 @@ public class CombatSFXManager : MonoBehaviour
 {
     [SerializeField] private List<AudioSource> shootAudioSources;
     [SerializeField] private List<AudioSource> punchAudioSources;
+    [SerializeField] private AudioSource heavyDamageSound;
 
     private void Start()
     {
@@ -41,11 +42,24 @@ public class CombatSFXManager : MonoBehaviour
             {
                 source.Play();
             }
-            else if (source.isPlaying)
-            {
-                source.Stop();
-                source.Play();
-            }
+            // else if (source.isPlaying)
+            // {
+            //     source.Stop();
+            //     source.Play();
+            // }
+        }
+    }
+
+    public void PlayHeavyDamageSound()
+    {
+        if (!heavyDamageSound.isPlaying)
+        {
+            heavyDamageSound.Play();
+        }
+        else if (heavyDamageSound.isPlaying)
+        {
+            heavyDamageSound.Stop();
+            heavyDamageSound.Play();
         }
     }
 }
