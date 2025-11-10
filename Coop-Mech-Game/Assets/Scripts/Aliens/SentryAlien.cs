@@ -51,6 +51,8 @@ public class SentryAlien : MonoBehaviour
 
     private IEnumerator FireRoutine()
     {
+        player = GameState.Instance.PlayerObject;
+
         while (true)
         {
             yield return new WaitForSeconds(fireInterval);

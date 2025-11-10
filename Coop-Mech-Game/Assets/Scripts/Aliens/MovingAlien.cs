@@ -16,11 +16,14 @@ public class MovingAlien : MonoBehaviour
     void Start()
     {
         gameObject.SetActive(false);
+
         player = GameState.Instance.PlayerObject;
     }
 
     private void OnEnable()
     {
+
+        player = GameState.Instance.PlayerObject;
         //target = player.transform.position;
         StartCoroutine(AqcuireTarget());
     }
@@ -41,7 +44,9 @@ public class MovingAlien : MonoBehaviour
 
     private IEnumerator AqcuireTarget()
     {
-        while(true)
+        player = GameState.Instance.PlayerObject;
+
+        while (true)
         {
             target = player.transform.position;
             yield return new WaitForSeconds(1f);
