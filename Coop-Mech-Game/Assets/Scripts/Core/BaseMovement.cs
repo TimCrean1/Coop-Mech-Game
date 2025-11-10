@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //[RequireComponent(typeof(Animator))]
-[RequireComponent(typeof(Rigidbody))]
+//[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(AudioSource))]
 

@@ -34,6 +34,7 @@ public class CharacterMovement : BaseMovement
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
+    [SerializeField] private GameObject mainHandleBone;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
@@ -149,7 +150,9 @@ public class CharacterMovement : BaseMovement
 
             // Only modify pitch (local x-rotation)
             Vector3 euler = playerCamera.transform.localEulerAngles;
-            playerCamera.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
+            // playerCamera.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
+            mainHandleBone.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
+
 
             //TODO: call lose event in game state and apply ragdoll
         }
