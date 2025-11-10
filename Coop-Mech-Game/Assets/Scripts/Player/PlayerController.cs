@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private CombatSFXManager combatSFXManager;
+    [SerializeField] private PlayerShootingScript shootingManager;
 
     #endregion
 
@@ -73,7 +74,7 @@ public class PlayerController : MonoBehaviour
             {
                 print("Both Players Shooting!");
                 // Handle shooting logic here
-                combatSFXManager.PlayShootSound();
+                shootingManager.Shoot();
             }
 
             if (playerCoroutineManager.TryGetSyncedMelee(out Vector2 syncedMeleeInput))
