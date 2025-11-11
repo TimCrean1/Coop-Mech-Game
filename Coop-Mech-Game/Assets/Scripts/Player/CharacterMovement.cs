@@ -141,21 +141,26 @@ public class CharacterMovement : BaseMovement
 
     [SerializeField] private float cameraPitch = 0f;
 
+    /// <summary>
+    /// Handles vertical camera rotation (pitch) based on look input.
+    /// </summary>
     private void CharacterLook()
     {
-        if (lookInput != 0)
-        {
-            cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
-            cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
+        // If there is no look input, do nothing.
+        if (lookInput == 0) return;
 
-            // Only modify pitch (local x-rotation)
-            Vector3 euler = playerCamera.transform.localEulerAngles;
-            // playerCamera.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
-            mainHandleBone.transform.localEulerAngles = new Vector3(cameraPitch, euler.y, euler.z);
+        // Adjust camera pitch based on input and clamp it to prevent over-rotation.
+        cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
+        cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
 
+        // Get the current local rotation of the main handle bone.
+        Quaternion existing = mainHandleBone.transform.localRotation;
 
-            //TODO: call lose event in game state and apply ragdoll
-        }
+        // Create a new rotation with the updated pitch, preserving yaw and roll.
+        Quaternion newRot = Quaternion.Euler(cameraPitch, existing.eulerAngles.y, existing.eulerAngles.z);
+        mainHandleBone.transform.localRotation = newRot;
+
+        // TODO: call lose event in game state and apply ragdoll
     }
 
     protected override void RotateCharacter()

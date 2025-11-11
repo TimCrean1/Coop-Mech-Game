@@ -5358,6 +5358,7 @@ MonoBehaviour:
   baseMovement: {fileID: 2591570666101567952}
   playerCoroutineManager: {fileID: 1882839012767210144}
   combatSFXManager: {fileID: 3215968059211342092}
+  playerShootingScript: {fileID: 7499490637147656518}
 --- !u!114 &1882839012767210144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5707,9 +5708,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 183302612002176590, guid: 8bb9342bd0e57424b9f4809eca6a50f4,
     type: 3}
-  bulletInstantiationPosition: {fileID: 6909496677953154471}
+  bulletInstantiationPosition: {fileID: 3358689612769432860}
   combatSFXManager: {fileID: 3215968059211342092}
-  shootingCooldown: 0
+  shootingCooldown: 6.19
   xShootDirection: 0
   yShootDirection: 0
   zShootDirection: 0

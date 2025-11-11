@@ -24,7 +24,7 @@ public class GunProjectile : MonoBehaviour
     {
         if(isKinematic == false)
         {
-            rb.AddForce(Vector3.forward * launchForce, ForceMode.Impulse);
+            rb.AddForce(transform.forward * launchForce, ForceMode.Impulse);
         }
         else
         {
@@ -73,7 +73,7 @@ public class GunProjectile : MonoBehaviour
 
     private IEnumerator KinematicProjectile()
     {
-        rb.MovePosition(transform.position + Vector3.forward * Time.deltaTime);
+        rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
         yield return null;
     }
 }

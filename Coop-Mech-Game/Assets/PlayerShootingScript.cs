@@ -6,6 +6,7 @@ public class PlayerShootingScript : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform bulletInstantiationPosition;
     [SerializeField] private CombatSFXManager combatSFXManager;
+    [SerializeField] private Animator playerAnimator;
 
     [Header("Shooting Variables")]
     [SerializeField, Range(0f, 10f)] private float shootingCooldown = 0.2f;
@@ -43,5 +44,7 @@ public class PlayerShootingScript : MonoBehaviour
             combatSFXManager.PlayShootSound();
 
         shootingTimer = shootingCooldown;
+
+        playerAnimator.SetTrigger("Shoot");
     }
 }
