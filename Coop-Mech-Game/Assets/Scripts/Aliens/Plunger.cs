@@ -9,7 +9,7 @@ public class Plunger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Fist"))
+        if (other.CompareTag("Fist") || other.CompareTag("Projectile"))
         {
             leftLaser.SetActive(false); //TODO: play anims for this
             rightLaser.SetActive(false);

@@ -10,6 +10,7 @@ public class ActivateArea : MonoBehaviour
     [SerializeField] private bool overTime;
     [SerializeField] private float interval = 1f;
     [SerializeField] private BoxCollider trigger;
+    private GameObject player;
 
     void Start()
     {
@@ -21,8 +22,11 @@ public class ActivateArea : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        player = GameState.Instance.PlayerObject;
         if (other.CompareTag("Player"))
         {
+            trigger.enabled = false;
+
             if (overTime)
             {
                 StartCoroutine(ActivateRoutineInterval());
@@ -36,9 +40,28 @@ public class ActivateArea : MonoBehaviour
 
     private IEnumerator ActivateRoutineInterval()
     {
-        foreach (GameObject go in toActivate)
+        for(int i = 0; i<toActivate.Count; i++)
         {
-            go.SetActive(true);
+            MovingAlien ma = toActivate[i].GetComponent<MovingAlien>();
+            SentryAlien sa = toActivate[i].GetComponent<SentryAlien>();
+
+            if(ma != null) 
+            {
+                //Debug.Log("ma" + i);
+
+                ma.player = player;
+                ma.gameObject.SetActive(true);
+                StartCoroutine(ma.AqcuireTarget());
+            }
+            else if(sa != null) 
+            {
+                //Debug.Log("sa" + i);
+
+                sa.player = player;
+                sa.gameObject.SetActive(true);
+                StartCoroutine(sa.FireRoutine());
+            }
+
             yield return new WaitForSeconds(interval);
         }
 

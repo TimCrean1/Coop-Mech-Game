@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SentryAlien : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     [SerializeField] private float lookSpeed = 5f;
     [SerializeField] private float range = 40f;
     [SerializeField] private float fireInterval = 0.5f;
@@ -20,11 +20,15 @@ public class SentryAlien : MonoBehaviour
     {
         //player = GameState.Instance.PlayerObject;
 
-        StartCoroutine(FireRoutine());
+        //StartCoroutine(AquireTarget());
+        
+    }
+
+    private void Start()
+    {
         if (isPartOfWave)
         {
             range = range * 3f;
-            StartCoroutine(MoveToPos());
         }
     }
 
@@ -49,9 +53,9 @@ public class SentryAlien : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator FireRoutine()
+    public IEnumerator FireRoutine()
     {
-        player = GameState.Instance.PlayerObject;
+        //player = GameState.Instance.PlayerObject;
 
         while (true)
         {

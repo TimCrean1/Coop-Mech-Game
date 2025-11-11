@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MovingAlien : MonoBehaviour
 {
-    [SerializeField] private GameObject player;
+    [SerializeField] public GameObject player;
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float lookSpeed = 5f;
     [SerializeField] private Rigidbody rb;
@@ -17,15 +17,12 @@ public class MovingAlien : MonoBehaviour
     {
         gameObject.SetActive(false);
 
-        player = GameState.Instance.PlayerObject;
     }
 
     private void OnEnable()
     {
-
-        player = GameState.Instance.PlayerObject;
         //target = player.transform.position;
-        StartCoroutine(AqcuireTarget());
+        //StartCoroutine(AqcuireTarget());
     }
 
     private void OnDisable()
@@ -42,7 +39,7 @@ public class MovingAlien : MonoBehaviour
         rb.MovePosition(rb.position + Vector3.forward * moveSpeed * Time.fixedDeltaTime);
     }
 
-    private IEnumerator AqcuireTarget()
+    public IEnumerator AqcuireTarget()
     {
         player = GameState.Instance.PlayerObject;
 
