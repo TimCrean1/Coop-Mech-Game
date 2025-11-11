@@ -102,6 +102,33 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""P1Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""dfc802c9-6bac-4a30-bfd0-f0f26e59e1b2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""243b4bcd-6adf-4c8b-a0d3-31af2fdcc8fc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""d05fbe4b-04d0-4ecd-9933-aa9f78dbb5b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""P2Move"",
                     ""type"": ""Value"",
                     ""id"": ""a2192cc2-1e0f-43c8-8474-4a490d7ea80e"",
@@ -120,27 +147,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""P1Shoot"",
-                    ""type"": ""Button"",
-                    ""id"": ""243b4bcd-6adf-4c8b-a0d3-31af2fdcc8fc"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""P2Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""9ecb44ce-e139-4199-a80a-e24e5dd5eff9"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""P1Melee"",
-                    ""type"": ""Button"",
-                    ""id"": ""dfc802c9-6bac-4a30-bfd0-f0f26e59e1b2"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -154,15 +163,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""P1Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""d05fbe4b-04d0-4ecd-9933-aa9f78dbb5b5"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
                 },
                 {
                     ""name"": ""P2Look"",
@@ -442,13 +442,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_P1Move = m_Player.FindAction("P1Move", throwIfNotFound: true);
+        m_Player_P1Melee = m_Player.FindAction("P1Melee", throwIfNotFound: true);
+        m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
+        m_Player_P1Look = m_Player.FindAction("P1Look", throwIfNotFound: true);
         m_Player_P2Move = m_Player.FindAction("P2Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
         m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
-        m_Player_P1Melee = m_Player.FindAction("P1Melee", throwIfNotFound: true);
         m_Player_P2Melee = m_Player.FindAction("P2Melee", throwIfNotFound: true);
-        m_Player_P1Look = m_Player.FindAction("P1Look", throwIfNotFound: true);
         m_Player_P2Look = m_Player.FindAction("P2Look", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
@@ -535,13 +535,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_P1Move;
+    private readonly InputAction m_Player_P1Melee;
+    private readonly InputAction m_Player_P1Shoot;
+    private readonly InputAction m_Player_P1Look;
     private readonly InputAction m_Player_P2Move;
     private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_P1Shoot;
     private readonly InputAction m_Player_P2Shoot;
-    private readonly InputAction m_Player_P1Melee;
     private readonly InputAction m_Player_P2Melee;
-    private readonly InputAction m_Player_P1Look;
     private readonly InputAction m_Player_P2Look;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
@@ -559,6 +559,18 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @P1Move => m_Wrapper.m_Player_P1Move;
         /// <summary>
+        /// Provides access to the underlying input action "Player/P1Melee".
+        /// </summary>
+        public InputAction @P1Melee => m_Wrapper.m_Player_P1Melee;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Shoot".
+        /// </summary>
+        public InputAction @P1Shoot => m_Wrapper.m_Player_P1Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Look".
+        /// </summary>
+        public InputAction @P1Look => m_Wrapper.m_Player_P1Look;
+        /// <summary>
         /// Provides access to the underlying input action "Player/P2Move".
         /// </summary>
         public InputAction @P2Move => m_Wrapper.m_Player_P2Move;
@@ -567,25 +579,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         /// <summary>
-        /// Provides access to the underlying input action "Player/P1Shoot".
-        /// </summary>
-        public InputAction @P1Shoot => m_Wrapper.m_Player_P1Shoot;
-        /// <summary>
         /// Provides access to the underlying input action "Player/P2Shoot".
         /// </summary>
         public InputAction @P2Shoot => m_Wrapper.m_Player_P2Shoot;
         /// <summary>
-        /// Provides access to the underlying input action "Player/P1Melee".
-        /// </summary>
-        public InputAction @P1Melee => m_Wrapper.m_Player_P1Melee;
-        /// <summary>
         /// Provides access to the underlying input action "Player/P2Melee".
         /// </summary>
         public InputAction @P2Melee => m_Wrapper.m_Player_P2Melee;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/P1Look".
-        /// </summary>
-        public InputAction @P1Look => m_Wrapper.m_Player_P1Look;
         /// <summary>
         /// Provides access to the underlying input action "Player/P2Look".
         /// </summary>
@@ -619,27 +619,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P1Move.started += instance.OnP1Move;
             @P1Move.performed += instance.OnP1Move;
             @P1Move.canceled += instance.OnP1Move;
+            @P1Melee.started += instance.OnP1Melee;
+            @P1Melee.performed += instance.OnP1Melee;
+            @P1Melee.canceled += instance.OnP1Melee;
+            @P1Shoot.started += instance.OnP1Shoot;
+            @P1Shoot.performed += instance.OnP1Shoot;
+            @P1Shoot.canceled += instance.OnP1Shoot;
+            @P1Look.started += instance.OnP1Look;
+            @P1Look.performed += instance.OnP1Look;
+            @P1Look.canceled += instance.OnP1Look;
             @P2Move.started += instance.OnP2Move;
             @P2Move.performed += instance.OnP2Move;
             @P2Move.canceled += instance.OnP2Move;
             @Jump.started += instance.OnJump;
             @Jump.performed += instance.OnJump;
             @Jump.canceled += instance.OnJump;
-            @P1Shoot.started += instance.OnP1Shoot;
-            @P1Shoot.performed += instance.OnP1Shoot;
-            @P1Shoot.canceled += instance.OnP1Shoot;
             @P2Shoot.started += instance.OnP2Shoot;
             @P2Shoot.performed += instance.OnP2Shoot;
             @P2Shoot.canceled += instance.OnP2Shoot;
-            @P1Melee.started += instance.OnP1Melee;
-            @P1Melee.performed += instance.OnP1Melee;
-            @P1Melee.canceled += instance.OnP1Melee;
             @P2Melee.started += instance.OnP2Melee;
             @P2Melee.performed += instance.OnP2Melee;
             @P2Melee.canceled += instance.OnP2Melee;
-            @P1Look.started += instance.OnP1Look;
-            @P1Look.performed += instance.OnP1Look;
-            @P1Look.canceled += instance.OnP1Look;
             @P2Look.started += instance.OnP2Look;
             @P2Look.performed += instance.OnP2Look;
             @P2Look.canceled += instance.OnP2Look;
@@ -657,27 +657,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P1Move.started -= instance.OnP1Move;
             @P1Move.performed -= instance.OnP1Move;
             @P1Move.canceled -= instance.OnP1Move;
+            @P1Melee.started -= instance.OnP1Melee;
+            @P1Melee.performed -= instance.OnP1Melee;
+            @P1Melee.canceled -= instance.OnP1Melee;
+            @P1Shoot.started -= instance.OnP1Shoot;
+            @P1Shoot.performed -= instance.OnP1Shoot;
+            @P1Shoot.canceled -= instance.OnP1Shoot;
+            @P1Look.started -= instance.OnP1Look;
+            @P1Look.performed -= instance.OnP1Look;
+            @P1Look.canceled -= instance.OnP1Look;
             @P2Move.started -= instance.OnP2Move;
             @P2Move.performed -= instance.OnP2Move;
             @P2Move.canceled -= instance.OnP2Move;
             @Jump.started -= instance.OnJump;
             @Jump.performed -= instance.OnJump;
             @Jump.canceled -= instance.OnJump;
-            @P1Shoot.started -= instance.OnP1Shoot;
-            @P1Shoot.performed -= instance.OnP1Shoot;
-            @P1Shoot.canceled -= instance.OnP1Shoot;
             @P2Shoot.started -= instance.OnP2Shoot;
             @P2Shoot.performed -= instance.OnP2Shoot;
             @P2Shoot.canceled -= instance.OnP2Shoot;
-            @P1Melee.started -= instance.OnP1Melee;
-            @P1Melee.performed -= instance.OnP1Melee;
-            @P1Melee.canceled -= instance.OnP1Melee;
             @P2Melee.started -= instance.OnP2Melee;
             @P2Melee.performed -= instance.OnP2Melee;
             @P2Melee.canceled -= instance.OnP2Melee;
-            @P1Look.started -= instance.OnP1Look;
-            @P1Look.performed -= instance.OnP1Look;
-            @P1Look.canceled -= instance.OnP1Look;
             @P2Look.started -= instance.OnP2Look;
             @P2Look.performed -= instance.OnP2Look;
             @P2Look.canceled -= instance.OnP2Look;
@@ -825,6 +825,27 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP1Move(InputAction.CallbackContext context);
         /// <summary>
+        /// Method invoked when associated input action "P1Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Melee(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Shoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Look(InputAction.CallbackContext context);
+        /// <summary>
         /// Method invoked when associated input action "P2Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -839,13 +860,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnJump(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "P1Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnP1Shoot(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "P2Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
@@ -853,26 +867,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Shoot(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "P1Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnP1Melee(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "P2Melee" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Melee(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "P1Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnP1Look(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "P2Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>

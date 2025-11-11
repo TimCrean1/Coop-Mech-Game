@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private CombatSFXManager combatSFXManager;
     [SerializeField] private PlayerShootingScript playerShootingScript;
+    [SerializeField] private PlayerPunchingScript playerPunchingScript;
 
     #endregion
 
@@ -77,9 +78,7 @@ public class PlayerController : MonoBehaviour
 
             if (playerCoroutineManager.TryGetSyncedMelee(out Vector2 syncedMeleeInput))
             {
-                print("Both Players Melee Attacking!");
-                // Handle melee logic here
-                combatSFXManager.PlayPunchSound();
+                playerPunchingScript.Punch();
             }
         }
     }
