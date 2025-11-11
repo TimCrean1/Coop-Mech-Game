@@ -1826,18 +1826,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 442042246}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &459763828 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1625549825824583432, guid: d059c219d9917104b80ffba550705f6b,
-    type: 3}
-  m_PrefabInstance: {fileID: 817459060}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &459763831 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5293681241236556163, guid: d059c219d9917104b80ffba550705f6b,
-    type: 3}
-  m_PrefabInstance: {fileID: 817459060}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &473915850 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8527021578618848465, guid: 7e865a9b47b27084a9bb725498f1d98f,
@@ -3530,16 +3518,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2591570666101567952, guid: d059c219d9917104b80ffba550705f6b,
-        type: 3}
-      propertyPath: mainHandleBone
-      value: 
-      objectReference: {fileID: 459763828}
-    - target: {fileID: 7499490637147656518, guid: d059c219d9917104b80ffba550705f6b,
-        type: 3}
-      propertyPath: playerAnimator
-      value: 
-      objectReference: {fileID: 459763831}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
