@@ -18,7 +18,7 @@ public class SentryAlien : MonoBehaviour
 
     private void OnEnable()
     {
-        player = GameState.Instance.PlayerObject;
+        //player = GameState.Instance.PlayerObject;
 
         StartCoroutine(FireRoutine());
         if (isPartOfWave)
