@@ -1138,18 +1138,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 264983246}
-  m_LocalRotation: {x: 0, y: -0.60876137, z: 0.7933534, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0.01021}
-  m_LocalScale: {x: 0.0066666664, y: 0.0066666678, z: 0.0066666678}
+  m_LocalRotation: {x: -0.6087614, y: -0.000000026609808, z: 0.000000034678575, w: 0.7933533}
+  m_LocalPosition: {x: 0, y: 0, z: -0.0046831816}
+  m_LocalScale: {x: 0.0066666654, y: 0.006666667, z: 0.0066666664}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1292619598}
   - {fileID: 1658821974}
-  m_Father: {fileID: 2652367846641956999}
+  m_Father: {fileID: 1380262653}
   m_LocalEulerAnglesHint: {x: 75, y: 0, z: 180}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -0, y: -0.01756}
+  m_AnchoredPosition: {x: 0, y: 0.025296075}
   m_SizeDelta: {x: 1.05, y: 0.65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &264983248
@@ -5555,6 +5555,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2652367846641956997}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1380262653 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7908896440127745976, guid: 7bd3a69cd8af94ccea3354f7e242c4f8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2652367846641956997}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1435496055
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7910,7 +7916,7 @@ PrefabInstance:
     - {fileID: 3156962096055102685, guid: 7bd3a69cd8af94ccea3354f7e242c4f8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1980864868302598821, guid: 7bd3a69cd8af94ccea3354f7e242c4f8,
+    - targetCorrespondingSourceObject: {fileID: 7908896440127745976, guid: 7bd3a69cd8af94ccea3354f7e242c4f8,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 264983247}
@@ -7936,12 +7942,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f945368ded8f549a3b1c6a6b8a171b1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &2652367846641956999 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1980864868302598821, guid: 7bd3a69cd8af94ccea3354f7e242c4f8,
-    type: 3}
-  m_PrefabInstance: {fileID: 2652367846641956997}
-  m_PrefabAsset: {fileID: 0}
 --- !u!23 &5701338168571555117
 MeshRenderer:
   m_ObjectHideFlags: 0
