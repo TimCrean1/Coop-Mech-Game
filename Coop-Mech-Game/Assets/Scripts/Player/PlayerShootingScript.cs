@@ -7,6 +7,7 @@ public class PlayerShootingScript : MonoBehaviour
     [SerializeField] private Transform bulletInstantiationPosition;
     [SerializeField] private CombatSFXManager combatSFXManager;
     [SerializeField] private Animator playerAnimator;
+    
 
     [Header("Shooting Variables")]
     [SerializeField, Range(0f, 10f)] private float shootingCooldown = 0.2f;
@@ -38,7 +39,7 @@ public class PlayerShootingScript : MonoBehaviour
                                 ? manualRotation
                                 : bulletInstantiationPosition.rotation;
 
-        Instantiate(bulletPrefab, bulletInstantiationPosition.position, spawnRot);
+        Instantiate(bulletPrefab, bulletInstantiationPosition.position, bulletInstantiationPosition.rotation);
 
         if (combatSFXManager != null)
             combatSFXManager.PlayShootSound();

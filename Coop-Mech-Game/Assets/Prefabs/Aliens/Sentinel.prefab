@@ -421,8 +421,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   lookSpeed: 5
-  range: 40
-  fireInterval: 0.5
+  range: 80
+  fireInterval: 4
   rb: {fileID: 9045770178123170671}
   projectile: {fileID: 7790004108755417187}
   isPartOfWave: 0
@@ -438,7 +438,7 @@ PrefabInstance:
     - target: {fileID: 2178455945671420856, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5243923352097487727, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}
@@ -448,7 +448,7 @@ PrefabInstance:
     - target: {fileID: 5243923352097487727, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6275912633314027826, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}
@@ -458,7 +458,7 @@ PrefabInstance:
     - target: {fileID: 6275912633314027826, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 6275912633314027826, guid: e22ae678691a80444ae9497b2bfb5d02,
         type: 3}

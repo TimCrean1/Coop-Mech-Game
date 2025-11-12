@@ -6,11 +6,11 @@ public class SentryAlien : MonoBehaviour
 {
     [SerializeField] public GameObject player;
     [SerializeField] private float lookSpeed = 5f;
-    [SerializeField] private float range = 40f;
+    [SerializeField] private float range = 80f;
     [SerializeField] private float fireInterval = 0.5f;
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject projectile;
-    private Vector3 target = Vector3.zero;
+    //private Vector3 target = Vector3.zero;
     private Vector3 dir;
     private Quaternion lookRot;
     [SerializeField] private bool isPartOfWave = false;
@@ -56,20 +56,26 @@ public class SentryAlien : MonoBehaviour
     public IEnumerator FireRoutine()
     {
         //player = GameState.Instance.PlayerObject;
+        //Debug.Log("FIRE ROUTINE START");
 
         while (true)
         {
             yield return new WaitForSeconds(fireInterval);
 
-            if(Vector3.Distance(transform.position, target) <= range)
+            //Debug.Log("IN FIRE WHILE ROUTINE");
+
+            if(Vector3.Distance(transform.position, player.transform.position) <= range)
             {
-                dir = (target - transform.position).normalized;
+                dir = (player.transform.position - transform.position).normalized;
                 lookRot = Quaternion.LookRotation(dir);
                 rb.MoveRotation(lookRot);
 
-                yield return null;
+                //Debug.Log("DISTA NCE GUD");
 
-                Instantiate(projectile, transform.position + transform.forward, Quaternion.identity);
+                Instantiate(projectile, transform.position + transform.forward * 2, gameObject.transform.rotation);
+                
+
+                yield return null;
             }
 
             yield return null;

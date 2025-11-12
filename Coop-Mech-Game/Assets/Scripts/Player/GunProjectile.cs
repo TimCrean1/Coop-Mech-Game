@@ -20,6 +20,11 @@ public class GunProjectile : MonoBehaviour
     private ContactPoint contactPoint;
     private Vector3 point;
 
+    private void Start()
+    {
+        gameObject.SetActive(true);
+    }
+
     void OnEnable() //will play when this object is instantiated by gun when fired
     {
         if(isKinematic == false)
@@ -75,5 +80,11 @@ public class GunProjectile : MonoBehaviour
     {
         rb.MovePosition(transform.position + transform.forward * Time.deltaTime);
         yield return null;
+    }
+
+    private IEnumerator DestroyRoutine()
+    {
+        yield return new WaitForSeconds(10);
+        Destroy(gameObject);
     }
 }

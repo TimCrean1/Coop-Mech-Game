@@ -23,6 +23,8 @@ public class AlienInstantEffect : MonoBehaviour
         effect.SendEvent("PlayDeathInst");
 
         mRend.enabled = false;
+        
+        gameObject.SetActive(true);
 
         yield return new WaitForSeconds(waitTime + 0.5f);
 

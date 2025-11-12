@@ -6,19 +6,21 @@ using UnityEngine;
 public class PlayerDamageManager : MonoBehaviour
 {
     [Header("Object References")]
-    [SerializeField] private CapsuleCollider capsuleCollider;
+    [SerializeField] private Collider notcapsuleCollider;
     [SerializeField] private CombatSFXManager combatSFXManager;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [Header("Collision Variables")]
     [SerializeField] private LayerMask collisionLayer;
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (((1 << collision.gameObject.layer) & collisionLayer.value) != 0)
+        if (collision.gameObject.layer == 12 || collision.gameObject.CompareTag("Alien"))
         {
             impulseSource.DefaultVelocity = new Vector3(Random.Range(-1f, 1f), impulseSource.DefaultVelocity.y, impulseSource.DefaultVelocity.z);
             impulseSource.GenerateImpulse();
             combatSFXManager.PlayHeavyDamageSound();
+
+            Debug.Log("GAYYYYYYYYYYYYY");
         }
     }
 }
