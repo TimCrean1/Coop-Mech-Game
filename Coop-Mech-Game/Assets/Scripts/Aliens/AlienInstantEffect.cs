@@ -29,7 +29,9 @@ public class AlienInstantEffect : MonoBehaviour
         yield return new WaitForSeconds(waitTime + 0.5f);
 
         gameObject.SetActive(false);
-        parent.SetActive(false);
+        SentryAlien sa = parent.GetComponent<SentryAlien>();
+        StopCoroutine(sa.FireRoutine());
+        Destroy(parent);
         yield return null;
     }
 }

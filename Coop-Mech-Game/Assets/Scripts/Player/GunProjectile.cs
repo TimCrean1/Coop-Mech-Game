@@ -57,6 +57,10 @@ public class GunProjectile : MonoBehaviour
             point = contactPoint.point;
 
             StartCoroutine(ExplosionRoutine(true));
+        } else if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(ExplosionRoutine(false));
+            GameManager.Instance.DamagePlayer(10);
         }
     }
 
@@ -71,7 +75,8 @@ public class GunProjectile : MonoBehaviour
         {
             Instantiate(airExplosion, transform.position, Quaternion.identity);
         }
-        yield return null;
+        mRend.enabled = false;
+        yield return new WaitForSeconds(1f);
 
         Destroy(gameObject);
     }

@@ -37,6 +37,11 @@ public class SentryAlien : MonoBehaviour
         StopCoroutine(FireRoutine());
     }
 
+    private void OnDestroy()
+    {
+        StopCoroutine(FireRoutine());
+    }
+
     private IEnumerator MoveToPos()
     {
         float distToPos = Vector3.Distance(transform.position, waveTarget.transform.position);

@@ -29,6 +29,13 @@ public class PlayerCoroutineManager : MonoBehaviour
     private Vector2 combinedShootInput;
     private Vector2 combinedMeleeInput;
 
+    private void Start()
+    {
+        movementSyncWindow = DifficultyManager.Instance.SelectedDifficultyTiming;
+        punchSyncWindow = DifficultyManager.Instance.SelectedDifficultyTiming;
+        shootSyncWindow = DifficultyManager.Instance.SelectedDifficultyTiming;
+    }
+
     #region Variable setters
 
     public void SetP1Input(Vector2 MoveInput)

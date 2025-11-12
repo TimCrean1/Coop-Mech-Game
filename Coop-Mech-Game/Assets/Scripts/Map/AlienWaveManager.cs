@@ -22,6 +22,14 @@ public class AlienWaveManager : MonoBehaviour
         GameState.Instance.OnFinalWaveStart.AddListener(StartWave);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            StartWave();
+        }
+    }
+
     private void StartWave()
     {
         mothership.gameObject.SetActive(true); //TODO: Lerp routine for polish

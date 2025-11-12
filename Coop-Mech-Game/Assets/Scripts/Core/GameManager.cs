@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerController _playerController;
     public PlayerController PlayerCharacter { get { return _playerController; } }
 
+    [SerializeField] private PlayerDamageManager _playerDamageManager;
+
     #endregion
 
     #region Unity Functions
@@ -124,6 +126,12 @@ public class GameManager : MonoBehaviour
     public void DamagePlayer(float damage)
     {
         _playerHealth = _playerHealth - damage;
+        _playerDamageManager.DamageTaken();
+
+        if (_playerHealth <= 0)
+        {
+            Application.Quit();
+        }
     }
 
     #endregion

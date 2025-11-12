@@ -17,7 +17,7 @@ public class Alien : MonoBehaviour
     {
         if (other.CompareTag("Projectile")) //handle death
         {
-            Debug.Log("projectile trigger entered by alien");
+            //Debug.Log("projectile trigger entered by alien");
 
             StartCoroutine(DistRoutine(other));
         }

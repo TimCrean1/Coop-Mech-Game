@@ -17,20 +17,20 @@ public class MainMenu : MonoBehaviour
 
     public void FirstDifficulty()
     {
-        GameState.Instance.SetDifficulty(0);
+        DifficultyManager.Instance.SetDifficulty(0);
     }
 
     public void SecondDifficulty()
     {
-        GameState.Instance.SetDifficulty(1);
+        DifficultyManager.Instance.SetDifficulty(1);
     }
     public void ThirdDifficulty()
     {
-        GameState.Instance.SetDifficulty(2);
+        DifficultyManager.Instance.SetDifficulty(2);
     }
     public void FourthDifficulty()
     {
-        GameState.Instance.SetDifficulty(3);
+        DifficultyManager.Instance.SetDifficulty(3);
     }
 
 }
