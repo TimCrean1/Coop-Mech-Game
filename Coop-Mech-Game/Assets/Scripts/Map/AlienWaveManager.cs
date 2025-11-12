@@ -49,6 +49,7 @@ public class AlienWaveManager : MonoBehaviour
                 {
                     SentryAlien alien = wave1Enemies[i].GetComponent<SentryAlien>();
                     alien.waveTarget = waveSpawns[i];
+                    alien.isPartOfWave = true;
                 }
 
                 yield return new WaitForSeconds(spawnIntervals[0]);
@@ -69,7 +70,7 @@ public class AlienWaveManager : MonoBehaviour
             }
             yield return new WaitForSeconds(waveIntervals[1]);
 
-            for (int i = 0; i < wave3Enemies.Count; i++)
+            for (int i = 0; i < wave3Enemies.Count-1; i++)
             {
                 Instantiate(wave3Enemies[i], spawnPos.transform.position, Quaternion.identity);
 

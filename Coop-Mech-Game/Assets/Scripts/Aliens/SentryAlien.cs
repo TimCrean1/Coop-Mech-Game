@@ -13,7 +13,7 @@ public class SentryAlien : MonoBehaviour
     //private Vector3 target = Vector3.zero;
     private Vector3 dir;
     private Quaternion lookRot;
-    [SerializeField] private bool isPartOfWave = false;
+    [SerializeField] public bool isPartOfWave = false;
     [SerializeField] public Transform waveTarget;
 
     private void OnEnable()
@@ -21,6 +21,7 @@ public class SentryAlien : MonoBehaviour
         //player = GameState.Instance.PlayerObject;
 
         //StartCoroutine(AquireTarget());
+        StartCoroutine(MoveToPos());
         
     }
 
@@ -32,14 +33,15 @@ public class SentryAlien : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
         StopCoroutine(FireRoutine());
     }
 
-    private void OnDestroy()
+    public void OnDestroy()
     {
-        StopCoroutine(FireRoutine());
+        StopAllCoroutines();
+        //StopCoroutine(FireRoutine());
     }
 
     private IEnumerator MoveToPos()
@@ -51,7 +53,7 @@ public class SentryAlien : MonoBehaviour
 
             distToPos = Vector3.Distance(transform.position, waveTarget.transform.position);
 
-            Vector3.MoveTowards(transform.position, waveTarget.transform.position, 5 * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, waveTarget.transform.position, 5 * Time.deltaTime);
             yield return null;
         }
 
@@ -69,7 +71,7 @@ public class SentryAlien : MonoBehaviour
 
             //Debug.Log("IN FIRE WHILE ROUTINE");
 
-            if(Vector3.Distance(transform.position, player.transform.position) <= range)
+            if(gameObject != null && Vector3.Distance(transform.position, player.transform.position) <= range)
             {
                 dir = (player.transform.position - transform.position).normalized;
                 lookRot = Quaternion.LookRotation(dir);

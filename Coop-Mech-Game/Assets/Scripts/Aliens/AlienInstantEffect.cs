@@ -23,15 +23,26 @@ public class AlienInstantEffect : MonoBehaviour
         effect.SendEvent("PlayDeathInst");
 
         mRend.enabled = false;
-        
+
         gameObject.SetActive(true);
 
         yield return new WaitForSeconds(waitTime + 0.5f);
 
         gameObject.SetActive(false);
-        SentryAlien sa = parent.GetComponent<SentryAlien>();
-        StopCoroutine(sa.FireRoutine());
-        Destroy(parent);
+
+        if (parent != null)
+        {
+            SentryAlien sa = parent.GetComponent<SentryAlien>();
+            if (sa != null)
+            {
+                IEnumerator fireRoutine = sa.FireRoutine();
+                if (fireRoutine != null)
+                {
+                    StopCoroutine(fireRoutine);
+                }
+            }
+            Destroy(parent);
+        }
         yield return null;
     }
 }
