@@ -10,6 +10,11 @@ public class DifficultyManager : MonoBehaviour
     [SerializeField] private List<float> _timings = new List<float>();
     public List<float> TimingsList { get { return _timings; } }
 
+    private float _selectedDamage = 1;
+
+    [SerializeField] private List<float> _damages = new List<float>();
+    public List<float> DamagesList { get { return _damages; } }
+
     private static DifficultyManager _instance = null;
 
     // Public property to allow access to the Singleton instance
@@ -41,5 +46,7 @@ public class DifficultyManager : MonoBehaviour
     public void SetDifficulty(int timingIndex)
     {
         _selectedDifficultyTiming = _timings[timingIndex];
+        _selectedDamage = _damages[timingIndex];
+
     }
 }

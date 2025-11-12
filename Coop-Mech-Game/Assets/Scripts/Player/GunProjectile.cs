@@ -16,6 +16,7 @@ public class GunProjectile : MonoBehaviour
     [SerializeField] private bool isAlien = false;
     [SerializeField] private bool isKinematic = false;
     [SerializeField] private float kinematicSpeed = 5;
+    private float damage;
 
     private ContactPoint contactPoint;
     private Vector3 point;
@@ -23,6 +24,7 @@ public class GunProjectile : MonoBehaviour
     private void Start()
     {
         gameObject.SetActive(true);
+        
     }
 
     void OnEnable() //will play when this object is instantiated by gun when fired
@@ -60,7 +62,7 @@ public class GunProjectile : MonoBehaviour
         } else if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(ExplosionRoutine(false));
-            GameManager.Instance.DamagePlayer(10);
+            GameManager.Instance.DamagePlayer(1);
         }
     }
 
