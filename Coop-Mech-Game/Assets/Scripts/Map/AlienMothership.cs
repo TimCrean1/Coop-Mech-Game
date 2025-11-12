@@ -9,7 +9,7 @@ public class AlienMothership : MonoBehaviour
 
     void Start()
     {
-        damageArea.SetActive(false);
+        damageArea.SetActive(true);
     }
 
     public void OnWaveEnd()

@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerDamageManager : MonoBehaviour
 {
     [Header("Object References")]
-    [SerializeField] private Collider notcapsuleCollider;
+    //[SerializeField] private Collider notcapsuleCollider;
     [SerializeField] private CombatSFXManager combatSFXManager;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [Header("Collision Variables")]
