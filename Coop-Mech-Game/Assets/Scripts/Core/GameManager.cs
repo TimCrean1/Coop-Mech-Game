@@ -16,7 +16,19 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance = null;
 
     [SerializeField] private float _playerHealth = 50;
+    [SerializeField] private float _maxPlayerHealth = 50;
     public int playerScore = 0;
+
+    // Getter methods
+    public float GetPlayerHealth()
+    {
+        return _playerHealth;
+    }
+
+    public float GetMaxPlayerHealth()
+    {
+        return _maxPlayerHealth;
+    }
     
 
     // Public property to allow access to the Singleton instance
@@ -125,8 +137,9 @@ public class GameManager : MonoBehaviour
 
     public void DamagePlayer(float damage)
     {
+        print(damage);
         _playerHealth = _playerHealth - damage;
-        _playerDamageManager.DamageTaken();
+        _playerDamageManager.DamageTaken(damage);
 
         if (_playerHealth <= 0)
         {
