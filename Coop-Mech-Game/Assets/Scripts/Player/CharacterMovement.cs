@@ -39,10 +39,6 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
 
-    [Header("Audio References")]
-    [SerializeField] private MovementSFXManager movementSFXManager;
-
-
     #endregion
 
     #region Unity Functions
@@ -50,6 +46,12 @@ public class CharacterMovement : BaseMovement
     private void Awake()
     {
         currentMaxSpeed = maxWalkSpeed;
+    }
+
+    private void Start()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     private void FixedUpdate()
@@ -62,15 +64,16 @@ public class CharacterMovement : BaseMovement
 
     private void Update()
     {
+        Cursor.visible = true;
         RotateCharacter();
         if (rigidbody.velocity.sqrMagnitude > 0.1f)
         {
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                impulseSource.GenerateImpulse();
+                //impulseSource.GenerateImpulse();
                 impulseTimer = 0f;
-                movementSFXManager.PlayFootstepSound();
+                //movementSFXManager.PlayFootstepSound();
             }
         }
         else
@@ -94,11 +97,10 @@ public class CharacterMovement : BaseMovement
             movementDirection.Normalize();
     }
 
-    public override void SetLookInput(float input)
-    {
-        base.SetLookInput(input);
-
-    }
+    // public override void SetLookInput(float input)
+    // {
+    //     base.SetLookInput(input);
+    // }
 
     #endregion
 
@@ -147,11 +149,13 @@ public class CharacterMovement : BaseMovement
     private void CharacterLook()
     {
         // If there is no look input, do nothing.
-        if (lookInput == 0) return;
+        // if (lookInput == 0) return;
 
-        // Adjust camera pitch based on input and clamp it to prevent over-rotation.
-        cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
-        cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
+        // // Adjust camera pitch based on input and clamp it to prevent over-rotation.
+        // cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
+        // cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
+
+        
 
         // Get the current local rotation of the main handle bone.
         Quaternion existing = mainHandleBone.transform.localRotation;

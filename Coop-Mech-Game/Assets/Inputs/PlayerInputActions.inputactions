@@ -16,24 +16,6 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "P1Melee",
-                    "type": "Button",
-                    "id": "dfc802c9-6bac-4a30-bfd0-f0f26e59e1b2",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "P1Shoot",
-                    "type": "Button",
-                    "id": "243b4bcd-6adf-4c8b-a0d3-31af2fdcc8fc",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "P1Look",
                     "type": "Value",
                     "id": "d05fbe4b-04d0-4ecd-9933-aa9f78dbb5b5",
@@ -55,24 +37,6 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "e87b37b8-9e1a-4f7e-bedd-faff1b535272",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "P2Shoot",
-                    "type": "Button",
-                    "id": "9ecb44ce-e139-4199-a80a-e24e5dd5eff9",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "P2Melee",
-                    "type": "Button",
-                    "id": "6b2a5915-7a50-4a53-acd9-bde21b006366",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -207,50 +171,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f9ff1e0e-674e-4280-b9f5-15785c00b601",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "P1Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "71832266-e0ae-4f7e-971a-1a4147ec13cf",
-                    "path": "<Keyboard>/p",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "P2Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "62074e7f-da4f-45fc-a68b-b117d402c998",
-                    "path": "<Keyboard>/q",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "P1Melee",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "fc1732d1-ba1f-48fa-8905-99b11e03d122",
-                    "path": "<Keyboard>/o",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "P2Melee",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

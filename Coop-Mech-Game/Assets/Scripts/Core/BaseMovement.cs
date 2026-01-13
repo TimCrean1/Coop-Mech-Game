@@ -21,7 +21,7 @@ public abstract class BaseMovement : MonoBehaviour
 
     [Header("Character - Character Input")]
     protected Vector2 movementInput; //The 2D movement input from the controller
-    protected float lookInput; //The 1D look input from the controller
+    protected Vector2 lookInput; //The 1D look input from the controller
     protected Vector3 movementDirection; //The 3D movement direction of the character
 
     [Header("Character - Component/Object References")]
@@ -48,9 +48,9 @@ public abstract class BaseMovement : MonoBehaviour
     {
         movementInput = input;
     }
-    public virtual void SetLookInput(float input)
+    public virtual void SetLookInput(Vector2 mouse1pos, Vector2 mouse2pos)
     {
-        lookInput = input;
+        lookInput = (mouse1pos + mouse2pos) / 2;
     }
     #endregion
     #region Movement

@@ -20,17 +20,16 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerInputActions; 
     [SerializeField] private Vector2 P1MovementInput;
     [SerializeField] private Vector2 P2MovementInput;
-    [SerializeField] private Vector2 combinedShootInput;
-    [SerializeField] private Vector2 combinedMeleeInput;
     [SerializeField] private float P1LookInput;
     [SerializeField] private float P2LookInput;
 
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
-    [SerializeField] private CombatSFXManager combatSFXManager;
-    [SerializeField] private PlayerShootingScript playerShootingScript;
-    [SerializeField] private PlayerPunchingScript playerPunchingScript;
+
+    [Header("Mouse Positions")]
+    [SerializeField] private Vector2 mouse1Pos; //Screen space pos
+    [SerializeField] private Vector2 mouse2Pos;
 
     #endregion
 
@@ -66,20 +65,7 @@ public class PlayerController : MonoBehaviour
                 baseMovement.SetMovementInput(Vector2.zero);
             }
 
-            if (playerCoroutineManager.TryGetSyncedLook(out float syncedLookInput))
-            {
-                baseMovement.SetLookInput(syncedLookInput);
-            }
-
-            if (playerCoroutineManager.TryGetSyncedShoot(out Vector2 syncedShootInput))
-            {
-                playerShootingScript.Shoot();
-            }
-
-            if (playerCoroutineManager.TryGetSyncedMelee(out Vector2 syncedMeleeInput))
-            {
-                playerPunchingScript.Punch();
-            }
+            baseMovement.SetLookInput(mouse1Pos, mouse2Pos);
         }
     }
 
@@ -100,21 +86,6 @@ public class PlayerController : MonoBehaviour
 
         playerInputActions.Player.P2Look.started += P2LookAction;
         playerInputActions.Player.P2Look.canceled += P2LookAction;
-
-        playerInputActions.Player.P1Shoot.started += P1ShootAction;
-        playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
-
-        playerInputActions.Player.P2Shoot.started += P2ShootAction;
-        playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
-
-        playerInputActions.Player.P1Melee.started += P1MeleeAction;
-        playerInputActions.Player.P1Melee.canceled += P1MeleeAction;
-
-        playerInputActions.Player.P2Melee.started += P2MeleeAction;
-        playerInputActions.Player.P2Melee.canceled += P2MeleeAction;
-
-        playerInputActions.Player.Jump.performed += JumpActionPerformed;
-        playerInputActions.Player.Jump.canceled += JumpActionCanceled;
     }
 
     private void UnsubscribeInputActions()
@@ -124,9 +95,6 @@ public class PlayerController : MonoBehaviour
 
         playerInputActions.Player.P2Move.started -= P2MoveAction;
         playerInputActions.Player.P2Move.canceled -= P2MoveAction;
-
-        playerInputActions.Player.Jump.performed -= JumpActionPerformed;
-        playerInputActions.Player.Jump.canceled -= JumpActionCanceled;
     }
 
     private void SwitchActionMap(EPlayerState state)
@@ -181,43 +149,6 @@ public class PlayerController : MonoBehaviour
     {
         P2LookInput = context.ReadValue<float>();
         playerCoroutineManager.SetP2LookInput(P2LookInput);
-    }
-
-    private void P1ShootAction(InputAction.CallbackContext context)
-    {
-        float p1shootInput = context.ReadValue<float>();
-        combinedShootInput.x = p1shootInput;
-        playerCoroutineManager.setP1ShootInput(p1shootInput);
-    }
-    private void P2ShootAction(InputAction.CallbackContext context)
-    {
-        float p2shootInput = context.ReadValue<float>();
-        combinedShootInput.y = p2shootInput;
-        playerCoroutineManager.setP2ShootInput(p2shootInput);
-    }
-
-    private void P1MeleeAction(InputAction.CallbackContext context)
-    {
-        float p1meleeInput = context.ReadValue<float>();
-        combinedMeleeInput.x = p1meleeInput;
-        playerCoroutineManager.setP1MeleeInput(p1meleeInput);
-    }
-
-    private void P2MeleeAction(InputAction.CallbackContext context)
-    {
-        float p2meleeInput = context.ReadValue<float>();
-        combinedMeleeInput.y = p2meleeInput;
-        playerCoroutineManager.setP2MeleeInput(p2meleeInput);
-    }
-
-    private void JumpActionPerformed(InputAction.CallbackContext context)
-    {
-        baseMovement.Jump();
-    }
-
-    private void JumpActionCanceled(InputAction.CallbackContext context)
-    {
-        baseMovement.CancelJump();
     }
 
     #endregion
