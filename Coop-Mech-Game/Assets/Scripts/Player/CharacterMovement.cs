@@ -71,7 +71,7 @@ public class CharacterMovement : BaseMovement
     {
         Cursor.visible = true;
         RotateCharacter();
-        if (rigidbody.velocity.sqrMagnitude > 0.1f)
+        if (rigidbody.linearVelocity.sqrMagnitude > 0.1f)
         {
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
@@ -135,7 +135,7 @@ public class CharacterMovement : BaseMovement
 
         if(movementDirection.z == 0)
         {
-            rigidbody.velocity = Vector3.zero;
+            rigidbody.linearVelocity = Vector3.zero;
         }
     }
     private void LimitVelocity()
@@ -148,10 +148,10 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
         }
 
-        if (Mathf.Abs(rigidbody.velocity.y) > maxVerticalSpeed)
+        if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
         {
-            Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.velocity.y);
-            float excessY = Mathf.Abs(rigidbody.velocity.y) - maxVerticalSpeed;
+            Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+            float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
             rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
         }
     }
@@ -198,7 +198,7 @@ public class CharacterMovement : BaseMovement
         if (readyToJump && (isGrounded || currentJumps < maxJumps))
         {
             currentJumps++;
-            float adjustedJumpForce = jumpForce - rigidbody.velocity.y;
+            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
             rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
             readyToJump = false;
             StartCoroutine(JumpCooldownCoroutine());
@@ -213,9 +213,9 @@ public class CharacterMovement : BaseMovement
 
     public override void CancelJump()
     {
-        if (rigidbody.velocity.y > 0f)
+        if (rigidbody.linearVelocity.y > 0f)
         {
-            rigidbody.AddForce(Vector3.down * (rigidbody.velocity.y * 0.5f), ForceMode.VelocityChange);
+            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
         }
     }
 
@@ -249,7 +249,7 @@ public class CharacterMovement : BaseMovement
 
     private Vector3 GetHorizontalRBVelocity()
     {
-        return Vector3.ProjectOnPlane(rigidbody.velocity, Vector3.up);
+        return Vector3.ProjectOnPlane(rigidbody.linearVelocity, Vector3.up);
     }
 
     #endregion
