@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -22,9 +21,10 @@ public class CharacterMovement : BaseMovement
     private bool readyToJump = true;
 
     [Header("Player - Rotation")]
-    [SerializeField] private float groundRotationRate = 90f; // degrees/sec
-    [SerializeField] private float airRotationRate = 45f;
-    [SerializeField] private float upDownRotationRate = 45f;
+    [SerializeField][Range(0,4)] private float horizontalRotationRate = 2;
+    [SerializeField][Range(0,4)] private float verticalRotationRate = 2;
+    [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
+    [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -34,14 +34,15 @@ public class CharacterMovement : BaseMovement
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private GameObject mainHandleBone;
+    [SerializeField] private float cameraPitch = 0f;
+    [SerializeField] private Vector3 targetPoint;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
+
+    [Header("Debug UI")]
+    [SerializeField] private float circleWidth;
+    [SerializeField] private Color circleColor;
     private float impulseTimer;
-
-    [Header("Audio References")]
-    [SerializeField] private MovementSFXManager movementSFXManager;
-
 
     #endregion
 
@@ -50,6 +51,12 @@ public class CharacterMovement : BaseMovement
     private void Awake()
     {
         currentMaxSpeed = maxWalkSpeed;
+    }
+
+    private void Start()
+    {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void FixedUpdate()
@@ -62,15 +69,16 @@ public class CharacterMovement : BaseMovement
 
     private void Update()
     {
+        Cursor.visible = true;
         RotateCharacter();
         if (rigidbody.velocity.sqrMagnitude > 0.1f)
         {
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                impulseSource.GenerateImpulse();
+                //impulseSource.GenerateImpulse();
                 impulseTimer = 0f;
-                movementSFXManager.PlayFootstepSound();
+                //movementSFXManager.PlayFootstepSound();
             }
         }
         else
@@ -87,17 +95,9 @@ public class CharacterMovement : BaseMovement
     {
         base.SetMovementInput(input);
 
-        // movementDirection.x = rotation input (A/D)
-        // movementDirection.z = forward/back input (W/S)
         movementDirection = new Vector3(input.x, 0, input.y);
         if (movementDirection.sqrMagnitude > 1f)
             movementDirection.Normalize();
-    }
-
-    public override void SetLookInput(float input)
-    {
-        base.SetLookInput(input);
-
     }
 
     #endregion
@@ -138,40 +138,6 @@ public class CharacterMovement : BaseMovement
             rigidbody.velocity = Vector3.zero;
         }
     }
-
-    [SerializeField] private float cameraPitch = 0f;
-
-    /// <summary>
-    /// Handles vertical camera rotation (pitch) based on look input.
-    /// </summary>
-    private void CharacterLook()
-    {
-        // If there is no look input, do nothing.
-        if (lookInput == 0) return;
-
-        // Adjust camera pitch based on input and clamp it to prevent over-rotation.
-        cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
-        cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
-
-        // Get the current local rotation of the main handle bone.
-        Quaternion existing = mainHandleBone.transform.localRotation;
-
-        // Create a new rotation with the updated pitch, preserving yaw and roll.
-        Quaternion newRot = Quaternion.Euler(cameraPitch, existing.eulerAngles.y, existing.eulerAngles.z);
-        mainHandleBone.transform.localRotation = newRot;
-
-        // TODO: call lose event in game state and apply ragdoll
-    }
-
-    protected override void RotateCharacter()
-    {
-        if (movementDirection.x != 0)
-        {
-            float rotationSpeed = isGrounded ? groundRotationRate : airRotationRate;
-            characterModel.Rotate(Vector3.up, movementDirection.x * rotationSpeed * Time.deltaTime);
-        }
-    }
-
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
@@ -189,7 +155,44 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
         }
     }
+#endregion
+#region Rotation
+    private void CharacterLook()
+    {
+        // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
+        lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
+        lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
 
+        Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
+        Ray ray = playerCamera.ScreenPointToRay(screenPos);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        Vector3 direction = targetPoint - transform.position;
+        direction.y = 0;
+
+        float newHRotRate = horizontalRotationRate * Mathf.Abs(lookInput.x/Screen.width * 2f - 1);
+        float newVRotRate = verticalRotationRate * Mathf.Abs(lookInput.y/Screen.height * 2f - 1);
+        //print(newHRotRate + " " + newVRotRate);
+
+        if (direction.sqrMagnitude > 0.1f)
+        {
+            //Horizontal rotation for player transform
+            Quaternion targetYaw = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
+
+            // Vertical (pitch) rotation for camera
+            Vector3 lookDir = targetPoint - playerCamera.transform.position;
+            float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
+            cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
+            playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
+        }
+    }
+#endregion
+#region Jumping
     public override void Jump()
     {
         if (readyToJump && (isGrounded || currentJumps < maxJumps))
@@ -258,6 +261,19 @@ public class CharacterMovement : BaseMovement
         Gizmos.color = isGrounded ? Color.green : Color.red;
         Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
         Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
+
+        // Draw the raycast from CharacterLook()
+        if (playerCamera != null)
+        {
+            Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+            Ray ray = playerCamera.ScreenPointToRay(screenPos);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(ray.origin, ray.direction * 100f);
+
+            // Draw a sphere at the targetPoint if set
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(targetPoint, 0.2f);
+        }    
     }
 
     #endregion

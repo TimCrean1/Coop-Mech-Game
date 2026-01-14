@@ -74,6 +74,7 @@ public class GameManager : MonoBehaviour
         // Cache a reference to the GameState when the game starts
         // Start is called after Awake (where GameState.Instance is initialized) so the Instance should exist by now
         gameState = GameState.Instance;
+        Cursor.visible = true;
 
         // Resume the game so we don't start paused when the game loads a scene
         ResumeGame();
