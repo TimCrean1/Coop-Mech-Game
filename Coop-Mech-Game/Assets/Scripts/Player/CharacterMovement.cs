@@ -162,7 +162,7 @@ public class CharacterMovement : BaseMovement
         // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
-        
+
         Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
         RaycastHit hit;
@@ -178,7 +178,7 @@ public class CharacterMovement : BaseMovement
         float newVRotRate = verticalRotationRate * Mathf.Abs(lookInput.y/Screen.height * 2f - 1);
         //print(newHRotRate + " " + newVRotRate);
 
-        if (direction.sqrMagnitude > 0.001f)
+        if (direction.sqrMagnitude > 0.1f)
         {
             //Horizontal rotation for player transform
             Quaternion targetYaw = Quaternion.LookRotation(direction);
