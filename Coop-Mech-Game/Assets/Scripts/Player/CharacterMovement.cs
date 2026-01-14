@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -22,11 +21,8 @@ public class CharacterMovement : BaseMovement
     private bool readyToJump = true;
 
     [Header("Player - Rotation")]
-    [SerializeField][Range(0,1)] private float Left_RightThreshold = 0.4f;
-    [SerializeField][Range(0,1)] private float Up_DownThreshold = 0.4f;
-    [SerializeField] private float groundRotationRate = 90f; // degrees/sec
-    [SerializeField] private float airRotationRate = 45f;
-    [SerializeField] private float upDownRotationRate = 45f;
+    [SerializeField][Range(0,4)] private float horizontalRotationRate = 2;
+    [SerializeField][Range(0,4)] private float verticalRotationRate = 2;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -36,10 +32,10 @@ public class CharacterMovement : BaseMovement
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private GameObject mainHandleBone;
+    [SerializeField] private float cameraPitch = 0f;
+    [SerializeField] private Vector3 targetPoint;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
-    [SerializeField] private Vector3 targetPoint;
     private float impulseTimer;
 
     #endregion
@@ -93,17 +89,10 @@ public class CharacterMovement : BaseMovement
     {
         base.SetMovementInput(input);
 
-        // movementDirection.x = rotation input (A/D)
-        // movementDirection.z = forward/back input (W/S)
         movementDirection = new Vector3(input.x, 0, input.y);
         if (movementDirection.sqrMagnitude > 1f)
             movementDirection.Normalize();
     }
-
-    // public override void SetLookInput(float input)
-    // {
-    //     base.SetLookInput(input);
-    // }
 
     #endregion
 
@@ -143,22 +132,31 @@ public class CharacterMovement : BaseMovement
             rigidbody.velocity = Vector3.zero;
         }
     }
-
-    [SerializeField] private float cameraPitch = 0f;
     private void CharacterLook()
     {
         Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
-        print(screenPos);
-        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        Ray ray = playerCamera.ScreenPointToRay(screenPos);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit))
         {
             targetPoint = hit.point;
         }
+
         Vector3 direction = targetPoint - transform.position;
-        Quaternion targetRotation = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, groundRotationRate * Time.deltaTime);
+        direction.y = 0; // Ignore vertical for horizontal rotation
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetYaw = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, horizontalRotationRate * Time.deltaTime);
+        }
+
+        // Vertical (pitch) rotation for camera or handle bone
+        Vector3 lookDir = targetPoint - playerCamera.transform.position;
+        float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
+        cameraPitch = Mathf.Lerp(cameraPitch, pitch, verticalRotationRate * Time.deltaTime);
+
+        playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
     }
 
     private void LimitVelocity()

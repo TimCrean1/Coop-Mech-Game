@@ -830,22 +830,18 @@ MonoBehaviour:
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
-  Left_RightThreshold: 0.4
-  Up_DownThreshold: 0.4
-  groundRotationRate: 2
-  airRotationRate: 45
-  upDownRotationRate: 45
+  horizontalRotationRate: 2
+  verticalRotationRate: 2
   groundCheckDistance: 0.1
   environmentLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   isGrounded: 0
   playerCamera: {fileID: 1086067142}
-  mainHandleBone: {fileID: 1456196963}
+  cameraPitch: 0
+  targetPoint: {x: 0, y: 0, z: 0}
   impulseSource: {fileID: 0}
   impulseRate: 0.01
-  targetPoint: {x: 0, y: 0, z: 0}
-  cameraPitch: 0
 --- !u!82 &1456196967
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1230,7 +1226,7 @@ GameObject:
   - component: {fileID: 1950881334}
   - component: {fileID: 1950881333}
   - component: {fileID: 1950881332}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
