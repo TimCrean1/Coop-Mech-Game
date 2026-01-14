@@ -831,8 +831,9 @@ MonoBehaviour:
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
-  horizontalRotationRate: 2
-  verticalRotationRate: 2
+  horizontalRotationRate: 3
+  verticalRotationRate: 3
+  lookClamp: 1
   groundCheckDistance: 0.1
   environmentLayerMask:
     serializedVersion: 2
@@ -843,6 +844,8 @@ MonoBehaviour:
   targetPoint: {x: 0, y: 0, z: 0}
   impulseSource: {fileID: 0}
   impulseRate: 0.01
+  circleWidth: 0
+  circleColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!82 &1456196967
 AudioSource:
   m_ObjectHideFlags: 0

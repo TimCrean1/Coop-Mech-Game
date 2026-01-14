@@ -23,6 +23,8 @@ public class CharacterMovement : BaseMovement
     [Header("Player - Rotation")]
     [SerializeField][Range(0,4)] private float horizontalRotationRate = 2;
     [SerializeField][Range(0,4)] private float verticalRotationRate = 2;
+    [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
+    [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -36,6 +38,10 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private Vector3 targetPoint;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
+
+    [Header("Debug UI")]
+    [SerializeField] private float circleWidth;
+    [SerializeField] private Color circleColor;
     private float impulseTimer;
 
     #endregion
@@ -153,7 +159,11 @@ public class CharacterMovement : BaseMovement
 #region Rotation
     private void CharacterLook()
     {
-        Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+        // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
+        lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
+        lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
+        
+        Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
         RaycastHit hit;
 
@@ -161,20 +171,25 @@ public class CharacterMovement : BaseMovement
         {
             targetPoint = hit.point;
         }
-        //Horizontal rotation for player transform
         Vector3 direction = targetPoint - transform.position;
         direction.y = 0;
+
+        float newHRotRate = horizontalRotationRate * Mathf.Abs(lookInput.x/Screen.width * 2f - 1);
+        float newVRotRate = verticalRotationRate * Mathf.Abs(lookInput.y/Screen.height * 2f - 1);
+        //print(newHRotRate + " " + newVRotRate);
+
         if (direction.sqrMagnitude > 0.001f)
         {
+            //Horizontal rotation for player transform
             Quaternion targetYaw = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, horizontalRotationRate * Time.deltaTime);
-        }
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
 
-        // Vertical (pitch) rotation for camera
-        Vector3 lookDir = targetPoint - playerCamera.transform.position;
-        float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
-        cameraPitch = Mathf.Lerp(cameraPitch, pitch, verticalRotationRate * Time.deltaTime);
-        playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
+            // Vertical (pitch) rotation for camera
+            Vector3 lookDir = targetPoint - playerCamera.transform.position;
+            float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
+            cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
+            playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
+        }
     }
 #endregion
 #region Jumping
@@ -258,7 +273,7 @@ public class CharacterMovement : BaseMovement
             // Draw a sphere at the targetPoint if set
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(targetPoint, 0.2f);
-        }
+        }    
     }
 
     #endregion
