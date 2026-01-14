@@ -64,6 +64,12 @@ public class PlayerController : MonoBehaviour
             {
                 baseMovement.SetMovementInput(Vector2.zero);
             }
+            mouse1Pos = Mouse.current.position.ReadValue();
+            mouse1Pos.x = mouse1Pos.x/Screen.width;
+            mouse1Pos.y = mouse1Pos.y/Screen.height;
+            mouse1Pos = mouse1Pos * 2f - Vector2.one;
+            
+            mouse2Pos = mouse1Pos;
 
             baseMovement.SetLookInput(mouse1Pos, mouse2Pos);
         }

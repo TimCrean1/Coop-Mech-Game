@@ -451,6 +451,8 @@ MonoBehaviour:
   P2LookInput: 0
   baseMovement: {fileID: 1456196966}
   playerCoroutineManager: {fileID: 1456196964}
+  mouse1Pos: {x: 0, y: 0}
+  mouse2Pos: {x: 0, y: 0}
 --- !u!114 &1456196966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -478,6 +480,8 @@ MonoBehaviour:
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
+  Left_RightThreshold: 0.4
+  Up_DownThreshold: 0.1
   groundRotationRate: 90
   airRotationRate: 45
   upDownRotationRate: 45

@@ -22,6 +22,8 @@ public class CharacterMovement : BaseMovement
     private bool readyToJump = true;
 
     [Header("Player - Rotation")]
+    [SerializeField][Range(0,0.5f)] private float Left_RightThreshold = 0.4f;
+    [SerializeField][Range(0,0.5f)] private float Up_DownThreshold = 0.4f;
     [SerializeField] private float groundRotationRate = 90f; // degrees/sec
     [SerializeField] private float airRotationRate = 45f;
     [SerializeField] private float upDownRotationRate = 45f;
@@ -51,7 +53,7 @@ public class CharacterMovement : BaseMovement
     private void Start()
     {
         Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 
     private void FixedUpdate()
@@ -148,33 +150,41 @@ public class CharacterMovement : BaseMovement
     /// </summary>
     private void CharacterLook()
     {
-        // If there is no look input, do nothing.
-        // if (lookInput == 0) return;
-
-        // // Adjust camera pitch based on input and clamp it to prevent over-rotation.
-        // cameraPitch -= lookInput * upDownRotationRate * Time.deltaTime;
-        // cameraPitch = Mathf.Clamp(cameraPitch, -60f, 60f);
-
-        
-
-        // Get the current local rotation of the main handle bone.
-        Quaternion existing = mainHandleBone.transform.localRotation;
-
-        // Create a new rotation with the updated pitch, preserving yaw and roll.
-        Quaternion newRot = Quaternion.Euler(cameraPitch, existing.eulerAngles.y, existing.eulerAngles.z);
-        mainHandleBone.transform.localRotation = newRot;
-
-        // TODO: call lose event in game state and apply ragdoll
-    }
-
-    protected override void RotateCharacter()
-    {
-        if (movementDirection.x != 0)
+        print(lookInput);
+        // Left/Right
+        if (lookInput.x < -Left_RightThreshold)
         {
-            float rotationSpeed = isGrounded ? groundRotationRate : airRotationRate;
-            characterModel.Rotate(Vector3.up, movementDirection.x * rotationSpeed * Time.deltaTime);
+            transform.Rotate(Vector3.up, -groundRotationRate * Time.deltaTime);
+        }
+        else if (lookInput.x > Left_RightThreshold)
+        {
+            transform.Rotate(Vector3.up, groundRotationRate * Time.deltaTime);
+        }
+        // Up/Down
+        if (lookInput.y < -Up_DownThreshold)
+        {
+            Vector3 e = playerCamera.transform.eulerAngles;
+            e.x += upDownRotationRate * Time.deltaTime;
+            playerCamera.transform.eulerAngles = e;
+            //playerCamera.transform.Rotate(Vector3.left, -upDownRotationRate * Time.deltaTime);
+        }
+        else if (lookInput.y > Up_DownThreshold)
+        {
+            Vector3 e = playerCamera.transform.eulerAngles;
+            e.x -= upDownRotationRate * Time.deltaTime;
+            playerCamera.transform.eulerAngles = e;
+            //playerCamera.transform.Rotate(Vector3.left, upDownRotationRate * Time.deltaTime);
         }
     }
+
+    // protected override void RotateCharacter()
+    // {
+    //     if (movementDirection.x != 0)
+    //     {
+    //         float rotationSpeed = isGrounded ? groundRotationRate : airRotationRate;
+    //         characterModel.Rotate(Vector3.up, movementDirection.x * rotationSpeed * Time.deltaTime);
+    //     }
+    // }
 
     private void LimitVelocity()
     {
