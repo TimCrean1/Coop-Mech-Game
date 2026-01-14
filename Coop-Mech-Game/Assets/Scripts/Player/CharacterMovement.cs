@@ -132,33 +132,6 @@ public class CharacterMovement : BaseMovement
             rigidbody.velocity = Vector3.zero;
         }
     }
-    private void CharacterLook()
-    {
-        Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
-        Ray ray = playerCamera.ScreenPointToRay(screenPos);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
-        {
-            targetPoint = hit.point;
-        }
-
-        Vector3 direction = targetPoint - transform.position;
-        direction.y = 0; // Ignore vertical for horizontal rotation
-        if (direction.sqrMagnitude > 0.001f)
-        {
-            Quaternion targetYaw = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, horizontalRotationRate * Time.deltaTime);
-        }
-
-        // Vertical (pitch) rotation for camera or handle bone
-        Vector3 lookDir = targetPoint - playerCamera.transform.position;
-        float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
-        cameraPitch = Mathf.Lerp(cameraPitch, pitch, verticalRotationRate * Time.deltaTime);
-
-        playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
-    }
-
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
@@ -176,7 +149,35 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
         }
     }
+#endregion
+#region Rotation
+    private void CharacterLook()
+    {
+        Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+        Ray ray = playerCamera.ScreenPointToRay(screenPos);
+        RaycastHit hit;
 
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        //Horizontal rotation for player transform
+        Vector3 direction = targetPoint - transform.position;
+        direction.y = 0;
+        if (direction.sqrMagnitude > 0.001f)
+        {
+            Quaternion targetYaw = Quaternion.LookRotation(direction);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, horizontalRotationRate * Time.deltaTime);
+        }
+
+        // Vertical (pitch) rotation for camera
+        Vector3 lookDir = targetPoint - playerCamera.transform.position;
+        float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
+        cameraPitch = Mathf.Lerp(cameraPitch, pitch, verticalRotationRate * Time.deltaTime);
+        playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
+    }
+#endregion
+#region Jumping
     public override void Jump()
     {
         if (readyToJump && (isGrounded || currentJumps < maxJumps))
