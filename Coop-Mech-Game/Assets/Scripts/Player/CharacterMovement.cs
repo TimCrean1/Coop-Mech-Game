@@ -22,8 +22,8 @@ public class CharacterMovement : BaseMovement
     private bool readyToJump = true;
 
     [Header("Player - Rotation")]
-    [SerializeField][Range(0,0.5f)] private float Left_RightThreshold = 0.4f;
-    [SerializeField][Range(0,0.5f)] private float Up_DownThreshold = 0.4f;
+    [SerializeField][Range(0,1)] private float Left_RightThreshold = 0.4f;
+    [SerializeField][Range(0,1)] private float Up_DownThreshold = 0.4f;
     [SerializeField] private float groundRotationRate = 90f; // degrees/sec
     [SerializeField] private float airRotationRate = 45f;
     [SerializeField] private float upDownRotationRate = 45f;
@@ -39,6 +39,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private GameObject mainHandleBone;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
+    [SerializeField] private Vector3 targetPoint;
     private float impulseTimer;
 
     #endregion
@@ -52,7 +53,7 @@ public class CharacterMovement : BaseMovement
 
     private void Start()
     {
-        Cursor.visible = true;
+        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
     }
 
@@ -144,47 +145,21 @@ public class CharacterMovement : BaseMovement
     }
 
     [SerializeField] private float cameraPitch = 0f;
-
-    /// <summary>
-    /// Handles vertical camera rotation (pitch) based on look input.
-    /// </summary>
     private void CharacterLook()
     {
-        print(lookInput);
-        // Left/Right
-        if (lookInput.x < -Left_RightThreshold)
-        {
-            transform.Rotate(Vector3.up, -groundRotationRate * Time.deltaTime);
-        }
-        else if (lookInput.x > Left_RightThreshold)
-        {
-            transform.Rotate(Vector3.up, groundRotationRate * Time.deltaTime);
-        }
-        // Up/Down
-        if (lookInput.y < -Up_DownThreshold)
-        {
-            Vector3 e = playerCamera.transform.eulerAngles;
-            e.x += upDownRotationRate * Time.deltaTime;
-            playerCamera.transform.eulerAngles = e;
-            //playerCamera.transform.Rotate(Vector3.left, -upDownRotationRate * Time.deltaTime);
-        }
-        else if (lookInput.y > Up_DownThreshold)
-        {
-            Vector3 e = playerCamera.transform.eulerAngles;
-            e.x -= upDownRotationRate * Time.deltaTime;
-            playerCamera.transform.eulerAngles = e;
-            //playerCamera.transform.Rotate(Vector3.left, upDownRotationRate * Time.deltaTime);
-        }
-    }
+        Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+        print(screenPos);
+        Ray ray = Camera.main.ScreenPointToRay(screenPos);
+        RaycastHit hit;
 
-    // protected override void RotateCharacter()
-    // {
-    //     if (movementDirection.x != 0)
-    //     {
-    //         float rotationSpeed = isGrounded ? groundRotationRate : airRotationRate;
-    //         characterModel.Rotate(Vector3.up, movementDirection.x * rotationSpeed * Time.deltaTime);
-    //     }
-    // }
+        if (Physics.Raycast(ray, out hit))
+        {
+            targetPoint = hit.point;
+        }
+        Vector3 direction = targetPoint - transform.position;
+        Quaternion targetRotation = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, groundRotationRate * Time.deltaTime);
+    }
 
     private void LimitVelocity()
     {
@@ -272,6 +247,19 @@ public class CharacterMovement : BaseMovement
         Gizmos.color = isGrounded ? Color.green : Color.red;
         Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
         Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
+
+        // Draw the raycast from CharacterLook()
+        if (playerCamera != null)
+        {
+            Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+            Ray ray = playerCamera.ScreenPointToRay(screenPos);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawRay(ray.origin, ray.direction * 100f);
+
+            // Draw a sphere at the targetPoint if set
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(targetPoint, 0.2f);
+        }
     }
 
     #endregion
