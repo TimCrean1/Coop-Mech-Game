@@ -161,7 +161,7 @@ public class CharacterMovement : BaseMovement
 #region Rotation
     private void CharacterLook()
     {
-        print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
+        // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
 
