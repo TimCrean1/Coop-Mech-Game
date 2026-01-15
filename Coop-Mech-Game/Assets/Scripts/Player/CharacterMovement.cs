@@ -263,9 +263,9 @@ public class CharacterMovement : BaseMovement
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = isGrounded ? Color.green : Color.red;
-        Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
-        Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
+        // Gizmos.color = isGrounded ? Color.green : Color.red;
+        // Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
+        // Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
 
         // Draw the raycast from CharacterLook()
         if (playerCamera != null)
