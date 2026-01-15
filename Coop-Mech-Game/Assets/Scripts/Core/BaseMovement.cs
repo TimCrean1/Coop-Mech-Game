@@ -52,7 +52,7 @@ public abstract class BaseMovement : MonoBehaviour
     {
         lookInput = (mouse1pos + mouse2pos) / 2;
     }
-    public abstract void Shoot();
+    public abstract void Shoot(float shootInput);
     #endregion
     #region Movement
     protected abstract void MoveCharacter(); //child classes must implement abstract functions

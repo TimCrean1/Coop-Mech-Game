@@ -1,12 +1,20 @@
 using UnityEngine;
 
-public abstract class BaseProjectile
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+public abstract class BaseProjectile : MonoBehaviour
 {
-    private Collider collider;
-    private float projectileSpeed;
-    private float dropOffRate;
+    // protected float projectileSpeed;
+    // protected float dropOffRate;
+    protected Rigidbody rb;
+    protected Collider col;
+    public abstract void OnCollisionEnter(Collision collision);
+    // public abstract void OnTriggerEnter();
 
-    public abstract void OnCollisionEnter();
-    public abstract void OnTriggerEnter();
-    
+    private void OnEnable()
+    {
+        rb = GetComponent<Rigidbody>();
+        col = GetComponent<Collider>();
+    }
+
 }

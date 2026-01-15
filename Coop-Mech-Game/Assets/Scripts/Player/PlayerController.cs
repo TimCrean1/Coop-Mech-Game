@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
             }
             if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
             {
-                baseMovement.Shoot();
+                baseMovement.Shoot(syncedShootInput);
             }
             mouse1Pos = Mouse.current.position.ReadValue();
             mouse1Pos.x = mouse1Pos.x/Screen.width;
