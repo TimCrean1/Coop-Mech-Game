@@ -25,6 +25,8 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0,4)] private float verticalRotationRate = 2;
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
+    [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
+    private float center = 0.5f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -159,9 +161,12 @@ public class CharacterMovement : BaseMovement
 #region Rotation
     private void CharacterLook()
     {
-        // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
+        print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
+
+        lookInput.x = Mathf.Abs(lookInput.x - 0.5f) < deadZoneSize ? 0.5f : lookInput.x;
+        lookInput.y = Mathf.Abs(lookInput.y - 0.5f) < deadZoneSize ? 0.5f : lookInput.y;
 
         Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
@@ -258,9 +263,9 @@ public class CharacterMovement : BaseMovement
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = isGrounded ? Color.green : Color.red;
-        Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
-        Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
+        // Gizmos.color = isGrounded ? Color.green : Color.red;
+        // Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
+        // Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
 
         // Draw the raycast from CharacterLook()
         if (playerCamera != null)
