@@ -11,11 +11,12 @@ public class KillhouseManager : MonoBehaviour
         Complete,
         Waiting
     }
-    public KillhouseStatus currentKHStatus {get; private set;}
+    public KillhouseStatus currentKHStatus;
     private static KillhouseManager _instance = null;
     [SerializeField] private float timer;
     [SerializeField] private float points;
     [SerializeField] private List<float> leaderBoard;
+    [SerializeField] private List<KillhouseEnemy> enemiesList;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -47,26 +48,61 @@ public class KillhouseManager : MonoBehaviour
 
         currentKHStatus = KillhouseStatus.Waiting;
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Start()
+    {
+        DeactivateEnemies();
+        currentKHStatus = KillhouseStatus.Waiting;
+    }
+    public void PopulateEnemiesList(KillhouseEnemy enemy)
+    {
+        enemiesList.Add(enemy);
+    }
+    private void ActivateEnemies()
+    {
+        foreach (KillhouseEnemy enemy in enemiesList)
+        {
+            if (!enemy.isActive)
+            {
+                enemy.Activate();
+            }
+        }
+    }
+    private void DeactivateEnemies()
+    {
+        foreach (KillhouseEnemy enemy in enemiesList)
+        {
+            if (enemy.isActive)
+            {
+                enemy.Deactivate();
+            }
+        }
+    }
     public void StartTrial()
     {
         Debug.Log("Started Kill House!");
         currentKHStatus = KillhouseStatus.Playing;
+        ActivateEnemies();
     }
     public void CancelTrial()
     {
         Debug.Log("Cancelled Kill House!");
         currentKHStatus = KillhouseStatus.Waiting;
         timer = 0;
+        DeactivateEnemies();
     }
     public void CompleteTrial()
     {
         currentKHStatus = KillhouseStatus.Complete;
         leaderBoard.Add(timer);
         leaderBoard.Sort((a, b) => a.CompareTo(b));
-        Debug.Log("Trial Complete! Your time was: " + timer);
+        Debug.Log("Trial Complete! Your time was: " + timer + ". You got " + points + " points!");
         timer = 0;
         currentKHStatus = KillhouseStatus.Waiting;
+        DeactivateEnemies();
+    }
+    public void UpdatePoints(float newPoints)
+    {
+        points += newPoints;
     }
     void Update()
     {
