@@ -197,6 +197,13 @@ public class CharacterMovement : BaseMovement
         }
     }
 #endregion
+#region Shooting
+    public override void Shoot()
+    {
+        // Implement shooting logic here
+        // For example, instantiate a projectile towards targetPoint
+    }
+#endregion
 #region Jumping
     public override void Jump()
     {

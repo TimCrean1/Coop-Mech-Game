@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public enum EPlayerState
 {
     Moving,
-    Paused,
+    Paused
 }
 
 public class PlayerController : MonoBehaviour
@@ -20,8 +20,8 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerInputActions; 
     [SerializeField] private Vector2 P1MovementInput;
     [SerializeField] private Vector2 P2MovementInput;
-    [SerializeField] private float P1LookInput;
-    [SerializeField] private float P2LookInput;
+    [SerializeField] private float P1ShootInput;
+    [SerializeField] private float P2ShootInput;
 
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
@@ -64,6 +64,10 @@ public class PlayerController : MonoBehaviour
             {
                 baseMovement.SetMovementInput(Vector2.zero);
             }
+            if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
+            {
+                baseMovement.Shoot();
+            }
             mouse1Pos = Mouse.current.position.ReadValue();
             mouse1Pos.x = mouse1Pos.x/Screen.width;
             mouse1Pos.y = mouse1Pos.y/Screen.height;
@@ -87,11 +91,11 @@ public class PlayerController : MonoBehaviour
         playerInputActions.Player.P2Move.started += P2MoveAction;
         playerInputActions.Player.P2Move.canceled += P2MoveAction;
 
-        playerInputActions.Player.P1Look.started += P1LookAction;
-        playerInputActions.Player.P1Look.canceled += P1LookAction;
+        playerInputActions.Player.P1Shoot.started += P1ShootAction;
+        playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
 
-        playerInputActions.Player.P2Look.started += P2LookAction;
-        playerInputActions.Player.P2Look.canceled += P2LookAction;
+        playerInputActions.Player.P2Shoot.started += P2ShootAction;
+        playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
     }
 
     private void UnsubscribeInputActions()
@@ -101,6 +105,12 @@ public class PlayerController : MonoBehaviour
 
         playerInputActions.Player.P2Move.started -= P2MoveAction;
         playerInputActions.Player.P2Move.canceled -= P2MoveAction;
+
+        playerInputActions.Player.P1Shoot.started -= P1ShootAction;
+        playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
+
+        playerInputActions.Player.P2Shoot.started -= P2ShootAction;
+        playerInputActions.Player.P2Shoot.canceled -= P2ShootAction;
     }
 
     private void SwitchActionMap(EPlayerState state)
@@ -112,8 +122,8 @@ public class PlayerController : MonoBehaviour
         {
             case EPlayerState.Moving:
                 playerInputActions.Player.Enable();
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
+                // Cursor.visible = false;
+                // Cursor.lockState = CursorLockMode.Locked;
                 break;
 
             case EPlayerState.Paused:
@@ -145,16 +155,16 @@ public class PlayerController : MonoBehaviour
         playerCoroutineManager.SetP2Input(P2MovementInput);
     }
 
-    private void P1LookAction(InputAction.CallbackContext context)
+    private void P1ShootAction(InputAction.CallbackContext context)
     {
-        P1LookInput = context.ReadValue<float>();
-        playerCoroutineManager.SetP1LookInput(P1LookInput);
+        P1ShootInput = context.ReadValue<float>();
+        playerCoroutineManager.SetP1Shoot(P1ShootInput);
     }
 
-    private void P2LookAction(InputAction.CallbackContext context)
+    private void P2ShootAction(InputAction.CallbackContext context)
     {
-        P2LookInput = context.ReadValue<float>();
-        playerCoroutineManager.SetP2LookInput(P2LookInput);
+        P2ShootInput = context.ReadValue<float>();
+        playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
 
     #endregion

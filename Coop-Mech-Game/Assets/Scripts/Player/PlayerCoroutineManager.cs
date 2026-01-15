@@ -6,23 +6,19 @@ public class PlayerCoroutineManager : MonoBehaviour
 {
     [Header("Input Window Duration")]
     [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.2f;
+    [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
 
     [Header("Time Counters")]
     private float p1MoveTime;
     private float p2MoveTime;
-    private float p1LookTime;
-    private float p2LookTime;
+    private float p1ShootTime;
+    private float p2ShootTime;
 
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
     private Vector2 p2MoveInput;
-    private float p1LookInput;
-    private float p2LookInput;
-
-    private void Start()
-    {
-
-    }
+    private float p1ShootInput;
+    private float p2ShootInput;
 
     #region Variable setters
 
@@ -37,15 +33,13 @@ public class PlayerCoroutineManager : MonoBehaviour
         p2MoveTime = Time.time;
     }
 
-    public void SetP1LookInput(float LookInput)
+    public void SetP1Shoot(float ShootInput)
     {
-        p1LookInput = LookInput;
-        p1LookTime = Time.time;
+        p1ShootInput = ShootInput;
     }
-    public void SetP2LookInput(float LookInput)
+    public void SetP2Shoot(float ShootInput)
     {
-        p2LookInput = LookInput;
-        p2LookTime = Time.time;
+        p2ShootInput = ShootInput;
     }
 
     #endregion
@@ -71,23 +65,24 @@ public class PlayerCoroutineManager : MonoBehaviour
         return false;
     }
 
-    public bool TryGetSyncedLook(out float syncedInput)
+    public bool TryGetSyncedShoot(out float syncedInput)
     {
-        syncedInput = 0f;
+        syncedInput = 0;
 
         // Check if inputs are within the sync window and that inputs are identical
-        if (Mathf.Abs(p1LookTime - p2LookTime) <= movementSyncWindow && p1LookInput == p2LookInput)
+        if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow && Mathf.Approximately(p1ShootInput, p2ShootInput))
         {
             // Inputs are synced
-            syncedInput = (p1LookInput + p2LookInput) * 0.5f;
+            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
 
             // Reset times so it only triggers once
-            p1LookTime = -1;
-            p2LookTime = -1;
+            p1ShootTime = -1;
+            p2ShootTime = -1;
             return true;
         }
 
         return false;
     }
+
     #endregion
 }
