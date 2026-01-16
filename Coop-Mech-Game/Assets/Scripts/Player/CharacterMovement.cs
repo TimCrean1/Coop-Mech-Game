@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using Unity.Netcode;
 
 public class CharacterMovement : BaseMovement
 {
@@ -63,6 +64,7 @@ public class CharacterMovement : BaseMovement
 
     private void FixedUpdate()
     {
+        if (!IsOwner) { return; }
         CheckIsGrounded();
         MoveCharacter();
         CharacterLook();

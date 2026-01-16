@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -594266503015122309}
   - component: {fileID: -8375938058623755012}
   - component: {fileID: 208555520471417859}
+  - component: {fileID: 6687836189354947918}
   m_Layer: 0
   m_Name: MultiplayerTestPlayer
   m_TagString: Untagged
@@ -233,3 +234,16 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &6687836189354947918
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8168222149250041022}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35d5183229c2b354eb2e095c8e1c4adc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MultiplayerPartnerTest
+  ShowTopMostFoldoutHeaderGroup: 1

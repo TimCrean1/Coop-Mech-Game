@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class PlayerCoroutineManager : MonoBehaviour
@@ -20,6 +21,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     private float p1ShootInput;
     private float p2ShootInput;
 
+    [Header("Multiplayer Variables")]
+    private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
     #region Variable setters
 
     public void SetP1Input(Vector2 MoveInput)
