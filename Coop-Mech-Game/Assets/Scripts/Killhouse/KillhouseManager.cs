@@ -103,6 +103,8 @@ public class KillhouseManager : MonoBehaviour
     public void UpdatePoints(float newPoints)
     {
         points += newPoints;
+        Debug.Log("Adding points: " + newPoints);
+        Debug.Log("Points updated! Current points: " + points);
     }
     void Update()
     {
