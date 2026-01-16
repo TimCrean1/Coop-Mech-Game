@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 //[RequireComponent(typeof(Animator))]
@@ -8,7 +9,7 @@ using UnityEngine;
 [RequireComponent(typeof(CapsuleCollider))]
 [RequireComponent(typeof(AudioSource))]
 
-public abstract class BaseMovement : MonoBehaviour
+public abstract class BaseMovement : NetworkBehaviour
 {
     #region Variables
 

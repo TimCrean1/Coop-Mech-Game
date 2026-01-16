@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 public enum EPlayerState
 {
@@ -9,7 +10,7 @@ public enum EPlayerState
     Paused
 }
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     #region Variables
 
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
+    [SerializeField] private GameObject mainCamera;
 
     [Header("Mouse Positions")]
     [SerializeField] private Vector2 mouse1Pos; //Screen space pos
@@ -34,7 +36,11 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region Unity Functions
-
+    public override void OnNetworkSpawn()
+    {
+        if(!IsOwner) { return; }
+        mainCamera.GetComponent<Camera>().enabled = true;
+    }
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
@@ -42,6 +48,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
+        if (!IsOwner) { return; }
         SubscribeInputActions();
         SwitchActionMap(EPlayerState.Moving);
     }
@@ -54,6 +61,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (!IsOwner) { return; }
         if (currentState == EPlayerState.Moving)
         {
             if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
