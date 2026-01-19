@@ -242,6 +242,7 @@ GameObject:
   - component: {fileID: 768608422}
   - component: {fileID: 768608421}
   - component: {fileID: 768608419}
+  - component: {fileID: 768608423}
   m_Layer: 0
   m_Name: Overlay Camera
   m_TagString: Untagged
@@ -360,6 +361,21 @@ Transform:
   - {fileID: 1934653875}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &768608423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 768608418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a705c41169e91e948ba21f0dbce27a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFrustumChange
+  horizontalObliqueness: 0
+  verticalObliqueness: 0
+  cam: {fileID: 768608421}
 --- !u!1 &1379383430
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,6 +459,7 @@ GameObject:
   - component: {fileID: 1861365799}
   - component: {fileID: 1861365798}
   - component: {fileID: 1861365797}
+  - component: {fileID: 1861365801}
   m_Layer: 0
   m_Name: Base Camera
   m_TagString: Untagged
@@ -570,6 +587,21 @@ Transform:
   - {fileID: 1379383431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1861365801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1861365796}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a705c41169e91e948ba21f0dbce27a44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFrustumChange
+  horizontalObliqueness: 0
+  verticalObliqueness: 0
+  cam: {fileID: 1861365799}
 --- !u!1 &1881102843
 GameObject:
   m_ObjectHideFlags: 0
