@@ -33,6 +33,10 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private Vector2 mouse1Pos; //Screen space pos
     [SerializeField] private Vector2 mouse2Pos;
 
+
+    [Header("Players")]
+    [SerializeField]public TestPlayerObjectScript player1;
+    [SerializeField]public TestPlayerObjectScript player2;
     #endregion
 
     #region Unity Functions
@@ -40,10 +44,17 @@ public class PlayerController : NetworkBehaviour
     {
         if(!IsOwner) { return; }
         mainCamera.GetComponent<Camera>().enabled = true;
+        //GameManager.Instance.AddController(this);
     }
     private void Awake()
     {
-        playerInputActions = new PlayerInputActions();
+        
+        //playerInputActions = new PlayerInputActions();
+    }
+
+    private void Start()
+    {
+        GameManager.Instance.AddController(this);
     }
 
     private void OnEnable()
