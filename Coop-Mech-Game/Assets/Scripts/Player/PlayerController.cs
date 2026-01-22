@@ -155,7 +155,7 @@ public class PlayerController : NetworkBehaviour
 
     public void P1MoveAction(InputAction.CallbackContext context)
     {
-        Debug.Log("yes");
+        // Debug.Log("yes");
         P1MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
