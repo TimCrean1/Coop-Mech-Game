@@ -20,14 +20,24 @@ public class TeamProjectilePool : MonoBehaviour
     [SerializeField] private int numCanProj = 10;
     [SerializeField] private int numAutoProj = 100;
     [SerializeField] private int numLasProj = 100;
+    [SerializeField] private int numFX = 50;
 
     [SerializeField] private CannonProjectile cannonProj;
     //[SerializeField] private CannonProjectile mgProj;
     //[SerializeField] private CannonProjectile lasProj;
+    [SerializeField] private BaseEffect baseEffect;
 
     public List<CannonProjectile> cannonProjectilesList = new List<CannonProjectile>();
     //public ListMGProjectile> MGProj = new List<MGProjectile>(); 
     //public List<LaserProjectile> lasProj = new List<LaserProjectile>(); 
+    public List<BaseEffect> effectsList = new List<BaseEffect>();
+
+    private int cannonIndex = 0;
+    private int mgIndex = 0;
+    private int lasIndex = 0;
+    private int effectIndex = 0;
+    private BaseProjectile projToRet;
+
 
     private void Start()
     {
@@ -57,6 +67,35 @@ public class TeamProjectilePool : MonoBehaviour
             //cannonProjectilesList.Add(las);
             //las.enabled = false;
         }
+
+        for(int i = 0; i < numFX; i++)
+        {
+            //instantiate below map
+            BaseEffect ef = Instantiate(baseEffect, ProjectileSpawnPos, Quaternion.identity);
+
+            effectsList.Add(ef);
+            ef.enabled = false;
+        }
+    }
+
+    public BaseProjectile GetNextProjectile(BaseWeapon weaponType)
+    {
+        switch (weaponType)
+        {
+            case WeaponCannon:
+                projToRet = cannonProjectilesList[cannonIndex];
+                cannonIndex = (cannonIndex + 1) % cannonProjectilesList.Count;
+                return projToRet;
+            default:
+                return null;
+        }
+    }
+
+    public BaseEffect GetNextEffect()
+    {
+        BaseEffect effect = effectsList[effectIndex];
+        effectIndex++;
+        return effect;
     }
 
 }
