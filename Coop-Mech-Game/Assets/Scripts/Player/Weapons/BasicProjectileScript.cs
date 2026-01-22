@@ -5,7 +5,7 @@ public class BasicProjectileScript : BaseProjectile
 {
     [SerializeField] private float projectileSpeed = 50f;
     [SerializeField] private float dropOffRate = 5f;
-    public override void OnCollisionEnter(Collision collision)
+    protected override void OnCollisionEnter(Collision collision)
     {
         Destroy(gameObject);
     }

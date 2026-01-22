@@ -3,14 +3,6 @@ using System.Collections;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
-    private float fireRate = 1.0f;
-    private float cooldownTime = 1.0f;
-    private int ammoCount;
-
-    private bool canFire = true;
-
-    private Transform muzzle;
-
     /// <summary>
     /// 
     /// This class should be pretty weapon type agnostic, so ammoCount is the universal cooldown counter
@@ -18,16 +10,26 @@ public abstract class BaseWeapon : MonoBehaviour
     /// 
     /// </summary>
 
-    public virtual IEnumerator FireRoutine() //public because this will be called by input handler
+    [SerializeField] private TeamProjectilePool teamProjectilePool;
+    [SerializeField] private Transform muzzle;
+    [SerializeField] private int ammo = 10;
+
+    private float cooldownTime = 1.0f;
+    private int ammoCount;
+
+    private bool canFire = true;
+
+    protected virtual IEnumerator FireRoutine(float fireRate) //public because this will be called by input handler
     {
         if (canFire)
         {
             //pick projectile from team array
-
-            //proj.transform.position = muzzle.transform.position
-            //proj.transform.rotation = muzzle.transform.rotation
+            BaseProjectile proj = teamProjectilePool.GetNextProjectile(this);
+            proj.transform.position = muzzle.transform.position;
+            proj.transform.rotation = muzzle.transform.rotation;
 
             //activate projectile which will "fire" it
+            proj.gameObject.SetActive(true);
         }
 
         BuildCooldown();
@@ -49,6 +51,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
         yield return new WaitForSeconds(cooldownTime);
 
+        ammoCount = ammo;
         canFire = true;
     }
 
