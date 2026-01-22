@@ -23,7 +23,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[0].player2 = this;
             isPlayerOne = false;
         }
+        playerInputActions = new PlayerInputActions();
         SubscribeInputActions();
+        playerInputActions.Player.Enable();
     }
 
     void OnDisable()
@@ -63,7 +65,6 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
 
             playerInputActions.Player.P1Shoot.started += playerController.P1ShootAction;
-            // playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
         }
         else
         {

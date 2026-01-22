@@ -60,15 +60,15 @@ public class PlayerController : NetworkBehaviour
     {
         if (!IsOwner) { return; }
         // SubscribeInputActions();
-        player1.SwitchActionMap(EPlayerState.Moving);
-        player2.SwitchActionMap(EPlayerState.Moving);
+        if (player1 != null){player1.SwitchActionMap(EPlayerState.Moving);}
+        if (player2 != null){player2.SwitchActionMap(EPlayerState.Moving);}
     }
 
     private void OnDisable()
     {
         // UnsubscribeInputActions();
-        player1.SwitchActionMap(currentState);
-        player2.SwitchActionMap(currentState);
+        if (player1 != null){player1.SwitchActionMap(currentState);}
+        if (player2 != null){player2.SwitchActionMap(currentState);}
     }
 
     private void FixedUpdate()
@@ -155,6 +155,7 @@ public class PlayerController : NetworkBehaviour
 
     public void P1MoveAction(InputAction.CallbackContext context)
     {
+        Debug.Log("yes");
         P1MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
@@ -193,14 +194,14 @@ public class PlayerController : NetworkBehaviour
 
     public void OnGamePausedReceived()
     {
-        player1.SwitchActionMap(EPlayerState.Paused);
-        player2.SwitchActionMap(EPlayerState.Paused);
+        if (player1 != null){player1.SwitchActionMap(EPlayerState.Paused);}
+        if (player2 != null){player2.SwitchActionMap(EPlayerState.Paused);}
     }
 
     public void OnGameResumedReceived()
     {
-        player1.SwitchActionMap(EPlayerState.Moving);
-        player2.SwitchActionMap(EPlayerState.Moving);
+        if (player1 != null){player1.SwitchActionMap(EPlayerState.Moving);}
+        if (player2 != null){player2.SwitchActionMap(EPlayerState.Moving);}
     }
 
     #endregion

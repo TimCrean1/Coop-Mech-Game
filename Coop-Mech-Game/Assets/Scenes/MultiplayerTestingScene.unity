@@ -1098,6 +1098,11 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3939423967
       objectReference: {fileID: 0}
+    - target: {fileID: 3323470561574935653, guid: ac102e4fe05eb254f8448dcb55641aa9,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4699659773771636058, guid: ac102e4fe05eb254f8448dcb55641aa9,
         type: 3}
       propertyPath: m_Name
@@ -1183,6 +1188,22 @@ MonoBehaviour:
   p1Cursor: {fileID: 1313610183}
   p2Cursor: {fileID: 882738225}
   averageCursor: {fileID: 310974903}
+  playerController: {fileID: 737891637}
+  mouse1Pos: {x: 0, y: 0}
+  mouse2Pos: {x: 0, y: 0}
+  averagePos: {x: 0, y: 0}
+--- !u!114 &737891637 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5138850823521007203, guid: ac102e4fe05eb254f8448dcb55641aa9,
+    type: 3}
+  m_PrefabInstance: {fileID: 737891634}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737891635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 696ecc83316fd42a59e348319697e974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &751009306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2126,7 +2147,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2010094837}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &2010094839
 Camera:
   m_ObjectHideFlags: 0
