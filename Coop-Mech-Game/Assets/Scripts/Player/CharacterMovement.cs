@@ -35,16 +35,16 @@ public class CharacterMovement : BaseMovement
     private bool wasGroundedLastFrame = false;
     [SerializeField] private bool isGrounded = false;
 
+    [Header("Player - Shooting")]
+    [SerializeField] private Transform shootPoint;
+    [SerializeField] private GameObject projectilePrefab;
+
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraPitch = 0f;
     [SerializeField] private Vector3 targetPoint;
     [SerializeField] private CinemachineImpulseSource impulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
-
-    [Header("Debug UI")]
-    [SerializeField] private float circleWidth;
-    [SerializeField] private Color circleColor;
     private float impulseTimer;
 
     #endregion
@@ -200,10 +200,11 @@ public class CharacterMovement : BaseMovement
     }
 #endregion
 #region Shooting
-    public override void Shoot()
+    public override void Shoot(float shootInput)
     {
-        // Implement shooting logic here
-        // For example, instantiate a projectile towards targetPoint
+        // Debug.Log("Shooting!");
+        if (shootInput <= 0f) return;
+        Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
     }
 #endregion
 #region Jumping

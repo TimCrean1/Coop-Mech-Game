@@ -49,6 +49,7 @@ public class KillhouseEnemy : MonoBehaviour
         {
             killhouseManager.UpdatePoints(pointsValue);
             audioSource.Play();
+            Destroy(collision.gameObject);
             Deactivate();
         }
     }

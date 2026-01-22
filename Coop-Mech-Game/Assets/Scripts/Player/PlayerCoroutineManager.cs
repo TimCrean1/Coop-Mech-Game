@@ -39,10 +39,12 @@ public class PlayerCoroutineManager : MonoBehaviour
     public void SetP1Shoot(float ShootInput)
     {
         p1ShootInput = ShootInput;
+        p1ShootTime = Time.time;
     }
     public void SetP2Shoot(float ShootInput)
     {
         p2ShootInput = ShootInput;
+        p2ShootTime = Time.time;
     }
 
     #endregion
