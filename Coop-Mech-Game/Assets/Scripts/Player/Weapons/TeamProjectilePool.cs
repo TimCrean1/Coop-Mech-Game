@@ -15,36 +15,47 @@ public class TeamProjectilePool : MonoBehaviour
     /// 
     /// </summary>
 
+    [SerializeField] private Vector3 ProjectileSpawnPos = new Vector3(0f, -10f, 0f);
 
     [SerializeField] private int numCanProj = 10;
     [SerializeField] private int numAutoProj = 100;
     [SerializeField] private int numLasProj = 100;
 
-    //public List<CannonProjectile> cannonProj = new List<CannonProjectile>();
-    //public List<AutoCannonProjectile> autoCannonProj = new List<AutoCannonProjectile>(); 
-    //public List<LaserGunProjectile> lasGunProj = new List<LaserGunProjectile>(); 
+    [SerializeField] private CannonProjectile cannonProj;
+    //[SerializeField] private CannonProjectile mgProj;
+    //[SerializeField] private CannonProjectile lasProj;
+
+    public List<CannonProjectile> cannonProjectilesList = new List<CannonProjectile>();
+    //public ListMGProjectile> MGProj = new List<MGProjectile>(); 
+    //public List<LaserProjectile> lasProj = new List<LaserProjectile>(); 
 
     private void Start()
     {
         for(int i = 0; i < numCanProj; i++)
         {
             //instantiate below map
+            CannonProjectile cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
 
-            //cannonProj.Add(CannonProjectile);
+            cannonProjectilesList.Add(cann);
+            cann.enabled = false;
         }
 
         for (int i = 0; i < numAutoProj; i++)
         {
             //instantiate below map
+            //MGProjectile mg = Instantiate(mgProj, ProjectileSpawnPos, Quaternion.identity);
 
-            //autoCannonProj.Add(AutoCannonProjectile);
+            //cannonProjectilesList.Add(mg);
+            //mg.enabled = false;
         }
 
-        for (int i = 0; i < numCanProj; i++)
+        for (int i = 0; i < numLasProj; i++)
         {
             //instantiate below map
+            //LaserProjectile las = Instantiate(lasProj, ProjectileSpawnPos, Quaternion.identity);
 
-            //lasGunProj.Add(LaserGunProjectile);
+            //cannonProjectilesList.Add(las);
+            //las.enabled = false;
         }
     }
 
