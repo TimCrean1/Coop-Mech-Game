@@ -1,10 +1,11 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     #region Variables
 
@@ -17,6 +18,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private float _playerHealth = 50;
     [SerializeField] private float _maxPlayerHealth = 50;
+    [SerializeField] public List<PlayerController> _playerControllers;
     public int playerScore = 0;
 
     // Getter methods
@@ -29,7 +31,7 @@ public class GameManager : MonoBehaviour
     {
         return _maxPlayerHealth;
     }
-    
+
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -46,7 +48,10 @@ public class GameManager : MonoBehaviour
     #endregion
 
     #region Unity Functions
-
+    public override void OnNetworkSpawn()
+    {
+        
+    }
     private void Awake()
     {
         #region Singleton
@@ -66,7 +71,7 @@ public class GameManager : MonoBehaviour
 
         #endregion
 
-        
+
     }
 
     private void Start()
@@ -75,7 +80,7 @@ public class GameManager : MonoBehaviour
         // Start is called after Awake (where GameState.Instance is initialized) so the Instance should exist by now
         gameState = GameState.Instance;
         Cursor.visible = true;
-
+       // _playerController = new List<PlayerController>();
         // Resume the game so we don't start paused when the game loads a scene
         ResumeGame();
     }
@@ -113,7 +118,11 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1f;
         }
     }
-
+    public void AddController(PlayerController ctrl)
+    {
+        _playerControllers.Add(ctrl);
+        Debug.Log("added controller" + ctrl);
+    }
     // If the game is paused, resume it, otherwise pause it
     public void TogglePause()
     {
