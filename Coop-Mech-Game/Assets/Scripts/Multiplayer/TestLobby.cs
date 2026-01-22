@@ -133,9 +133,9 @@ public class TestLobby : MonoBehaviour
     {
         try
         {
-            await LobbyService.Instance.QuickJoinLobbyAsync();
+            var lobby = await LobbyService.Instance.QuickJoinLobbyAsync();
             
-            Debug.Log("Quick Joined Lobby");
+            Debug.Log($"Quick Joined Lobby {lobby.Id}");
         } catch (LobbyServiceException e) { Debug.Log(e); }
     }
     private Player GetPlayer()
