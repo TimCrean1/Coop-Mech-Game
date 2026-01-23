@@ -730,6 +730,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &504178317
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 504178318}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &504178318
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504178317}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 737891638}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &525366627
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1158,14 +1189,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7820156475123024021, guid: ac102e4fe05eb254f8448dcb55641aa9,
+        type: 3}
+      propertyPath: weapon
+      value: 
+      objectReference: {fileID: 737891640}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 3033745674694190424, guid: ac102e4fe05eb254f8448dcb55641aa9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 504178318}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4699659773771636058, guid: ac102e4fe05eb254f8448dcb55641aa9,
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 737891636}
+    - targetCorrespondingSourceObject: {fileID: 4699659773771636058, guid: ac102e4fe05eb254f8448dcb55641aa9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737891640}
+    - targetCorrespondingSourceObject: {fileID: 4699659773771636058, guid: ac102e4fe05eb254f8448dcb55641aa9,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 737891639}
   m_SourcePrefab: {fileID: 100100000, guid: ac102e4fe05eb254f8448dcb55641aa9, type: 3}
 --- !u!1 &737891635 stripped
 GameObject:
@@ -1204,6 +1252,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 696ecc83316fd42a59e348319697e974, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &737891638 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3033745674694190424, guid: ac102e4fe05eb254f8448dcb55641aa9,
+    type: 3}
+  m_PrefabInstance: {fileID: 737891634}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &737891639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737891635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7c70acd447d6534cb5b8b7bd00947f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TeamProjectilePool
+  ProjectileSpawnPos: {x: 0, y: -10, z: 0}
+  numCanProj: 10
+  numAutoProj: 100
+  numLasProj: 100
+  numFX: 50
+  cannonProj: {fileID: 0}
+  baseEffect: {fileID: 0}
+  cannonProjectilesList: []
+  effectsList: []
+--- !u!114 &737891640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737891635}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+  teamProjectilePool: {fileID: 737891639}
+  muzzle: {fileID: 504178318}
+  ammo: 10
+  fireRate: 1
 --- !u!1 &751009306
 GameObject:
   m_ObjectHideFlags: 0

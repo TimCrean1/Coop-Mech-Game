@@ -13,11 +13,19 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
     [SerializeField] private int ammo = 10;
+    [SerializeField] private float baseFireRate = 1f;
 
     private float cooldownTime = 1.0f;
     private int ammoCount;
 
     private bool canFire = true;
+
+    public float FireRate { get { return baseFireRate; } }
+
+    public virtual void Fire()
+    {
+        StartCoroutine(FireRoutine(baseFireRate));
+    }
 
     protected virtual IEnumerator FireRoutine(float fireRate) //public because this will be called by input handler
     {

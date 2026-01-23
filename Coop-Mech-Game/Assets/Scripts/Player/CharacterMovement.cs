@@ -36,8 +36,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private bool isGrounded = false;
 
     [Header("Player - Shooting")]
-    [SerializeField] private Transform shootPoint;
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private BaseWeapon weapon;
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
@@ -202,9 +201,9 @@ public class CharacterMovement : BaseMovement
 #region Shooting
     public override void Shoot(float shootInput)
     {
-        // Debug.Log("Shooting!");
         if (shootInput <= 0f) return;
-        Instantiate(projectilePrefab, shootPoint.position, shootPoint.rotation);
+        Debug.Log("Shooting!");
+        weapon.Fire();
     }
 #endregion
 #region Jumping

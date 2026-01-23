@@ -44,10 +44,12 @@ public class TeamProjectilePool : MonoBehaviour
         for(int i = 0; i < numCanProj; i++)
         {
             //instantiate below map
-            BaseProjectile cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+            BaseProjectile cann;
+
+            cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
 
             cannonProjectilesList.Add(cann);
-            //cannonProjectilesList[i].gameObject.SetActive(false);
+            cannonProjectilesList[i].gameObject.SetActive(false);
             //cann.gameObject.SetActive(false);
         }
 
