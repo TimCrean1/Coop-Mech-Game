@@ -22,12 +22,12 @@ public class TeamProjectilePool : MonoBehaviour
     [SerializeField] private int numLasProj = 100;
     [SerializeField] private int numFX = 50;
 
-    [SerializeField] private CannonProjectile cannonProj;
-    //[SerializeField] private CannonProjectile mgProj;
-    //[SerializeField] private CannonProjectile lasProj;
+    [SerializeField] private BaseProjectile cannonProj;
+    //[SerializeField] private BaseProjectile mgProj;
+    //[SerializeField] private BaseProjectile lasProj;
     [SerializeField] private BaseEffect baseEffect;
 
-    public List<CannonProjectile> cannonProjectilesList = new List<CannonProjectile>();
+    public List<BaseProjectile> cannonProjectilesList = new List<BaseProjectile>();
     //public ListMGProjectile> MGProj = new List<MGProjectile>(); 
     //public List<LaserProjectile> lasProj = new List<LaserProjectile>(); 
     public List<BaseEffect> effectsList = new List<BaseEffect>();
@@ -44,10 +44,11 @@ public class TeamProjectilePool : MonoBehaviour
         for(int i = 0; i < numCanProj; i++)
         {
             //instantiate below map
-            CannonProjectile cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+            BaseProjectile cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
 
             cannonProjectilesList.Add(cann);
-            cann.enabled = false;
+            //cannonProjectilesList[i].gameObject.SetActive(false);
+            //cann.gameObject.SetActive(false);
         }
 
         for (int i = 0; i < numAutoProj; i++)
@@ -71,10 +72,10 @@ public class TeamProjectilePool : MonoBehaviour
         for(int i = 0; i < numFX; i++)
         {
             //instantiate below map
-            BaseEffect ef = Instantiate(baseEffect, ProjectileSpawnPos, Quaternion.identity);
+            //BaseEffect ef = Instantiate(baseEffect, ProjectileSpawnPos, Quaternion.identity);
 
-            effectsList.Add(ef);
-            ef.enabled = false;
+            //effectsList.Add(ef);
+            //ef.enabled = false;
         }
     }
 
@@ -94,7 +95,7 @@ public class TeamProjectilePool : MonoBehaviour
     public BaseEffect GetNextEffect()
     {
         BaseEffect effect = effectsList[effectIndex];
-        effectIndex++;
+        effectIndex = (effectIndex + 1) % effectsList.Count;
         return effect;
     }
 

@@ -41,10 +41,14 @@ public abstract class BaseProjectile : MonoBehaviour
         transform.position += transform.forward * baseProjectileSpeed * Time.deltaTime;
     }
 
-    protected virtual void OnDisable()
+    protected virtual void OnHit()
     {
         BaseEffect fx = teamProjectilePool.GetNextEffect();
         if (fx == null) { Debug.LogError("No effect found!"); }
-        fx.gameObject.SetActive(true);
+        else 
+        { 
+            fx.gameObject.transform.position = transform.position;
+            fx.gameObject.SetActive(true); 
+        }
     }
 }

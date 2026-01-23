@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WeaponCannon : BaseWeapon
 {
-    [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float fireRate;
 
     protected override IEnumerator FireRoutine(float fr)
     {

@@ -5,7 +5,7 @@ public class CannonProjectile : BaseProjectile
     [SerializeField] private float projectileSpeed = 50f;
     [SerializeField] private float damage = 10f;
 
-    private void Start()
+    protected override void Start()
     {
         base.Start();
 
