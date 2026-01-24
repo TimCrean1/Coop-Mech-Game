@@ -5,10 +5,9 @@ public class TeamProjectilePool : MonoBehaviour
 {
     /// <summary>
     /// 
-    /// This script will live on the MatchGameManager
+    /// This script will live on the Player prefab, since there is only one per team
     /// 
-    /// this is because the size of the pool will likely be dependent on what weapons are being 
-    /// used by the players which will be determined in the lobby by what mechs they pick
+    /// this is because the size of the pool will likely be dependent on what weapons are being used by the players
     /// 
     /// we don't want to spawn in hundreds of laser projectiles if the players 
     /// in the match aren't using laser weapons
@@ -22,12 +21,12 @@ public class TeamProjectilePool : MonoBehaviour
     [SerializeField] private int numLasProj = 100;
     [SerializeField] private int numFX = 50;
 
-    [SerializeField] private BaseProjectile cannonProj;
+    [SerializeField] private CannonProjectile cannonProj;
     //[SerializeField] private BaseProjectile mgProj;
     //[SerializeField] private BaseProjectile lasProj;
     [SerializeField] private BaseEffect baseEffect;
 
-    public List<BaseProjectile> cannonProjectilesList = new List<BaseProjectile>();
+    public List<CannonProjectile> cannonProjectilesList = new List<CannonProjectile>();
     //public ListMGProjectile> MGProj = new List<MGProjectile>(); 
     //public List<LaserProjectile> lasProj = new List<LaserProjectile>(); 
     public List<BaseEffect> effectsList = new List<BaseEffect>();
@@ -44,7 +43,7 @@ public class TeamProjectilePool : MonoBehaviour
         for(int i = 0; i < numCanProj; i++)
         {
             //instantiate below map
-            BaseProjectile cann;
+            CannonProjectile cann;
 
             cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
 

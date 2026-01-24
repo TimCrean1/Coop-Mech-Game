@@ -9,7 +9,17 @@ public class CannonProjectile : BaseProjectile
     {
         base.Start();
 
-        baseProjectileSpeed = projectileSpeed;
+        //baseProjectileSpeed = projectileSpeed;
+    }
+
+    protected override void OnEnable()
+    {
+        //base.OnEnable();
+
+        if (gameObject.activeSelf)
+        {
+            rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+        }
     }
 
 }

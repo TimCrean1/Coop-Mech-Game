@@ -17,6 +17,7 @@ public abstract class BaseProjectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             //send event to it's health manager
+            OnHit();
         }
 
         this.gameObject.SetActive(false);
@@ -28,6 +29,7 @@ public abstract class BaseProjectile : MonoBehaviour
         {
             //send event to it's health manager
             this.gameObject.SetActive(false);
+
         }
 
     }
@@ -40,7 +42,8 @@ public abstract class BaseProjectile : MonoBehaviour
 
     protected virtual void OnEnable()
     {
-        rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
+        //rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
+        // do nothing
     }
 
     protected virtual void OnHit()
