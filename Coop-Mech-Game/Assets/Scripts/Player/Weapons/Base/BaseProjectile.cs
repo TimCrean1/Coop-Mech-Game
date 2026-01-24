@@ -8,6 +8,7 @@ public abstract class BaseProjectile : MonoBehaviour
     // protected float dropOffRate;
     protected TeamProjectilePool teamProjectilePool;
     protected Collider col;
+    protected Rigidbody rb;
     protected Transform muzzle;
     //protected BaseProjectileEffect expEffect;
     protected virtual void OnCollisionEnter(Collision collision)
@@ -34,17 +35,22 @@ public abstract class BaseProjectile : MonoBehaviour
     protected virtual void Start()
     {
         col = GetComponent<Collider>();
+        rb = GetComponent<Rigidbody>();
     }
 
-    protected virtual void Update()
+    protected virtual void OnEnable()
     {
-        transform.position += transform.forward * baseProjectileSpeed * Time.deltaTime;
+        rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
     }
 
-    protected virtual void OnDisable()
+    protected virtual void OnHit()
     {
         BaseEffect fx = teamProjectilePool.GetNextEffect();
         if (fx == null) { Debug.LogError("No effect found!"); }
-        fx.gameObject.SetActive(true);
+        else 
+        { 
+            fx.gameObject.transform.position = transform.position;
+            fx.gameObject.SetActive(true); 
+        }
     }
 }

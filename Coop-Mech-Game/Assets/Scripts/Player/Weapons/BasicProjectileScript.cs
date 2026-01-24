@@ -11,9 +11,9 @@ public class BasicProjectileScript : BaseProjectile
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        //rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
-        //rb.AddForce(Vector3.down * dropOffRate * Time.deltaTime, ForceMode.Acceleration);
-    }
+    //void Update()
+    //{
+    //    rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
+    //    rb.AddForce(Vector3.down * dropOffRate * Time.deltaTime, ForceMode.Acceleration);
+    //}
 }
