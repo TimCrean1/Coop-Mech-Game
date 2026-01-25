@@ -38,7 +38,7 @@ public class StartGameManager : MonoBehaviour {
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
             Debug.Log("Allocated Relay JoinCode: " + joinCode);
 
-            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "dtls");
+            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(allocation, "wss");
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
@@ -54,7 +54,7 @@ public class StartGameManager : MonoBehaviour {
         try {
             JoinAllocation joinAllocation = await RelayService.Instance.JoinAllocationAsync(joinCode);
 
-            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(joinAllocation, "dtls");
+            RelayServerData relayServerData = AllocationUtils.ToRelayServerData(joinAllocation, "wss");
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(relayServerData);
 
