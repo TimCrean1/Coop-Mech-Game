@@ -13,6 +13,12 @@ public abstract class BaseProjectile : MonoBehaviour
     //protected BaseProjectileEffect expEffect;
     private bool hitPlayer;
 
+    public virtual void PrepFire(Vector3 targetPos, Quaternion targetRot)
+    {
+        rb.position = targetPos;
+        rb.rotation = targetRot;
+    }
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
         //check what the projectile hit
