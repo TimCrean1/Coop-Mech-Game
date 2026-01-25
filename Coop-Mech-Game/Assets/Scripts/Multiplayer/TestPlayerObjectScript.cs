@@ -5,7 +5,7 @@ using UnityEngine;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    private bool isPlayerOne;
+    [SerializeField] private bool isPlayerOne;
     private Vector2 mousePos;
     private PlayerInputActions playerInputActions;
 
