@@ -98,14 +98,19 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
         }
     }
-
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ModifyMouseRPC(Vector2 mousePos)
+    {
+        mouseNetPos.Value = mousePos;
+    }
     void Update()
     {
         // Get mouse position in screen space and normalize
         mousePos = Input.mousePosition;
         mousePos.x = mousePos.x/Screen.width;
         mousePos.y = mousePos.y/Screen.height;
-        mouseNetPos.Value = mousePos;
+        //mouseNetPos.Value = mousePos;
+        ModifyMouseRPC(mousePos);
         // Send mouse position to PlayerController
         if (isPlayerOne)
         {
