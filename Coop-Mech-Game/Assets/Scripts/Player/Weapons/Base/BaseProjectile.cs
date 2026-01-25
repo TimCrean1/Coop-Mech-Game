@@ -12,6 +12,7 @@ public abstract class BaseProjectile : MonoBehaviour
     protected Transform muzzle;
     //protected BaseProjectileEffect expEffect;
     private bool hitPlayer;
+    private Vector3 collisionNormal;
 
     public virtual void PrepFire(Vector3 targetPos, Quaternion targetRot)
     {
@@ -27,6 +28,8 @@ public abstract class BaseProjectile : MonoBehaviour
         {
             //send event to it's health manager
         }
+
+        collisionNormal = collision.GetContact(0).normal;
 
         OnHit(hitPlayer);
 
@@ -66,6 +69,7 @@ public abstract class BaseProjectile : MonoBehaviour
     protected virtual void OnHit(bool didHitPlayer)
     {
         BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
+        fx.PrepPlay(collisionNormal);
 
         if (fx == null) 
         { 
