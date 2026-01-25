@@ -19,6 +19,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float _playerHealth = 50;
     [SerializeField] private float _maxPlayerHealth = 50;
     [SerializeField] public List<PlayerController> _playerControllers;
+    private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
+    
     public int playerScore = 0;
 
     // Getter methods
@@ -40,8 +42,8 @@ public class GameManager : NetworkBehaviour
         get { return _instance; }
     }
 
-    [SerializeField] private PlayerController _playerController;
-    public PlayerController PlayerCharacter { get { return _playerController; } }
+    //[SerializeField] private PlayerController _playerController;
+    //public PlayerController PlayerCharacter { get { return _playerController; } }
 
     [SerializeField] private PlayerDamageManager _playerDamageManager;
 
@@ -145,6 +147,10 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    public int SetPlayerIndex()
+    {
+        return NetworkManager.Singleton.ConnectedClients.Count;
+    }
     public void DamagePlayer(float damage)
     {
         print(damage);
