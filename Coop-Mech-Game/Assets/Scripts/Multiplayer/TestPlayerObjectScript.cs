@@ -5,8 +5,9 @@ using UnityEngine;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    private bool isPlayerOne;
-    private Vector2 mousePos;
+    [SerializeField]private bool isPlayerOne;
+    //private Vector2 mousePos;
+    private NetworkVariable<Vector2> mousePos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
 
     public override void OnNetworkSpawn()
