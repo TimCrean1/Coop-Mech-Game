@@ -67,8 +67,11 @@ public abstract class BaseProjectile : MonoBehaviour
     {
         BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
 
-
-        if (fx == null) { Debug.LogError("No effect found!"); }
+        if (fx == null) 
+        { 
+            Debug.LogError("No valid effect found, bool status fx == null: " + fx == null); 
+            return; 
+        }
         else 
         { 
             fx.gameObject.transform.position = transform.position;
