@@ -1471,7 +1471,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
-  weapon: {fileID: 0}
+  weapon: {fileID: 1456196973}
   playerCamera: {fileID: 1086067142}
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
@@ -1660,7 +1660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456196963}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7c70acd447d6534cb5b8b7bd00947f0, type: 3}
   m_Name: 
@@ -1672,9 +1672,11 @@ MonoBehaviour:
   numFX: 50
   cannonProj: {fileID: 5498303484653683307, guid: c418a542d4bdd9140a3d92ad231eda75,
     type: 3}
-  baseEffect: {fileID: 0}
+  groundEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   cannonProjectilesList: []
-  effectsList: []
+  groundEffectsList: []
+  hitEffectsList: []
 --- !u!114 &1456196973
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1682,7 +1684,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1456196963}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
   m_Name: 
