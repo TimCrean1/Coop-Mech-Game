@@ -1,22 +1,29 @@
+using System.Runtime.CompilerServices;
 using Unity.Netcode;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-
-    private PlayerInputActions playerInputActions;
-
-    private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
-    private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
+    [SerializeField]private bool isPlayerOne;
+    [SerializeField]private bool isPlayerTwo;
+    private Vector2 mousePos;
+    //private float mouseX;
+    //private float mouseY;
 
     private bool controlsInitialized = false;
 
-    #region NETWORK SPAWN
+    private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
+    private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
+    private PlayerInputActions playerInputActions;
 
     public override void OnNetworkSpawn()
     {
-        // Server decides which player number this object is
+        if (!IsOwner) { return; }
+        //playerController = GameManager.Instance._playerControllers[0];
+
+
         if (IsServer)
         {
             playerIndex.Value = NetworkManager.Singleton.ConnectedClientsList.Count - 1;
@@ -25,28 +32,64 @@ public class TestPlayerObjectScript : NetworkBehaviour
         // Listen for index being set on all clients
         playerIndex.OnValueChanged += OnPlayerIndexSet;
 
-        if (!IsOwner) return;
-
+        //if (GameManager.Instance._playerControllers[0].player1 == null)
+        //{
+        //    GameManager.Instance._playerControllers[0].player1 = this;
+        //    isPlayerOne = true;
+        //}
+        //else
+        //{
+        //    GameManager.Instance._playerControllers[0].player2 = this;
+        //    isPlayerOne = false;
+        //}
         playerController = GameManager.Instance._playerControllers[0];
         playerInputActions = new PlayerInputActions();
+        //SubscribeInputActions();
+        //playerInputActions.Player.Enable();
     }
 
     private void OnPlayerIndexSet(int oldValue, int newValue)
     {
         if (!IsOwner || controlsInitialized) return;
-
         SubscribeInputActions(newValue);
         playerInputActions.Player.Enable();
         controlsInitialized = true;
     }
 
-    #endregion
+    void OnDisable()
+    {
+        UnsubscribeInputActions();
+    }
 
-    #region INPUT SETUP
+    public void SwitchActionMap(EPlayerState state)
+    {
+
+        if(!IsOwner) { return; }
+        playerInputActions.Player.Disable();
+        playerInputActions.UI.Disable();
+
+        switch (state)
+        {
+            case EPlayerState.Moving:
+                playerInputActions.Player.Enable();
+                break;
+
+            case EPlayerState.Paused:
+                playerInputActions.UI.Enable();
+                // Cursor.visible = true;
+                // Cursor.lockState = CursorLockMode.None;
+                break;
+
+            default:
+                // Cursor.visible = true;
+                // Cursor.lockState = CursorLockMode.None;
+                break;
+        }
+    }
 
     private void SubscribeInputActions(int index)
     {
-        if (index == 0) // Player 1
+        if (index == 0)
         {
             playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
@@ -54,7 +97,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
         }
-        else if (index == 1) // Player 2
+        else if (index == 1)
         {
             playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
@@ -70,16 +113,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         int index = playerIndex.Value;
 
-        if (index == 0)
-        {
+        if (index == 0){
             playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
             playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
 
             playerInputActions.Player.P1Shoot.started -= playerController.P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= playerController.P1ShootAction;
         }
-        else if (index == 1)
-        {
+        else if(index == 1) {
             playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
             playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
 
@@ -87,48 +128,27 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
         }
     }
-
-    private void OnDisable()
-    {
-        UnsubscribeInputActions();
-    }
-
-    #endregion
-
-    #region ACTION MAP SWITCHING
-
-    public void SwitchActionMap(EPlayerState state)
-    {
-        if (!IsOwner) return;
-
-        playerInputActions.Player.Disable();
-        playerInputActions.UI.Disable();
-
-        switch (state)
-        {
-            case EPlayerState.Moving:
-                playerInputActions.Player.Enable();
-                break;
-
-            case EPlayerState.Paused:
-                playerInputActions.UI.Enable();
-                break;
-        }
-    }
-
-    #endregion
-
-    #region MOUSE NETWORKING
-
+    
     void Update()
     {
-        if (!IsOwner) return;
+        if (!IsOwner) { return; }
+        // Get mouse position in screen space and normalize
+        mousePos = Input.mousePosition;
+        mousePos.x = mousePos.x/Screen.width;
+        mousePos.y = mousePos.y/Screen.height;
+        //mouseNetPos.Value = mousePos;
+        
+        // Send mouse position to PlayerController
+        if (isPlayerOne && !isPlayerTwo)
+        {
+            playerController.ProcessMouse1Input(mousePos);
+        }
+        else if(!isPlayerOne && isPlayerTwo)
+        {
+            playerController.ProcessMouse2Input(mousePos);
+        }
 
-        Vector2 mousePos = Input.mousePosition;
-        mousePos.x /= Screen.width;
-        mousePos.y /= Screen.height;
-
-        SendMouseToServerRpc(mousePos);
+        
     }
 
     [ServerRpc]
@@ -140,11 +160,12 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void ApplyMouseInput(Vector2 mousePos)
     {
-        if (playerIndex.Value == 0)
+        if(playerIndex.Value == 0)
+        {
             playerController.ProcessMouse1Input(mousePos);
-        else if (playerIndex.Value == 1)
+        } else if(playerIndex.Value == 1)
+        {
             playerController.ProcessMouse2Input(mousePos);
+        }
     }
-
-    #endregion
 }
