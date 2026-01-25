@@ -42,7 +42,7 @@ public class PlayerController : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if(!IsOwner) { return; }
-        // mainCamera.GetComponent<Camera>().enabled = true;
+        //mainCamera.GetComponent<Camera>().enabled = true;
         //GameManager.Instance.AddController(this);
     }
     private void Awake()
@@ -54,7 +54,7 @@ public class PlayerController : NetworkBehaviour
     private void Start()
     {
         GameManager.Instance.AddController(this);
-        // mainCamera.GetComponent<Camera>().enabled = true;
+        //mainCamera.GetComponent<Camera>().enabled = true;
     }
 
     private void OnEnable()
