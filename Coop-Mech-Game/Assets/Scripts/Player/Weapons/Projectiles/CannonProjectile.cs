@@ -9,12 +9,15 @@ public class CannonProjectile : BaseProjectile
     {
         base.Start();
 
+        Debug.Log("Start in CannonProj");
         //baseProjectileSpeed = projectileSpeed;
     }
 
     protected override void OnEnable()
     {
         //base.OnEnable();
+
+        Debug.Log("OnEnable in CannonProj");
 
         if (gameObject.activeSelf)
         {

@@ -38,6 +38,9 @@ public abstract class BaseProjectile : MonoBehaviour
     {
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+
+        Debug.Log("Start in BaseProj");
+
     }
 
     protected virtual void OnEnable()

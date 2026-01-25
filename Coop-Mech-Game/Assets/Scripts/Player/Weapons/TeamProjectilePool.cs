@@ -46,9 +46,12 @@ public class TeamProjectilePool : MonoBehaviour
             CannonProjectile cann;
 
             cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+            Debug.Log("Past instantiate" + i);
 
             cannonProjectilesList.Add(cann);
+            Debug.Log("Past adding" + i);
             cannonProjectilesList[i].gameObject.SetActive(false);
+            Debug.Log("Past disabling" + i);
             //cann.gameObject.SetActive(false);
         }
 
@@ -85,6 +88,8 @@ public class TeamProjectilePool : MonoBehaviour
         switch (weaponType)
         {
             case WeaponCannon:
+                Debug.Log("Cannon case in TOP switch");
+
                 projToRet = cannonProjectilesList[cannonIndex];
                 cannonIndex = (cannonIndex + 1) % cannonProjectilesList.Count;
                 return projToRet;
