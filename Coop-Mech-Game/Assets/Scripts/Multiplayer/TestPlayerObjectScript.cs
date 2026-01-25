@@ -5,8 +5,12 @@ using UnityEngine;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    private bool isPlayerOne;
+    [SerializeField]private bool isPlayerOne;
     private Vector2 mousePos;
+    private float mouseX;
+    private float mouseY;
+    
+    private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
 
     public override void OnNetworkSpawn()
@@ -101,15 +105,15 @@ public class TestPlayerObjectScript : NetworkBehaviour
         mousePos = Input.mousePosition;
         mousePos.x = mousePos.x/Screen.width;
         mousePos.y = mousePos.y/Screen.height;
-
+        mouseNetPos.Value = mousePos;
         // Send mouse position to PlayerController
         if (isPlayerOne)
         {
-            playerController.ProcessMouse1Input(mousePos);
+            playerController.ProcessMouse1Input(mouseNetPos.Value);
         }
         else
         {
-            playerController.ProcessMouse2Input(mousePos);
+            playerController.ProcessMouse2Input(mouseNetPos.Value);
         }
     }
 }
