@@ -11,35 +11,43 @@ public abstract class BaseProjectile : MonoBehaviour
     protected Rigidbody rb;
     protected Transform muzzle;
     //protected BaseProjectileEffect expEffect;
+    private bool hitPlayer;
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
         //check what the projectile hit
-        if (collision.gameObject.CompareTag("Player"))
+        hitPlayer = collision.gameObject.CompareTag("Player");
+        if (hitPlayer)
         {
             //send event to it's health manager
-            OnHit();
         }
+
+        OnHit(hitPlayer);
 
         this.gameObject.SetActive(false);
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        //check what the projectile hit
+        hitPlayer = other.gameObject.CompareTag("Player");
+        if (hitPlayer)
         {
             //send event to it's health manager
-            this.gameObject.SetActive(false);
-
         }
+
+        OnHit(hitPlayer);
+
+        this.gameObject.SetActive(false);
 
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
 
-        Debug.Log("Start in BaseProj");
+        Debug.Log("Awake in BaseProj");
 
     }
 
@@ -49,9 +57,11 @@ public abstract class BaseProjectile : MonoBehaviour
         // do nothing
     }
 
-    protected virtual void OnHit()
+    protected virtual void OnHit(bool didHitPlayer)
     {
-        BaseEffect fx = teamProjectilePool.GetNextEffect();
+        BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
+
+
         if (fx == null) { Debug.LogError("No effect found!"); }
         else 
         { 
