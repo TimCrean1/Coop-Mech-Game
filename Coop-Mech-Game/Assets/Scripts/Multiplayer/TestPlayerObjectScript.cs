@@ -5,18 +5,20 @@ using UnityEngine;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    [SerializeField] private bool isPlayerOne;
+    [SerializeField]private bool isPlayerOne;
     private Vector2 mousePos;
     private float mouseX;
     private float mouseY;
-    [SerializeField] private int playerIndex;
-    // [SerializeField] private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
-    // private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
+    [SerializeField]private int playerIndex;
+    //[SerializeField]private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
+    //private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
 
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
+        
+        // ask the server for an id based on connected clients
         
         playerController = GameManager.Instance._playerControllers[0];
 
@@ -33,6 +35,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerInputActions = new PlayerInputActions();
         SubscribeInputActions();
         playerInputActions.Player.Enable();
+    }
+    [ServerRpc]
+    private void AskServerForIdServerRpc()
+    {
+
     }
 
     void OnDisable()
@@ -119,11 +126,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
         // Send mouse position to PlayerController
         if (OwnerClientId == 0)
         {
-            playerController.ProcessMouse1InputClientRpc(mousePos);
+            playerController.ProcessMouse1InputServerRpc(mousePos);
+            //Debug.Log("player one" + mousePos);
+
         }
         else if(OwnerClientId == 1) 
         {
-            playerController.ProcessMouse2InputClientRpc(mousePos);
+            playerController.ProcessMouse2InputServerRpc(mousePos);
+            //Debug.Log("player two" + mousePos);
         }
     }
 }

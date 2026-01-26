@@ -11,42 +11,71 @@ public abstract class BaseProjectile : MonoBehaviour
     protected Rigidbody rb;
     protected Transform muzzle;
     //protected BaseProjectileEffect expEffect;
+    private bool hitPlayer;
+    private Vector3 collisionNormal;
+
+    public virtual void PrepFire(Vector3 targetPos, Quaternion targetRot)
+    {
+        rb.position = targetPos;
+        rb.rotation = targetRot;
+    }
+
     protected virtual void OnCollisionEnter(Collision collision)
     {
         //check what the projectile hit
-        if (collision.gameObject.CompareTag("Player"))
+        hitPlayer = collision.gameObject.CompareTag("Player");
+        if (hitPlayer)
         {
             //send event to it's health manager
         }
+
+        collisionNormal = collision.GetContact(0).normal;
+
+        OnHit(hitPlayer);
 
         this.gameObject.SetActive(false);
     }
 
-    protected void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        //check what the projectile hit
+        hitPlayer = other.gameObject.CompareTag("Player");
+        if (hitPlayer)
         {
             //send event to it's health manager
-            this.gameObject.SetActive(false);
         }
+
+        OnHit(hitPlayer);
+
+        this.gameObject.SetActive(false);
 
     }
 
-    protected virtual void Start()
+    protected virtual void Awake()
     {
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
+
+        Debug.Log("Awake in BaseProj");
+
     }
 
     protected virtual void OnEnable()
     {
-        rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
+        //rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
+        // do nothing
     }
 
-    protected virtual void OnHit()
+    protected virtual void OnHit(bool didHitPlayer)
     {
-        BaseEffect fx = teamProjectilePool.GetNextEffect();
-        if (fx == null) { Debug.LogError("No effect found!"); }
+        BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
+        fx.PrepPlay(collisionNormal);
+
+        if (fx == null) 
+        { 
+            Debug.LogError("No valid effect found, bool status fx == null: " + fx == null); 
+            return; 
+        }
         else 
         { 
             fx.gameObject.transform.position = transform.position;

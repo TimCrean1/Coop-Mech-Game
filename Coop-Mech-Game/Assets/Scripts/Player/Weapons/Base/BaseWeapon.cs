@@ -33,8 +33,10 @@ public abstract class BaseWeapon : MonoBehaviour
         {
             //pick projectile from team array
             BaseProjectile proj = teamProjectilePool.GetNextProjectile(this);
-            proj.transform.position = muzzle.transform.position;
-            proj.transform.rotation = muzzle.transform.rotation;
+            proj.PrepFire(muzzle.position, muzzle.rotation);
+
+            //proj.transform.position = muzzle.transform.position;
+            //proj.transform.rotation = muzzle.transform.rotation;
 
             //activate projectile which will "fire" it
             proj.gameObject.SetActive(true);
