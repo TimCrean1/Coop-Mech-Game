@@ -63,7 +63,7 @@ public class CharacterMovement : BaseMovement
 
     private void FixedUpdate()
     {
-        if (!IsOwner) { return; }
+        //if (!IsOwner) { return; }
         CheckIsGrounded();
         MoveCharacter();
         CharacterLook();
@@ -168,6 +168,8 @@ public class CharacterMovement : BaseMovement
 
         lookInput.x = Mathf.Abs(lookInput.x - 0.5f) < deadZoneSize ? 0.5f : lookInput.x;
         lookInput.y = Mathf.Abs(lookInput.y - 0.5f) < deadZoneSize ? 0.5f : lookInput.y;
+
+        Debug.Log("Look input bm:" + lookInput);
 
         Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
