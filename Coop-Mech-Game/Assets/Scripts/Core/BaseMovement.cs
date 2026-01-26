@@ -52,6 +52,7 @@ public abstract class BaseMovement : NetworkBehaviour
     public virtual void SetLookInput(Vector2 mouse1pos, Vector2 mouse2pos)
     {
         lookInput = (mouse1pos + mouse2pos) / 2;
+        //Debug.Log("Client lookInput:" + mouse1pos + ", " + mouse2pos);
     }
     public abstract void Shoot(float shootInput);
     #endregion

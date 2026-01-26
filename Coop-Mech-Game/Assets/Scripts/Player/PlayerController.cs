@@ -30,8 +30,10 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private GameObject mainCamera;
 
     [Header("Mouse Positions")]
-    [SerializeField] public Vector2 mouse1Pos; //Screen space pos
-    [SerializeField] public Vector2 mouse2Pos;
+    //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
+    //[SerializeField] public Vector2 mouse2Pos;
+    public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
+    public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
 
     [Header("Players")]
     [SerializeField]public TestPlayerObjectScript player1;
@@ -74,7 +76,7 @@ public class PlayerController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        if (!IsOwner) { return; }
+        //if (!IsOwner) { return; }
         if (currentState == EPlayerState.Moving)
         {
             if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
@@ -90,7 +92,8 @@ public class PlayerController : NetworkBehaviour
                 baseMovement.Shoot(syncedShootInput);
             }
 
-            baseMovement.SetLookInput(mouse1Pos, mouse2Pos);
+            baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+            //Debug.Log("Camera is being moved");
         }
     }
 
@@ -178,15 +181,16 @@ public class PlayerController : NetworkBehaviour
         P2ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
-    [ClientRpc]
-    public void ProcessMouse1InputClientRpc(Vector2 mousePos)
+    //[Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server)]
+    public void ProcessMouse1InputServerRpc(Vector2 mousePos)
     {
-        mouse1Pos = mousePos;
+        mouse1Pos.Value = mousePos;
     }
-    [ClientRpc]
-    public void ProcessMouse2InputClientRpc(Vector2 mousePos)
+    [Rpc(SendTo.Server)]
+    public void ProcessMouse2InputServerRpc(Vector2 mousePos)
     {
-        mouse2Pos = mousePos;
+        mouse2Pos.Value = mousePos;
     }
 
     #endregion

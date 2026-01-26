@@ -26,8 +26,8 @@ public class UI_Manager : MonoBehaviour
     void Update()
     {
         // Get mouse positions from Player Controller
-        mouse1Pos = playerController.mouse1Pos;
-        mouse2Pos = playerController.mouse2Pos;
+        mouse1Pos = playerController.mouse1Pos.Value;
+        mouse2Pos = playerController.mouse2Pos.Value;
         averagePos = (mouse1Pos + mouse2Pos) / 2;
 
         // Normalize values to screen space
