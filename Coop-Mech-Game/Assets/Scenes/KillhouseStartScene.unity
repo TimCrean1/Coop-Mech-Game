@@ -1440,8 +1440,73 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1381467929}
   m_SourcePrefab: {fileID: 100100000, guid: 4dcd5a7456781c74cae6203066bc9357, type: 3}
+--- !u!1 &1381467925 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
+    type: 3}
+  m_PrefabInstance: {fileID: 1381467924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1381467926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 749902750924182210, guid: 4dcd5a7456781c74cae6203066bc9357,
+    type: 3}
+  m_PrefabInstance: {fileID: 1381467924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1381467927 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7019579373606645393, guid: 4dcd5a7456781c74cae6203066bc9357,
+    type: 3}
+  m_PrefabInstance: {fileID: 1381467924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1381467928 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 400901685741501168, guid: 4dcd5a7456781c74cae6203066bc9357,
+    type: 3}
+  m_PrefabInstance: {fileID: 1381467924}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &1381467929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381467925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c30d0dbb8e4c42e283a4785eedaf222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_Manager
+  p1Cursor: {fileID: 1381467928}
+  p2Cursor: {fileID: 1381467927}
+  averageCursor: {fileID: 1381467926}
+  playerController: {fileID: 1456196965}
+  mouse1Pos: {x: 0, y: 0}
+  mouse2Pos: {x: 0, y: 0}
+  averagePos: {x: 0, y: 0}
 --- !u!1 &1412462628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1615,8 +1680,10 @@ MonoBehaviour:
   baseMovement: {fileID: 1456196966}
   playerCoroutineManager: {fileID: 1456196964}
   mainCamera: {fileID: 1086067140}
-  mouse1Pos: {x: 0, y: 0}
-  mouse2Pos: {x: 0, y: 0}
+  mouse1Pos:
+    m_InternalValue: {x: 0, y: 0}
+  mouse2Pos:
+    m_InternalValue: {x: 0, y: 0}
   player1: {fileID: 0}
   player2: {fileID: 0}
 --- !u!114 &1456196966
