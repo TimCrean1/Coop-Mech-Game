@@ -146,17 +146,23 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
         }
+        if (playerInputActions == null)
+        {
+            Debug.Log("playerInputActions is null");
+        }
     }
 
     #region Input Actions
     private void P1MoveAction(InputAction.CallbackContext context)
     {
+        Debug.Log("P1 Move Action triggered");
         Vector2 moveInput = context.ReadValue<Vector2>();
         playerController.P1MoveActionServerRpc(moveInput);
     }
 
     private void P2MoveAction(InputAction.CallbackContext context)
     {
+        Debug.Log("P2 Move Action triggered");
         Vector2 moveInput = context.ReadValue<Vector2>();
         playerController.P2MoveActionServerRpc(moveInput);
     }

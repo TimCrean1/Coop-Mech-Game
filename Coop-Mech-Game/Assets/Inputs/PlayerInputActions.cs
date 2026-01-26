@@ -90,21 +90,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     ""maps"": [
         {
             ""name"": ""Player"",
-            ""id"": ""2a71e3f2-1ce1-4e46-a148-7433af202628"",
+            ""id"": ""d6ba5a5d-e3a5-4acf-9391-b0224170c402"",
             ""actions"": [
                 {
                     ""name"": ""P1Move"",
                     ""type"": ""Value"",
-                    ""id"": ""8093e745-58fa-423e-b557-950eff8a0a4f"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""P1Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""d05fbe4b-04d0-4ecd-9933-aa9f78dbb5b5"",
+                    ""id"": ""f7305359-8196-4d62-8efc-a3beec83d914"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -113,25 +104,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""P2Move"",
                     ""type"": ""Value"",
-                    ""id"": ""a2192cc2-1e0f-43c8-8474-4a490d7ea80e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""e87b37b8-9e1a-4f7e-bedd-faff1b535272"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""P2Look"",
-                    ""type"": ""Value"",
-                    ""id"": ""152bdb89-d608-4522-a85d-59304627233c"",
+                    ""id"": ""b097e0a2-b0ea-4989-afba-e62c7b09eb34"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -140,7 +113,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""P1Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""10328edc-fe1e-4b76-beb4-4975a1e1178a"",
+                    ""id"": ""11457c01-2c6d-4201-bcb2-cb7c580bc821"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -149,7 +122,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""P2Shoot"",
                     ""type"": ""Button"",
-                    ""id"": ""e4cd573f-6311-40af-aa11-aa535963beb0"",
+                    ""id"": ""d162253a-1457-4199-9f9f-a1a920b32821"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -159,7 +132,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": ""2D Vector"",
-                    ""id"": ""e3285475-72d5-4f60-b927-9395b97ebb17"",
+                    ""id"": ""0f0812fb-472f-44d0-9690-a1b0a5967258"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -170,7 +143,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""edde3df1-576f-4154-94de-31eeb41110f8"",
+                    ""id"": ""7850af44-abb7-4968-9303-4bdd576013d4"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -181,7 +154,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""1d13d007-dee8-479b-9d73-17499d05236a"",
+                    ""id"": ""e0321470-62a1-49f6-986a-50266362d889"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -192,7 +165,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""7e588d8f-968d-47b4-bcea-193726a05850"",
+                    ""id"": ""b265f127-27a3-4c2b-b097-3b038eae9f16"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -203,7 +176,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""d135ee7d-5e45-4ff4-bc1c-5b18f7e3a541"",
+                    ""id"": ""36274df6-5dd8-478b-8f47-556be33a634b"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -214,7 +187,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""2D Vector"",
-                    ""id"": ""c970cc01-ee6d-4695-a1d9-c7a462cd721b"",
+                    ""id"": ""f9ffebaa-13b2-4639-8b3b-7e45430fec87"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -225,8 +198,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""76d91611-6b7a-45d4-b520-bcd3f632003d"",
-                    ""path"": ""<Keyboard>/upArrow"",
+                    ""id"": ""d7839067-e1ef-41bd-8fb9-e9bfb353cfab"",
+                    ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -236,8 +209,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""988c480d-143a-4d95-b0bf-82095ffca56f"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""id"": ""66a7e97d-2b4c-4a3f-8553-5ee5536b7304"",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -247,8 +220,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""764257fd-4a6b-48a2-8298-e1c9e0890049"",
-                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""id"": ""86124c0c-dc15-45d5-985f-0bcc99047585"",
+                    ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -258,8 +231,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""0e9a4592-6bd6-449d-9808-75706f499258"",
-                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""id"": ""a9c92773-5502-41f0-85ae-ef896b53c1a1"",
+                    ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -269,85 +242,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""48b08d7b-8086-4d3b-888f-6ad8f752477d"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""7cc4a387-4b6e-4874-b6d1-08f7f8011f3f"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P1Look"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""4c3a7cc3-9659-4c23-b81b-29083af4f049"",
-                    ""path"": ""<Keyboard>/leftAlt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P1Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""04d17950-ea34-473e-8ed3-d003d1ada86e"",
-                    ""path"": ""<Keyboard>/leftShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P1Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""1D Axis"",
-                    ""id"": ""13e9ef1e-1d4a-42f5-bb9b-2d55609f366f"",
-                    ""path"": ""1DAxis"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P2Look"",
-                    ""isComposite"": true,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": ""negative"",
-                    ""id"": ""311d997a-d6bd-41e0-ae34-199152a578e9"",
-                    ""path"": ""<Keyboard>/rightAlt"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P2Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": ""positive"",
-                    ""id"": ""1a28ccea-6bb4-499e-91ca-52ccc544b244"",
-                    ""path"": ""<Keyboard>/rightShift"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""P2Look"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6ddd2a3b-c858-425e-b3bb-3141a15b642b"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""77c1d1ad-d900-464b-bcd4-bb31ad095da5"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -357,8 +253,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""61885834-e9f1-4413-aaf0-9d823d00dfa8"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""id"": ""727ddf78-0bd8-4db2-b7bd-405bbe18decc"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -370,12 +266,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         },
         {
             ""name"": ""UI"",
-            ""id"": ""74ffe67e-e340-4441-abc2-d197aa5242be"",
+            ""id"": ""8fce163f-2922-4e9e-ae30-e92becc113fc"",
             ""actions"": [
                 {
                     ""name"": ""New action"",
                     ""type"": ""Button"",
-                    ""id"": ""6e9a80ed-49aa-4af1-8761-f07102b36c61"",
+                    ""id"": ""6fdcddd2-ef7d-4b38-aa4b-eed214892f40"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -385,7 +281,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""5efb9c92-f5e9-4ec8-aa32-41cf108cd8e4"",
+                    ""id"": ""c48ae64b-77c0-4a26-8983-5416de506f71"",
                     ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
@@ -402,10 +298,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_P1Move = m_Player.FindAction("P1Move", throwIfNotFound: true);
-        m_Player_P1Look = m_Player.FindAction("P1Look", throwIfNotFound: true);
         m_Player_P2Move = m_Player.FindAction("P2Move", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_P2Look = m_Player.FindAction("P2Look", throwIfNotFound: true);
         m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
         m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
         // UI
@@ -493,10 +386,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_P1Move;
-    private readonly InputAction m_Player_P1Look;
     private readonly InputAction m_Player_P2Move;
-    private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_P2Look;
     private readonly InputAction m_Player_P1Shoot;
     private readonly InputAction m_Player_P2Shoot;
     /// <summary>
@@ -515,21 +405,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @P1Move => m_Wrapper.m_Player_P1Move;
         /// <summary>
-        /// Provides access to the underlying input action "Player/P1Look".
-        /// </summary>
-        public InputAction @P1Look => m_Wrapper.m_Player_P1Look;
-        /// <summary>
         /// Provides access to the underlying input action "Player/P2Move".
         /// </summary>
         public InputAction @P2Move => m_Wrapper.m_Player_P2Move;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Jump".
-        /// </summary>
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/P2Look".
-        /// </summary>
-        public InputAction @P2Look => m_Wrapper.m_Player_P2Look;
         /// <summary>
         /// Provides access to the underlying input action "Player/P1Shoot".
         /// </summary>
@@ -567,18 +445,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P1Move.started += instance.OnP1Move;
             @P1Move.performed += instance.OnP1Move;
             @P1Move.canceled += instance.OnP1Move;
-            @P1Look.started += instance.OnP1Look;
-            @P1Look.performed += instance.OnP1Look;
-            @P1Look.canceled += instance.OnP1Look;
             @P2Move.started += instance.OnP2Move;
             @P2Move.performed += instance.OnP2Move;
             @P2Move.canceled += instance.OnP2Move;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
-            @P2Look.started += instance.OnP2Look;
-            @P2Look.performed += instance.OnP2Look;
-            @P2Look.canceled += instance.OnP2Look;
             @P1Shoot.started += instance.OnP1Shoot;
             @P1Shoot.performed += instance.OnP1Shoot;
             @P1Shoot.canceled += instance.OnP1Shoot;
@@ -599,18 +468,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P1Move.started -= instance.OnP1Move;
             @P1Move.performed -= instance.OnP1Move;
             @P1Move.canceled -= instance.OnP1Move;
-            @P1Look.started -= instance.OnP1Look;
-            @P1Look.performed -= instance.OnP1Look;
-            @P1Look.canceled -= instance.OnP1Look;
             @P2Move.started -= instance.OnP2Move;
             @P2Move.performed -= instance.OnP2Move;
             @P2Move.canceled -= instance.OnP2Move;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
-            @P2Look.started -= instance.OnP2Look;
-            @P2Look.performed -= instance.OnP2Look;
-            @P2Look.canceled -= instance.OnP2Look;
             @P1Shoot.started -= instance.OnP1Shoot;
             @P1Shoot.performed -= instance.OnP1Shoot;
             @P1Shoot.canceled -= instance.OnP1Shoot;
@@ -761,33 +621,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP1Move(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "P1Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnP1Look(InputAction.CallbackContext context);
-        /// <summary>
         /// Method invoked when associated input action "P2Move" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Move(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJump(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "P2Look" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnP2Look(InputAction.CallbackContext context);
         /// <summary>
         /// Method invoked when associated input action "P1Shoot" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
