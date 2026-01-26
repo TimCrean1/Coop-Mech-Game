@@ -183,18 +183,27 @@ public class PlayerController : NetworkBehaviour
         playerCoroutineManager.SetP2Input(P2MovementInput);
     }
 
-    public void P1ShootAction(InputAction.CallbackContext context)
+    // public void P1ShootAction(InputAction.CallbackContext context)
+    // {
+    //     P1ShootInput = context.ReadValue<float>();
+    //     playerCoroutineManager.SetP1Shoot(P1ShootInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P1ShootActionServerRpc(float P1ShootInput)
     {
-        P1ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP1Shoot(P1ShootInput);
     }
 
-    public void P2ShootAction(InputAction.CallbackContext context)
+    // public void P2ShootAction(InputAction.CallbackContext context)
+    // {
+    //     P2ShootInput = context.ReadValue<float>();
+    //     playerCoroutineManager.SetP2Shoot(P2ShootInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P2ShootActionServerRpc(float P2ShootInput)
     {
-        P2ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
-    //[Rpc(SendTo.Server)]
     [Rpc(SendTo.Server)]
     public void ProcessMouse1InputServerRpc(Vector2 mousePos)
     {
