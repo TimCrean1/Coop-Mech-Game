@@ -19,8 +19,10 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Player Input")]
     private PlayerInputActions playerInputActions; 
-    [SerializeField] private Vector2 P1MovementInput;
-    [SerializeField] private Vector2 P2MovementInput;
+    //[SerializeField] private Vector2 P1MovementInput;
+    //[SerializeField] private Vector2 P2MovementInput;
+    public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
+    public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
     [SerializeField] private float P1ShootInput;
     [SerializeField] private float P2ShootInput;
 
@@ -163,7 +165,8 @@ public class PlayerController : NetworkBehaviour
     //     P1MovementInput = context.ReadValue<Vector2>();
     //     playerCoroutineManager.SetP1Input(P1MovementInput);
     // }
-    public void P1MoveAction(Vector2 P1MovementInput)
+    [Rpc(SendTo.Server)]
+    public void P1MoveActionServerRpc(Vector2 P1MovementInput)
     {
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
@@ -173,7 +176,8 @@ public class PlayerController : NetworkBehaviour
     //     P2MovementInput = context.ReadValue<Vector2>();
     //     playerCoroutineManager.SetP2Input(P2MovementInput);
     // }
-    public void P2MoveAction(Vector2 P2MovementInput)
+    [Rpc(SendTo.Server)]
+    public void P2MoveActionServerRpc(Vector2 P2MovementInput)
     {
         playerCoroutineManager.SetP2Input(P2MovementInput);
     }

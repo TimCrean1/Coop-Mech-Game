@@ -152,13 +152,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private void P1MoveAction(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
-        playerController.P1MoveAction(moveInput);
+        playerController.P1MoveActionServerRpc(moveInput);
     }
 
     private void P2MoveAction(InputAction.CallbackContext context)
     {
         Vector2 moveInput = context.ReadValue<Vector2>();
-        playerController.P2MoveAction(moveInput);
+        playerController.P2MoveActionServerRpc(moveInput);
     }
     #endregion
 }
