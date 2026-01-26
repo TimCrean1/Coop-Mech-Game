@@ -157,16 +157,24 @@ public class PlayerController : NetworkBehaviour
 
     #region Input Actions
 
-    public void P1MoveAction(InputAction.CallbackContext context)
+    // public void P1MoveAction(InputAction.CallbackContext context)
+    // {
+    //     // Debug.Log("yes");
+    //     P1MovementInput = context.ReadValue<Vector2>();
+    //     playerCoroutineManager.SetP1Input(P1MovementInput);
+    // }
+    public void P1MoveAction(Vector2 P1MovementInput)
     {
-        // Debug.Log("yes");
-        P1MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
 
-    public void P2MoveAction(InputAction.CallbackContext context)
+    // public void P2MoveAction(InputAction.CallbackContext context)
+    // {
+    //     P2MovementInput = context.ReadValue<Vector2>();
+    //     playerCoroutineManager.SetP2Input(P2MovementInput);
+    // }
+    public void P2MoveAction(Vector2 P2MovementInput)
     {
-        P2MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP2Input(P2MovementInput);
     }
 

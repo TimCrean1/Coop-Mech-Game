@@ -2483,9 +2483,11 @@ MonoBehaviour:
   numFX: 50
   cannonProj: {fileID: 5498303484653683307, guid: c418a542d4bdd9140a3d92ad231eda75,
     type: 3}
-  baseEffect: {fileID: 0}
+  groundEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
   cannonProjectilesList: []
-  effectsList: []
+  groundEffectsList: []
+  hitEffectsList: []
 --- !u!1 &750168891
 GameObject:
   m_ObjectHideFlags: 0
@@ -7878,6 +7880,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RuntimeNetworkManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1612208945821321867, guid: b900749788629a944ac8945a45960343,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
