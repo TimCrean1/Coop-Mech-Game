@@ -1440,18 +1440,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1381467929}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dcd5a7456781c74cae6203066bc9357, type: 3}
---- !u!1 &1381467925 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
-    type: 3}
-  m_PrefabInstance: {fileID: 1381467924}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1381467926 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 749902750924182210, guid: 4dcd5a7456781c74cae6203066bc9357,
@@ -1488,25 +1478,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!114 &1381467929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1381467925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c30d0dbb8e4c42e283a4785eedaf222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_Manager
-  p1Cursor: {fileID: 1381467928}
-  p2Cursor: {fileID: 1381467927}
-  averageCursor: {fileID: 1381467926}
-  playerController: {fileID: 1456196965}
-  mouse1Pos: {x: 0, y: 0}
-  mouse2Pos: {x: 0, y: 0}
-  averagePos: {x: 0, y: 0}
 --- !u!1 &1412462628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1635,9 +1606,9 @@ GameObject:
   - component: {fileID: 1456196966}
   - component: {fileID: 1456196965}
   - component: {fileID: 1456196964}
-  - component: {fileID: 1456196971}
   - component: {fileID: 1456196973}
   - component: {fileID: 1456196972}
+  - component: {fileID: 1456196975}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1893,19 +1864,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
---- !u!114 &1456196971
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1456196963}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7511b7bc3234840db8f9416395d4a4f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 2800000, guid: 76f83d60beee7436092b4f0479873128, type: 3}
 --- !u!114 &1456196972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1971,6 +1929,25 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!114 &1456196975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1456196963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c30d0dbb8e4c42e283a4785eedaf222, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_Manager
+  p1Cursor: {fileID: 1381467928}
+  p2Cursor: {fileID: 1381467927}
+  averageCursor: {fileID: 1381467926}
+  playerController: {fileID: 1456196965}
+  mouse1Pos: {x: 0, y: 0}
+  mouse2Pos: {x: 0, y: 0}
+  averagePos: {x: 0, y: 0}
 --- !u!1 &1698508119
 GameObject:
   m_ObjectHideFlags: 0
