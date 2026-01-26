@@ -178,13 +178,13 @@ public class PlayerController : NetworkBehaviour
         P2ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
-
-    public void ProcessMouse1Input(Vector2 mousePos)
+    [ClientRpc]
+    public void ProcessMouse1InputClientRpc(Vector2 mousePos)
     {
         mouse1Pos = mousePos;
     }
-
-    public void ProcessMouse2Input(Vector2 mousePos)
+    [ClientRpc]
+    public void ProcessMouse2InputClientRpc(Vector2 mousePos)
     {
         mouse2Pos = mousePos;
     }
