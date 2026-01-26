@@ -134,14 +134,14 @@ public class LobbyManager : MonoBehaviour {
                     }
                 }
 
-                if (!alreadyStartedGame) {
-                    if (IsLobbyHost()) {
-                        if (joinedLobby.Players.Count == 2) {
-                            // Two players have joined, start game
-                            StartGame();
-                        }
-                    }
-                }
+                //if (!alreadyStartedGame) {
+                //    if (IsLobbyHost()) {
+                //        if (joinedLobby.Players.Count == 2) {
+                //            // Two players have joined, start game
+                //            StartGame();
+                //        }
+                //    }
+                //}
 
 
                 if (!IsPlayerInLobby()) {
@@ -156,6 +156,20 @@ public class LobbyManager : MonoBehaviour {
         }
     }
 
+    public void StartIfHost()
+    {
+        if (!alreadyStartedGame)
+        {
+            if (IsLobbyHost())
+            {
+                if (joinedLobby.Players.Count == joinedLobby.MaxPlayers)
+                {
+                    
+                    StartGame();
+                }
+            }
+        }
+    }
     public Lobby GetJoinedLobby() {
         return joinedLobby;
     }
