@@ -205,7 +205,7 @@ public class CharacterMovement : BaseMovement
     {
         if (shootInput <= 0f) return;
         Debug.Log("Shooting!");
-        //weapon.Fire();
+        weapon.Fire();
     }
 #endregion
 #region Jumping
