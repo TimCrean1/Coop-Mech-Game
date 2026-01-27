@@ -25,6 +25,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public virtual void Fire()
     {
         StartCoroutine(FireRoutine(baseFireRate));
+        Debug.Log("Fire input received");
     }
 
     protected virtual IEnumerator FireRoutine(float fireRate) //public because this will be called by input handler
@@ -44,12 +45,14 @@ public abstract class BaseWeapon : MonoBehaviour
 
         BuildCooldown();
         yield return new WaitForSeconds(fireRate);
+        Debug.Log("Fire complete!");
     }
 
     protected virtual void BuildCooldown()
     {
         ammoCount -= 1;
-        if(ammoCount <= 0)
+        Debug.Log("Ammo: " + ammoCount);
+        if (ammoCount <= 0)
         {
             ActivateCooldown();
         }
@@ -59,10 +62,13 @@ public abstract class BaseWeapon : MonoBehaviour
     {
         canFire = false;
 
+        Debug.Log("cooldown start");
+
         yield return new WaitForSeconds(cooldownTime);
 
         ammoCount = ammo;
         canFire = true;
+        Debug.Log("cooldown end");
     }
 
 }
