@@ -121,7 +121,20 @@ public class CharacterMovement : BaseMovement
             Vector3 move = camForward * movementDirection.z;
 
             if (isGrounded)
-                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration); //TODO: i think here is mech rig, don't use physics?
+                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
+            else
+                rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
+        }
+        if (movementDirection.x != 0)
+        {
+            Vector3 camRight = playerCamera.transform.right;
+            camRight.y = 0;
+            camRight.Normalize();
+
+            Vector3 move = camRight * movementDirection.x;
+
+            if (isGrounded)
+                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
             else
                 rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
         }
