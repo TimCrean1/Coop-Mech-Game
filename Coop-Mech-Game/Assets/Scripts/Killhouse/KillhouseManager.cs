@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine;
 
 public class KillhouseManager : MonoBehaviour
@@ -17,6 +19,8 @@ public class KillhouseManager : MonoBehaviour
     [SerializeField] private float points;
     [SerializeField] private List<float> leaderBoard;
     [SerializeField] private List<KillhouseEnemy> enemiesList;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private TextMeshProUGUI pointsText;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -81,6 +85,7 @@ public class KillhouseManager : MonoBehaviour
     {
         Debug.Log("Started Kill House!");
         currentKHStatus = KillhouseStatus.Playing;
+        timer = 0;
         ActivateEnemies();
     }
     public void CancelTrial()
@@ -96,7 +101,6 @@ public class KillhouseManager : MonoBehaviour
         leaderBoard.Add(timer);
         leaderBoard.Sort((a, b) => a.CompareTo(b));
         Debug.Log("Trial Complete! Your time was: " + timer + ". You got " + points + " points!");
-        timer = 0;
         currentKHStatus = KillhouseStatus.Waiting;
         DeactivateEnemies();
     }
@@ -112,5 +116,7 @@ public class KillhouseManager : MonoBehaviour
         {
             timer += Time.deltaTime;
         }
+        timerText.text = "Time: " + timer.ToString("F2") + "s";
+        pointsText.text = "Points: " + points.ToString("F0");
     }
 }

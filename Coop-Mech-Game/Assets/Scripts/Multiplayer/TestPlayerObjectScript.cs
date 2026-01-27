@@ -1,5 +1,6 @@
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
+using UnityEngine.InputSystem;
 using UnityEngine;
 
 public class TestPlayerObjectScript : NetworkBehaviour
@@ -75,37 +76,58 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (OwnerClientId == 0)
         {
-            playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
-            playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
+            // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
+            // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
 
-            playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
-            playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
+            // playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
+            // playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
+
+            playerInputActions.Player.P1Move.started += P1MoveAction;
+            playerInputActions.Player.P1Move.canceled += P1MoveAction;
+
+            playerInputActions.Player.P1Shoot.performed += P1ShootAction;
+            playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
         else if (OwnerClientId == 1) 
         {
-            playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
-            playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
+            // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
+            // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
 
-            playerInputActions.Player.P2Shoot.started += playerController.P2ShootAction;
-            playerInputActions.Player.P2Shoot.canceled += playerController.P2ShootAction;
+            // playerInputActions.Player.P2Shoot.started += playerController.P2ShootAction;
+            // playerInputActions.Player.P2Shoot.canceled += playerController.P2ShootAction;
+
+            playerInputActions.Player.P2Move.started += P2MoveAction;
+            playerInputActions.Player.P2Move.canceled += P2MoveAction;
+
+            playerInputActions.Player.P2Shoot.started += P2ShootAction;
+            playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
         }
     }
 
     private void UnsubscribeInputActions()
     {
         if (OwnerClientId == 0){
-            playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
-            playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
+            // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
+            // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
+            playerInputActions.Player.P1Move.started -= P1MoveAction;
+            playerInputActions.Player.P1Move.canceled -= P1MoveAction;
 
-            playerInputActions.Player.P1Shoot.started -= playerController.P1ShootAction;
-            playerInputActions.Player.P1Shoot.canceled -= playerController.P1ShootAction;
+            // playerInputActions.Player.P1Shoot.started -= playerController.P1ShootAction;
+            // playerInputActions.Player.P1Shoot.canceled -= playerController.P1ShootAction;
+
+            playerInputActions.Player.P1Shoot.started -= P1ShootAction;
+            playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
         }
         else if (OwnerClientId == 1){
-            playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
-            playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
+            // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
+            // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
+            playerInputActions.Player.P2Move.started -= P2MoveAction;
+            playerInputActions.Player.P2Move.canceled -= P2MoveAction;
 
-            playerInputActions.Player.P2Shoot.started -= playerController.P2ShootAction;
-            playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
+            // playerInputActions.Player.P2Shoot.started -= playerController.P2ShootAction;
+            // playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
+            playerInputActions.Player.P2Shoot.started -= P2ShootAction;
+            playerInputActions.Player.P2Shoot.canceled -= P2ShootAction;
         }
     }
     //[ClientRpc]
@@ -135,5 +157,37 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
         }
+        if (playerInputActions == null)
+        {
+            Debug.Log("playerInputActions is null");
+        }
     }
+
+    #region Input Actions
+    private void P1MoveAction(InputAction.CallbackContext context)
+    {
+        // Debug.Log("P1 Move Action triggered");
+        Vector2 moveInput = context.ReadValue<Vector2>();
+        playerController.P1MoveActionServerRpc(moveInput);
+    }
+
+    private void P2MoveAction(InputAction.CallbackContext context)
+    {
+        // Debug.Log("P2 Move Action triggered");
+        Vector2 moveInput = context.ReadValue<Vector2>();
+        playerController.P2MoveActionServerRpc(moveInput);
+    }
+
+    private void P1ShootAction(InputAction.CallbackContext context)
+    {
+        float isShooting = context.ReadValue<float>();
+        playerController.P1ShootActionServerRpc(isShooting);
+    }
+
+    private void P2ShootAction(InputAction.CallbackContext context)
+    {
+        float isShooting = context.ReadValue<float>();
+        playerController.P2ShootActionServerRpc(isShooting);
+    }
+    #endregion
 }

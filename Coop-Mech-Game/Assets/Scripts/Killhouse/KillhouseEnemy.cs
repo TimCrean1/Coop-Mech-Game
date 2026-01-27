@@ -9,7 +9,9 @@ public class KillhouseEnemy : MonoBehaviour
 {
     [Header("Component References")]
     [SerializeField] private BoxCollider boxCollider;
-    [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private MeshRenderer mainMeshRenderer;
+    [SerializeField] private MeshRenderer childMeshRenderer1;
+    [SerializeField] private MeshRenderer childMeshRenderer2;
     [SerializeField] private AudioSource audioSource;
     [SerializeField] private KillhouseManager killhouseManager;
     [Header("Instance Values")]
@@ -19,7 +21,9 @@ public class KillhouseEnemy : MonoBehaviour
     void Awake()
     {
         boxCollider = GetComponent<BoxCollider>();
-        meshRenderer = GetComponent<MeshRenderer>();
+        mainMeshRenderer = GetComponent<MeshRenderer>();
+        childMeshRenderer1 = transform.GetChild(0).GetComponent<MeshRenderer>();
+        childMeshRenderer2 = transform.GetChild(1).GetComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         audioSource.playOnAwake = false;
     }
@@ -33,13 +37,17 @@ public class KillhouseEnemy : MonoBehaviour
     public void Activate()
     {
         boxCollider.enabled = true;
-        meshRenderer.enabled = true;
+        mainMeshRenderer.enabled = true;
+        childMeshRenderer1.enabled = true;
+        childMeshRenderer2.enabled = true;
         isActive = true;
     }
     public void Deactivate()
     {
         boxCollider.enabled = false;
-        meshRenderer.enabled = false;
+        mainMeshRenderer.enabled = false;
+        childMeshRenderer1.enabled = false;
+        childMeshRenderer2.enabled = false;
         isActive = false;
     }
 
@@ -51,6 +59,7 @@ public class KillhouseEnemy : MonoBehaviour
             audioSource.Play();
             Destroy(collision.gameObject);
             Deactivate();
+
         }
     }
 }

@@ -234,8 +234,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KillhouseEnemy
   boxCollider: {fileID: 0}
-  meshRenderer: {fileID: 0}
+  mainMeshRenderer: {fileID: 0}
+  childMeshRenderer1: {fileID: 0}
+  childMeshRenderer2: {fileID: 0}
   audioSource: {fileID: 0}
   killhouseManager: {fileID: 0}
-  pointsValue: -1
+  pointsValue: -2
   isActive: 1

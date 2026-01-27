@@ -29,7 +29,7 @@ public class UI_Manager : MonoBehaviour
         mouse1Pos = playerController.mouse1Pos.Value;
         mouse2Pos = playerController.mouse2Pos.Value;
         averagePos = (mouse1Pos + mouse2Pos) / 2;
-
+        
         // Normalize values to screen space
         mouse1Pos.x *= Screen.width;
         mouse1Pos.y *= Screen.height;

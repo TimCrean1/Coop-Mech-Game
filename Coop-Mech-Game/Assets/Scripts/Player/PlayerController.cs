@@ -19,8 +19,10 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Player Input")]
     private PlayerInputActions playerInputActions; 
-    [SerializeField] private Vector2 P1MovementInput;
-    [SerializeField] private Vector2 P2MovementInput;
+    //[SerializeField] private Vector2 P1MovementInput;
+    //[SerializeField] private Vector2 P2MovementInput;
+    public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
+    public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
     [SerializeField] private float P1ShootInput;
     [SerializeField] private float P2ShootInput;
 
@@ -79,6 +81,7 @@ public class PlayerController : NetworkBehaviour
         //if (!IsOwner) { return; }
         if (currentState == EPlayerState.Moving)
         {
+            
             if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
             {
                 baseMovement.SetMovementInput(syncedMoveInput);
@@ -93,8 +96,10 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+            Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
             //Debug.Log("Camera is being moved");
         }
+        // Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
     }
 
     #endregion
@@ -157,31 +162,50 @@ public class PlayerController : NetworkBehaviour
 
     #region Input Actions
 
-    public void P1MoveAction(InputAction.CallbackContext context)
+    // public void P1MoveAction(InputAction.CallbackContext context)
+    // {
+    //     // Debug.Log("yes");
+    //     P1MovementInput = context.ReadValue<Vector2>();
+    //     playerCoroutineManager.SetP1Input(P1MovementInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P1MoveActionServerRpc(Vector2 P1MovementInput)
     {
-        // Debug.Log("yes");
-        P1MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
 
-    public void P2MoveAction(InputAction.CallbackContext context)
+    // public void P2MoveAction(InputAction.CallbackContext context)
+    // {
+    //     P2MovementInput = context.ReadValue<Vector2>();
+    //     playerCoroutineManager.SetP2Input(P2MovementInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P2MoveActionServerRpc(Vector2 P2MovementInput)
     {
-        P2MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP2Input(P2MovementInput);
     }
 
-    public void P1ShootAction(InputAction.CallbackContext context)
+    // public void P1ShootAction(InputAction.CallbackContext context)
+    // {
+    //     P1ShootInput = context.ReadValue<float>();
+    //     playerCoroutineManager.SetP1Shoot(P1ShootInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P1ShootActionServerRpc(float P1ShootInput)
     {
-        P1ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP1Shoot(P1ShootInput);
     }
 
-    public void P2ShootAction(InputAction.CallbackContext context)
+    // public void P2ShootAction(InputAction.CallbackContext context)
+    // {
+    //     P2ShootInput = context.ReadValue<float>();
+    //     playerCoroutineManager.SetP2Shoot(P2ShootInput);
+    // }
+    [Rpc(SendTo.Server)]
+    public void P2ShootActionServerRpc(float P2ShootInput)
     {
-        P2ShootInput = context.ReadValue<float>();
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
-    //[Rpc(SendTo.Server)]
     [Rpc(SendTo.Server)]
     public void ProcessMouse1InputServerRpc(Vector2 mousePos)
     {
