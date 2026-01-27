@@ -22,6 +22,8 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public float FireRate { get { return baseFireRate; } }
 
+    private Vector3 rot;
+
     public virtual void Fire() //public because this will be called by input handler
     {
         if (canFire)
@@ -39,13 +41,15 @@ public abstract class BaseWeapon : MonoBehaviour
             //pick projectile from team array
             GameObject proj = teamProjectilePool.GetNextProjectile(this);
             BaseProjectile ee = proj.GetComponent<BaseProjectile>();
+            
             ee.PrepFire(muzzle.position, muzzle.rotation);
 
+            proj.gameObject.SetActive(true);
             //proj.transform.position = muzzle.transform.position;
             //proj.transform.rotation = muzzle.transform.rotation;
 
             //activate projectile which will "fire" it
-            proj.gameObject.SetActive(true);
+
 
             BuildCooldown();
             yield return new WaitForSeconds(fireRate);
@@ -53,6 +57,11 @@ public abstract class BaseWeapon : MonoBehaviour
 
         canFire = true;
         Debug.Log("Fire complete!");
+    }
+
+    public virtual void SetAverageCursorPos(Vector3 pos)
+    {
+        rot = pos;
     }
 
     protected virtual void BuildCooldown()

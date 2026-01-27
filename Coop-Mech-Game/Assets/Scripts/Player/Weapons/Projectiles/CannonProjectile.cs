@@ -30,7 +30,7 @@ public class CannonProjectile : BaseProjectile
 
     protected override void OnEnable()
     {
-        //base.OnEnable();
+        base.OnEnable();
 
         //Debug.Log("OnEnable in CannonProj");
         //Debug.Log("rb may be null, status: " + (rb == null));
@@ -44,8 +44,14 @@ public class CannonProjectile : BaseProjectile
 
         if (gameObject.activeSelf)
         {
+            Debug.Log("forward " + transform.forward + "rotation " + transform.rotation.eulerAngles + "game object " + transform.gameObject);
             rb.AddForce(transform.forward * projectileSpeed, ForceMode.Impulse);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Debug.DrawRay(transform.position, transform.forward, Color.yellow);
     }
 
 }

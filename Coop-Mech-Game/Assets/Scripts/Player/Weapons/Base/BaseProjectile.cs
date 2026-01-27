@@ -14,14 +14,18 @@ public abstract class BaseProjectile : MonoBehaviour
     private bool hitPlayer;
     private Vector3 collisionNormal;
 
-    public virtual void PrepFire(Vector3 targetPos, Quaternion targetRot)
+    private Vector3 targetPos = Vector3.zero;
+    private Quaternion targetRot = Quaternion.identity;
+
+    public virtual void PrepFire(Vector3 tpos, Quaternion trot)
     {
-        rb.position = targetPos;
-        rb.rotation = targetRot;
+        targetPos = tpos;
+        targetRot = trot;
     }
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        Debug.Log("We hit this thing" + collision.gameObject);
         //check what the projectile hit
         hitPlayer = collision.gameObject.CompareTag("Player");
         if (hitPlayer)
@@ -62,6 +66,9 @@ public abstract class BaseProjectile : MonoBehaviour
 
     protected virtual void OnEnable()
     {
+        transform.position = targetPos;
+        transform.rotation = targetRot;
+        Debug.Log("target position: " + targetPos + " target rotation " + targetRot.eulerAngles + " rb pos: " + transform.position + " rb rot: " + transform.rotation.eulerAngles);
         //rb.AddForce(transform.forward *  baseProjectileSpeed, ForceMode.Impulse);
         // do nothing
     }

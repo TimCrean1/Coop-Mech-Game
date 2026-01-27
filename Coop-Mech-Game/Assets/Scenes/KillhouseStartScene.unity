@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 1093926876}
   - component: {fileID: 1093926875}
   - component: {fileID: 1093926874}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -958,7 +958,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1157553973}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Walls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -996,7 +996,7 @@ GameObject:
   - component: {fileID: 1195285663}
   - component: {fileID: 1195285662}
   - component: {fileID: 1195285661}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1108,7 +1108,7 @@ GameObject:
   - component: {fileID: 1264556580}
   - component: {fileID: 1264556579}
   - component: {fileID: 1264556578}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1343,6 +1343,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 323484045957507447, guid: e71ca5b810a4745328c81c7f4205f9f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2447908426108536807, guid: e71ca5b810a4745328c81c7f4205f9f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1397,6 +1402,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Hostile Humanoid Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 3076916301429661021, guid: e71ca5b810a4745328c81c7f4205f9f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4536542810632811256, guid: e71ca5b810a4745328c81c7f4205f9f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676698202846026446, guid: e71ca5b810a4745328c81c7f4205f9f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5104011422669875080, guid: e71ca5b810a4745328c81c7f4205f9f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 7087126430718337675, guid: e71ca5b810a4745328c81c7f4205f9f6,
         type: 3}
@@ -1647,7 +1672,7 @@ GameObject:
   - component: {fileID: 1412462631}
   - component: {fileID: 1412462630}
   - component: {fileID: 1412462629}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1810,7 +1835,7 @@ MonoBehaviour:
   P2ShootInput: 0
   baseMovement: {fileID: 1456196966}
   playerCoroutineManager: {fileID: 1456196964}
-  mainCamera: {fileID: 1086067140}
+  mainCamera: {fileID: 220202312}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -2062,7 +2087,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   teamProjectilePool: {fileID: 1456196972}
-  muzzle: {fileID: 220202313}
+  muzzle: {fileID: 1086067143}
   ammo: 10
   baseFireRate: 1
 --- !u!114 &1456196974
@@ -2106,6 +2131,8 @@ MonoBehaviour:
   p2Cursor: {fileID: 1381467927}
   averageCursor: {fileID: 1381467926}
   playerController: {fileID: 1456196965}
+  playerCamera: {fileID: 1086067142}
+  weapon: {fileID: 0}
   mouse1Pos: {x: 0, y: 0}
   mouse2Pos: {x: 0, y: 0}
   averagePos: {x: 0, y: 0}
@@ -2441,7 +2468,7 @@ GameObject:
   - component: {fileID: 1698508122}
   - component: {fileID: 1698508121}
   - component: {fileID: 1698508120}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2553,7 +2580,7 @@ GameObject:
   - component: {fileID: 1933620581}
   - component: {fileID: 1933620580}
   - component: {fileID: 1933620579}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2777,7 +2804,7 @@ GameObject:
   - component: {fileID: 1972107877}
   - component: {fileID: 1972107876}
   - component: {fileID: 1972107875}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2885,10 +2912,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4266765288778249191, guid: 3571785be3d4d45f491374747dee2fda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4397051491702427297, guid: 3571785be3d4d45f491374747dee2fda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4834199215146067607, guid: 3571785be3d4d45f491374747dee2fda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 6291783932263057714, guid: 3571785be3d4d45f491374747dee2fda,
         type: 3}
       propertyPath: m_Name
       value: Friendly Humanoid Target
+      objectReference: {fileID: 0}
+    - target: {fileID: 6291783932263057714, guid: 3571785be3d4d45f491374747dee2fda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 6636960642101973896, guid: 3571785be3d4d45f491374747dee2fda,
         type: 3}
@@ -2939,6 +2986,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8763635657488973080, guid: 3571785be3d4d45f491374747dee2fda,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
