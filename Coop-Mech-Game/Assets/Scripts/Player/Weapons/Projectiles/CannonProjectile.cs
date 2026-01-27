@@ -9,7 +9,7 @@ public class CannonProjectile : BaseProjectile
     {
         base.Awake();
 
-        Debug.Log("Awake in CannonProj");
+        //Debug.Log("Awake in CannonProj");
         //baseProjectileSpeed = projectileSpeed;
     }
 
@@ -32,8 +32,8 @@ public class CannonProjectile : BaseProjectile
     {
         //base.OnEnable();
 
-        Debug.Log("OnEnable in CannonProj");
-        Debug.Log("rb may be null, status: " + (rb == null));
+        //Debug.Log("OnEnable in CannonProj");
+        //Debug.Log("rb may be null, status: " + (rb == null));
 
         if (rb == null)
         {

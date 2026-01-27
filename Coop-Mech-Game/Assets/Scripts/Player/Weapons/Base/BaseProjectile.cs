@@ -56,7 +56,7 @@ public abstract class BaseProjectile : MonoBehaviour
         col = GetComponent<Collider>();
         rb = GetComponent<Rigidbody>();
 
-        Debug.Log("Awake in BaseProj");
+        //Debug.Log("Awake in BaseProj");
 
     }
 

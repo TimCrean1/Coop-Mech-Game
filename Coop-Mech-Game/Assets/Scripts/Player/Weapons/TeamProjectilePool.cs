@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class TeamProjectilePool : MonoBehaviour
@@ -49,6 +50,7 @@ public class TeamProjectilePool : MonoBehaviour
             CannonProjectile cann;
             //Debug.Log("Before instantiate " + i);
             cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+            cann.GetComponent<NetworkObject>().Spawn(true);
             //Debug.Log("Past instantiate " + i);
             //Debug.Log(i + " did start: " + cann.didStart);
 
