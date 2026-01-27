@@ -96,7 +96,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
-            Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
+            //Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
             //Debug.Log("Camera is being moved");
         }
         // Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
