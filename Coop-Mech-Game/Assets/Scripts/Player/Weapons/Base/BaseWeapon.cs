@@ -51,7 +51,7 @@ public abstract class BaseWeapon : MonoBehaviour
             //activate projectile which will "fire" it
 
 
-            BuildCooldown();
+            //BuildCooldown();
             yield return new WaitForSeconds(fireRate);
         }
 
