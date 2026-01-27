@@ -22,29 +22,36 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public float FireRate { get { return baseFireRate; } }
 
-    public virtual void Fire()
-    {
-        StartCoroutine(FireRoutine(baseFireRate));
-        Debug.Log("Fire input received");
-    }
-
-    protected virtual IEnumerator FireRoutine(float fireRate) //public because this will be called by input handler
+    public virtual void Fire() //public because this will be called by input handler
     {
         if (canFire)
         {
+            StartCoroutine(FireRoutine(baseFireRate));
+            Debug.Log("Fire input received");
+        }
+    }
+
+    protected virtual IEnumerator FireRoutine(float fireRate) 
+    {
+        if (canFire)
+        {
+            canFire = false;
             //pick projectile from team array
-            BaseProjectile proj = teamProjectilePool.GetNextProjectile(this);
-            proj.PrepFire(muzzle.position, muzzle.rotation);
+            GameObject proj = teamProjectilePool.GetNextProjectile(this);
+            BaseProjectile ee = proj.GetComponent<BaseProjectile>();
+            ee.PrepFire(muzzle.position, muzzle.rotation);
 
             //proj.transform.position = muzzle.transform.position;
             //proj.transform.rotation = muzzle.transform.rotation;
 
             //activate projectile which will "fire" it
             proj.gameObject.SetActive(true);
+
+            BuildCooldown();
+            yield return new WaitForSeconds(fireRate);
         }
 
-        BuildCooldown();
-        yield return new WaitForSeconds(fireRate);
+        canFire = true;
         Debug.Log("Fire complete!");
     }
 

@@ -68,18 +68,18 @@ public abstract class BaseProjectile : MonoBehaviour
 
     protected virtual void OnHit(bool didHitPlayer)
     {
-        BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
-        fx.PrepPlay(collisionNormal);
+        //BaseEffect fx = teamProjectilePool.GetNextEffect(didHitPlayer);
+        //fx.PrepPlay(collisionNormal);
 
-        if (fx == null) 
-        { 
-            Debug.LogError("No valid effect found, bool status fx == null: " + fx == null); 
-            return; 
-        }
-        else 
-        { 
-            fx.gameObject.transform.position = transform.position;
-            fx.gameObject.SetActive(true); 
-        }
+        //if (fx == null) 
+        //{ 
+        //    Debug.LogError("No valid effect found, bool status fx == null: " + fx == null); 
+        //    return; 
+        //}
+        //else 
+        //{ 
+        //    fx.gameObject.transform.position = transform.position;
+        //    fx.gameObject.SetActive(true); 
+        //}
     }
 }

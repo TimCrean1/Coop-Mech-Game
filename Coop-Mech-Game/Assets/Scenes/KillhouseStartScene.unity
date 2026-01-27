@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 220202312}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.5, z: 1}
+  m_LocalPosition: {x: 0, y: -0.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2036,6 +2036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c70acd447d6534cb5b8b7bd00947f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamProjectilePool
+  ShowTopMostFoldoutHeaderGroup: 1
   ProjectileSpawnPos: {x: 0, y: -10, z: 0}
   numCanProj: 10
   numAutoProj: 100

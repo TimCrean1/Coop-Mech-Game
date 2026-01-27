@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
-public class TeamProjectilePool : MonoBehaviour
+public class TeamProjectilePool : NetworkBehaviour
 {
     /// <summary>
     /// 
@@ -28,7 +29,7 @@ public class TeamProjectilePool : MonoBehaviour
     [SerializeField] private BaseEffect groundEffect;
     [SerializeField] private BaseEffect hitEffect;
 
-    public List<CannonProjectile> cannonProjectilesList = new List<CannonProjectile>();
+    public List<GameObject> cannonProjectilesList = new List<GameObject>();
     //public ListMGProjectile> MGProj = new List<MGProjectile>(); 
     //public List<LaserProjectile> lasProj = new List<LaserProjectile>(); 
     public List<BaseEffect> groundEffectsList = new List<BaseEffect>();
@@ -38,13 +39,12 @@ public class TeamProjectilePool : MonoBehaviour
     private int mgIndex = 0;
     private int lasIndex = 0;
     private int effectIndex = 0;
-    private BaseProjectile projToRet;
+    private GameObject projToRet;
     private BaseEffect effectToRet;
 
-
-    private void Start()
+    public override void OnNetworkSpawn()
     {
-        for(int i = 0; i < numCanProj; i++)
+        for (int i = 0; i < numCanProj; i++)
         {
             //instantiate below map
             CannonProjectile cann;
@@ -54,7 +54,7 @@ public class TeamProjectilePool : MonoBehaviour
             //Debug.Log("Past instantiate " + i);
             //Debug.Log(i + " did start: " + cann.didStart);
 
-            cannonProjectilesList.Add(cann);
+            cannonProjectilesList.Add(cann.gameObject);
             //Debug.Log("Past adding " + i);
             cannonProjectilesList[i].gameObject.SetActive(false);
             //Debug.Log("Past disabling " + i);
@@ -79,7 +79,7 @@ public class TeamProjectilePool : MonoBehaviour
             //las.enabled = false;
         }
 
-        for(int i = 0; i < numFX; i++)
+        for (int i = 0; i < numFX; i++)
         {
             //instantiate below map
             //BaseEffect gf = Instantiate(groundEffect, ProjectileSpawnPos, Quaternion.identity);
@@ -92,13 +92,64 @@ public class TeamProjectilePool : MonoBehaviour
             //hitEffectsList[i].gameObject.SetActive(false);
         }
     }
+    private void Start()
+    {
+        //for(int i = 0; i < numCanProj; i++)
+        //{
+        //    //instantiate below map
+        //    CannonProjectile cann;
+        //    //Debug.Log("Before instantiate " + i);
+        //    cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+        //    cann.GetComponent<NetworkObject>().Spawn(true);
+        //    //Debug.Log("Past instantiate " + i);
+        //    //Debug.Log(i + " did start: " + cann.didStart);
 
-    public BaseProjectile GetNextProjectile(BaseWeapon weaponType)
+        //    cannonProjectilesList.Add(cann.gameObject);
+        //    //Debug.Log("Past adding " + i);
+        //    cannonProjectilesList[i].gameObject.SetActive(false);
+        //    //Debug.Log("Past disabling " + i);
+        //    //cann.gameObject.SetActive(false);
+        //}
+
+        //for (int i = 0; i < numAutoProj; i++)
+        //{
+        //    //instantiate below map
+        //    //MGProjectile mg = Instantiate(mgProj, ProjectileSpawnPos, Quaternion.identity);
+
+        //    //cannonProjectilesList.Add(mg);
+        //    //mg.enabled = false;
+        //}
+
+        //for (int i = 0; i < numLasProj; i++)
+        //{
+        //    //instantiate below map
+        //    //LaserProjectile las = Instantiate(lasProj, ProjectileSpawnPos, Quaternion.identity);
+
+        //    //cannonProjectilesList.Add(las);
+        //    //las.enabled = false;
+        //}
+
+        //for(int i = 0; i < numFX; i++)
+        //{
+        //    //instantiate below map
+        //    //BaseEffect gf = Instantiate(groundEffect, ProjectileSpawnPos, Quaternion.identity);
+        //    //BaseEffect hf = Instantiate(hitEffect, ProjectileSpawnPos, Quaternion.identity);
+
+        //    //groundEffectsList.Add(gf);
+        //    //hitEffectsList.Add(hf);
+
+        //    //groundEffectsList[i].gameObject.SetActive(false);
+        //    //hitEffectsList[i].gameObject.SetActive(false);
+        //}
+    }
+
+    public GameObject GetNextProjectile(BaseWeapon weaponType)
     {
         switch (weaponType)
         {
             case WeaponCannon:
 
+                Debug.Log("cannonProjectilesList count: " + cannonProjectilesList.Count);
                 projToRet = cannonProjectilesList[cannonIndex];
                 cannonIndex = (cannonIndex + 1) % cannonProjectilesList.Count;
                 Debug.Log("Cannon case in TOP switch, projectile gotten");
