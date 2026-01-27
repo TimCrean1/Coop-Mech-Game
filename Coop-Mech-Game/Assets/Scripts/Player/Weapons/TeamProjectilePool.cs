@@ -47,15 +47,15 @@ public class TeamProjectilePool : MonoBehaviour
         {
             //instantiate below map
             CannonProjectile cann;
-            Debug.Log("Before instantiate " + i);
+            //Debug.Log("Before instantiate " + i);
             cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
-            Debug.Log("Past instantiate " + i);
-            Debug.Log(i + " did start: " + cann.didStart);
+            //Debug.Log("Past instantiate " + i);
+            //Debug.Log(i + " did start: " + cann.didStart);
 
             cannonProjectilesList.Add(cann);
-            Debug.Log("Past adding " + i);
+            //Debug.Log("Past adding " + i);
             cannonProjectilesList[i].gameObject.SetActive(false);
-            Debug.Log("Past disabling " + i);
+            //Debug.Log("Past disabling " + i);
             //cann.gameObject.SetActive(false);
         }
 
@@ -96,10 +96,10 @@ public class TeamProjectilePool : MonoBehaviour
         switch (weaponType)
         {
             case WeaponCannon:
-                Debug.Log("Cannon case in TOP switch");
 
                 projToRet = cannonProjectilesList[cannonIndex];
                 cannonIndex = (cannonIndex + 1) % cannonProjectilesList.Count;
+                Debug.Log("Cannon case in TOP switch, projectile gotten");
                 return projToRet;
             default:
                 return null;
