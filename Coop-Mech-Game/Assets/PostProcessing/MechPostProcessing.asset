@@ -58,7 +58,7 @@ MonoBehaviour:
     m_Value: 1
   cropToFit:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
 --- !u!114 &-3893553815571192783
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -96,7 +96,7 @@ MonoBehaviour:
     m_Value: 0.8
   intensity:
     m_OverrideState: 1
-    m_Value: 2.5
+    m_Value: 1
   scatter:
     m_OverrideState: 0
     m_Value: 0.7
@@ -107,6 +107,9 @@ MonoBehaviour:
     m_OverrideState: 1
     m_Value: {r: 1, g: 1, b: 1, a: 1}
   highQualityFiltering:
+    m_OverrideState: 0
+    m_Value: 0
+  filter:
     m_OverrideState: 0
     m_Value: 0
   downscale:
@@ -140,10 +143,10 @@ MonoBehaviour:
     m_Value: 10
   intensity:
     m_OverrideState: 1
-    m_Value: 0.245
+    m_Value: 0.069
   response:
     m_OverrideState: 1
-    m_Value: 0.58
+    m_Value: 0.557
   texture:
     m_OverrideState: 1
     m_Value: {fileID: 2800000, guid: e92c3c2be01e6b242868c4dac7b76477, type: 3}
@@ -215,10 +218,10 @@ MonoBehaviour:
     m_Value: {r: 0, g: 0, b: 0, a: 1}
   center:
     m_OverrideState: 1
-    m_Value: {x: 0.5, y: 0.47}
+    m_Value: {x: 0.5, y: 0.65}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.489
+    m_Value: 0.345
   smoothness:
     m_OverrideState: 1
     m_Value: 0.135
@@ -240,7 +243,7 @@ MonoBehaviour:
   active: 1
   intensity:
     m_OverrideState: 1
-    m_Value: -0.073
+    m_Value: -0.14
   xMultiplier:
     m_OverrideState: 1
     m_Value: 1

@@ -85,6 +85,7 @@ public class KillhouseManager : MonoBehaviour
     {
         Debug.Log("Started Kill House!");
         currentKHStatus = KillhouseStatus.Playing;
+        timer = 0;
         ActivateEnemies();
     }
     public void CancelTrial()
@@ -100,7 +101,6 @@ public class KillhouseManager : MonoBehaviour
         leaderBoard.Add(timer);
         leaderBoard.Sort((a, b) => a.CompareTo(b));
         Debug.Log("Trial Complete! Your time was: " + timer + ". You got " + points + " points!");
-        timer = 0;
         currentKHStatus = KillhouseStatus.Waiting;
         DeactivateEnemies();
     }
