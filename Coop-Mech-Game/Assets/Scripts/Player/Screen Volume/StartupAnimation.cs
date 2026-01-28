@@ -11,11 +11,11 @@ public class StartupAnimation : MonoBehaviour
 
     void Start()
     {
-        _material.SetFloat("RegionCenter", 0f);
-        _material.SetFloat("RegionTop", 0f);
-        _material.SetFloat("RegionBottom", 0f);
-        _material.SetFloat("RegionLeft", 0f);
-        _material.SetFloat("RegionRight", 0f);
+        _material.SetFloat("_RegionCenter", 0f);
+        _material.SetFloat("_RegionTop", 0f);
+        _material.SetFloat("_RegionBottom", 0f);
+        _material.SetFloat("_RegionLeft", 0f);
+        _material.SetFloat("_RegionRight", 0f);
 
         //eventually subscribe to an event when loading screen fades out
         StartCoroutine(StartupRoutine());
@@ -32,11 +32,11 @@ public class StartupAnimation : MonoBehaviour
             count += Time.deltaTime;
             Debug.Log(count);
 
-            _material.SetFloat("RegionCenter", count);
-            _material.SetFloat("RegionTop", count);
-            _material.SetFloat("RegionBottom", count);
-            _material.SetFloat("RegionLeft",count);
-            _material.SetFloat("RegionRight", count);
+            _material.SetFloat("_RegionCenter", count);
+            _material.SetFloat("_RegionTop", count);
+            _material.SetFloat("_RegionBottom", count);
+            _material.SetFloat("_RegionLeft",count);
+            _material.SetFloat("_RegionRight", count);
 
             yield return null;
         }
