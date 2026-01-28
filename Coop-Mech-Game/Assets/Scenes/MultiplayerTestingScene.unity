@@ -2404,6 +2404,8 @@ MonoBehaviour:
   p2Cursor: {fileID: 882738225}
   averageCursor: {fileID: 310974903}
   playerController: {fileID: 737891637}
+  playerCamera: {fileID: 0}
+  weapon: {fileID: 0}
   mouse1Pos: {x: 0, y: 0}
   mouse2Pos: {x: 0, y: 0}
   averagePos: {x: 0, y: 0}
@@ -2453,6 +2455,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7c70acd447d6534cb5b8b7bd00947f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamProjectilePool
+  ShowTopMostFoldoutHeaderGroup: 1
   ProjectileSpawnPos: {x: 0, y: -10, z: 0}
   numCanProj: 10
   numAutoProj: 100
@@ -7893,6 +7896,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
+        type: 3}
+      propertyPath: NetworkConfig.TickRate
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
         type: 3}
