@@ -13,13 +13,15 @@ public class KillhouseStartScript : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
-        {
-            killhouseManager.StartTrial();
-        }
-        else
-        {
-            killhouseManager.CancelTrial();
+        if (collision.gameObject.CompareTag("Player")){
+            if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
+            {
+                killhouseManager.StartTrial();
+            }
+            else
+            {
+                killhouseManager.CancelTrial();
+            }
         }
     }
 }

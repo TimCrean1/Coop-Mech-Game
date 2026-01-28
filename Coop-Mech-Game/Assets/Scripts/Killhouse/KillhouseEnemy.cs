@@ -36,19 +36,21 @@ public class KillhouseEnemy : MonoBehaviour
 
     public void Activate()
     {
-        boxCollider.enabled = true;
-        mainMeshRenderer.enabled = true;
-        childMeshRenderer1.enabled = true;
-        childMeshRenderer2.enabled = true;
-        isActive = true;
+        // boxCollider.enabled = true;
+        // mainMeshRenderer.enabled = true;
+        // childMeshRenderer1.enabled = true;
+        // childMeshRenderer2.enabled = true;
+        // isActive = true;
+        this.enabled = true;
     }
     public void Deactivate()
     {
-        boxCollider.enabled = false;
-        mainMeshRenderer.enabled = false;
-        childMeshRenderer1.enabled = false;
-        childMeshRenderer2.enabled = false;
-        isActive = false;
+        // boxCollider.enabled = false;
+        // mainMeshRenderer.enabled = false;
+        // childMeshRenderer1.enabled = false;
+        // childMeshRenderer2.enabled = false;
+        // isActive = false;
+        this.enabled = false;
     }
 
     void OnCollisionEnter(Collision collision)
