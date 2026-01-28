@@ -13,6 +13,8 @@ public class KillhouseEndScript : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        killhouseManager.CompleteTrial();
+        if (collision.gameObject.CompareTag("Player")){
+            killhouseManager.CompleteTrial();
+        }
     }
 }
