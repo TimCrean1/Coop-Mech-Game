@@ -118,7 +118,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_bc302018215248bba8cc5ae278262d46_Texture_1_Texture2D:
-        m_Texture: {fileID: 2800000, guid: 2a757c128bd028f4098500c29fba2204, type: 3}
+        m_Texture: {fileID: 2800000, guid: 457df42062fb2394db48b993578fe919, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_fb9e3a502b154fbfb8d2e75267830830_Texture_1_Texture2D:
@@ -163,16 +163,22 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HorizontalDivisor: 1.54
+    - _InvertBarsImage: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
     - _PixelSize: 100
     - _QueueOffset: 0
     - _ReceiveShadows: 1
+    - _RegionBottom: 1
     - _RegionBottom_Enabled: 1
+    - _RegionCenter: 1
     - _RegionCenter_Enabled: 1
+    - _RegionLeft: 1
     - _RegionLeft_Enabled: 1
+    - _RegionRight: 1
     - _RegionRight_Enabled: 1
+    - _RegionTop: 1
     - _RegionTop_Enabled: 1
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
@@ -180,6 +186,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
+    - _Test: 0.2
     - _VerticalDivisor: 0.99
     - _WorkflowMode: 1
     - _XRMotionVectorsPass: 1

@@ -11496,6 +11496,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2088263094}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &2109208794 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 155014043924577354}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2109208808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2109208794}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e704ac16af03abc49b815dff095646bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartupAnimation
+  _material: {fileID: 2100000, guid: 9ba02af29d41c9646a44f5a4172b7990, type: 2}
+  startDelay: 5
+  startTime: 1
 --- !u!1 &2112434178
 GameObject:
   m_ObjectHideFlags: 0
@@ -11968,7 +11989,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2109208808}
   m_SourcePrefab: {fileID: 100100000, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
