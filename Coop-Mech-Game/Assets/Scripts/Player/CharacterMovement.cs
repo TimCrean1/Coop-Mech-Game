@@ -291,7 +291,6 @@ public class CharacterMovement : BaseMovement
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        return;
         // Gizmos.color = isGrounded ? Color.green : Color.red;
         // Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
         // Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
@@ -306,7 +305,7 @@ public class CharacterMovement : BaseMovement
 
             // Draw a sphere at the targetPoint if set
             Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(targetPoint, 0.2f);
+            Gizmos.DrawSphere(targetPoint, 0.1f);
         }    
     }
 #endif
