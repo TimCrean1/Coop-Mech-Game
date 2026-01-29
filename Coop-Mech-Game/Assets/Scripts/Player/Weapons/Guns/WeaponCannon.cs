@@ -25,9 +25,9 @@ public class WeaponCannon : BaseWeapon
         return base.ActivateCooldown();
     }
 
-    public override void SetMuzzleRotationAtHit(RaycastHit rayHit)
+    public override void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir)
     {
-        base.SetMuzzleRotationAtHit(rayHit);
+        base.SetMuzzleRotation(rayHit, rotDir);
     }
 
 #if UNITY_EDITOR

@@ -9,6 +9,7 @@ public class TeamWeaponManager : MonoBehaviour
 
     private RaycastHit hit;
     private Ray screenRay;
+    private Vector3 rotDir;
 
     public void SetScreenRay(Ray ray)
     {
@@ -23,7 +24,9 @@ public class TeamWeaponManager : MonoBehaviour
         for (int  i = 0; i < weaponsList.Count; i++)
         {
             //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
-            weaponsList[i].SetMuzzleRotationAtHit(hit);
+            rotDir = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
+
+            weaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
     }
 

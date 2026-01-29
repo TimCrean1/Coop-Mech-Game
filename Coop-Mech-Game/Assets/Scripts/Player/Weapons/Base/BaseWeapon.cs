@@ -27,7 +27,6 @@ public abstract class BaseWeapon : MonoBehaviour
     public Transform Muzzle { get { return muzzle; } }
 
     private RaycastHit hit;
-    private Vector3 rotDir;
 
     public virtual void Fire() //public because this will be called by weapon manager
     {
@@ -78,11 +77,9 @@ public abstract class BaseWeapon : MonoBehaviour
         Debug.Log("cooldown end");
     }
 
-    public virtual void SetMuzzleRotationAtHit(RaycastHit rayHit)
+    public virtual void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir) //rayHit is used for debug
     {
-
         hit = rayHit;
-        rotDir = hit.GetDirectionFromRaycastHit(muzzle.position);
         muzzle.transform.forward = rotDir;
     }
 
@@ -92,7 +89,7 @@ public abstract class BaseWeapon : MonoBehaviour
         Gizmos.color = Color.indianRed;
         Gizmos.DrawSphere(hit.point, 0.5f);
 
-        Gizmos.DrawRay(muzzle.position, rotDir);
+        Gizmos.DrawRay(muzzle.position, muzzle.transform.forward);
     }
 #endif
 
