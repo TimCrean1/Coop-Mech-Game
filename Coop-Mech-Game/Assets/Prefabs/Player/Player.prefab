@@ -251,12 +251,14 @@ GameObject:
   - component: {fileID: 6930851332102331895}
   - component: {fileID: 3435869324062353507}
   - component: {fileID: 2446774336366214823}
-  - component: {fileID: 5086179133204423352}
   - component: {fileID: 6221149281486240100}
   - component: {fileID: 1310812323474829952}
   - component: {fileID: 177193156605980623}
   - component: {fileID: 7442295352158606169}
   - component: {fileID: 5594461401971401228}
+  - component: {fileID: 5086179133204423352}
+  - component: {fileID: 2724236685853379273}
+  - component: {fileID: 4675740159691710397}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -441,7 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 232782933
+  GlobalObjectIdHash: 3713268822
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -541,22 +543,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSyncWindow: 0.2
   shootSyncWindow: 0.2
---- !u!114 &5086179133204423352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
-  teamProjectilePool: {fileID: 6221149281486240100}
-  muzzle: {fileID: 6726245692009760567}
-  ammo: 10
-  baseFireRate: 1
 --- !u!114 &6221149281486240100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -599,7 +585,7 @@ MonoBehaviour:
   averageCursor: {fileID: 0}
   playerController: {fileID: 3435869324062353507}
   playerCamera: {fileID: 2525094642637649336}
-  weapon: {fileID: 0}
+  weaponMgr: {fileID: 0}
   mouse1Pos: {x: 0, y: 0}
   mouse2Pos: {x: 0, y: 0}
   averagePos: {x: 0, y: 0}
@@ -690,6 +676,53 @@ MonoBehaviour:
   - _RegionTop
   - _RegionRight
   - _RegionCenter
+--- !u!114 &5086179133204423352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+  teamProjectilePool: {fileID: 6221149281486240100}
+  muzzle: {fileID: 6726245692009760567}
+  fireEffect: {fileID: 0}
+  ammo: 10
+  baseFireRate: 1
+--- !u!114 &2724236685853379273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+  teamProjectilePool: {fileID: 6221149281486240100}
+  muzzle: {fileID: 6726245692009760567}
+  fireEffect: {fileID: 0}
+  ammo: 10
+  baseFireRate: 1
+--- !u!114 &4675740159691710397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41e0988617b8cbd4da3b6322d725d5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TeamWeaponManager
+  weaponsList: []
 --- !u!1 &2414667752483129029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1157,7 +1190,7 @@ Transform:
   m_GameObject: {fileID: 3087497272772946061}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.5, z: 1.32}
+  m_LocalPosition: {x: 1, y: 3.5, z: 1.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
