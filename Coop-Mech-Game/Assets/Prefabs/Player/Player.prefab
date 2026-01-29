@@ -256,6 +256,7 @@ GameObject:
   - component: {fileID: 1310812323474829952}
   - component: {fileID: 177193156605980623}
   - component: {fileID: 7442295352158606169}
+  - component: {fileID: 5594461401971401228}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -273,7 +274,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1.96, z: -30.65}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3108387775901154250}
@@ -665,6 +666,30 @@ MonoBehaviour:
   UseRigidBodyForMotion: 0
   AutoUpdateKinematicState: 1
   AutoSetKinematicOnDespawn: 1
+--- !u!114 &5594461401971401228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e704ac16af03abc49b815dff095646bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartupAnimation
+  _material: {fileID: 2100000, guid: 9ba02af29d41c9646a44f5a4172b7990, type: 2}
+  startDelay: 2
+  startTime: 1.25
+  chance: 0.85
+  interDelay: 0.25
+  randomizeOrder: 0
+  refStrings:
+  - _RegionBottom
+  - _RegionLeft
+  - _RegionTop
+  - _RegionRight
+  - _RegionCenter
 --- !u!1 &2414667752483129029
 GameObject:
   m_ObjectHideFlags: 0
@@ -1257,7 +1282,7 @@ MonoBehaviour:
   m_IsGlobal: 0
   priority: 0
   blendDistance: 0
-  weight: 1
+  weight: 0.692
   sharedProfile: {fileID: 11400000, guid: d77fad0c01b906e4383fe1494f8045cd, type: 2}
 --- !u!65 &2731932963349049834
 BoxCollider:
