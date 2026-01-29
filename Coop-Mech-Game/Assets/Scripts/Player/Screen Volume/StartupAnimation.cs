@@ -24,14 +24,8 @@ public class StartupAnimation : MonoBehaviour
 
         if (randomizeOrder)
         {
-            ListExtensions.Shuffle(refStrings);
+            refStrings.Shuffle(); //using custom ListExtensions class
         }
-
-        //_material.SetFloat("_RegionCenter", 0f);
-        //_material.SetFloat("_RegionTop", 0f);
-        //_material.SetFloat("_RegionBottom", 0f);
-        //_material.SetFloat("_RegionLeft", 0f);
-        //_material.SetFloat("_RegionRight", 0f);
 
         //eventually subscribe to an event when loading screen fades out
         StartCoroutine(StartStartupRoutine());
@@ -46,25 +40,15 @@ public class StartupAnimation : MonoBehaviour
     {
         for(int i = 0; i< refStrings.Count; i++)
         {
-            StartCoroutine(StartupRoutine(refStrings[i]));
-            yield return new WaitForSeconds(interDelay);
+            if (i.IsValidIndex(refStrings))
+            {
+                StartCoroutine(StartupRoutine(refStrings[i]));
+                yield return new WaitForSeconds(interDelay);
+            }
+            yield return null;
         }
 
         yield return null;
-
-        //StartCoroutine(StartupRoutine("_RegionCenter"));
-        //yield return new WaitForSeconds(interDelay);
-
-        //StartCoroutine(StartupRoutine("_RegionTop"));
-        //yield return new WaitForSeconds(interDelay);
-
-        //StartCoroutine(StartupRoutine("_RegionBottom"));
-        //yield return new WaitForSeconds(interDelay);
-
-        //StartCoroutine(StartupRoutine("_RegionLeft"));
-        //yield return new WaitForSeconds(interDelay);
-
-        //StartCoroutine(StartupRoutine("_RegionRight"));
     }
 
     private IEnumerator StartupRoutine(string target)

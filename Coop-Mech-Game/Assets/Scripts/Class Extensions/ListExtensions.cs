@@ -7,10 +7,18 @@ public static class ListExtensions
     {
         for (int i = 0; i < list.Count; i++)
         {
-            T temp = list[i];
-            int randomIndex = Random.Range(i, list.Count);
-            list[i] = list[randomIndex];
-            list[randomIndex] = temp;
+            if (i.IsValidIndex(list))
+            {
+                T temp = list[i];
+                int randomIndex = Random.Range(i, list.Count);
+                list[i] = list[randomIndex];
+                list[randomIndex] = temp;
+            }
         }
+    }
+
+    public static bool IsValidIndex<T>(this int index, IList<T> list)
+    {
+        return list != null && index >=0 && index < list.Count;
     }
 }
