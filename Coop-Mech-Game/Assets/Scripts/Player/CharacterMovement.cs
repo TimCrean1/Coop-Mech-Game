@@ -171,8 +171,9 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
         }
     }
-#endregion
-#region Rotation
+    #endregion
+
+    #region Rotation
     private void CharacterLook()
     {
         // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
@@ -212,16 +213,18 @@ public class CharacterMovement : BaseMovement
             playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
         }
     }
-#endregion
-#region Shooting
+    #endregion
+
+    #region Shooting
     public override void Shoot(float shootInput)
     {
         if (shootInput <= 0f) return;
         Debug.Log("Shooting!");
         weapon.Fire();
     }
-#endregion
-#region Jumping
+    #endregion
+
+    #region Jumping
     public override void Jump()
     {
         if (readyToJump && (isGrounded || currentJumps < maxJumps))

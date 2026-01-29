@@ -9,9 +9,4 @@ public class WeaponCannon : BaseWeapon
         base.Fire();
         Debug.Log("WeaponCannon Fire()");
     }
-    protected override IEnumerator FireRoutine(float fr)
-    {
-        fr = FireRate;
-        return base.FireRoutine(fr);
-    }
 }

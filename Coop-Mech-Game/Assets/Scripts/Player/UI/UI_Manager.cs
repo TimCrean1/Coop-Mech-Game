@@ -12,7 +12,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Image averageCursor;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private BaseWeapon weapon;
+    [SerializeField] private TeamWeaponManager weaponMgr;
 
     [Header("Positioning")]
     [SerializeField] private Vector2 mouse1Pos;
@@ -23,10 +23,11 @@ public class UI_Manager : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         playerCamera = GetComponent<Camera>();
+        weaponMgr = GetComponent<TeamWeaponManager>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         // Get mouse positions from Player Controller
         mouse1Pos = playerController.mouse1Pos.Value;
@@ -60,8 +61,7 @@ public class UI_Manager : MonoBehaviour
         averageCursor.rectTransform.position = averagePlayerPos;
 
         // We will replace this later
-        //Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
-        //Vector3 dir = ray.direction;
-        //weapon.SetAverageCursorPos(dir);
+        Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
+        
     }
 }
