@@ -53,7 +53,7 @@ public class StartupAnimation : MonoBehaviour
 
     private IEnumerator StartupRoutine(string target)
     {
-        Debug.Log("Routine start");
+        //Debug.Log("Routine start");
 
         yield return new WaitForSeconds(startDelay);
         float count = 0f;
@@ -63,7 +63,7 @@ public class StartupAnimation : MonoBehaviour
         while(count <= startTime)
         {
             count += interval;
-            Debug.Log(count);
+            //Debug.Log(count);
 
             brightness = Random.Range(SlerpValue(count/startTime), 1f) > chance ? 1f : SlerpValue(count / startTime) * 0.85f + 0.05f;
             

@@ -36,7 +36,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private bool isGrounded = false;
 
     [Header("Player - Shooting")]
-    [SerializeField] private BaseWeapon weapon;
+    [SerializeField] private TeamWeaponManager weaponMgr;
 
     [Header("Camera")]
     [SerializeField] private Camera playerCamera;
@@ -151,7 +151,7 @@ public class CharacterMovement : BaseMovement
 
         if(movementDirection.z == 0)
         {
-            rigidbody.linearVelocity = Vector3.zero;
+            //rigidbody.linearVelocity = Vector3.zero;
         }
     }
     private void LimitVelocity()
@@ -220,7 +220,7 @@ public class CharacterMovement : BaseMovement
     {
         if (shootInput <= 0f) return;
         Debug.Log("Shooting!");
-        weapon.Fire();
+        weaponMgr.FireWeapons();
     }
     #endregion
 
@@ -288,8 +288,10 @@ public class CharacterMovement : BaseMovement
 
     #region Gizmos
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
+        return;
         // Gizmos.color = isGrounded ? Color.green : Color.red;
         // Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
         // Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
@@ -307,8 +309,9 @@ public class CharacterMovement : BaseMovement
             Gizmos.DrawSphere(targetPoint, 0.2f);
         }    
     }
+#endif
 
-    #endregion
+#endregion
 
     public bool GetIsGrounded()
     {

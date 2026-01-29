@@ -13,16 +13,17 @@ public class TeamWeaponManager : MonoBehaviour
     public void SetScreenRay(Ray ray)
     {
         screenRay = ray;
-        Physics.Raycast(screenRay, out hit);
         UpdateWeaponTarget();
     }
 
     private void UpdateWeaponTarget()
     {
+        Physics.Raycast(screenRay, out hit);
+
         for (int  i = 0; i < weaponsList.Count; i++)
         {
-            Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
-            weaponsList[i].SetMuzzleRotation(direction);
+            //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
+            weaponsList[i].SetMuzzleRotationAtHit(hit);
         }
     }
 
@@ -30,4 +31,12 @@ public class TeamWeaponManager : MonoBehaviour
     {
         foreach (BaseWeapon weapon in weaponsList) { weapon.Fire(); }
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.aquamarine;
+        Gizmos.DrawSphere(hit.point, 0.25f);
+    }
+#endif
 }

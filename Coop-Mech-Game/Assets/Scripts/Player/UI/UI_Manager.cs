@@ -22,7 +22,6 @@ public class UI_Manager : MonoBehaviour
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        playerCamera = GetComponent<Camera>();
         weaponMgr = GetComponent<TeamWeaponManager>();
     }
 
@@ -60,8 +59,9 @@ public class UI_Manager : MonoBehaviour
         averagePlayerPos.y = averagePos.y;
         averageCursor.rectTransform.position = averagePlayerPos;
 
-        // We will replace this later
+        //set point in weapon manager
         Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
+        weaponMgr.SetScreenRay(ray);
         
     }
 }

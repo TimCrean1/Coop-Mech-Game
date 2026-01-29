@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.VFX;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public abstract class BaseWeapon : MonoBehaviour
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
 
+    private RaycastHit hit;
+    private Vector3 rotDir;
 
     public virtual void Fire() //public because this will be called by weapon manager
     {
@@ -32,8 +35,13 @@ public abstract class BaseWeapon : MonoBehaviour
         {
             Debug.Log("Fire input received");
 
-            Physics.Raycast(muzzle.position, muzzle.forward, out RaycastHit hit);
+            Physics.Raycast(muzzle.position, muzzle.forward, out hit);
             if (fireEffect) { fireEffect.SendEvent("OnFire"); }
+
+            if (hit.collider.CompareTag("Player"))
+            {
+                // get team-specific info and send to wherever we're handling the health of the teams
+            }
 
             canFire = false;
             BuildCooldown();
@@ -70,9 +78,22 @@ public abstract class BaseWeapon : MonoBehaviour
         Debug.Log("cooldown end");
     }
 
-    public void SetMuzzleRotation(Vector3 rot)
+    public virtual void SetMuzzleRotationAtHit(RaycastHit rayHit)
     {
-        muzzle.rotation = Quaternion.LookRotation(rot);
+
+        hit = rayHit;
+        rotDir = hit.GetDirectionFromRaycastHit(muzzle.position);
+        muzzle.transform.forward = rotDir;
     }
+
+#if UNITY_EDITOR
+    protected virtual void OnDrawGizmos()
+    {   
+        Gizmos.color = Color.indianRed;
+        Gizmos.DrawSphere(hit.point, 0.5f);
+
+        Gizmos.DrawRay(muzzle.position, rotDir);
+    }
+#endif
 
 }
