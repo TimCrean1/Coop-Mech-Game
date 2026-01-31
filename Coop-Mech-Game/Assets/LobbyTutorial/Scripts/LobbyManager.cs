@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
 public class LobbyManager : MonoBehaviour {
 
 
@@ -78,7 +79,9 @@ public class LobbyManager : MonoBehaviour {
     }
 
     public async void Authenticate(string playerName) {
-        playerName = playerName.Replace(" ", "_");
+        //playerName = playerName.Replace(" ", "_");
+
+       
         this.playerName = playerName;
         InitializationOptions initializationOptions = new InitializationOptions();
         initializationOptions.SetProfile(playerName);

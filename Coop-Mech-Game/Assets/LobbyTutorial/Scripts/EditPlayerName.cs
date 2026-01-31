@@ -2,8 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public class EditPlayerName : MonoBehaviour {
 
@@ -17,18 +19,20 @@ public class EditPlayerName : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI playerNameText;
 
 
-    private string playerName = "Name Goes Here!";
+    private string playerName = "Name_Goes_Here";
 
 
     private void Awake() {
         Instance = this;
 
         GetComponent<Button>().onClick.AddListener(() => {
-            UI_InputWindow.Show_Static("Player Name", playerName, "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ .,-", 20,
+            UI_InputWindow.Show_Static("Player Name", playerName, "abcdefghijklmnopqrstuvxywzABCDEFGHIJKLMNOPQRSTUVXYWZ .,-1234567890", 20,
             () => {
                 // Cancel
             },
             (string newName) => {
+
+                
                 playerName = newName;
 
                 playerNameText.text = playerName;
@@ -49,7 +53,8 @@ public class EditPlayerName : MonoBehaviour {
     }
 
     public string GetPlayerName() {
-        return playerName;
+        // add random number on the end to give unique playerid
+        return playerName + Random.Range(1,100);
     }
 
 
