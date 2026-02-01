@@ -18,6 +18,8 @@ public class MovementIndicator : MonoBehaviour
     /// 
     /// which player calls the script is handled elsewhere, all this does is take in a Vector2 and set emission intensity to 7 and color to green
     /// 
+    /// it should also rotate, but i'll do that later
+    /// 
     /// </summary>
 
     public void SetMaterialToInput(Vector2 input)
