@@ -79,7 +79,7 @@ public class LobbyManager : MonoBehaviour {
     }
 
     public async void Authenticate(string playerName) {
-        //playerName = playerName.Replace(" ", "_");
+        playerName = playerName.Replace(" ", "_");
 
        
         this.playerName = playerName;
@@ -168,6 +168,7 @@ public class LobbyManager : MonoBehaviour {
         {
             if (IsLobbyHost())
             {
+                
                 if (joinedLobby.Players.Count == joinedLobby.MaxPlayers)
                 {
                     
@@ -208,10 +209,12 @@ public class LobbyManager : MonoBehaviour {
             GameMode gameMode =
                 Enum.Parse<GameMode>(joinedLobby.Data[KEY_GAME_MODE].Value);
 
+
             switch (gameMode) {
                 default:
                 case GameMode.Practice:
                     gameMode = GameMode.Duel;
+                    
                     break;
                 case GameMode.Duel:
                     gameMode = GameMode.Practice;
