@@ -138,16 +138,16 @@ public class CharacterMovement : BaseMovement
             else
                 rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
         }
-        else if (isGrounded)
-        {
-            // Deceleration when no input
-            Vector3 horizontalVel = GetHorizontalRBVelocity();
-            if (horizontalVel.magnitude > 0.5f)
-            {
-                Vector3 counteract = -horizontalVel.normalized;
-                rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
-            }
-        }
+        //TODO: FIX!!!
+        // if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
+        // {
+        //     Vector3 horizontalVel = GetHorizontalRBVelocity();
+        //     if (horizontalVel.magnitude > 0.5f)
+        //     {
+        //         Vector3 counteract = -horizontalVel.normalized;
+        //         rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
+        //     }
+        // }
 
         if(movementDirection.z == 0)
         {

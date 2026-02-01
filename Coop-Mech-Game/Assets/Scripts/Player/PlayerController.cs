@@ -78,10 +78,8 @@ public class PlayerController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        //if (!IsOwner) { return; }
         if (currentState == EPlayerState.Moving)
-        {
-            
+        {    
             if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
             {
                 baseMovement.SetMovementInput(syncedMoveInput);
@@ -96,10 +94,7 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
-            //Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
-            //Debug.Log("Camera is being moved");
         }
-        // Debug.Log("P1 Move Input: " + P1MovementInput.Value.y + " P2 Move Input: " + P2MovementInput.Value.y);
     }
 
     #endregion
