@@ -9,9 +9,31 @@ public class WeaponCannon : BaseWeapon
         base.Fire();
         Debug.Log("WeaponCannon Fire()");
     }
-    protected override IEnumerator FireRoutine(float fr)
+
+    protected override IEnumerator FireRateRoutine(float fireRate)
     {
-        fr = FireRate;
-        return base.FireRoutine(fr);
+        return base.FireRateRoutine(fireRate);
     }
+
+    protected override void BuildCooldown()
+    {
+        base.BuildCooldown();
+    }
+
+    protected override IEnumerator ActivateCooldown()
+    {
+        return base.ActivateCooldown();
+    }
+
+    public override void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir)
+    {
+        base.SetMuzzleRotation(rayHit, rotDir);
+    }
+
+#if UNITY_EDITOR
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+    }
+#endif
 }

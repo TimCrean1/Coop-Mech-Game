@@ -1,5 +1,7 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.VFX;
+using static UnityEngine.Rendering.DebugUI.Table;
 
 public abstract class BaseWeapon : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
+    [SerializeField] private VisualEffect fireEffect;
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
 
@@ -21,49 +24,28 @@ public abstract class BaseWeapon : MonoBehaviour
     private bool canFire = true;
 
     public float FireRate { get { return baseFireRate; } }
+    public Transform Muzzle { get { return muzzle; } }
 
-    private Vector3 rot;
+    private RaycastHit hit;
 
-    public virtual void Fire() //public because this will be called by input handler
+    public virtual void Fire() //public because this will be called by weapon manager
     {
         if (canFire)
         {
-            StartCoroutine(FireRoutine(baseFireRate));
             Debug.Log("Fire input received");
-        }
-    }
 
-    protected virtual IEnumerator FireRoutine(float fireRate) 
-    {
-        if (canFire)
-        {
+            Physics.Raycast(muzzle.position, muzzle.forward, out hit);
+            if (fireEffect) { fireEffect.SendEvent("OnFire"); }
+
+            if (hit.collider.CompareTag("Player"))
+            {
+                // get team-specific info and send to wherever we're handling the health of the teams
+            }
+
             canFire = false;
-            //pick projectile from team array
-            GameObject proj = teamProjectilePool.GetNextProjectile(this);
-            BaseProjectile ee = proj.GetComponent<BaseProjectile>();
-            
-            ee.PrepFire(muzzle.position, muzzle.rotation);
-
-            proj.gameObject.SetActive(true);
-            //proj.transform.position = muzzle.transform.position;
-            //proj.transform.rotation = muzzle.transform.rotation;
-
-            //activate projectile which will "fire" it
-
-
-            //BuildCooldown();
-            yield return new WaitForSeconds(fireRate);
+            BuildCooldown();
         }
-
-        canFire = true;
-        Debug.Log("Fire complete!");
     }
-
-    public virtual void SetAverageCursorPos(Vector3 pos)
-    {
-        rot = pos;
-    }
-
     protected virtual void BuildCooldown()
     {
         ammoCount -= 1;
@@ -72,12 +54,20 @@ public abstract class BaseWeapon : MonoBehaviour
         {
             ActivateCooldown();
         }
+        else
+        {
+            StartCoroutine(FireRateRoutine(baseFireRate));
+        }
     }
 
-    public virtual IEnumerator ActivateCooldown() //this is used for reloading but maybe also from damage effects
+    protected virtual IEnumerator FireRateRoutine(float fireRate)
     {
-        canFire = false;
+        yield return new WaitForSeconds(fireRate);
+        canFire = true;
+    }
 
+    protected virtual IEnumerator ActivateCooldown() //this is used for reloading but maybe also from damage effects
+    {
         Debug.Log("cooldown start");
 
         yield return new WaitForSeconds(cooldownTime);
@@ -86,5 +76,21 @@ public abstract class BaseWeapon : MonoBehaviour
         canFire = true;
         Debug.Log("cooldown end");
     }
+
+    public virtual void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir) //rayHit is used for debug
+    {
+        hit = rayHit;
+        muzzle.transform.forward = rotDir;
+    }
+
+#if UNITY_EDITOR
+    protected virtual void OnDrawGizmos()
+    {   
+        Gizmos.color = Color.indianRed;
+        Gizmos.DrawSphere(hit.point, 0.5f);
+
+        Gizmos.DrawRay(muzzle.position, muzzle.transform.forward);
+    }
+#endif
 
 }

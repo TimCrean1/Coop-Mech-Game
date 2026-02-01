@@ -4,13 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Manager : MonoBehaviour
+public class Solo_UI_Manager : MonoBehaviour
 {
     [Header("Object References")]
     [SerializeField] private Image p1Cursor;
     [SerializeField] private Image p2Cursor;
     [SerializeField] private Image averageCursor;
-    [SerializeField] private PlayerController playerController;
+    [SerializeField] private SoloPlayerController playerController;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TeamWeaponManager weaponMgr;
 
@@ -21,7 +21,7 @@ public class UI_Manager : MonoBehaviour
     
     void Start()
     {
-        playerController = GetComponent<PlayerController>();
+        playerController = GetComponent<SoloPlayerController>();
         weaponMgr = GetComponent<TeamWeaponManager>();
     }
 
@@ -29,8 +29,8 @@ public class UI_Manager : MonoBehaviour
     void FixedUpdate()
     {
         // Get mouse positions from Player Controller
-        mouse1Pos = playerController.mouse1Pos.Value;
-        mouse2Pos = playerController.mouse2Pos.Value;
+        mouse1Pos = playerController.mouse1Pos;
+        mouse2Pos = playerController.mouse2Pos;
         averagePos = (mouse1Pos + mouse2Pos) / 2;
         
         // Normalize values to screen space

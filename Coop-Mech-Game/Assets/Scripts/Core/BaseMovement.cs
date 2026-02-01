@@ -70,14 +70,6 @@ public abstract class BaseMovement : NetworkBehaviour
     {
 
     }
-    public virtual void StartSprinting()
-    {
-
-    }
-    public virtual void StopSprinting()
-    {
-
-    }
 
     public virtual void UpdateMovementDelta(Vector3 delta)
     {
