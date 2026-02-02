@@ -1,4 +1,6 @@
+using System;
 using UnityEngine;
+using UnityEngine.Splines.Interpolators;
 
 public class MovementIndicator : MonoBehaviour
 {
@@ -8,9 +10,15 @@ public class MovementIndicator : MonoBehaviour
     [SerializeField] private Material _left;
     [SerializeField] private Material _right;
 
-    [Header("Params")]
+    [Header("Color Params")]
     [SerializeField] private Color emitColor = Color.green;
     [SerializeField] private float emitIntensity = 7f;
+    
+    [Header("Joystick Rotation Params")]
+    [SerializeField] private Vector2 MoveInput;
+    [SerializeField] private float rotationAmount = 25;
+    private float lerpTime = 0.5f;
+    [SerializeField] private float rotationSpeed = 5f;
 
     /// <summary>
     /// 
@@ -21,7 +29,21 @@ public class MovementIndicator : MonoBehaviour
     /// it should also rotate, but i'll do that later
     /// 
     /// </summary>
-
+    
+    void FixedUpdate()
+    {
+        rotateSticks();
+    }
+    public void SetMoveInput(Vector2 input)
+    {
+        MoveInput = input;
+    }
+    private void rotateSticks()
+    {
+        lerpTime = Time.deltaTime * rotationSpeed;
+        Quaternion newRot = Quaternion.Euler(rotationAmount * MoveInput.y, 0, rotationAmount * MoveInput.x);
+        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, newRot, lerpTime);
+    }
     public void SetMaterialToInput(Vector2 input)
     {
         switch (input.x)
