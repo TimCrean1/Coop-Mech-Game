@@ -11,6 +11,7 @@ public class Solo_UI_Manager : MonoBehaviour
     [SerializeField] private Image p2Cursor;
     [SerializeField] private Image averageCursor;
     [SerializeField] private SoloPlayerController playerController;
+    [SerializeField] private CharacterMovement characterMovement;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TeamWeaponManager weaponMgr;
 
@@ -21,7 +22,9 @@ public class Solo_UI_Manager : MonoBehaviour
     
     void Start()
     {
+        // Set object references
         playerController = GetComponent<SoloPlayerController>();
+        characterMovement = GetComponent<CharacterMovement>();
         weaponMgr = GetComponent<TeamWeaponManager>();
     }
 

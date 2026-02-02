@@ -60,12 +60,15 @@ public class CharacterMovement : BaseMovement
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
         rigidbody.angularDamping = 8f;
+        // StartupAnimation script sets this to true when start up animation is complete
+        canMove = false;
     }
 
     private void FixedUpdate()
     {
         //if (!IsOwner) { return; }
         CheckIsGrounded();
+        if (!canMove) { return; }
         MoveCharacter();
         CharacterLook();
         LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
@@ -108,48 +111,46 @@ public class CharacterMovement : BaseMovement
 
     #region Movement
 
+    // Handles character movement based on input direction and camera orientation
     protected override void MoveCharacter()
     {
-        if (!canMove) return;
+        // If there is movement input
         if (movementDirection.x != 0 || movementDirection.z != 0)
         {
-            // Forward/back movement relative to camera forward
+            // Forward/back movement relative to camera's forward direction
             if (movementDirection.z != 0)
             {
                 Vector3 camForward = playerCamera.transform.forward;
-                camForward.y = 0;
+                camForward.y = 0; // Ignore vertical component
                 camForward.Normalize();
 
                 Vector3 move = camForward * movementDirection.z;
 
+                // Apply force for forward/back movement
                 if (isGrounded)
                     rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
                 else
                     rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
             }
-            // Sideways movement relative to camera right
+            // Sideways movement relative to camera's right direction
             if (movementDirection.x != 0)
             {
                 Vector3 camRight = playerCamera.transform.right;
-                camRight.y = 0;
+                camRight.y = 0; // Ignore vertical component
                 camRight.Normalize();
 
                 Vector3 move = camRight * movementDirection.x;
 
+                // Apply force for sideways movement
                 if (isGrounded)
                     rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
                 else
                     rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
             }
         }
+        // If no movement input and character is grounded, apply deceleration
         else if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
         {
-            // Vector3 horizontalVel = GetHorizontalRBVelocity();
-            // if (horizontalVel.magnitude > 0.75f)
-            // {
-            //     Vector3 counteract = -horizontalVel.normalized;
-            //     rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
-            // }
             Vector3 horizontalVel = GetHorizontalRBVelocity();
             Vector3 dampingForce = -horizontalVel * decelerationRate;
             rigidbody.AddForce(dampingForce, ForceMode.Acceleration);
@@ -175,36 +176,43 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Rotation
+    // Handles character look direction and camera pitch based on look input
     private void CharacterLook()
     {
+        // Clamp look input to defined min/max values
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
 
+        // Apply dead zone to look input to prevent jitter near center
         lookInput.x = Mathf.Abs(lookInput.x - 0.5f) < deadZoneSize ? 0.5f : lookInput.x;
         lookInput.y = Mathf.Abs(lookInput.y - 0.5f) < deadZoneSize ? 0.5f : lookInput.y;
 
+        // Convert look input to screen position and create a ray from the camera
         Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
         RaycastHit hit;
 
+        // Raycast to determine the target point in the world
         if (Physics.Raycast(ray, out hit))
         {
             targetPoint = hit.point;
         }
+
+        // Calculate horizontal direction from character to target point
         Vector3 direction = targetPoint - transform.position;
         direction.y = 0;
 
-        float newHRotRate = horizontalRotationRate * Mathf.Abs(lookInput.x/Screen.width * 2f - 1);
-        float newVRotRate = verticalRotationRate * Mathf.Abs(lookInput.y/Screen.height * 2f - 1);
-        //print(newHRotRate + " " + newVRotRate);
+        // Calculate rotation rates based on look input
+        float newHRotRate = horizontalRotationRate * Mathf.Abs(lookInput.x / Screen.width * 2f - 1);
+        float newVRotRate = verticalRotationRate * Mathf.Abs(lookInput.y / Screen.height * 2f - 1);
 
         if (direction.sqrMagnitude > 0.1f)
         {
-            //Horizontal rotation for player transform
+            // Smoothly rotate character horizontally towards target point
             Quaternion targetYaw = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
 
-            // Vertical (pitch) rotation for camera
+            // Calculate pitch for camera and smoothly apply it
             Vector3 lookDir = targetPoint - playerCamera.transform.position;
             float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
             cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
@@ -280,6 +288,20 @@ public class CharacterMovement : BaseMovement
     private Vector3 GetHorizontalRBVelocity()
     {
         return Vector3.ProjectOnPlane(rigidbody.linearVelocity, Vector3.up);
+    }
+    public float GetDeadZoneSize()
+    {
+        return deadZoneSize;
+    }
+
+    public bool GetCanMove()
+    {
+        return canMove;
+    }
+
+    public void SetCanMove(bool In)
+    {
+        canMove = In;
     }
 
     #endregion

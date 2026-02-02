@@ -830,6 +830,7 @@ GameObject:
   - component: {fileID: 7805110983251101133}
   - component: {fileID: 1083820748053228988}
   - component: {fileID: 7649222171561703624}
+  - component: {fileID: 3358737423463386440}
   m_Layer: 0
   m_Name: SoloPlayer Variant
   m_TagString: Player
@@ -867,7 +868,7 @@ Rigidbody:
   serializedVersion: 5
   m_Mass: 1
   m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_AngularDamping: 8
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -1023,7 +1024,7 @@ MonoBehaviour:
   rigidbody: {fileID: 8630522395041199877}
   capsuleCollider: {fileID: 6247417418457848749}
   audioSource: {fileID: 2238486810590534692}
-  characterModel: {fileID: 3606057364621925812}
+  characterModel: {fileID: 137555692073183035}
   canMove: 1
   accelerationRate: 60
   decelerationRate: 30
@@ -1184,6 +1185,28 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 7805110983251101133}
   - {fileID: 1083820748053228988}
+--- !u!114 &3358737423463386440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2714673874331796027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1c18890a43c42f6b807e5c7ef4ae78, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Solo_UI_Manager
+  p1Cursor: {fileID: 0}
+  p2Cursor: {fileID: 0}
+  averageCursor: {fileID: 0}
+  playerController: {fileID: 8721412640584842010}
+  characterMovement: {fileID: 5398614736470899330}
+  playerCamera: {fileID: 1008146256653733706}
+  weaponMgr: {fileID: 7649222171561703624}
+  mouse1Pos: {x: 0, y: 0}
+  mouse2Pos: {x: 0, y: 0}
+  averagePos: {x: 0, y: 0}
 --- !u!1 &2853870865931590669
 GameObject:
   m_ObjectHideFlags: 0
