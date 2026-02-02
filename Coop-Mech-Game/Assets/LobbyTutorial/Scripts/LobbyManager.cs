@@ -237,6 +237,14 @@ public class LobbyManager : MonoBehaviour {
             }
         };
 
+        if (gameMode == GameMode.Practice) {
+            maxPlayers = 2;
+        }
+        else if (gameMode == GameMode.Duel)
+        {
+            maxPlayers = 4;
+        }
+        Debug.Log("maxplayers set to " + maxPlayers);
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
         joinedLobby = lobby;
