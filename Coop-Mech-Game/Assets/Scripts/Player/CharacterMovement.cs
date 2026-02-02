@@ -110,48 +110,46 @@ public class CharacterMovement : BaseMovement
     protected override void MoveCharacter()
     {
         if (!canMove) return;
-
-        // Forward/back movement relative to camera forward
-        if (movementDirection.z != 0)
+        if (movementDirection.x != 0 || movementDirection.z != 0)
         {
-            Vector3 camForward = playerCamera.transform.forward;
-            camForward.y = 0;
-            camForward.Normalize();
+            // Forward/back movement relative to camera forward
+            if (movementDirection.z != 0)
+            {
+                Vector3 camForward = playerCamera.transform.forward;
+                camForward.y = 0;
+                camForward.Normalize();
 
-            Vector3 move = camForward * movementDirection.z;
+                Vector3 move = camForward * movementDirection.z;
 
-            if (isGrounded)
-                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
-            else
-                rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
-        }
-        if (movementDirection.x != 0)
-        {
-            Vector3 camRight = playerCamera.transform.right;
-            camRight.y = 0;
-            camRight.Normalize();
+                if (isGrounded)
+                    rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
+                else
+                    rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
+            }
+            // Sideways movement relative to camera right
+            if (movementDirection.x != 0)
+            {
+                Vector3 camRight = playerCamera.transform.right;
+                camRight.y = 0;
+                camRight.Normalize();
 
-            Vector3 move = camRight * movementDirection.x;
+                Vector3 move = camRight * movementDirection.x;
 
-            if (isGrounded)
-                rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
-            else
-                rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
+                if (isGrounded)
+                    rigidbody.AddForce(move * accelerationRate, ForceMode.Acceleration);
+                else
+                    rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
+            }
         }
         //TODO: FIX!!!
-        // if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
-        // {
-        //     Vector3 horizontalVel = GetHorizontalRBVelocity();
-        //     if (horizontalVel.magnitude > 0.5f)
-        //     {
-        //         Vector3 counteract = -horizontalVel.normalized;
-        //         rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
-        //     }
-        // }
-
-        if(movementDirection.z == 0)
+        else if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
         {
-            //rigidbody.linearVelocity = Vector3.zero;
+            Vector3 horizontalVel = GetHorizontalRBVelocity();
+            if (horizontalVel.magnitude > 0.5f)
+            {
+                Vector3 counteract = -horizontalVel.normalized;
+                rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
+            }
         }
     }
     private void LimitVelocity()
