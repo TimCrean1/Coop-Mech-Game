@@ -59,6 +59,7 @@ public class CharacterMovement : BaseMovement
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Confined;
+        rigidbody.angularDamping = 8f;
     }
 
     private void FixedUpdate()
@@ -67,7 +68,7 @@ public class CharacterMovement : BaseMovement
         CheckIsGrounded();
         MoveCharacter();
         CharacterLook();
-        LimitVelocity();
+        LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
     }
 
     private void Update()
@@ -141,15 +142,17 @@ public class CharacterMovement : BaseMovement
                     rigidbody.AddForce(move * accelerationRate * airControlMultiplier, ForceMode.Acceleration);
             }
         }
-        //TODO: FIX!!!
         else if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
         {
+            // Vector3 horizontalVel = GetHorizontalRBVelocity();
+            // if (horizontalVel.magnitude > 0.75f)
+            // {
+            //     Vector3 counteract = -horizontalVel.normalized;
+            //     rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
+            // }
             Vector3 horizontalVel = GetHorizontalRBVelocity();
-            if (horizontalVel.magnitude > 0.5f)
-            {
-                Vector3 counteract = -horizontalVel.normalized;
-                rigidbody.AddForce(counteract * decelerationRate, ForceMode.Acceleration);
-            }
+            Vector3 dampingForce = -horizontalVel * decelerationRate;
+            rigidbody.AddForce(dampingForce, ForceMode.Acceleration);
         }
     }
     private void LimitVelocity()
@@ -174,14 +177,11 @@ public class CharacterMovement : BaseMovement
     #region Rotation
     private void CharacterLook()
     {
-        // print(lookInput.magnitude + " " + lookInput.x + " " + lookInput.y);
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
 
         lookInput.x = Mathf.Abs(lookInput.x - 0.5f) < deadZoneSize ? 0.5f : lookInput.x;
         lookInput.y = Mathf.Abs(lookInput.y - 0.5f) < deadZoneSize ? 0.5f : lookInput.y;
-
-        // Debug.Log("Look input bm:" + lookInput);
 
         Vector2 screenPos = new Vector2(Screen.width * lookInput.x, Screen.height * lookInput.y);
         Ray ray = playerCamera.ScreenPointToRay(screenPos);
@@ -289,10 +289,6 @@ public class CharacterMovement : BaseMovement
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        // Gizmos.color = isGrounded ? Color.green : Color.red;
-        // Vector3 p1 = transform.position + Vector3.down * groundCheckDistance;
-        // Gizmos.DrawWireSphere(p1, capsuleCollider.radius + 0.1f);
-
         // Draw the raycast from CharacterLook()
         if (playerCamera != null)
         {
@@ -304,7 +300,20 @@ public class CharacterMovement : BaseMovement
             // Draw a sphere at the targetPoint if set
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(targetPoint, 0.1f);
-        }    
+        }  
+        // Draw a raycast showing rigidbody velocity
+        if (rigidbody != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawRay(transform.position, rigidbody.linearVelocity);
+        }
+        // Draw the deceleration raycast
+        if (isGrounded && movementDirection.x == 0 && movementDirection.z == 0)
+        {
+            Vector3 horizontalVel = GetHorizontalRBVelocity();
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, -horizontalVel.normalized * 2f);
+        }
     }
 #endif
 
