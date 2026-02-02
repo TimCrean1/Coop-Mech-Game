@@ -47,7 +47,6 @@ public class StartupAnimation : MonoBehaviour
             }
             yield return null;
         }
-
         yield return null;
     }
 
@@ -71,7 +70,7 @@ public class StartupAnimation : MonoBehaviour
 
             yield return new WaitForSeconds(interval);
         }
-
+        GetComponent<CharacterMovement>().SetCanMove(true);
         yield return null;
     }
 

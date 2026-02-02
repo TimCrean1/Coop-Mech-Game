@@ -1369,6 +1369,9 @@ MonoBehaviour:
   _right: {fileID: 2100000, guid: 2beb2fbf1f018f14bbf61a38bc2b9f38, type: 2}
   emitColor: {r: 0, g: 1, b: 0, a: 1}
   emitIntensity: 7
+  MoveInput: {x: 0, y: 0}
+  rotationAmount: 25
+  rotationSpeed: 5
 --- !u!114 &7219012776943667128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,6 +1574,9 @@ MonoBehaviour:
   _right: {fileID: 2100000, guid: 2beb2fbf1f018f14bbf61a38bc2b9f38, type: 2}
   emitColor: {r: 0, g: 1, b: 0, a: 1}
   emitIntensity: 7
+  MoveInput: {x: 0, y: 0}
+  rotationAmount: 15
+  rotationSpeed: 5
 --- !u!23 &9094402116640957890
 MeshRenderer:
   m_ObjectHideFlags: 0

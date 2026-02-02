@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Unity.Netcode;
 
 public enum ESoloPlayerState
 {
@@ -181,15 +180,15 @@ public class SoloPlayerController : MonoBehaviour
 
     #region Callbacks
 
-    public void OnGamePausedReceived()
-    {
+    // public void OnGamePausedReceived()
+    // {
         
-    }
+    // }
 
-    public void OnGameResumedReceived()
-    {
+    // public void OnGameResumedReceived()
+    // {
         
-    }
+    // }
 
     #endregion
 }
