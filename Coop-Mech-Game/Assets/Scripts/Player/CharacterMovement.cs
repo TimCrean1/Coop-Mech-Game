@@ -314,10 +314,10 @@ public class CharacterMovement : BaseMovement
         // Draw the raycast from CharacterLook()
         if (playerCamera != null)
         {
-            Vector2 screenPos = new Vector2(lookInput.x * Screen.width, lookInput.y * Screen.height);
+            Vector2 screenPos = new(lookInput.x * Screen.width, lookInput.y * Screen.height);
             Ray ray = playerCamera.ScreenPointToRay(screenPos);
             Gizmos.color = Color.blue;
-            Gizmos.DrawRay(ray.origin, ray.direction * 100f);
+            Gizmos.DrawRay(ray.origin, targetPoint - ray.origin);
 
             // Draw a sphere at the targetPoint if set
             Gizmos.color = Color.yellow;
