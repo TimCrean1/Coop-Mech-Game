@@ -127,6 +127,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Move2"",
+                    ""type"": ""Value"",
+                    ""id"": ""5bdda13c-795c-4c3e-bb31-a8a29dd5fb80"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -261,6 +270,61 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""P2Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""d1ed8ea5-6356-4fb3-93f0-a585943800f3"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Move2"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""99208faf-2d96-44bc-9e61-9872edef12e5"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Move2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""25f4c90c-b04d-49d5-96c8-28230cb251d3"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Move2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""4b8333f7-7f3e-4901-b624-adba1fced99e"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Move2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""b91dd238-760f-4bdb-8871-22abf9825973"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Move2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -301,6 +365,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P2Move = m_Player.FindAction("P2Move", throwIfNotFound: true);
         m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
         m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
+        m_Player_P2Move2 = m_Player.FindAction("P2Move2", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -389,6 +454,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P2Move;
     private readonly InputAction m_Player_P1Shoot;
     private readonly InputAction m_Player_P2Shoot;
+    private readonly InputAction m_Player_P2Move2;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -416,6 +482,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/P2Shoot".
         /// </summary>
         public InputAction @P2Shoot => m_Wrapper.m_Player_P2Shoot;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Move2".
+        /// </summary>
+        public InputAction @P2Move2 => m_Wrapper.m_Player_P2Move2;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -454,6 +524,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Shoot.started += instance.OnP2Shoot;
             @P2Shoot.performed += instance.OnP2Shoot;
             @P2Shoot.canceled += instance.OnP2Shoot;
+            @P2Move2.started += instance.OnP2Move2;
+            @P2Move2.performed += instance.OnP2Move2;
+            @P2Move2.canceled += instance.OnP2Move2;
         }
 
         /// <summary>
@@ -477,6 +550,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Shoot.started -= instance.OnP2Shoot;
             @P2Shoot.performed -= instance.OnP2Shoot;
             @P2Shoot.canceled -= instance.OnP2Shoot;
+            @P2Move2.started -= instance.OnP2Move2;
+            @P2Move2.performed -= instance.OnP2Move2;
+            @P2Move2.canceled -= instance.OnP2Move2;
         }
 
         /// <summary>
@@ -641,6 +717,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Shoot(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Move2" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Move2(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

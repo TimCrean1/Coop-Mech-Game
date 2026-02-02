@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -6,13 +7,16 @@ using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
 
 public class LobbyManager : MonoBehaviour {
 
 
     public static LobbyManager Instance { get; private set; }
 
-
+    [SerializeField] private GameObject LoadingScreen;
+    [SerializeField] private Image LoadingBarFill;
     public static bool IsHost { get; private set; }
     public static string RelayJoinCode { get; private set; }
 
@@ -76,6 +80,8 @@ public class LobbyManager : MonoBehaviour {
 
     public async void Authenticate(string playerName) {
         playerName = playerName.Replace(" ", "_");
+
+       
         this.playerName = playerName;
         InitializationOptions initializationOptions = new InitializationOptions();
         initializationOptions.SetProfile(playerName);
@@ -162,6 +168,7 @@ public class LobbyManager : MonoBehaviour {
         {
             if (IsLobbyHost())
             {
+                
                 if (joinedLobby.Players.Count == joinedLobby.MaxPlayers)
                 {
                     
@@ -202,10 +209,12 @@ public class LobbyManager : MonoBehaviour {
             GameMode gameMode =
                 Enum.Parse<GameMode>(joinedLobby.Data[KEY_GAME_MODE].Value);
 
+
             switch (gameMode) {
                 default:
                 case GameMode.Practice:
                     gameMode = GameMode.Duel;
+                    
                     break;
                 case GameMode.Duel:
                     gameMode = GameMode.Practice;
@@ -228,6 +237,14 @@ public class LobbyManager : MonoBehaviour {
             }
         };
 
+        if (gameMode == GameMode.Practice) {
+            maxPlayers = 2;
+        }
+        else if (gameMode == GameMode.Duel)
+        {
+            maxPlayers = 4;
+        }
+        Debug.Log("maxplayers set to " + maxPlayers);
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
         joinedLobby = lobby;
@@ -393,7 +410,29 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
+    public void LoadScene(int sceneId)
+    {
+        StartCoroutine(LoadSceneAsync(sceneId));
+    }
+    IEnumerator LoadSceneAsync(int sceneId)
+    {
 
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
+
+        LoadingScreen.SetActive(true);
+
+        while (!operation.isDone)
+        {
+
+            float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
+
+            LoadingBarFill.fillAmount = progressValue;
+
+            yield return null;
+        }
+
+
+    }
     public async void StartGame() {
         try {
             Debug.Log("StartGame");
@@ -408,7 +447,8 @@ public class LobbyManager : MonoBehaviour {
 
             IsHost = true;
             alreadyStartedGame = true;
-            SceneManager.LoadScene(1);
+            //SceneManager.LoadScene(1);
+            LoadScene(1);
 
             OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
         } catch (LobbyServiceException e) {

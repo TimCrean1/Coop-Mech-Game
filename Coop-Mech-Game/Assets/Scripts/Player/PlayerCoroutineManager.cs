@@ -8,6 +8,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     [Header("Input Window Duration")]
     [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.2f;
     [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
+    [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
+    [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
 
     [Header("Time Counters")]
     private float p1MoveTime;
@@ -59,7 +61,19 @@ public class PlayerCoroutineManager : MonoBehaviour
         if (Mathf.Abs(p1MoveTime - p2MoveTime) <= movementSyncWindow && p1MoveInput == p2MoveInput)
         {
             // Inputs are synced
-            syncedInput = (p1MoveInput + p2MoveInput) * 0.5f;
+            syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
+
+            // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
+        }
+
+        // If the inputs are not identical and the sync window has passed, average the inputs anyway
+        else if(p1MoveInput != p2MoveInput)
+        {
+            // Average the two inputs even though they are not identical
+            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
             // Reset times so it only triggers once
             p1MoveTime = -1;
@@ -75,7 +89,8 @@ public class PlayerCoroutineManager : MonoBehaviour
         syncedInput = 0;
 
         // Check if inputs are within the sync window and that inputs are identical
-        if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow && Mathf.Approximately(p1ShootInput, p2ShootInput))
+        if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow 
+            && Mathf.Approximately(p1ShootInput, p2ShootInput))
         {
             // Inputs are synced
             syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;

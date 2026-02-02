@@ -18,30 +18,37 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
-        
-        // ask the server for an id based on connected clients
-        
-        playerController = GameManager.Instance._playerControllers[0];
 
-        if (GameManager.Instance._playerControllers[0].player1 == null)
+        // ask the server for an id based on connected clients
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
-            GameManager.Instance._playerControllers[0].player1 = this;
-            isPlayerOne = true;
-        }
-        else
+            playerController = GameManager.Instance._playerControllers[0];
+        } else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
-            GameManager.Instance._playerControllers[0].player2 = this;
-            isPlayerOne = false;
+            playerController = GameManager.Instance._playerControllers[1];
         }
+
+        
+
+        //if (GameManager.Instance._playerControllers[0].player1 == null)
+        //{
+        //    GameManager.Instance._playerControllers[0].player1 = this;
+        //    isPlayerOne = true;
+        //}
+        //else
+        //{
+        //    GameManager.Instance._playerControllers[0].player2 = this;
+        //    isPlayerOne = false;
+        //}
         playerInputActions = new PlayerInputActions();
         SubscribeInputActions();
         playerInputActions.Player.Enable();
     }
-    [ServerRpc]
-    private void AskServerForIdServerRpc()
-    {
+    //[ServerRpc]
+    //private void AskServerForIdServerRpc()
+    //{
 
-    }
+    //}
 
     void OnDisable()
     {
@@ -57,6 +64,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         {
             case EPlayerState.Moving:
                 playerInputActions.Player.Enable();
+                Cursor.visible = false;
                 break;
 
             case EPlayerState.Paused:
@@ -74,7 +82,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0)
+        if (OwnerClientId == 0 || OwnerClientId == 2)
         {
             // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
@@ -88,7 +96,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
-        else if (OwnerClientId == 1) 
+        else if (OwnerClientId == 1 || OwnerClientId == 3) 
         {
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
@@ -106,7 +114,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void UnsubscribeInputActions()
     {
-        if (OwnerClientId == 0){
+        if (OwnerClientId == 0 || OwnerClientId == 2)
+        {
             // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
             playerInputActions.Player.P1Move.started -= P1MoveAction;
@@ -118,7 +127,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.started -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
         }
-        else if (OwnerClientId == 1){
+        else if (OwnerClientId == 1 || OwnerClientId == 3)
+        {
             // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
             playerInputActions.Player.P2Move.started -= P2MoveAction;
@@ -146,13 +156,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
         //mouseNetPos.Value = mousePos;
         
         // Send mouse position to PlayerController
-        if (OwnerClientId == 0)
+        if (OwnerClientId == 0 || OwnerClientId == 2)
         {
             playerController.ProcessMouse1InputServerRpc(mousePos);
             //Debug.Log("player one" + mousePos);
 
         }
-        else if(OwnerClientId == 1) 
+        else if(OwnerClientId == 1 || OwnerClientId == 3) 
         {
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
