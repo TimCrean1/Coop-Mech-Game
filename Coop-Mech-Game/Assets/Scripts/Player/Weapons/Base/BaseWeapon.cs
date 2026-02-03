@@ -17,19 +17,29 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private VisualEffect fireEffect;
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
+    [SerializeField] private float cooldownTime = 1.0f;
 
-    private float cooldownTime = 1.0f;
-    private int ammoCount;
+    [Tooltip("READY ONLY")]
+    [SerializeField] private int ammoCount;
 
     private bool canFire = true;
+    private bool isCooldownOn = false;
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
+    public float AmmoCount {  get { return ammoCount; } }
 
     private RaycastHit hit;
 
+    private void Start()
+    {
+        ammoCount = ammo;
+    }
+
     public virtual void Fire() //public because this will be called by weapon manager
     {
+        Debug.Log("BaseWeapon Fire() " + canFire);
+
         if (canFire)
         {
             Debug.Log("Fire input received");
@@ -45,10 +55,14 @@ public abstract class BaseWeapon : MonoBehaviour
             canFire = false;
             BuildCooldown();
         }
+        //else if (ammoCount <= 0)
+        //{
+        //    ActivateCooldown();
+        //}
     }
     protected virtual void BuildCooldown()
     {
-        ammoCount -= 1;
+        ammoCount = ammoCount - 1;
         Debug.Log("Ammo: " + ammoCount);
         if (ammoCount <= 0)
         {
@@ -60,13 +74,22 @@ public abstract class BaseWeapon : MonoBehaviour
         }
     }
 
+    protected virtual void ActivateCooldown()
+    {
+        if(isCooldownOn == false)
+        {
+            isCooldownOn = true;
+            StartCoroutine(CooldownRotuine());
+        }
+    }
+
     protected virtual IEnumerator FireRateRoutine(float fireRate)
     {
         yield return new WaitForSeconds(fireRate);
         canFire = true;
     }
 
-    protected virtual IEnumerator ActivateCooldown() //this is used for reloading but maybe also from damage effects
+    protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
         Debug.Log("cooldown start");
 
@@ -74,6 +97,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
         ammoCount = ammo;
         canFire = true;
+        isCooldownOn = false;
         Debug.Log("cooldown end");
     }
 
