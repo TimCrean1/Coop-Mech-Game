@@ -53,6 +53,11 @@ public abstract class BaseWeapon : MonoBehaviour
                 // get team-specific info and send to wherever we're handling the health of the teams
             }
 
+            else if (hit.collider.CompareTag("Target"))
+            {
+                hit.collider.gameObject.GetComponent<KillhouseEnemy>().Deactivate();
+            }
+
             canFire = false;
             BuildCooldown();
         }
