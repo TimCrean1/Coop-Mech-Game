@@ -30,6 +30,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private GameObject mainCamera;
+    [SerializeField] private MovementIndicator leftIndicator;
+    [SerializeField] private MovementIndicator rightIndicator;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -94,6 +96,16 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+            
+            if (leftIndicator != null && rightIndicator != null)
+            {
+                leftIndicator.SetMoveInput(P1MovementInput.Value);
+                rightIndicator.SetMoveInput(P2MovementInput.Value);
+            }
+            else
+            {
+                Debug.LogError("Left and right movement indicator references are not set in the Player Controller!");
+            }
         }
     }
 
