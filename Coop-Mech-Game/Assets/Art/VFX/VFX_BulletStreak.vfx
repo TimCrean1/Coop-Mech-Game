@@ -168,7 +168,9 @@ MonoBehaviour:
   m_Label: 
   m_Data: {fileID: 8926484042661616971}
   m_InputFlowSlot:
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661617514}
+      slotIndex: 0
   - link: []
   m_OutputFlowSlot:
   - link:
@@ -4858,7 +4860,9 @@ MonoBehaviour:
   m_InputFlowSlot:
   - link: []
   m_OutputFlowSlot:
-  - link: []
+  - link:
+    - context: {fileID: 8926484042661616970}
+      slotIndex: 0
   eventName: OnFire
 --- !u!114 &8926484042661617515
 MonoBehaviour:
