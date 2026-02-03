@@ -1,8 +1,9 @@
 using System;
 using UnityEngine;
 using UnityEngine.Splines.Interpolators;
+using Unity.Netcode;
 
-public class MovementIndicator : MonoBehaviour
+public class MovementIndicator : NetworkBehaviour
 {
     [Header("Materials")]
     [SerializeField] private Material _forward;
