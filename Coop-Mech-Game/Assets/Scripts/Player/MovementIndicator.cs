@@ -37,12 +37,13 @@ public class MovementIndicator : MonoBehaviour
     public void SetMoveInput(Vector2 input)
     {
         MoveInput = input;
+        MoveInput.x *= -1;
     }
     private void rotateSticks()
     {
         lerpTime = Time.deltaTime * rotationSpeed;
         Quaternion newRot = Quaternion.Euler(rotationAmount * MoveInput.y, 0, rotationAmount * MoveInput.x);
-        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, newRot, lerpTime);
+        gameObject.transform.localRotation = Quaternion.Slerp(gameObject.transform.localRotation, newRot, lerpTime);
     }
     public void SetMaterialToInput(Vector2 input)
     {
