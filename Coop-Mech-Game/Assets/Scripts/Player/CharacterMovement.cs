@@ -215,6 +215,7 @@ public class CharacterMovement : BaseMovement
             Vector3 lookDir = targetPoint - playerCamera.transform.position;
             float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
             cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
+            Mathf.Clamp(cameraPitch, -10f, 30f);
             playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
         }
     }
