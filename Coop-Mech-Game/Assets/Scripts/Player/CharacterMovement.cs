@@ -27,7 +27,6 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
-    private float center = 0.5f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -289,20 +288,10 @@ public class CharacterMovement : BaseMovement
     {
         return Vector3.ProjectOnPlane(rigidbody.linearVelocity, Vector3.up);
     }
-    public float GetDeadZoneSize()
-    {
-        return deadZoneSize;
-    }
-
-    public bool GetCanMove()
-    {
-        return canMove;
-    }
-
-    public void SetCanMove(bool In)
-    {
-        canMove = In;
-    }
+    public bool GetIsGrounded(){return isGrounded;}
+    public float GetDeadZoneSize(){return deadZoneSize;}
+    public bool GetCanMove(){return canMove;}
+    public void SetCanMove(bool In){canMove = In;}
 
     #endregion
 
@@ -340,9 +329,4 @@ public class CharacterMovement : BaseMovement
 #endif
 
 #endregion
-
-    public bool GetIsGrounded()
-    {
-        return isGrounded;
-    }
 }
