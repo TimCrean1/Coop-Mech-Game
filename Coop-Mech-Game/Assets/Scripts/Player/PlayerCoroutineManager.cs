@@ -83,6 +83,10 @@ public class PlayerCoroutineManager : MonoBehaviour
         else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
             syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
+
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
         }
 
         return false;
