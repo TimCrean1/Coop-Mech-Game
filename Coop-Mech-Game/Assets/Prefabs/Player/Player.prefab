@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 5086179133204423352}
   - component: {fileID: 2724236685853379273}
   - component: {fileID: 4675740159691710397}
+  - component: {fileID: 5132920644635074767}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -207,7 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3713268822
+  GlobalObjectIdHash: 232782933
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -258,8 +259,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   isGrounded: 0
-  weaponMgr: {fileID: 0}
-  playerCamera: {fileID: 0}
+  weaponMgr: {fileID: 4675740159691710397}
+  playerCamera: {fileID: 3824499897911944716}
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
   impulseSource: {fileID: 0}
@@ -287,6 +288,8 @@ MonoBehaviour:
   baseMovement: {fileID: 6930851332102331895}
   playerCoroutineManager: {fileID: 2446774336366214823}
   mainCamera: {fileID: 3087497272772946061}
+  leftIndicator: {fileID: 5939333263190863898}
+  rightIndicator: {fileID: 5256751921039319053}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -469,6 +472,31 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 5086179133204423352}
   - {fileID: 2724236685853379273}
+--- !u!114 &5132920644635074767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e704ac16af03abc49b815dff095646bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartupAnimation
+  _material: {fileID: 2100000, guid: 545c91318d48ba54ca193f78ba050174, type: 2}
+  startDelay: 2
+  startTime: 2
+  chance: 0.85
+  interDelay: 0.1
+  randomizeOrder: 0
+  refStrings:
+  - _RegionUL
+  - _RegionUR
+  - _RegionLL
+  - _RegionLR
+  - _RegionLC
+  - _RegionUC
 --- !u!1001 &6091891006707249466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -543,6 +571,30 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 6091891006707249466}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5256751921039319053 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2051673980267925815, guid: 0c064fff4cce45143b1365594493febc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6091891006707249466}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899b4f93a4bd40d4e966604a144755a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementIndicator
+--- !u!114 &5939333263190863898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 497224148918567200, guid: 0c064fff4cce45143b1365594493febc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6091891006707249466}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 899b4f93a4bd40d4e966604a144755a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementIndicator
 --- !u!4 &8838996688747179779 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3323887630253268537, guid: 0c064fff4cce45143b1365594493febc,

@@ -720,7 +720,6 @@ GameObject:
   - component: {fileID: 3323887630253268537}
   - component: {fileID: 6696553466066452869}
   - component: {fileID: 7806069037665132427}
-  - component: {fileID: 2050381066548552676}
   m_Layer: 7
   m_Name: LightMechExportV2
   m_TagString: Untagged
@@ -818,31 +817,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2050381066548552676
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7821163414239610467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e704ac16af03abc49b815dff095646bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartupAnimation
-  _material: {fileID: 2100000, guid: 545c91318d48ba54ca193f78ba050174, type: 2}
-  startDelay: 2
-  startTime: 2
-  chance: 0.85
-  interDelay: 0.1
-  randomizeOrder: 0
-  refStrings:
-  - _RegionUL
-  - _RegionUR
-  - _RegionLL
-  - _RegionLR
-  - _RegionLC
-  - _RegionUC
 --- !u!1 &7925325429393997274
 GameObject:
   m_ObjectHideFlags: 0
