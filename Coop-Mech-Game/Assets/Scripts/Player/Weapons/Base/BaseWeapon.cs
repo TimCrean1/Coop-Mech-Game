@@ -38,16 +38,16 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public virtual void Fire() //public because this will be called by weapon manager
     {
-        Debug.Log("BaseWeapon Fire() " + canFire);
+        //Debug.Log("BaseWeapon Fire() " + canFire);
 
         if (canFire)
         {
-            Debug.Log("Fire input received");
+            //Debug.Log("Fire input received");
 
             Physics.Raycast(muzzle.position, muzzle.forward, out hit);
             if (fireEffect) { fireEffect.SendEvent("OnFire"); }
 
-            if (hit.collider.CompareTag("Player"))
+            //if (hit.collider.CompareTag("Player"))
             {
                 // get team-specific info and send to wherever we're handling the health of the teams
             }
@@ -63,7 +63,7 @@ public abstract class BaseWeapon : MonoBehaviour
     protected virtual void BuildCooldown()
     {
         ammoCount = ammoCount - 1;
-        Debug.Log("Ammo: " + ammoCount);
+        //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount <= 0)
         {
             ActivateCooldown();
@@ -91,14 +91,14 @@ public abstract class BaseWeapon : MonoBehaviour
 
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
-        Debug.Log("cooldown start");
+        //Debug.Log("cooldown start");
 
         yield return new WaitForSeconds(cooldownTime);
 
         ammoCount = ammo;
         canFire = true;
         isCooldownOn = false;
-        Debug.Log("cooldown end");
+        //Debug.Log("cooldown end");
     }
 
     public virtual void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir) //rayHit is used for debug
