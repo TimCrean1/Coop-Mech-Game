@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCoroutineManager : MonoBehaviour
 {
     [Header("Input Window Duration")]
-    [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.2f;
+    [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.5f;
     [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
     [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
     [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
