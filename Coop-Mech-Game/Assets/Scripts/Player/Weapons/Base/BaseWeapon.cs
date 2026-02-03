@@ -14,7 +14,6 @@ public abstract class BaseWeapon : MonoBehaviour
 
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
-    [SerializeField] private VisualEffect fireEffect;
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
@@ -24,16 +23,18 @@ public abstract class BaseWeapon : MonoBehaviour
 
     private bool canFire = true;
     private bool isCooldownOn = false;
+    private RaycastHit hit;
+    private WeaponMuzzle muzzleComp;
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
     public float AmmoCount {  get { return ammoCount; } }
 
-    private RaycastHit hit;
 
     private void Start()
     {
         ammoCount = ammo;
+        muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
     }
 
     public virtual void Fire() //public because this will be called by weapon manager
@@ -45,9 +46,9 @@ public abstract class BaseWeapon : MonoBehaviour
             //Debug.Log("Fire input received");
 
             Physics.Raycast(muzzle.position, muzzle.forward, out hit);
-            if (fireEffect) { fireEffect.SendEvent("OnFire"); }
+            if (muzzleComp) { muzzleComp.SendFireEvent(); }
 
-            //if (hit.collider.CompareTag("Player"))
+            if (hit.collider.CompareTag("Player"))
             {
                 // get team-specific info and send to wherever we're handling the health of the teams
             }
