@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Splines.Interpolators;
 using Unity.Netcode;
 
-public class MovementIndicator : NetworkBehaviour
+public class MovementIndicator : MonoBehaviour
 {
     [Header("Materials")]
     [SerializeField] private Material _forward;
