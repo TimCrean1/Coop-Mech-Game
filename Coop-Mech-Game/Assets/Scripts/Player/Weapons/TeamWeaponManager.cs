@@ -1,6 +1,7 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Cinemachine;
+using UnityEngine;
 
 
 public class TeamWeaponManager : MonoBehaviour
@@ -8,6 +9,8 @@ public class TeamWeaponManager : MonoBehaviour
     [SerializeField] private List<BaseWeapon> weaponsList = new List<BaseWeapon>();
     [SerializeField] private bool _enableStaggeredFire = true;
     [SerializeField] private float staggeredFireTime = 0.25f;
+    [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
+
 
     public bool EnableStaggeredFire { get { return _enableStaggeredFire; } }
 
@@ -41,11 +44,13 @@ public class TeamWeaponManager : MonoBehaviour
             if(_enableStaggeredFire)
             {
                 StartCoroutine(WeaponFireRoutine());
+                return;
             }
             else
             {
                 foreach (BaseWeapon weapon in weaponsList) { weapon.Fire(); }
             }
+            shootingImpulseSource.GenerateImpulse();
         }
     }
 
@@ -54,6 +59,7 @@ public class TeamWeaponManager : MonoBehaviour
         foreach (BaseWeapon weapon in weaponsList) 
         { 
             weapon.Fire();
+            shootingImpulseSource.GenerateImpulse();
             yield return new WaitForSeconds(staggeredFireTime);
         }
         yield return null;

@@ -238,7 +238,6 @@ MonoBehaviour:
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
   movementImpulseSource: {fileID: 4144072817394404226}
-  shootingImpulseSource: {fileID: 1410714712400034722}
   impulseRate: 0.7
 --- !u!114 &2446774336366214823
 MonoBehaviour:
@@ -356,6 +355,9 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 5086179133204423352}
   - {fileID: 2724236685853379273}
+  _enableStaggeredFire: 1
+  staggeredFireTime: 0.25
+  shootingImpulseSource: {fileID: 4144072817394404226}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
   m_ObjectHideFlags: 0

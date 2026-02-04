@@ -42,7 +42,6 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private float cameraPitch = 0f;
     [SerializeField] private Vector3 targetPoint;
     [SerializeField] private CinemachineImpulseSource movementImpulseSource;
-    [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
 
@@ -228,7 +227,6 @@ public class CharacterMovement : BaseMovement
         if (!canMove) return;
         if (shootInput <= 0f) return;
         Debug.Log("Shooting!");
-        shootingImpulseSource.GenerateImpulse();
         weaponMgr.FireWeapons();
     }
     #endregion
