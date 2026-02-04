@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3713268822
+  GlobalObjectIdHash: 232782933
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -267,7 +267,6 @@ MonoBehaviour:
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
   movementImpulseSource: {fileID: 5790533618384368019}
-  shootingImpulseSource: {fileID: 1041313949405104054}
   impulseRate: 0.7
 --- !u!114 &3435869324062353507
 MonoBehaviour:
@@ -438,6 +437,7 @@ MonoBehaviour:
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
+  damage: 5
   ammoCount: 0
 --- !u!114 &2724236685853379273
 MonoBehaviour:
@@ -456,6 +456,7 @@ MonoBehaviour:
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
+  damage: 5
   ammoCount: 0
 --- !u!114 &4675740159691710397
 MonoBehaviour:
@@ -472,6 +473,9 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 5086179133204423352}
   - {fileID: 2724236685853379273}
+  _enableStaggeredFire: 1
+  staggeredFireTime: 0.25
+  shootingImpulseSource: {fileID: 1041313949405104054}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -836,7 +840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
   ChannelMask: 10
-  Gain: 1
+  Gain: 0.1
   Use2DDistance: 0
   UseLocalSpace: 1
   ReactionSettings:
@@ -876,7 +880,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
   ChannelMask: 10
-  Gain: 1
+  Gain: 0.1
   Use2DDistance: 0
   UseLocalSpace: 1
   ReactionSettings:
@@ -915,8 +919,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1572874571
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 3900414906
+  InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 1
@@ -946,8 +950,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3519095871
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 350535740
+  InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 1
