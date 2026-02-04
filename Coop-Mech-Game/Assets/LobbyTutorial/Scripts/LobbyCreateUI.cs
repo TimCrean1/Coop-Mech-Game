@@ -55,25 +55,30 @@ public class LobbyCreateUI : MonoBehaviour {
             UpdateText();
         });
 
-        maxPlayersButton.onClick.AddListener(() => {
-            UI_InputWindow.Show_Static("Max Players", maxPlayers,
-            () => {
-                // Cancel
-            },
-            (int maxPlayers) => {
-                this.maxPlayers = maxPlayers;
-                UpdateText();
-            });
-        });
+        //maxPlayersButton.onClick.AddListener(() => {
+        //    UI_InputWindow.Show_Static("Max Players", maxPlayers,
+        //    () => {
+        //        // Cancel
+        //    },
+        //    (int maxPlayers) => {
+        //        this.maxPlayers = maxPlayers;
+        //        UpdateText();
+        //    });
+        //});
+
+        // removed this block of code so players can't actually choose the max players themselves
+        // maxplayers is decided upon choosing the gamemode
 
         gameModeButton.onClick.AddListener(() => {
             switch (gameMode) {
                 default:
                 case LobbyManager.GameMode.Practice:
                     gameMode = LobbyManager.GameMode.Duel;
+                    maxPlayers = 4;
                     break;
                 case LobbyManager.GameMode.Duel:
                     gameMode = LobbyManager.GameMode.Practice;
+                    maxPlayers = 2;
                     break;
             }
             UpdateText();

@@ -54,6 +54,7 @@ public class EditPlayerName : MonoBehaviour {
 
     public string GetPlayerName() {
         // add random number on the end to give unique playerid
+        // though there still is a chance that two numbers are the same so write your own name
         return playerName + Random.Range(1,100);
     }
 
