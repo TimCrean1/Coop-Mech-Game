@@ -23,6 +23,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             playerController = GameManager.Instance._playerControllers[0];
+
         } else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             playerController = GameManager.Instance._playerControllers[1];
@@ -82,7 +83,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
@@ -96,7 +97,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3) 
+        else if (OwnerClientId == 2 || OwnerClientId == 3) 
         {
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
@@ -114,7 +115,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void UnsubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
@@ -127,7 +128,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.started -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3)
+        else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
@@ -156,13 +157,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
         //mouseNetPos.Value = mousePos;
         
         // Send mouse position to PlayerController
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             playerController.ProcessMouse1InputServerRpc(mousePos);
             //Debug.Log("player one" + mousePos);
 
         }
-        else if(OwnerClientId == 1 || OwnerClientId == 3) 
+        else if(OwnerClientId == 2 || OwnerClientId == 3) 
         {
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
