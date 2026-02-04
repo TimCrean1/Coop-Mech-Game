@@ -11935,6 +11935,11 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3713268822
       objectReference: {fileID: 0}
+    - target: {fileID: 4675740159691710397, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: shootingImpulseSource
+      value: 
+      objectReference: {fileID: 155014043924577355}
     - target: {fileID: 9056003002343389806, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -11943,71 +11948,20 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 155014043924577358}
-    - targetCorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 155014043924577357}
-    - targetCorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 155014043924577356}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6, type: 3}
---- !u!1 &155014043924577355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+--- !u!114 &155014043924577355 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1041313949405104054, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
     type: 3}
   m_PrefabInstance: {fileID: 155014043924577354}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &155014043924577356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155014043924577355}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42361fd0c87280a438c5f44afd283724, type: 3}
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealthController
---- !u!114 &155014043924577357
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155014043924577355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b357c8d7de8d9b4da9d02dfb618f402, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NetworkHealthState
-  ShowTopMostFoldoutHeaderGroup: 1
-  hitPoints:
-    m_InternalValue: 0
-  shieldPoints:
-    m_InternalValue: 0
-  m_LifeState:
-    m_InternalValue: 0
---- !u!114 &155014043924577358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 155014043924577355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60f5d15e164804e40b150341a83635f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DamageReceiver
-  ShowTopMostFoldoutHeaderGroup: 1
-  m_NetworkHealthState: {fileID: 0}
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
 --- !u!1001 &4188930867828808451
 PrefabInstance:
   m_ObjectHideFlags: 0

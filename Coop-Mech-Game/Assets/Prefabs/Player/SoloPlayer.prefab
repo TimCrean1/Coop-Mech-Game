@@ -321,6 +321,7 @@ MonoBehaviour:
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
+  damage: 5
   ammoCount: 0
 --- !u!114 &2724236685853379273
 MonoBehaviour:
@@ -339,6 +340,7 @@ MonoBehaviour:
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
+  damage: 5
   ammoCount: 0
 --- !u!114 &4675740159691710397
 MonoBehaviour:
@@ -357,7 +359,7 @@ MonoBehaviour:
   - {fileID: 2724236685853379273}
   _enableStaggeredFire: 1
   staggeredFireTime: 0.25
-  shootingImpulseSource: {fileID: 4144072817394404226}
+  shootingImpulseSource: {fileID: 1410714712400034722}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
   m_ObjectHideFlags: 0
