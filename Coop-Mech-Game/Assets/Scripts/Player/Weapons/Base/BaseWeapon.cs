@@ -17,6 +17,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
+    [SerializeField] private float damage = 5;
 
     [Tooltip("READY ONLY")]
     [SerializeField] private int ammoCount;
@@ -50,6 +51,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
             if (hit.collider.CompareTag("Player"))
             {
+                
                 // get team-specific info and send to wherever we're handling the health of the teams
             }
 

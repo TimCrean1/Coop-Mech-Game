@@ -7,7 +7,7 @@ public class DamageReceiver : NetworkBehaviour, IDamagable
     public event Action<PlayerController, int> DamageReceived;
 
     //public event Action<Collision> CollisionEntered;
-    [SerializeField] NetworkLifeState m_NetworkLifeState;
+    [SerializeField] NetworkHealthState m_NetworkLifeState;
 
     public void RecieveHP(PlayerController inflicter, int HP)
     {

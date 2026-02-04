@@ -36,6 +36,8 @@ public class PlayerController : NetworkBehaviour
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
     //[SerializeField] public Vector2 mouse2Pos;
+
+    // may not need these to bet network variables due to them being used in rpc
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
 
