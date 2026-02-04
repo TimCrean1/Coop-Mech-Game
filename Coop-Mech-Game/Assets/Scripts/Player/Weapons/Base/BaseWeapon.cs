@@ -55,6 +55,7 @@ public abstract class BaseWeapon : MonoBehaviour
 
             else if (hit.collider.CompareTag("Target"))
             {
+                Debug.Log("Hit!");
                 hit.collider.gameObject.GetComponent<KillhouseEnemy>().Deactivate();
             }
 
@@ -120,6 +121,17 @@ public abstract class BaseWeapon : MonoBehaviour
         Gizmos.DrawSphere(hit.point, 0.5f);
 
         Gizmos.DrawRay(muzzle.position, muzzle.transform.forward);
+
+        if (hit.collider != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(muzzle.position, hit.point);
+        }
+        else
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawLine(muzzle.position, muzzle.position + muzzle.forward * 100f);
+        }
     }
 #endif
 

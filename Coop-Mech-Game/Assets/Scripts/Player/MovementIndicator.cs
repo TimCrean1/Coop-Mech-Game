@@ -40,7 +40,7 @@ public class MovementIndicator : MonoBehaviour
         MoveInput = input;
         MoveInput.x *= -1;
         SetMaterialToInput(input);
-        Debug.Log("Input recieved: " + input);
+        // Debug.Log("Input recieved: " + input);
     }
     private void rotateSticks()
     {
