@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Splines.Interpolators;
 using Unity.Netcode;
 
-public class MovementIndicator : MonoBehaviour
+public class MovementIndicator : NetworkBehaviour
 {
     [Header("Materials")]
     [SerializeField] private Material _forward;
@@ -39,7 +39,7 @@ public class MovementIndicator : MonoBehaviour
     {
         MoveInput = input;
         MoveInput.x *= -1;
-        SetMaterialToInput(input);
+        SetMaterialToInputServerRpc(input);
         Debug.Log("Input recieved: " + input);
     }
     private void rotateSticks()
@@ -48,7 +48,8 @@ public class MovementIndicator : MonoBehaviour
         Quaternion newRot = Quaternion.Euler(rotationAmount * MoveInput.y, 0, rotationAmount * MoveInput.x);
         gameObject.transform.localRotation = Quaternion.Slerp(gameObject.transform.localRotation, newRot, lerpTime);
     }
-    public void SetMaterialToInput(Vector2 input)
+    [Rpc(SendTo.ClientsAndHost)]
+    public void SetMaterialToInputServerRpc(Vector2 input)
     {
         switch (input.x)
         {
@@ -90,7 +91,7 @@ public class MovementIndicator : MonoBehaviour
             ChangeMat(_right, true);
         }
     }
-
+    
     private void ChangeMat(Material _mat, bool turnOff)
     {
         if(turnOff)
