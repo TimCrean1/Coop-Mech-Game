@@ -76,15 +76,15 @@ public class CharacterMovement : BaseMovement
     private void Update()
     {
         Cursor.visible = true;
-        RotateCharacter();
+        // RotateCharacter();
         if (rigidbody.linearVelocity.sqrMagnitude > 0.1f)
         {
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                //impulseSource.GenerateImpulse();
+                impulseSource.GenerateImpulse();
                 impulseTimer = 0f;
-                //movementSFXManager.PlayFootstepSound();
+                // movementSFXManager.PlayFootstepSound();
             }
         }
         else
@@ -224,6 +224,7 @@ public class CharacterMovement : BaseMovement
     #region Shooting
     public override void Shoot(float shootInput)
     {
+        if (!canMove) return;
         if (shootInput <= 0f) return;
         Debug.Log("Shooting!");
         weaponMgr.FireWeapons();

@@ -56,7 +56,7 @@ public abstract class BaseWeapon : MonoBehaviour
             else if (hit.collider.CompareTag("Target"))
             {
                 Debug.Log("Hit!");
-                hit.collider.gameObject.GetComponent<KillhouseEnemy>().Deactivate(); //TODO: Fix
+                hit.collider.gameObject.SetActive(false);
             }
 
             canFire = false;

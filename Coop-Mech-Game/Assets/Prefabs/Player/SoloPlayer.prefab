@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4675740159691710397}
   - component: {fileID: 5132920644635074767}
   - component: {fileID: 8034055435280708182}
+  - component: {fileID: 4144072817394404226}
   m_Layer: 0
   m_Name: SoloPlayer
   m_TagString: Player
@@ -235,8 +236,8 @@ MonoBehaviour:
   playerCamera: {fileID: 3824499897911944716}
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
-  impulseSource: {fileID: 0}
-  impulseRate: 0.01
+  impulseSource: {fileID: 4144072817394404226}
+  impulseRate: 0.7
 --- !u!114 &2446774336366214823
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556aa0130985e44739ec7d0e1e0ad16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSyncWindow: 0.2
+  movementSyncWindow: 0.5
   shootSyncWindow: 0.2
   unsyncedMoveMultiplier: 0.25
   syncedMoveMultiplier: 1
@@ -400,6 +401,59 @@ MonoBehaviour:
   mouse1Pos: {x: 0, y: 0}
   mouse2Pos: {x: 0, y: 0}
   averagePos: {x: 0, y: 0}
+--- !u!114 &4144072817394404226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
+  ImpulseDefinition:
+    ImpulseChannel: 3
+    ImpulseShape: 2
+    CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    ImpulseDuration: 0.5
+    ImpulseType: 0
+    DissipationRate: 0.25
+    RawSignal: {fileID: 0}
+    AmplitudeGain: 1
+    FrequencyGain: 1
+    RepeatMode: 0
+    Randomize: 1
+    TimeEnvelope:
+      AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      AttackTime: 0
+      SustainTime: 0.2
+      DecayTime: 0.7
+      ScaleWithImpact: 1
+      HoldForever: 0
+    ImpactRadius: 100
+    DirectionMode: 0
+    DissipationMode: 2
+    DissipationDistance: 100
+    PropagationSpeed: 343
+  DefaultVelocity: {x: 0, y: -0.35, z: 0}
 --- !u!1001 &6091891006707249466
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -475,6 +529,14 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 227193091189634615}
+    - targetCorrespondingSourceObject: {fileID: 2292001298015997204, guid: 0c064fff4cce45143b1365594493febc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3415598469234003831}
+    - targetCorrespondingSourceObject: {fileID: 7925325429393997274, guid: 0c064fff4cce45143b1365594493febc,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2450858076224099574}
   m_SourcePrefab: {fileID: 100100000, guid: 0c064fff4cce45143b1365594493febc, type: 3}
 --- !u!20 &3824499897911944716 stripped
 Camera:
@@ -482,6 +544,34 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 6091891006707249466}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4140734285110349024 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7925325429393997274, guid: 0c064fff4cce45143b1365594493febc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6091891006707249466}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2450858076224099574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4140734285110349024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
+  ChannelMask: 3
+  Gain: 0.1
+  Use2DDistance: 0
+  UseLocalSpace: 1
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 0.5
+    FrequencyGain: 0.1
+    Duration: 0.5
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &5256751921039319053 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2051673980267925815, guid: 0c064fff4cce45143b1365594493febc,
@@ -500,6 +590,28 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 6091891006707249466}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3415598469234003831
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5423580322171517998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
+  ChannelMask: 3
+  Gain: 0.1
+  Use2DDistance: 0
+  UseLocalSpace: 1
+  ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    AmplitudeGain: 0.5
+    FrequencyGain: 0.5
+    Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &5939333263190863898 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 497224148918567200, guid: 0c064fff4cce45143b1365594493febc,
