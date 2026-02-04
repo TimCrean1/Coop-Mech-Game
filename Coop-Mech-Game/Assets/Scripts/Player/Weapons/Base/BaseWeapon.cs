@@ -29,6 +29,7 @@ public abstract class BaseWeapon : MonoBehaviour
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
     public float AmmoCount {  get { return ammoCount; } }
+    public bool CanWeaponFire { get { return canFire; } }
 
 
     private void Start()

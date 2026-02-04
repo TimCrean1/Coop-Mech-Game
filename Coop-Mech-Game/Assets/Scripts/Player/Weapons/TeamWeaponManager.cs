@@ -6,6 +6,10 @@ using System.Collections.Generic;
 public class TeamWeaponManager : MonoBehaviour
 {
     [SerializeField] private List<BaseWeapon> weaponsList = new List<BaseWeapon>();
+    [SerializeField] private bool _enableStaggeredFire = true;
+    [SerializeField] private float staggeredFireTime = 0.25f;
+
+    public bool EnableStaggeredFire { get { return _enableStaggeredFire; } }
 
     private RaycastHit hit;
     private Ray screenRay;
@@ -32,7 +36,40 @@ public class TeamWeaponManager : MonoBehaviour
 
     public void FireWeapons()
     {
-        foreach (BaseWeapon weapon in weaponsList) { weapon.Fire(); }
+        if (weaponsList[0].CanWeaponFire)
+        {
+            if(_enableStaggeredFire)
+            {
+                StartCoroutine(WeaponFireRoutine());
+            }
+            else
+            {
+                foreach (BaseWeapon weapon in weaponsList) { weapon.Fire(); }
+            }
+        }
+    }
+
+    private IEnumerator WeaponFireRoutine()
+    {
+        foreach (BaseWeapon weapon in weaponsList) 
+        { 
+            weapon.Fire();
+            yield return new WaitForSeconds(staggeredFireTime);
+        }
+        yield return null;
+    }
+
+    public void SetTeamWeaponsFireMode(TeamFireModes fireMode)
+    {
+        switch (fireMode)
+        {
+            case TeamFireModes.Simultaneous:
+                _enableStaggeredFire = false;
+                break;
+            case TeamFireModes.Staggered:
+                _enableStaggeredFire = true;
+                break;
+        }
     }
 
 #if UNITY_EDITOR
@@ -42,4 +79,10 @@ public class TeamWeaponManager : MonoBehaviour
         Gizmos.DrawSphere(hit.point, 0.25f);
     }
 #endif
+}
+
+public enum TeamFireModes
+{
+    Simultaneous,
+    Staggered
 }
