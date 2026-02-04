@@ -21,8 +21,8 @@ public class PlayerController : NetworkBehaviour
     private PlayerInputActions playerInputActions; 
     //[SerializeField] private Vector2 P1MovementInput;
     //[SerializeField] private Vector2 P2MovementInput;
-    public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
-    public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
+    // public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
+    // public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
     [SerializeField] private float P1ShootInput;
     [SerializeField] private float P2ShootInput;
 
@@ -30,6 +30,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private GameObject mainCamera;
+    [SerializeField] private MovementIndicator leftIndicator;
+    [SerializeField] private MovementIndicator rightIndicator;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -94,6 +96,16 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+            
+            // if (leftIndicator != null && rightIndicator != null)
+            // {
+            //     // leftIndicator.SetMoveInput(P1MovementInput.Value);
+            //     // rightIndicator.SetMoveInput(P2MovementInput.Value);
+            // }
+            // else
+            // {
+            //     Debug.LogError("Left and right movement indicator references are not set in the Player Controller!");
+            // }
         }
     }
 
@@ -167,6 +179,7 @@ public class PlayerController : NetworkBehaviour
     public void P1MoveActionServerRpc(Vector2 P1MovementInput)
     {
         playerCoroutineManager.SetP1Input(P1MovementInput);
+        leftIndicator.SetMoveInput(P1MovementInput);
     }
 
     // public void P2MoveAction(InputAction.CallbackContext context)
@@ -178,6 +191,7 @@ public class PlayerController : NetworkBehaviour
     public void P2MoveActionServerRpc(Vector2 P2MovementInput)
     {
         playerCoroutineManager.SetP2Input(P2MovementInput);
+        rightIndicator.SetMoveInput(P2MovementInput);
     }
 
     // public void P1ShootAction(InputAction.CallbackContext context)

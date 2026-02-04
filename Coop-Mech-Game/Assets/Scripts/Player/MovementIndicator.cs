@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Splines.Interpolators;
+using Unity.Netcode;
 
 public class MovementIndicator : MonoBehaviour
 {
@@ -37,12 +38,15 @@ public class MovementIndicator : MonoBehaviour
     public void SetMoveInput(Vector2 input)
     {
         MoveInput = input;
+        MoveInput.x *= -1;
+        SetMaterialToInput(input);
+        Debug.Log("Input recieved: " + input);
     }
     private void rotateSticks()
     {
         lerpTime = Time.deltaTime * rotationSpeed;
         Quaternion newRot = Quaternion.Euler(rotationAmount * MoveInput.y, 0, rotationAmount * MoveInput.x);
-        gameObject.transform.rotation = Quaternion.Slerp(gameObject.transform.rotation, newRot, lerpTime);
+        gameObject.transform.localRotation = Quaternion.Slerp(gameObject.transform.localRotation, newRot, lerpTime);
     }
     public void SetMaterialToInput(Vector2 input)
     {

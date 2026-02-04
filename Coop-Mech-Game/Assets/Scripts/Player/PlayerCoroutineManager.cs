@@ -6,7 +6,7 @@ using UnityEngine;
 public class PlayerCoroutineManager : MonoBehaviour
 {
     [Header("Input Window Duration")]
-    [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.2f;
+    [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.5f;
     [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
     [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
     [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
@@ -76,6 +76,14 @@ public class PlayerCoroutineManager : MonoBehaviour
             syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
             // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
+        }
+        else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
+        {
+            syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
+
             p1MoveTime = -1;
             p2MoveTime = -1;
             return true;

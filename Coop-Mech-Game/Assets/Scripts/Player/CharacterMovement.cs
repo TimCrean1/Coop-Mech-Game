@@ -27,7 +27,6 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
-    private float center = 0.5f;
 
     [Header("Player - Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -216,6 +215,7 @@ public class CharacterMovement : BaseMovement
             Vector3 lookDir = targetPoint - playerCamera.transform.position;
             float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
             cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
+            cameraPitch = Mathf.Clamp(cameraPitch, -10f, 30f);
             playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0, 0);
         }
     }
@@ -289,20 +289,10 @@ public class CharacterMovement : BaseMovement
     {
         return Vector3.ProjectOnPlane(rigidbody.linearVelocity, Vector3.up);
     }
-    public float GetDeadZoneSize()
-    {
-        return deadZoneSize;
-    }
-
-    public bool GetCanMove()
-    {
-        return canMove;
-    }
-
-    public void SetCanMove(bool In)
-    {
-        canMove = In;
-    }
+    public bool GetIsGrounded(){return isGrounded;}
+    public float GetDeadZoneSize(){return deadZoneSize;}
+    public bool GetCanMove(){return canMove;}
+    public void SetCanMove(bool In){canMove = In;}
 
     #endregion
 
@@ -340,9 +330,4 @@ public class CharacterMovement : BaseMovement
 #endif
 
 #endregion
-
-    public bool GetIsGrounded()
-    {
-        return isGrounded;
-    }
 }

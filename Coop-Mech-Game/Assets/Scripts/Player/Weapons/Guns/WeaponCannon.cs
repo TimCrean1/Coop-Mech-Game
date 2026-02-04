@@ -7,7 +7,6 @@ public class WeaponCannon : BaseWeapon
     public override void Fire()
     {
         base.Fire();
-        Debug.Log("WeaponCannon Fire()");
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)
@@ -20,9 +19,14 @@ public class WeaponCannon : BaseWeapon
         base.BuildCooldown();
     }
 
-    protected override IEnumerator ActivateCooldown()
+    protected override void ActivateCooldown()
     {
-        return base.ActivateCooldown();
+        base.ActivateCooldown();
+    }
+
+    protected override IEnumerator CooldownRotuine()
+    {
+        return base.CooldownRotuine();
     }
 
     public override void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir)
