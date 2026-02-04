@@ -20,7 +20,7 @@ public class NetworkHealthState : NetworkBehaviour
     private void OnEnable()
     {
         hitPoints.OnValueChanged += HitPointsChanged;
-        shieldPoints.OnValueChanged += 
+        //shieldPoints.OnValueChanged += 
     }
 
     private void OnDisable()

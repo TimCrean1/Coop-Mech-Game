@@ -7,7 +7,7 @@ public class DamageReceiver : NetworkBehaviour, IDamagable
     public event Action<PlayerController, int> DamageReceived;
 
     //public event Action<Collision> CollisionEntered;
-    [SerializeField] NetworkHealthState m_NetworkLifeState;
+    [SerializeField] NetworkHealthState m_NetworkHealthState;
 
     public void RecieveHP(PlayerController inflicter, int HP)
     {
@@ -19,6 +19,6 @@ public class DamageReceiver : NetworkBehaviour, IDamagable
 
     public bool IsDamageable()
     {
-        return m_NetworkLifeState.LifeState.Value == LifeState.Alive;
+        return m_NetworkHealthState.LifeState.Value == LifeState.Alive;
     }
 }
