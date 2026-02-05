@@ -28,12 +28,15 @@ public class StartupAnimation : MonoBehaviour
         }
 
         //eventually subscribe to an event when loading screen fades out
-        StartCoroutine(StartStartupRoutine());
+
+        GameManager.Instance.OnStartupSequence.AddListener(StartFunction);
+
+        StartFunction(); //remove when the above event is implemented in the GameManager
     }
 
     private void StartFunction()
     {
-        //this is to be called if we end up using events to start the effect
+        StartCoroutine(StartStartupRoutine());
     }
 
     private IEnumerator StartStartupRoutine()

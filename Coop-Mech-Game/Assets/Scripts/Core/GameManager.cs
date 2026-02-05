@@ -23,6 +23,7 @@ public class GameManager : NetworkBehaviour
     private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     
     public int playerScore = 0;
+    public UnityEvent OnStartupSequence; //Invoke when all clients are connected
 
     // Getter methods
     public float GetPlayerHealth()
