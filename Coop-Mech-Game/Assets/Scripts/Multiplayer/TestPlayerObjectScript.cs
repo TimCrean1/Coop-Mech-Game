@@ -19,6 +19,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (!IsOwner) { return; }
 
+        // for running code on tick rather than update
+        NetworkManager.NetworkTickSystem.Tick += Tick;
+
+
         // ask the server for an id based on connected clients
         if (OwnerClientId == 0 || OwnerClientId == 1)
         {
@@ -150,16 +154,15 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
-
-    void Update()
+    void Tick()
     {
         if (!IsOwner) { return; }
         // Get mouse position in screen space and normalize
         mousePos = Input.mousePosition;
-        mousePos.x = mousePos.x/Screen.width;
-        mousePos.y = mousePos.y/Screen.height;
+        mousePos.x = mousePos.x / Screen.width;
+        mousePos.y = mousePos.y / Screen.height;
         //mouseNetPos.Value = mousePos;
-        
+
         // Send mouse position to PlayerController
         if (OwnerClientId == 0 || OwnerClientId == 1)
         {
@@ -167,7 +170,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             //Debug.Log("player one" + mousePos);
 
         }
-        else if(OwnerClientId == 2 || OwnerClientId == 3) 
+        else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
@@ -176,6 +179,33 @@ public class TestPlayerObjectScript : NetworkBehaviour
         {
             Debug.Log("playerInputActions is null");
         }
+        Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
+    }
+    void Update()
+    {
+        //if (!IsOwner) { return; }
+        //// Get mouse position in screen space and normalize
+        //mousePos = Input.mousePosition;
+        //mousePos.x = mousePos.x / Screen.width;
+        //mousePos.y = mousePos.y / Screen.height;
+        ////mouseNetPos.Value = mousePos;
+
+        //// Send mouse position to PlayerController
+        //if (OwnerClientId == 0 || OwnerClientId == 1)
+        //{
+        //    playerController.ProcessMouse1InputServerRpc(mousePos);
+        //    //Debug.Log("player one" + mousePos);
+
+        //}
+        //else if (OwnerClientId == 2 || OwnerClientId == 3)
+        //{
+        //    playerController.ProcessMouse2InputServerRpc(mousePos);
+        //    //Debug.Log("player two" + mousePos);
+        //}
+        //if (playerInputActions == null)
+        //{
+        //    Debug.Log("playerInputActions is null");
+        //}
     }
 
     #region Input Actions
