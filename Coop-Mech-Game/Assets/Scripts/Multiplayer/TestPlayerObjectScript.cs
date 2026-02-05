@@ -6,15 +6,15 @@ using UnityEngine;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    [SerializeField]private bool isPlayerOne;
+    //[SerializeField]private bool isPlayerOne;
     private Vector2 mousePos;
-    private float mouseX;
-    private float mouseY;
+    //private float mouseX;
+    //private float mouseY;
     [SerializeField]private int playerIndex;
     //[SerializeField]private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
     //private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
-
+    
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
@@ -23,10 +23,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
         if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             playerController = GameManager.Instance._playerControllers[0];
+            GameManager.Instance._playerControllers[0].baseCamera.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[0].overlayCamera.gameObject.SetActive(true);
 
         } else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             playerController = GameManager.Instance._playerControllers[1];
+            GameManager.Instance._playerControllers[1].baseCamera.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[1].overlayCamera.gameObject.SetActive(true);
         }
 
         

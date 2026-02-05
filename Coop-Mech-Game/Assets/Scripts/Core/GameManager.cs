@@ -18,8 +18,9 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private float _playerHealth = 50;
     [SerializeField] private float _maxPlayerHealth = 50;
-    [SerializeField] public List<PlayerController> _playerControllers;
-    private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
+    [SerializeField] public List<PlayerController> _playerControllers; // this needs to be synced on the server
+    //private NetworkList<PlayerController> _playerControllers;
+    private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     
     public int playerScore = 0;
 

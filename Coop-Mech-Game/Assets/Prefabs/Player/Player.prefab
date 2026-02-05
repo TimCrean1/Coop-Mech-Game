@@ -289,6 +289,8 @@ MonoBehaviour:
   mainCamera: {fileID: 3087497272772946061}
   leftIndicator: {fileID: 5939333263190863898}
   rightIndicator: {fileID: 5256751921039319053}
+  baseCamera: {fileID: 3824499897911944716}
+  overlayCamera: {fileID: 6530858700915813938}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -739,6 +741,11 @@ PrefabInstance:
       propertyPath: emitIntensity
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2292001298015997204, guid: 0c064fff4cce45143b1365594493febc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3323887630253268537, guid: 0c064fff4cce45143b1365594493febc,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -793,6 +800,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LightMechExportV2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7925325429393997274, guid: 0c064fff4cce45143b1365594493febc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -932,6 +944,12 @@ MonoBehaviour:
   AutoObjectParentSync: 1
   SyncOwnerTransformWhenParented: 1
   AllowOwnerToParent: 0
+--- !u!20 &6530858700915813938 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 1020342370441731848, guid: 0c064fff4cce45143b1365594493febc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6091891006707249466}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8756008789385440153 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3245170096886962851, guid: 0c064fff4cce45143b1365594493febc,
