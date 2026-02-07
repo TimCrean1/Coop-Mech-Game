@@ -19,10 +19,10 @@ GameObject:
   - component: {fileID: 5086179133204423352}
   - component: {fileID: 2724236685853379273}
   - component: {fileID: 4675740159691710397}
-  - component: {fileID: 5132920644635074767}
   - component: {fileID: 8034055435280708182}
   - component: {fileID: 4144072817394404226}
   - component: {fileID: 1410714712400034722}
+  - component: {fileID: 5914635456145392840}
   m_Layer: 0
   m_Name: SoloPlayer
   m_TagString: Player
@@ -357,34 +357,9 @@ MonoBehaviour:
   weaponsList:
   - {fileID: 5086179133204423352}
   - {fileID: 2724236685853379273}
-  _enableStaggeredFire: 1
+  _enableStaggeredFire: 0
   staggeredFireTime: 0.25
   shootingImpulseSource: {fileID: 1410714712400034722}
---- !u!114 &5132920644635074767
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e704ac16af03abc49b815dff095646bd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartupAnimation
-  _material: {fileID: 2100000, guid: 545c91318d48ba54ca193f78ba050174, type: 2}
-  startDelay: 2
-  startTime: 2
-  chance: 0.85
-  interDelay: 0.1
-  randomizeOrder: 0
-  refStrings:
-  - _RegionUL
-  - _RegionUR
-  - _RegionLL
-  - _RegionLR
-  - _RegionLC
-  - _RegionUC
 --- !u!114 &8034055435280708182
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,6 +488,25 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: 0, z: -0.1}
+--- !u!114 &5914635456145392840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6369da5c83f234349b4eb861d426c00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoloStartupAnimation
+  _material: {fileID: 2100000, guid: 545c91318d48ba54ca193f78ba050174, type: 2}
+  startDelay: 2
+  startTime: 2
+  chance: 0.85
+  interDelay: 0.1
+  randomizeOrder: 0
+  refStrings: []
 --- !u!1001 &6091891006707249466
 PrefabInstance:
   m_ObjectHideFlags: 0
