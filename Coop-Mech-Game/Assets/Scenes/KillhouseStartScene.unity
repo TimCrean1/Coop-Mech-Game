@@ -3325,6 +3325,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTeamTwo
       objectReference: {fileID: 0}
+    - target: {fileID: 1110307106174362958, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1601331925871783352, guid: d8aadf6f9e824334fb72c64a19dca918,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -3388,6 +3393,16 @@ PrefabInstance:
     - target: {fileID: 1787830087806188225, guid: d8aadf6f9e824334fb72c64a19dca918,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6181614983484361532, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6449706715709335915, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7578080294201804009, guid: d8aadf6f9e824334fb72c64a19dca918,
@@ -8787,6 +8802,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerTeamOne
       objectReference: {fileID: 0}
+    - target: {fileID: 1310812323474829952, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: p1Cursor
+      value: 
+      objectReference: {fileID: 1381467928}
+    - target: {fileID: 1310812323474829952, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: p2Cursor
+      value: 
+      objectReference: {fileID: 1381467927}
     - target: {fileID: 1787830087806188225, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8852,6 +8877,11 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 3713268822
       objectReference: {fileID: 0}
+    - target: {fileID: 6930851332102331895, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 1573088384}
     - target: {fileID: 8379400987956008606, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -8877,6 +8907,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6, type: 3}
+--- !u!20 &1573088384 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 3310075575075238335, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1573088383}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1588273919 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 176013602366458966, guid: 10168127924f3488db331f872489cae3,
