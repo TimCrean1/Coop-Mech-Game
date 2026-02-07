@@ -108,7 +108,7 @@ public class LobbyManager : MonoBehaviour {
 
             RefreshLobbyList();
         };
-
+        
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 

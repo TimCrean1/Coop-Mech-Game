@@ -77,7 +77,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
-
+    
     void OnDisable()
     {
         UnsubscribeInputActions();
@@ -111,8 +111,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0 || OwnerClientId == 2) 
         {
+            // OwnerClientId 0 is player 1 of mech 1
+            // OwnerClientId 2 is player 1 of mech 2
+
             // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
 
