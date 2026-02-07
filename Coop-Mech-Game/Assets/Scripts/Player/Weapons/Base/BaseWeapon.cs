@@ -78,6 +78,7 @@ public abstract class BaseWeapon : MonoBehaviour
     protected virtual void BuildCooldown()
     {
         ammoCount = ammoCount - 1;
+        ammoCountScreen.ChangeText(AmmoCount.ToString(), false);
         //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount <= 0)
         {
