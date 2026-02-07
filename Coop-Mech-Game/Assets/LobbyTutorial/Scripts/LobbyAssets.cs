@@ -10,21 +10,21 @@ public class LobbyAssets : MonoBehaviour {
     public static LobbyAssets Instance { get; private set; }
 
 
-    [SerializeField] private Sprite marineSprite;
-    [SerializeField] private Sprite ninjaSprite;
-    [SerializeField] private Sprite zombieSprite;
+    [SerializeField] private Sprite redTeamSprite;
+    [SerializeField] private Sprite blueTeamSprite;
+    [SerializeField] private Sprite spectatorSprite;
 
 
     private void Awake() {
         Instance = this;
     }
 
-    public Sprite GetSprite(LobbyManager.PlayerCharacter playerCharacter) {
-        switch (playerCharacter) {
+    public Sprite GetSprite(LobbyManager.PlayerTeam playerTeam) {
+        switch (playerTeam) {
             default:
-            case LobbyManager.PlayerCharacter.Marine:   return marineSprite;
-            case LobbyManager.PlayerCharacter.Ninja:    return ninjaSprite;
-            case LobbyManager.PlayerCharacter.Zombie:   return zombieSprite;
+            case LobbyManager.PlayerTeam.Red:         return redTeamSprite;
+            case LobbyManager.PlayerTeam.Blue:        return blueTeamSprite;
+            case LobbyManager.PlayerTeam.Spectator:   return spectatorSprite;
         }
     }
 

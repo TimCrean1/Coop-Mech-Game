@@ -17,8 +17,8 @@ public class LobbyUI : MonoBehaviour {
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private TextMeshProUGUI playerCountText;
     [SerializeField] private TextMeshProUGUI gameModeText;
-    [SerializeField] private Button changeMarineButton;
-    [SerializeField] private Button changeNinjaButton;
+    [SerializeField] private Button changeRedTeamButton;
+    [SerializeField] private Button changeBlueTeamButton;
     [SerializeField] private Button changeZombieButton;
     [SerializeField] private Button leaveLobbyButton;
     [SerializeField] private Button changeGameModeButton;
@@ -31,11 +31,11 @@ public class LobbyUI : MonoBehaviour {
 
         playerSingleTemplate.gameObject.SetActive(false);
 
-        changeMarineButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Marine);
+        changeRedTeamButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerTeam(LobbyManager.PlayerTeam.Red);
         });
-        changeNinjaButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Ninja);
+        changeBlueTeamButton.onClick.AddListener(() => {
+            LobbyManager.Instance.UpdatePlayerTeam(LobbyManager.PlayerTeam.Blue);
         });
         changeZombieButton.onClick.AddListener(() => {
             LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Zombie);
@@ -104,6 +104,7 @@ public class LobbyUI : MonoBehaviour {
     }
 
     private void ClearLobby() {
+
         foreach (Transform child in container) {
             if (child == playerSingleTemplate) continue;
             Destroy(child.gameObject);

@@ -9,7 +9,7 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
 
 
     [SerializeField] private TextMeshProUGUI playerNameText;
-    [SerializeField] private Image characterImage;
+    [SerializeField] private Image teamImage;
     [SerializeField] private Button kickPlayerButton;
 
 
@@ -25,11 +25,14 @@ public class LobbyPlayerSingleUI : MonoBehaviour {
     }
 
     public void UpdatePlayer(Player player) {
+        if (player == null) {
+            Debug.Log("player is null");
+        }
         this.player = player;
         playerNameText.text = player.Data[LobbyManager.KEY_PLAYER_NAME].Value;
-        LobbyManager.PlayerCharacter playerCharacter = 
-            System.Enum.Parse<LobbyManager.PlayerCharacter>(player.Data[LobbyManager.KEY_PLAYER_CHARACTER].Value);
-        //characterImage.sprite = LobbyAssets.Instance.GetSprite(playerCharacter);
+        LobbyManager.PlayerTeam playerTeam = 
+            System.Enum.Parse<LobbyManager.PlayerTeam>(player.Data[LobbyManager.KEY_PLAYER_TEAM].Value);
+        teamImage.sprite = LobbyAssets.Instance.GetSprite(playerTeam);
     }
 
     private void KickPlayer() {
