@@ -47,7 +47,7 @@ public class GameManager : NetworkBehaviour
     //[SerializeField] private PlayerController _playerController;
     //public PlayerController PlayerCharacter { get { return _playerController; } }
 
-    [SerializeField] private PlayerDamageManager _playerDamageManager;
+    //[SerializeField] private PlayerDamageManager _playerDamageManager;
 
     #endregion
 
@@ -157,7 +157,7 @@ public class GameManager : NetworkBehaviour
     {
         print(damage);
         _playerHealth = _playerHealth - damage;
-        _playerDamageManager.DamageTaken(damage);
+        //_playerDamageManager.DamageTaken(damage);
 
         if (_playerHealth <= 0)
         {
