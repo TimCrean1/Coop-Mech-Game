@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3713268822
+  GlobalObjectIdHash: 2910195415
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -244,9 +244,9 @@ MonoBehaviour:
   audioSource: {fileID: 3878826384544283473}
   characterModel: {fileID: 1787830087806188225}
   canMove: 1
-  accelerationRate: 60
-  decelerationRate: 30
-  maxWalkSpeed: 4
+  accelerationRate: 90
+  decelerationRate: 50
+  maxWalkSpeed: 7
   maxVerticalSpeed: 25
   maxJumps: 2
   jumpCoolDown: 0.25
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   weaponMgr: {fileID: 4675740159691710397}
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 3310075575075238335}
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
   movementImpulseSource: {fileID: 5790533618384368019}
@@ -310,7 +310,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSyncWindow: 0.5
   shootSyncWindow: 0.2
-  unsyncedMoveMultiplier: 0.25
+  unsyncedMoveMultiplier: 0.1
   syncedMoveMultiplier: 1
 --- !u!114 &6221149281486240100
 MonoBehaviour:
@@ -672,6 +672,36 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LightMech_Team1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042662251399226608, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3811618645
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042662251399226608, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6042662251399226608, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3713268822
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085020048077069744, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 2826310756
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085020048077069744, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8085020048077069744, guid: e8ef8c156346d5f428ea70949159c8fd,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 3713268822
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

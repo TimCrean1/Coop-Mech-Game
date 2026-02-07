@@ -2668,6 +2668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   teamProjectilePool: {fileID: 737891650}
   muzzle: {fileID: 1271045809}
+  ammoCountScreen: {fileID: 0}
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
@@ -8336,7 +8337,7 @@ PrefabInstance:
     - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
         type: 3}
       propertyPath: NetworkConfig.TickRate
-      value: 64
+      value: 48
       objectReference: {fileID: 0}
     - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
         type: 3}

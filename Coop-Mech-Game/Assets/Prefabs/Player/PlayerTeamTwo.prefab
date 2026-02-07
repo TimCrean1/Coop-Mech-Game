@@ -32,7 +32,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1787830087806188225
 Transform:
   m_ObjectHideFlags: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 189139221
-  InScenePlacedSourceGlobalObjectIdHash: 3713268822
+  GlobalObjectIdHash: 2857293940
+  InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -262,7 +262,7 @@ MonoBehaviour:
     m_Bits: 8
   isGrounded: 0
   weaponMgr: {fileID: 4675740159691710397}
-  playerCamera: {fileID: 0}
+  playerCamera: {fileID: 9078349854507471225}
   cameraPitch: 0
   targetPoint: {x: 0, y: 0, z: 0}
   movementImpulseSource: {fileID: 5790533618384368019}
@@ -676,12 +676,32 @@ PrefabInstance:
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2036190643
+      value: 1365573705
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 189139221
       objectReference: {fileID: 0}
     - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 57167648
+      value: 770921114
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 189139221
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -762,6 +782,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787830087806188225}
     m_Modifications:
+    - target: {fileID: 2399697640030479091, guid: 54e38da5fa86bf6409ab6da9b5f72219,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -842,6 +867,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787830087806188225}
     m_Modifications:
+    - target: {fileID: 2399697640030479091, guid: 54e38da5fa86bf6409ab6da9b5f72219,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}
       propertyPath: m_LocalPosition.x

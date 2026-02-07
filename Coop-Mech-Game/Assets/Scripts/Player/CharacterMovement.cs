@@ -22,8 +22,8 @@ public class CharacterMovement : BaseMovement
     private bool readyToJump = true;
 
     [Header("Player - Rotation")]
-    [SerializeField][Range(0,4)] private float horizontalRotationRate = 2;
-    [SerializeField][Range(0,4)] private float verticalRotationRate = 2;
+    [SerializeField][Range(0,10)] private float horizontalRotationRate = 2;
+    [SerializeField][Range(0,10)] private float verticalRotationRate = 2;
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
