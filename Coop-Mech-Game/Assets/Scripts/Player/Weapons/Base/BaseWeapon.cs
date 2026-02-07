@@ -12,13 +12,18 @@ public abstract class BaseWeapon : MonoBehaviour
     /// 
     /// </summary>
 
+    [Header("Object/Component References")]
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
+    [SerializeField] private MechScreen ammoCountScreen;
+
+    [Header("Weapon Stats")]
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
     [SerializeField] private float damage = 5;
 
+    [Header("READ ONLY")]
     [Tooltip("READY ONLY")]
     [SerializeField] private int ammoCount;
 
