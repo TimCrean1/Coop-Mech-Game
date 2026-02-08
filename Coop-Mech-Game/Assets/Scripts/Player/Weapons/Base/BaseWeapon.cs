@@ -22,6 +22,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
     [SerializeField] private float damage = 5;
+    [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
 
     [Header("READ ONLY")]
     [Tooltip("READY ONLY")]
@@ -120,7 +121,10 @@ public abstract class BaseWeapon : MonoBehaviour
     public virtual void SetMuzzleRotation(RaycastHit rayHit, Vector3 rotDir) //rayHit is used for debug
     {
         hit = rayHit;
+        //clamp rotDir to be within (10,10,10) and negatives
         muzzle.transform.forward = rotDir;
+
+        Debug.Log(this + " weapon muzzle forward is: " + muzzle.transform.forward);
     }
 
 #if UNITY_EDITOR
