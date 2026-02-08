@@ -38,7 +38,7 @@ public class LobbyUI : MonoBehaviour {
             LobbyManager.Instance.UpdatePlayerTeam(LobbyManager.PlayerTeam.Blue);
         });
         changeZombieButton.onClick.AddListener(() => {
-            LobbyManager.Instance.UpdatePlayerCharacter(LobbyManager.PlayerCharacter.Zombie);
+            LobbyManager.Instance.UpdatePlayerTeam(LobbyManager.PlayerTeam.Spectator);
         });
 
         leaveLobbyButton.onClick.AddListener(() => {
