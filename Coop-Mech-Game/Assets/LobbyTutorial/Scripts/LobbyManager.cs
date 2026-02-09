@@ -41,6 +41,7 @@ public class LobbyManager : MonoBehaviour {
     public event EventHandler<LobbyEventArgs> OnKickedFromLobby;
     public event EventHandler<LobbyEventArgs> OnLobbyGameModeChanged;
     public event EventHandler<LobbyEventArgs> OnLobbyStartGame;
+    public event EventHandler<LobbyEventArgs> OnTeamChange;
     public class LobbyEventArgs : EventArgs {
         public Lobby lobby;
     }
@@ -181,17 +182,17 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     // write method for checking if either team has more than two players, and then force team to autobalance
-    private void PopulateTeamLists()
+    private void CheckBlueTeam()
     {
-        for (int i = 0; joinedLobby.Players.Count > 0; i++)
-        {
-            if (joinedLobby.Players[i].Data[KEY_PLAYER_TEAM].Value == "Red")
-            {
-                _redPlayers.Add(joinedLobby.Players[i].Id);
-            }
+        for (int i = 0; i < _bluePlayers.Count; i++) {
+            
         }
     }
     
+    private void CheckRedTeam()
+    {
+
+    }
     public void StartIfHost()
     {
         if (!alreadyStartedGame)

@@ -68,7 +68,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        GameManager.Instance.AddController(this);
+        //GameManager.Instance.AddController(this);
         //mainCamera.GetComponent<Camera>().enabled = true;
     }
 
