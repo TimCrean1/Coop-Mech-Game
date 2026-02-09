@@ -89,6 +89,17 @@ public class PlayerCoroutineManager : MonoBehaviour
             return true;
         }
 
+        else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
+        {
+            // Average the two inputs even though they are not identical
+            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+
+            // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
+        }
+
         return false;
     }
 
