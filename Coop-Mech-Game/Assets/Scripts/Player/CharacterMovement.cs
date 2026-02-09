@@ -113,7 +113,7 @@ public class CharacterMovement : BaseMovement
     // Handles character movement based on input direction and camera orientation
     protected override void MoveCharacter()
     {
-        print(movementDirection);
+        // print(movementDirection);
         // If there is movement input
         if (movementDirection.x != 0 || movementDirection.z != 0)
         {
