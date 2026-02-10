@@ -44,53 +44,53 @@ public class TeamProjectilePool : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
-        for (int i = 0; i < numCanProj; i++)
-        {
-            //instantiate below map
-            CannonProjectile cann;
-            //Debug.Log("Before instantiate " + i);
-            cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
-            cann.GetComponent<NetworkObject>().Spawn(true);
-            //Debug.Log("Past instantiate " + i);
-            //Debug.Log(i + " did start: " + cann.didStart);
+        // for (int i = 0; i < numCanProj; i++)
+        // {
+        //     //instantiate below map
+        //     CannonProjectile cann;
+        //     //Debug.Log("Before instantiate " + i);
+        //     cann = Instantiate(cannonProj, ProjectileSpawnPos, Quaternion.identity);
+        //     cann.GetComponent<NetworkObject>().Spawn(true);
+        //     //Debug.Log("Past instantiate " + i);
+        //     //Debug.Log(i + " did start: " + cann.didStart);
 
-            cannonProjectilesList.Add(cann.gameObject);
-            //Debug.Log("Past adding " + i);
-            cannonProjectilesList[i].gameObject.SetActive(false);
-            //Debug.Log("Past disabling " + i);
-            //cann.gameObject.SetActive(false);
-        }
+        //     cannonProjectilesList.Add(cann.gameObject);
+        //     //Debug.Log("Past adding " + i);
+        //     cannonProjectilesList[i].gameObject.SetActive(false);
+        //     //Debug.Log("Past disabling " + i);
+        //     //cann.gameObject.SetActive(false);
+        // }
 
-        for (int i = 0; i < numAutoProj; i++)
-        {
-            //instantiate below map
-            //MGProjectile mg = Instantiate(mgProj, ProjectileSpawnPos, Quaternion.identity);
+        // for (int i = 0; i < numAutoProj; i++)
+        // {
+        //     //instantiate below map
+        //     //MGProjectile mg = Instantiate(mgProj, ProjectileSpawnPos, Quaternion.identity);
 
-            //cannonProjectilesList.Add(mg);
-            //mg.enabled = false;
-        }
+        //     //cannonProjectilesList.Add(mg);
+        //     //mg.enabled = false;
+        // }
 
-        for (int i = 0; i < numLasProj; i++)
-        {
-            //instantiate below map
-            //LaserProjectile las = Instantiate(lasProj, ProjectileSpawnPos, Quaternion.identity);
+        // for (int i = 0; i < numLasProj; i++)
+        // {
+        //     //instantiate below map
+        //     //LaserProjectile las = Instantiate(lasProj, ProjectileSpawnPos, Quaternion.identity);
 
-            //cannonProjectilesList.Add(las);
-            //las.enabled = false;
-        }
+        //     //cannonProjectilesList.Add(las);
+        //     //las.enabled = false;
+        // }
 
-        for (int i = 0; i < numFX; i++)
-        {
-            //instantiate below map
-            //BaseEffect gf = Instantiate(groundEffect, ProjectileSpawnPos, Quaternion.identity);
-            //BaseEffect hf = Instantiate(hitEffect, ProjectileSpawnPos, Quaternion.identity);
+        // for (int i = 0; i < numFX; i++)
+        // {
+        //     //instantiate below map
+        //     //BaseEffect gf = Instantiate(groundEffect, ProjectileSpawnPos, Quaternion.identity);
+        //     //BaseEffect hf = Instantiate(hitEffect, ProjectileSpawnPos, Quaternion.identity);
 
-            //groundEffectsList.Add(gf);
-            //hitEffectsList.Add(hf);
+        //     //groundEffectsList.Add(gf);
+        //     //hitEffectsList.Add(hf);
 
-            //groundEffectsList[i].gameObject.SetActive(false);
-            //hitEffectsList[i].gameObject.SetActive(false);
-        }
+        //     //groundEffectsList[i].gameObject.SetActive(false);
+        //     //hitEffectsList[i].gameObject.SetActive(false);
+        // }
     }
     private void Start()
     {

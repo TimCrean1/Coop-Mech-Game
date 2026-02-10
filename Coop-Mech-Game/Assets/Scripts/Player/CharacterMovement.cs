@@ -113,6 +113,7 @@ public class CharacterMovement : BaseMovement
     // Handles character movement based on input direction and camera orientation
     protected override void MoveCharacter()
     {
+        // print(movementDirection);
         // If there is movement input
         if (movementDirection.x != 0 || movementDirection.z != 0)
         {
@@ -158,18 +159,41 @@ public class CharacterMovement : BaseMovement
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
-        if (horizontalVel.magnitude > currentMaxSpeed)
+        if (movementDirection.magnitude >= 1)
         {
-            Vector3 counteract = -horizontalVel.normalized;
-            float excess = horizontalVel.magnitude - currentMaxSpeed;
-            rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
-        }
+            if (horizontalVel.magnitude > currentMaxSpeed)
+            {
+                Vector3 counteract = -horizontalVel.normalized;
+                float excess = horizontalVel.magnitude - currentMaxSpeed;
+                rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
+            }
 
-        if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            //Jumping logic
+
+            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            // {
+            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
+            // }
+        }
+        else
         {
-            Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
-            float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
-            rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
+            if (horizontalVel.magnitude > currentMaxSpeed * 0.5f)
+            {
+                Vector3 counteract = -horizontalVel.normalized;
+                float excess = horizontalVel.magnitude - currentMaxSpeed * 0.5f;
+                rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
+            }
+
+            //Jumping logic
+
+            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            // {
+            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
+            // }
         }
     }
     #endregion

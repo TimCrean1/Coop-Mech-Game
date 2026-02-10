@@ -1,59 +1,32 @@
 using Unity.Netcode;
-//using Unity.Services.Matchmaker.Models;
-using Unity.Services.Lobbies.Models;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using Unity.Services.Authentication;
 
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    //[SerializeField]private bool isPlayerOne;
+    [SerializeField]private bool isPlayerOne;
     private Vector2 mousePos;
-    //private float mouseX;
-    //private float mouseY;
-    [SerializeField] private string playerIndex;
-    [SerializeField] private string playerTeam;
+    private float mouseX;
+    private float mouseY;
+    [SerializeField]private int playerIndex;
     //[SerializeField]private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
     //private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
 
-    
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
 
-        Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
-
-        Player localPlayer = lobby.Players.Find(p =>
-        p.Id == AuthenticationService.Instance.PlayerId);
-
-        playerIndex = AuthenticationService.Instance.PlayerId;
-
-        playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
-        //string playerName = localPlayer.Data[LobbyManager.KEY_PLAYER_NAME].Value;
-
-        // for running code on tick rather than update
-        NetworkManager.NetworkTickSystem.Tick += Tick;
-
-        if (GameManager.Instance._playerControllers.Count < 0)
-        {
-            Debug.Log("Playercontroller list is empty");
-        }
-        
         // ask the server for an id based on connected clients
-        // host currently struggles to join the game properly (not getting player controller)
-        if (playerTeam == "Red")
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             playerController = GameManager.Instance._playerControllers[0];
-            GameManager.Instance._playerControllers[0].baseCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[0].overlayCamera.gameObject.SetActive(true);
 
-        } else if (playerTeam == "Blue")
+        } else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             playerController = GameManager.Instance._playerControllers[1];
-            GameManager.Instance._playerControllers[1].baseCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[1].overlayCamera.gameObject.SetActive(true);
         }
 
         
@@ -77,11 +50,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
-    
+
     void OnDisable()
     {
         UnsubscribeInputActions();
-        
     }
 
     public void SwitchActionMap(EPlayerState state)
@@ -111,11 +83,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2) 
+        // if (OwnerClientId == 0 || OwnerClientId == 1)
+        if (OwnerClientId == 0)
         {
-            // OwnerClientId 0 is player 1 of mech 1
-            // OwnerClientId 2 is player 1 of mech 2
-
             // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
 
@@ -128,7 +98,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3) 
+        // else if (OwnerClientId == 2 || OwnerClientId == 3) 
+        if (OwnerClientId == 1)
         {
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
@@ -146,7 +117,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void UnsubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0 || OwnerClientId == 1)
         {
             // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
@@ -159,7 +130,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.started -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3)
+        else if (OwnerClientId == 2 || OwnerClientId == 3)
         {
             // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
@@ -177,23 +148,24 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
-    void Tick()
+
+    void Update()
     {
         if (!IsOwner) { return; }
         // Get mouse position in screen space and normalize
         mousePos = Input.mousePosition;
-        mousePos.x = mousePos.x / Screen.width;
-        mousePos.y = mousePos.y / Screen.height;
+        mousePos.x = mousePos.x/Screen.width;
+        mousePos.y = mousePos.y/Screen.height;
         //mouseNetPos.Value = mousePos;
-
+        
         // Send mouse position to PlayerController
-        if (OwnerClientId == 0 || OwnerClientId == 2)
+        if (OwnerClientId == 0)
         {
             playerController.ProcessMouse1InputServerRpc(mousePos);
             //Debug.Log("player one" + mousePos);
 
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3)
+        else if(OwnerClientId == 1) 
         {
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
@@ -202,33 +174,6 @@ public class TestPlayerObjectScript : NetworkBehaviour
         {
             Debug.Log("playerInputActions is null");
         }
-        //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
-    }
-    void Update()
-    {
-        //if (!IsOwner) { return; }
-        //// Get mouse position in screen space and normalize
-        //mousePos = Input.mousePosition;
-        //mousePos.x = mousePos.x / Screen.width;
-        //mousePos.y = mousePos.y / Screen.height;
-        ////mouseNetPos.Value = mousePos;
-
-        //// Send mouse position to PlayerController
-        //if (OwnerClientId == 0 || OwnerClientId == 1)
-        //{
-        //    playerController.ProcessMouse1InputServerRpc(mousePos);
-        //    //Debug.Log("player one" + mousePos);
-
-        //}
-        //else if (OwnerClientId == 2 || OwnerClientId == 3)
-        //{
-        //    playerController.ProcessMouse2InputServerRpc(mousePos);
-        //    //Debug.Log("player two" + mousePos);
-        //}
-        //if (playerInputActions == null)
-        //{
-        //    Debug.Log("playerInputActions is null");
-        //}
     }
 
     #region Input Actions
