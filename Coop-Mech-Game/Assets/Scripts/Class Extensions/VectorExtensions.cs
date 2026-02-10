@@ -16,11 +16,11 @@ public static class VectorExtensions
 
     public static Vector3 UnitiseVector3Components(this Vector3 vec)
     {
-        return new Vector3(vec.x = 1f, vec.y = 1f, vec.z = 1f);
+        return new Vector3(Mathf.Sign(vec.x), Mathf.Sign(vec.y), Mathf.Sign(vec.z));
     }
 
     public static Vector2 UnitiseVector2Components(this Vector2 vec)
     {
-        return new Vector2(vec.x = 1f, vec.y = 1f);
+        return new Vector2(Mathf.Sign(vec.x), Mathf.Sign(vec.y));
     }
 }
