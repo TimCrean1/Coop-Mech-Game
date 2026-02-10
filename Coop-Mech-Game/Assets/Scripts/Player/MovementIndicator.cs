@@ -30,7 +30,14 @@ public class MovementIndicator : NetworkBehaviour
     /// it should also rotate, but i'll do that later
     /// 
     /// </summary>
-    
+    private void Start()
+    {
+        ChangeMat(_forward, true);
+        ChangeMat(_backward, true);
+        ChangeMat(_left, true);
+        ChangeMat(_right, true);
+    }
+
     void FixedUpdate()
     {
         rotateSticks();

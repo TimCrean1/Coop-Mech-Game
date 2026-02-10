@@ -21,6 +21,17 @@ public static class VectorExtensions
 
     public static Vector2 UnitiseVector2Components(this Vector2 vec)
     {
-        return new Vector2(Mathf.Sign(vec.x), Mathf.Sign(vec.y));
+        if(vec.x == 0f)
+        {
+            return new Vector2(0f, Mathf.Sign(vec.y));
+        }
+        else if(vec.y == 0f)
+        {
+            return new Vector2(Mathf.Sign(vec.x), 0f);
+        }
+        else
+        {
+            return new Vector2(Mathf.Sign(vec.x), Mathf.Sign(vec.y));
+        }
     }
 }
