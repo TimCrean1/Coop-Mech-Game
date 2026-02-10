@@ -41,7 +41,7 @@ public class KillhouseEnemy : MonoBehaviour
         // childMeshRenderer1.enabled = true;
         // childMeshRenderer2.enabled = true;
         // isActive = true;
-        this.gameObject.SetActive(true);
+        this.enabled = true;
     }
     public void Deactivate()
     {
@@ -50,8 +50,8 @@ public class KillhouseEnemy : MonoBehaviour
         // childMeshRenderer1.enabled = false;
         // childMeshRenderer2.enabled = false;
         // isActive = false;
-        killhouseManager.UpdatePoints(pointsValue);
-        this.gameObject.SetActive(false);
+        // killhouseManager.UpdatePoints(pointsValue);
+        // this.gameObject.SetActive(false);
     }
 
     void OnDisable()
