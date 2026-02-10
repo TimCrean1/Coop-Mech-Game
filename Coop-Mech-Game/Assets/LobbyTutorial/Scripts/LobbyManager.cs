@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -412,6 +413,13 @@ public class LobbyManager : MonoBehaviour {
                 joinedLobby = lobby;
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+                if (newTeam.ToString() == "Red")
+                {
+                    checkTeamForPlayer(_redPlayers);
+                }else if(newTeam.ToString() == "Blue")
+                {
+                    checkTeamForPlayer(_bluePlayers);
+                }
             }
             catch (LobbyServiceException e) {
                 Debug.Log("When trying to update players team: " + e);
@@ -428,7 +436,7 @@ public class LobbyManager : MonoBehaviour {
 
                 options.Data = new Dictionary<string, PlayerDataObject>() {
                     {
-                        KEY_PLAYER_TEAM, new PlayerDataObject(
+                        KEY_PLAYER_NUMBER, new PlayerDataObject(
                     visibility: PlayerDataObject.VisibilityOptions.Public,
                     value: newNumber.ToString())
                     }
@@ -577,6 +585,44 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
+    private async void checkTeamForPlayer(List<string> players)
+    {
+        try
+        {
+            UpdatePlayerOptions options;
+            if (players.Count <= 0)
+            {
+                options = new UpdatePlayerOptions();
 
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_NUMBER, new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: "One")
+                    }
+                };
+            }
+            else
+            {
+                options = new UpdatePlayerOptions();
 
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_NUMBER, new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: "Two")
+                    }
+                };
+            }
+            string playerId = AuthenticationService.Instance.PlayerId;
+
+            Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+            joinedLobby = lobby;
+
+            OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+        }
+        catch (LobbyServiceException e) {
+            Debug.Log(e);
+        }
+    }
 }
