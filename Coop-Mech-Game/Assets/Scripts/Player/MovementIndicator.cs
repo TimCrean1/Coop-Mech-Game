@@ -83,13 +83,13 @@ public class MovementIndicator : NetworkBehaviour
                 break;
         }
 
-        if(input == Vector2.zero)
-        {
-            ChangeMat(_forward, true);
-            ChangeMat(_backward, true);
-            ChangeMat(_left, true);
-            ChangeMat(_right, true);
-        }
+        //if(input == Vector2.zero)
+        //{
+        //    ChangeMat(_forward, true);
+        //    ChangeMat(_backward, true);
+        //    ChangeMat(_left, true);
+        //    ChangeMat(_right, true);
+        //}
     }
     
     private void ChangeMat(Material _mat, bool turnOff)
