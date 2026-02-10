@@ -15,6 +15,7 @@ public class LobbyCreateUI : MonoBehaviour {
     [SerializeField] private Button publicPrivateButton;
     [SerializeField] private Button maxPlayersButton;
     [SerializeField] private Button gameModeButton;
+    [SerializeField] private Button backButton;
     [SerializeField] private TextMeshProUGUI lobbyNameText;
     [SerializeField] private TextMeshProUGUI publicPrivateText;
     [SerializeField] private TextMeshProUGUI maxPlayersText;
@@ -54,6 +55,12 @@ public class LobbyCreateUI : MonoBehaviour {
             isPrivate = !isPrivate;
             UpdateText();
         });
+
+        backButton.onClick.AddListener(() =>
+        {
+            Hide();
+        });
+
 
         //maxPlayersButton.onClick.AddListener(() => {
         //    UI_InputWindow.Show_Static("Max Players", maxPlayers,

@@ -2668,7 +2668,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   teamProjectilePool: {fileID: 737891650}
   muzzle: {fileID: 1271045809}
-  ammoCountScreen: {fileID: 0}
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
@@ -4273,7 +4272,7 @@ PrefabInstance:
     - target: {fileID: 3275604382287273222, guid: 8a2917d3ce187824fad93ad7e3795753,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3275604382287273273, guid: 8a2917d3ce187824fad93ad7e3795753,
         type: 3}
@@ -5894,7 +5893,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1079915069
+  GlobalObjectIdHash: 826069540
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -8337,7 +8336,7 @@ PrefabInstance:
     - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
         type: 3}
       propertyPath: NetworkConfig.TickRate
-      value: 48
+      value: 64
       objectReference: {fileID: 0}
     - target: {fileID: 2954855609316743660, guid: d0699af7c88d87f4fac976c235d1670e,
         type: 3}

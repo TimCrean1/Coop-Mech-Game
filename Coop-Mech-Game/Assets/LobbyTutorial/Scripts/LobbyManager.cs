@@ -24,6 +24,7 @@ public class LobbyManager : MonoBehaviour {
 
     public const string KEY_PLAYER_NAME = "PlayerName";
     public const string KEY_PLAYER_CHARACTER = "Character";
+    public const string KEY_PLAYER_TEAM = "Red";
     public const string KEY_GAME_MODE = "GameMode";
     public const string KEY_START_GAME = "StartGame";
     public const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
@@ -52,6 +53,13 @@ public class LobbyManager : MonoBehaviour {
         Duel
     }
 
+    public enum PlayerTeam
+    {
+        Red,
+        Blue,
+        Spectator
+    }
+
     public enum PlayerCharacter {
         Marine,
         Ninja,
@@ -68,8 +76,14 @@ public class LobbyManager : MonoBehaviour {
     private bool alreadyStartedGame;
 
 
-    private void Awake() {
-        Instance = this;
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
     }
 
     private void Update() {
@@ -94,7 +108,7 @@ public class LobbyManager : MonoBehaviour {
 
             RefreshLobbyList();
         };
-
+        
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
 
@@ -200,7 +214,7 @@ public class LobbyManager : MonoBehaviour {
     private Player GetPlayer() {
         return new Player(AuthenticationService.Instance.PlayerId, null, new Dictionary<string, PlayerDataObject> {
             { KEY_PLAYER_NAME, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, playerName) },
-            { KEY_PLAYER_CHARACTER, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerCharacter.Marine.ToString()) }
+            { KEY_PLAYER_TEAM, new PlayerDataObject(PlayerDataObject.VisibilityOptions.Public, PlayerTeam.Red.ToString()) }
         });
     }
 
@@ -326,7 +340,7 @@ public class LobbyManager : MonoBehaviour {
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
             } catch (LobbyServiceException e) {
-                Debug.Log(e);
+                Debug.Log("When trying to update players name: " + e);
             }
         }
     }
@@ -351,7 +365,37 @@ public class LobbyManager : MonoBehaviour {
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
             } catch (LobbyServiceException e) {
-                Debug.Log(e);
+                Debug.Log("When trying to update players character: " + e);
+            }
+        }
+    }
+
+    public async void UpdatePlayerTeam(PlayerTeam newTeam) 
+    {
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
+
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_TEAM, new PlayerDataObject(
+                    visibility: PlayerDataObject.VisibilityOptions.Public,
+                    value: newTeam.ToString())
+                    }
+                };
+
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e) {
+                Debug.Log("When trying to update players team: " + e);
             }
         }
     }

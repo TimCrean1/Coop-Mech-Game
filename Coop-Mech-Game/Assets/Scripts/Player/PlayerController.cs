@@ -26,18 +26,22 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private float P1ShootInput;
     [SerializeField] private float P2ShootInput;
 
+
+
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private GameObject mainCamera;
     [SerializeField] private MovementIndicator leftIndicator;
     [SerializeField] private MovementIndicator rightIndicator;
+    [SerializeField] public Camera baseCamera;
+    [SerializeField] public Camera overlayCamera;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
     //[SerializeField] public Vector2 mouse2Pos;
 
-    // may not need these to bet network variables due to them being used in rpc
+    // may not need these to use network variables due to them being used in rpc
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
 
@@ -47,15 +51,18 @@ public class PlayerController : NetworkBehaviour
     #endregion
 
     #region Unity Functions
+
+     
     public override void OnNetworkSpawn()
     {
         if(!IsOwner) { return; }
         //mainCamera.GetComponent<Camera>().enabled = true;
         //GameManager.Instance.AddController(this);
     }
+   
     private void Awake()
     {
-        
+        //GameManager.Instance.AddController(this);
         //playerInputActions = new PlayerInputActions();
     }
 
