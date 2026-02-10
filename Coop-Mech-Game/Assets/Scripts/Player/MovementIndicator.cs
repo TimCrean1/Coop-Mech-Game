@@ -47,7 +47,7 @@ public class MovementIndicator : NetworkBehaviour
         MoveInput = input;
         MoveInput.x *= -1;
         SetMaterialToInputServerRpc(input);
-        Debug.Log("Input recieved: " + input);
+        //Debug.Log("Input recieved: " + input);
     }
     private void rotateSticks()
     {
@@ -58,16 +58,16 @@ public class MovementIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
-        input = input.UnitiseVector2Components();
-        Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
+        //input = input.UnitiseVector2Components();
+        //Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
 
         switch (input.x)
         {
-            case 1f:
+            case >0f:
                 ChangeMat(_right, false);
                 break;
 
-            case -1f:
+            case <0f:
                 ChangeMat(_left, false);
                 break;
 
@@ -79,11 +79,11 @@ public class MovementIndicator : NetworkBehaviour
 
         switch (input.y)
         {
-            case 1f:
+            case >0f:
                 ChangeMat(_forward, false);
                 break;
 
-            case -1f:
+            case <0f:
                 ChangeMat(_backward, false);
                 break;
 
@@ -104,7 +104,7 @@ public class MovementIndicator : NetworkBehaviour
     
     private void ChangeMat(Material _mat, bool turnOff)
     {
-        Debug.Log("Changing mat: " + _mat + " Turning Off: " + turnOff);
+        //Debug.Log("Changing mat: " + _mat + " Turning Off: " + turnOff);
 
         if(turnOff)
         {
