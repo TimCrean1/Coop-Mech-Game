@@ -83,7 +83,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 1)
+        // if (OwnerClientId == 0 || OwnerClientId == 1)
+        if (OwnerClientId == 0)
         {
             // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
@@ -97,7 +98,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
-        else if (OwnerClientId == 2 || OwnerClientId == 3) 
+        // else if (OwnerClientId == 2 || OwnerClientId == 3) 
+        if (OwnerClientId == 1)
         {
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
@@ -157,13 +159,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
         //mouseNetPos.Value = mousePos;
         
         // Send mouse position to PlayerController
-        if (OwnerClientId == 0 || OwnerClientId == 1)
+        if (OwnerClientId == 0)
         {
             playerController.ProcessMouse1InputServerRpc(mousePos);
             //Debug.Log("player one" + mousePos);
 
         }
-        else if(OwnerClientId == 2 || OwnerClientId == 3) 
+        else if(OwnerClientId == 1) 
         {
             playerController.ProcessMouse2InputServerRpc(mousePos);
             //Debug.Log("player two" + mousePos);
