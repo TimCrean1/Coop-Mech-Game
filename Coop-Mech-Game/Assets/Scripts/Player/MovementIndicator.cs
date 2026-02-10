@@ -52,6 +52,8 @@ public class MovementIndicator : NetworkBehaviour
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
         Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
+        input.Normalize();
+
         switch (input.x)
         {
             case 1f:
