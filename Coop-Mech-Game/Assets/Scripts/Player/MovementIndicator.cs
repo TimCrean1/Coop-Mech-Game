@@ -51,6 +51,7 @@ public class MovementIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
+        Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
         switch (input.x)
         {
             case 1f:
@@ -94,6 +95,8 @@ public class MovementIndicator : NetworkBehaviour
     
     private void ChangeMat(Material _mat, bool turnOff)
     {
+        Debug.Log("Changing mat: " + _mat + " Turning Off: " + turnOff);
+
         if(turnOff)
         {
             _mat.SetColor("_EmissionColor", emitColor * 0f);
