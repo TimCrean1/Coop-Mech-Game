@@ -58,16 +58,16 @@ public class MovementIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
-        //input = input.UnitiseVector2Components();
+        input = input.UnitiseVector2Components();
         //Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
 
         switch (input.x)
         {
-            case >0f:
+            case 1f:
                 ChangeMat(_right, false);
                 break;
 
-            case <0f:
+            case -1f:
                 ChangeMat(_left, false);
                 break;
 
@@ -79,11 +79,11 @@ public class MovementIndicator : NetworkBehaviour
 
         switch (input.y)
         {
-            case >0f:
+            case 1f:
                 ChangeMat(_forward, false);
                 break;
 
-            case <0f:
+            case -1f:
                 ChangeMat(_backward, false);
                 break;
 
