@@ -20,7 +20,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private float _maxPlayerHealth = 50;
     [SerializeField] public List<PlayerController> _playerControllers; // this needs to be synced on the server
     //private NetworkList<PlayerController> _playerControllers;
-    private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
+    //private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
+    // team -> clientId
     
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected

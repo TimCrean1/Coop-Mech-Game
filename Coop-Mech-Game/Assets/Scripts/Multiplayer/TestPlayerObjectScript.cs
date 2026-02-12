@@ -33,6 +33,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
 
+        
+
         playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
         //string playerName = localPlayer.Data[LobbyManager.KEY_PLAYER_NAME].Value;
 

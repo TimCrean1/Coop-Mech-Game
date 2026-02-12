@@ -14,7 +14,7 @@ using static LobbyManager;
 
 public class LobbyManager : MonoBehaviour {
 
-
+    #region Variables
     public static LobbyManager Instance { get; private set; }
 
     [SerializeField] private GameObject LoadingScreen;
@@ -28,6 +28,8 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_PLAYER_TEAM = "Red";
     public const string KEY_PLAYER_NUMBER = "One";
+    public const string KEY_LOBBY_RED_TEAM = "_,_";
+    public const string KEY_LOBBY_BLUE_TEAM = "_,_";
     public const string KEY_GAME_MODE = "GameMode";
     public const string KEY_START_GAME = "StartGame";
     public const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
@@ -82,7 +84,7 @@ public class LobbyManager : MonoBehaviour {
     private string playerName;
     private bool alreadyStartedGame;
 
-
+    #endregion
     void Awake()
     {
         if (Instance == null)
@@ -98,7 +100,42 @@ public class LobbyManager : MonoBehaviour {
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
     }
+    private string[] SplitString(string str)
+    {
+        // split the string by the comma 
+        return str.Split(",");
+    }
 
+    
+    private void CheckTeamValue(PlayerTeam team)
+    {
+        Lobby lobby = GetJoinedLobby(); //grab the lobby so we can get the lobby team value
+
+        // check if the team is red or blue
+        if (team == PlayerTeam.Red) {
+            // split the value into two strings
+            string[] strings = SplitString(lobby.Data[KEY_LOBBY_RED_TEAM].Value);
+            for (int i = 0; i < strings.Length; i++) {
+                // loop through the list of strings and check if there is an empty string
+                if (strings[i] == "_")
+                {
+                    // if you find an empty slot, replace slot with your id
+                    strings[i] = AuthenticationService.Instance.PlayerId;
+                    Debug.Log(strings);
+                }
+            }
+        }
+        if(team == PlayerTeam.Blue){
+            string[] strings = SplitString(lobby.Data[KEY_LOBBY_BLUE_TEAM].Value);
+            for (int i = 0; i < strings.Length; i++)
+            {
+                if (strings[i] == "_")
+                {
+                    strings[i] = AuthenticationService.Instance.PlayerId;
+                }
+            }
+        }
+    }
     public async void Authenticate(string playerName) {
         playerName = playerName.Replace(" ", "_");
 
@@ -183,17 +220,7 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     // write method for checking if either team has more than two players, and then force team to autobalance
-    private void CheckBlueTeam()
-    {
-        for (int i = 0; i < _bluePlayers.Count; i++) {
-            
-        }
-    }
-    
-    private void CheckRedTeam()
-    {
-
-    }
+   
     public void StartIfHost()
     {
         if (!alreadyStartedGame)
@@ -413,13 +440,7 @@ public class LobbyManager : MonoBehaviour {
                 joinedLobby = lobby;
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-                if (newTeam.ToString() == "Red")
-                {
-                    checkTeamForPlayer(_redPlayers);
-                }else if(newTeam.ToString() == "Blue")
-                {
-                    checkTeamForPlayer(_bluePlayers);
-                }
+               
             }
             catch (LobbyServiceException e) {
                 Debug.Log("When trying to update players team: " + e);
@@ -585,7 +606,8 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
-    private async void checkTeamForPlayer(List<string> players)
+    #region TeamMethods
+    private async void CheckTeamForPlayer(List<string> players)
     {
         try
         {
@@ -625,4 +647,12 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
+
+    private void JoinTeam(List<string> players)
+    {
+        string playerId = AuthenticationService.Instance.PlayerId;
+
+        players.Add(playerId);
+    }
+    #endregion
 }
