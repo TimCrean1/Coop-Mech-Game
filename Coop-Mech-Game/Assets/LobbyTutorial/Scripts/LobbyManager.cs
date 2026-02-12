@@ -28,8 +28,8 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_PLAYER_TEAM = "Red";
     public const string KEY_PLAYER_NUMBER = "One";
-    public const string KEY_LOBBY_RED_TEAM = "_,_";
-    public const string KEY_LOBBY_BLUE_TEAM = "_,_";
+    public const string KEY_LOBBY_RED_TEAM = "Red";
+    public const string KEY_LOBBY_BLUE_TEAM = "Blue";
     public const string KEY_GAME_MODE = "GameMode";
     public const string KEY_START_GAME = "StartGame";
     public const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
@@ -106,6 +106,10 @@ public class LobbyManager : MonoBehaviour {
         return str.Split(",");
     }
 
+    private string CombineString(string[] str)
+    {
+        return str[0] + "," + str[1];
+    }
     
     private void CheckTeamValue(PlayerTeam team)
     {
@@ -121,7 +125,8 @@ public class LobbyManager : MonoBehaviour {
                 {
                     // if you find an empty slot, replace slot with your id
                     strings[i] = AuthenticationService.Instance.PlayerId;
-                    Debug.Log(strings);
+                    CombineString(strings);
+                    Debug.Log(strings[i].ToString());
                 }
             }
         }
@@ -132,6 +137,8 @@ public class LobbyManager : MonoBehaviour {
                 if (strings[i] == "_")
                 {
                     strings[i] = AuthenticationService.Instance.PlayerId;
+                    CombineString(strings);
+                    Debug.Log(strings[i].ToString());
                 }
             }
         }
@@ -294,7 +301,9 @@ public class LobbyManager : MonoBehaviour {
             IsPrivate = isPrivate,
             Data = new Dictionary<string, DataObject> {
                 { KEY_GAME_MODE, new DataObject(DataObject.VisibilityOptions.Public, gameMode.ToString()) },
-                { KEY_RELAY_JOIN_CODE, new DataObject(DataObject.VisibilityOptions.Member, "") }
+                { KEY_RELAY_JOIN_CODE, new DataObject(DataObject.VisibilityOptions.Member, "") },
+                { KEY_LOBBY_RED_TEAM, new DataObject(DataObject.VisibilityOptions.Member, "_,_") },
+                { KEY_LOBBY_BLUE_TEAM, new DataObject(DataObject.VisibilityOptions.Member, "_,_") }
             }
         };
 
@@ -432,12 +441,14 @@ public class LobbyManager : MonoBehaviour {
                     value: newTeam.ToString())
                     }
                 };
-                
+
 
                 string playerId = AuthenticationService.Instance.PlayerId;
 
                 Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
                 joinedLobby = lobby;
+                CheckTeamValue(newTeam);
+                
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
                

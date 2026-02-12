@@ -15,6 +15,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string playerIndex;
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
+    [SerializeField] private string idCheck;
     //[SerializeField]private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
     //private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
@@ -33,11 +34,12 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
 
+        playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
         
 
-        playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
-        //string playerName = localPlayer.Data[LobbyManager.KEY_PLAYER_NAME].Value;
+        
 
+        
         // for running code on tick rather than update
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
