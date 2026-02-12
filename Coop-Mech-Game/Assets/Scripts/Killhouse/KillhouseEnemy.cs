@@ -50,7 +50,13 @@ public class KillhouseEnemy : MonoBehaviour
         // childMeshRenderer1.enabled = false;
         // childMeshRenderer2.enabled = false;
         // isActive = false;
-        this.enabled = false;
+        // killhouseManager.UpdatePoints(pointsValue);
+        // this.gameObject.SetActive(false);
+    }
+
+    void OnDisable()
+    {
+        killhouseManager.UpdatePoints(pointsValue);
     }
 
     void OnCollisionEnter(Collision collision)

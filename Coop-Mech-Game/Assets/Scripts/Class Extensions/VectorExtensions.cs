@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public static class VectorExtensions
 {
@@ -12,5 +13,21 @@ public static class VectorExtensions
     public static Vector3 GetDirectionFromVectors(this Vector3 v1, Vector3 v2)
     {
         return (v1 - v2).normalized;
+    }
+
+    public static float CustomSign(this float val)
+    {
+        if(val ==  0f) return 0f;
+        return (val >= 0f) ? 1f : (-1f);
+    }
+
+    public static Vector3 UnitiseVector3Components(this Vector3 vec)
+    {
+        return new Vector3(CustomSign(vec.x), CustomSign(vec.y), CustomSign(vec.z));
+    }
+
+    public static Vector2 UnitiseVector2Components(this Vector2 vec)
+    {
+        return new Vector2(CustomSign(vec.x), CustomSign(vec.y));
     }
 }

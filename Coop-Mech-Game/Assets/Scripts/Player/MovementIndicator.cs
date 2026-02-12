@@ -30,7 +30,14 @@ public class MovementIndicator : NetworkBehaviour
     /// it should also rotate, but i'll do that later
     /// 
     /// </summary>
-    
+    private void Start()
+    {
+        ChangeMat(_forward, true);
+        ChangeMat(_backward, true);
+        ChangeMat(_left, true);
+        ChangeMat(_right, true);
+    }
+
     void FixedUpdate()
     {
         rotateSticks();
@@ -40,7 +47,7 @@ public class MovementIndicator : NetworkBehaviour
         MoveInput = input;
         MoveInput.x *= -1;
         SetMaterialToInputServerRpc(input);
-        Debug.Log("Input recieved: " + input);
+        //Debug.Log("Input recieved: " + input);
     }
     private void rotateSticks()
     {
@@ -51,6 +58,9 @@ public class MovementIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
+        input = input.UnitiseVector2Components();
+        //Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
+
         switch (input.x)
         {
             case 1f:
@@ -94,6 +104,8 @@ public class MovementIndicator : NetworkBehaviour
     
     private void ChangeMat(Material _mat, bool turnOff)
     {
+        //Debug.Log("Changing mat: " + _mat + " Turning Off: " + turnOff);
+
         if(turnOff)
         {
             _mat.SetColor("_EmissionColor", emitColor * 0f);
