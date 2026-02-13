@@ -28,7 +28,7 @@ public class LobbyUI : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-
+        
         playerSingleTemplate.gameObject.SetActive(false);
 
         changeRedTeamButton.onClick.AddListener(() => {
@@ -79,41 +79,35 @@ public class LobbyUI : MonoBehaviour {
 
     private void UpdateLobby(Lobby lobby) {
         ClearLobby();
-        if (lobby.Players != null)
-        {
-            foreach (Player player in lobby.Players) if (container != null) {
-                Transform playerSingleTransform = Instantiate(playerSingleTemplate, container);
-                playerSingleTransform.gameObject.SetActive(true);
-                LobbyPlayerSingleUI lobbyPlayerSingleUI = playerSingleTransform.GetComponent<LobbyPlayerSingleUI>();
 
-                lobbyPlayerSingleUI.SetKickPlayerButtonVisible(
-                    LobbyManager.Instance.IsLobbyHost() &&
-                    player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
-                );
+        foreach (Player player in lobby.Players) {
+            Transform playerSingleTransform = Instantiate(playerSingleTemplate, container);
+            playerSingleTransform.gameObject.SetActive(true);
+            LobbyPlayerSingleUI lobbyPlayerSingleUI = playerSingleTransform.GetComponent<LobbyPlayerSingleUI>();
 
-                lobbyPlayerSingleUI.UpdatePlayer(player);
-            }
+            lobbyPlayerSingleUI.SetKickPlayerButtonVisible(
+                LobbyManager.Instance.IsLobbyHost() &&
+                player.Id != AuthenticationService.Instance.PlayerId // Don't allow kick self
+            );
+
+            lobbyPlayerSingleUI.UpdatePlayer(player);
         }
 
-        if (container != null) {
-            changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
-            startButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
+        changeGameModeButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
+        startButton.gameObject.SetActive(LobbyManager.Instance.IsLobbyHost());
 
-            lobbyNameText.text = lobby.Name;
-            playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
-            gameModeText.text = lobby.Data[LobbyManager.KEY_GAME_MODE].Value;
+        lobbyNameText.text = lobby.Name;
+        playerCountText.text = lobby.Players.Count + "/" + lobby.MaxPlayers;
+        gameModeText.text = lobby.Data[LobbyManager.KEY_GAME_MODE].Value;
 
-            Show();
-        }
+        Show();
     }
 
     private void ClearLobby() {
-        if (container != null)
-        {
-            foreach (Transform child in container) if (child != null) {
+
+        foreach (Transform child in container) {
             if (child == playerSingleTemplate) continue;
             Destroy(child.gameObject);
-        }
         }
     }
 
