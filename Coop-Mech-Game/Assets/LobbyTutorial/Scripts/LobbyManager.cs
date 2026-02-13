@@ -83,6 +83,7 @@ public class LobbyManager : MonoBehaviour {
     private Lobby joinedLobby;
     private string playerName;
     private bool alreadyStartedGame;
+    
 
     #endregion
     void Awake()
@@ -125,8 +126,26 @@ public class LobbyManager : MonoBehaviour {
                 {
                     // if you find an empty slot, replace slot with your id
                     strings[i] = AuthenticationService.Instance.PlayerId;
-                    CombineString(strings);
-                    Debug.Log(strings[i].ToString());
+                    UpdateLobbyRedTeam(CombineString(strings));
+                    
+                    //print(strings[0] + "," + strings[1]);
+                    if(i == 0)
+                    {
+                        Debug.Log("player set to one - red");
+                        UpdatePlayerNumber(PlayerNumber.One);
+                    }
+                    else
+                    {
+                        Debug.Log("player set to two - red");
+                        UpdatePlayerNumber(PlayerNumber.Two);
+                    }
+
+                    
+                    //Player localPlayer = lobby.Players.Find(p =>
+                    //p.Id == AuthenticationService.Instance.PlayerId);
+                    //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
+                    //Debug.Log(strings[i].ToString());
+                    break;
                 }
             }
         }
@@ -137,8 +156,23 @@ public class LobbyManager : MonoBehaviour {
                 if (strings[i] == "_")
                 {
                     strings[i] = AuthenticationService.Instance.PlayerId;
-                    CombineString(strings);
-                    Debug.Log(strings[i].ToString());
+                    UpdateLobbyBlueTeam(CombineString(strings));
+                    //print(strings);
+                    if (i == 0)
+                    {
+                        Debug.Log("player set to one - blue");
+                        UpdatePlayerNumber(PlayerNumber.One);
+                    }
+                    else
+                    {
+                        Debug.Log("player set to two - blue");
+                        UpdatePlayerNumber(PlayerNumber.Two);
+                    }
+                    //Player localPlayer = lobby.Players.Find(p =>
+                    //p.Id == AuthenticationService.Instance.PlayerId);
+                    //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
+                    //Debug.Log(strings[i].ToString());
+                    break;
                 }
             }
         }
@@ -189,6 +223,7 @@ public class LobbyManager : MonoBehaviour {
     }
 
     private async void HandleLobbyPolling() {
+        //Debug.Log("POLL UPDATE");
         if (joinedLobby != null) {
             lobbyPollTimer -= Time.deltaTime;
             if (lobbyPollTimer < 0f) {
@@ -400,7 +435,36 @@ public class LobbyManager : MonoBehaviour {
             }
         }
     }
+    
+    public async void UpdatePlayerNumber(string num)
+    {
+        if (joinedLobby != null)
+        {
+            try
+            {
+                UpdatePlayerOptions options = new UpdatePlayerOptions();
 
+                options.Data = new Dictionary<string, PlayerDataObject>() {
+                    {
+                        KEY_PLAYER_NUMBER, new PlayerDataObject(
+                            visibility: PlayerDataObject.VisibilityOptions.Public,
+                            value: num.ToString())
+                    }
+                };
+
+                string playerId = AuthenticationService.Instance.PlayerId;
+
+                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+                joinedLobby = lobby;
+
+                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log("When trying to update players number: " + e);
+            }
+        }
+    }
     //public async void UpdatePlayerCharacter(PlayerCharacter playerCharacter) {
     //    if (joinedLobby != null) {
     //        try {
@@ -428,6 +492,7 @@ public class LobbyManager : MonoBehaviour {
 
     public async void UpdatePlayerTeam(PlayerTeam newTeam) 
     {
+        //Debug.Log("TEAM CLICK");
         if (joinedLobby != null)
         {
             try
@@ -539,6 +604,50 @@ public class LobbyManager : MonoBehaviour {
 
             OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
         } catch (LobbyServiceException e) {
+            Debug.Log(e);
+        }
+    }
+    public async void UpdateLobbyRedTeam(string newString)
+    {
+        try
+        {
+            Debug.Log("UpdateLobbyRedTeam " + newString);
+
+            Lobby lobby = await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject> {
+                    { KEY_LOBBY_RED_TEAM, new DataObject(DataObject.VisibilityOptions.Member, newString) }
+                }
+            });
+
+            joinedLobby = lobby;
+
+            OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log(e);
+        }
+    }
+    public async void UpdateLobbyBlueTeam(string newString)
+    {
+        try
+        {
+            Debug.Log("UpdateLobbyRedTeam " + newString);
+
+            Lobby lobby = await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
+            {
+                Data = new Dictionary<string, DataObject> {
+                    { KEY_LOBBY_BLUE_TEAM, new DataObject(DataObject.VisibilityOptions.Member, newString) }
+                }
+            });
+
+            joinedLobby = lobby;
+
+            OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+        }
+        catch (LobbyServiceException e)
+        {
             Debug.Log(e);
         }
     }

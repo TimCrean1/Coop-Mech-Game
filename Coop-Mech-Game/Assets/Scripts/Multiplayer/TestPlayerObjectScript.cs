@@ -55,12 +55,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerController = GameManager.Instance._playerControllers[0];
             GameManager.Instance._playerControllers[0].baseCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[0].overlayCamera.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[0].uiCanvas.gameObject.SetActive(true);
 
         } else if (playerTeam == "Blue")
         {
             playerController = GameManager.Instance._playerControllers[1];
             GameManager.Instance._playerControllers[1].baseCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[1].overlayCamera.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[1].uiCanvas.gameObject.SetActive(true);
         }
 
         
@@ -118,7 +120,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (OwnerClientId == 0 || OwnerClientId == 2) 
+        if (playerNumber == "One") 
         {
             // OwnerClientId 0 is player 1 of mech 1
             // OwnerClientId 2 is player 1 of mech 2
@@ -135,7 +137,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
-        else if (OwnerClientId == 1 || OwnerClientId == 3) 
+        else if (playerNumber == "Two") 
         {
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;

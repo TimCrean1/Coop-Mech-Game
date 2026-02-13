@@ -13,7 +13,7 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TeamWeaponManager weaponMgr;
-
+    
     [Header("Positioning")]
     [SerializeField] private Vector2 mouse1Pos;
     [SerializeField] private Vector2 mouse2Pos;
@@ -23,6 +23,7 @@ public class UI_Manager : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         weaponMgr = GetComponent<TeamWeaponManager>();
+        
     }
 
     // Update is called once per frame

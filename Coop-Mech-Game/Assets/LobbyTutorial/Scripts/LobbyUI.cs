@@ -28,7 +28,7 @@ public class LobbyUI : MonoBehaviour {
 
     private void Awake() {
         Instance = this;
-
+        
         playerSingleTemplate.gameObject.SetActive(false);
 
         changeRedTeamButton.onClick.AddListener(() => {
