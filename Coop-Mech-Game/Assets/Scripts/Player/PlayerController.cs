@@ -102,7 +102,6 @@ public class PlayerController : NetworkBehaviour
             }
             if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
             {
-                print(syncedShootInput);
                 baseMovement.Shoot(syncedShootInput);
             }
 
