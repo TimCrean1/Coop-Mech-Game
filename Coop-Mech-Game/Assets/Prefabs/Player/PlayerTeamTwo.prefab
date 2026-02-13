@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 189139221
+  GlobalObjectIdHash: 3874569957
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
@@ -438,6 +438,7 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 6726245692009760567}
   ammoCountScreen: {fileID: 2673120560523318392}
+  owningPlayer: 1
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
@@ -459,6 +460,7 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 5841196029665437024}
   ammoCountScreen: {fileID: 3355928728733688063}
+  owningPlayer: 2
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
@@ -626,6 +628,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Canvas_t2
+      objectReference: {fileID: 0}
+    - target: {fileID: 429932549128513862, guid: 64fa9bf158ff1dc459881be1451d4ca9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3913692849707770923, guid: 64fa9bf158ff1dc459881be1451d4ca9,
         type: 3}
@@ -846,12 +853,12 @@ PrefabInstance:
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2036190643
+      value: 719463690
       objectReference: {fileID: 0}
     - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 57167648
+      value: 3393702214
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
