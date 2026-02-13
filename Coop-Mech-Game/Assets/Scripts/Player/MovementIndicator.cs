@@ -58,6 +58,7 @@ public class MovementIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialToInputServerRpc(Vector2 input)
     {
+        
         input = input.UnitiseVector2Components();
         //Debug.Log("Setting Input: " + input + " X: " + input.x + " Y: " + input.y);
 
