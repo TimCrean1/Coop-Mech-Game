@@ -36,32 +36,83 @@ public class TeamWeaponManager : MonoBehaviour
             weaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
     }
-
-    public void FireWeapons()
+    public void FireWeapons(float input)
     {
+        // Check if the first weapon can fire
         if (weaponsList[0].CanWeaponFire)
         {
-            if(_enableStaggeredFire)
+            if (_enableStaggeredFire)
             {
-                StartCoroutine(WeaponFireRoutine());
+                // Fire weapons one after another with a delay
+                StartCoroutine(WeaponFireRoutine(input));
                 return;
             }
             else
             {
-                foreach (BaseWeapon weapon in weaponsList) { weapon.Fire(); }
+                if (input == 0.25) //Player 1 shooting
+                {
+                    foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 1)
+                    {
+                        weapon.Fire();
+                    }
+                }
+                else if (input == 0.75) //Player 2 shooting
+                {
+                    foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 2)
+                    {
+                        weapon.Fire();
+                    }
+                }
+                else if (input == 1) //Both players shooting
+                {
+                    // Fire all weapons simultaneously
+                    foreach (BaseWeapon weapon in weaponsList)
+                    {
+                        weapon.Fire();
+                    }
+                }
             }
+            // Generate camera impulse effect after firing
             shootingImpulseSource.GenerateImpulse();
         }
     }
 
-    private IEnumerator WeaponFireRoutine()
+    private IEnumerator WeaponFireRoutine(float input)
     {
-        foreach (BaseWeapon weapon in weaponsList) 
-        { 
-            weapon.Fire();
-            shootingImpulseSource.GenerateImpulse();
-            yield return new WaitForSeconds(staggeredFireTime);
-        }
+        if (input == 0.25) //Player 1 shooting
+            {
+                foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 1)
+                {
+                    weapon.Fire();
+                    shootingImpulseSource.GenerateImpulse();
+                    yield return new WaitForSeconds(staggeredFireTime);
+                }
+            }
+            else if (input == 0.75) //Player 2 shooting
+            {
+                foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 2)
+                {
+                    weapon.Fire();
+                    shootingImpulseSource.GenerateImpulse();
+                    yield return new WaitForSeconds(staggeredFireTime);
+                }
+            }
+            else if (input == 1) //Both players shooting
+            {
+                // Fire all weapons simultaneously
+                foreach (BaseWeapon weapon in weaponsList)
+                {
+                    weapon.Fire();
+                    shootingImpulseSource.GenerateImpulse();
+                    yield return new WaitForSeconds(staggeredFireTime);
+                }
+            }
+        // foreach (BaseWeapon weapon in weaponsList) 
+        // {
+        //     weapon.Fire();
+        //     shootingImpulseSource.GenerateImpulse();
+        //     yield return new WaitForSeconds(staggeredFireTime);
+        // }
         yield return null;
     }
 

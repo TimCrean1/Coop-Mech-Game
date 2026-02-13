@@ -119,6 +119,22 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2ShootTime = -1;
             return true;
         }
+        else if (p1ShootInput > 0 && p2ShootInput <= 0)
+        {
+            syncedInput = 0.25f;
+
+            p1ShootTime = -1;
+            p2ShootTime = -1;
+            return true;
+        }
+        else if (p1ShootInput <= 0 && p2ShootInput > 0)
+        {
+            syncedInput = 0.75f;
+
+            p1ShootTime = -1;
+            p2ShootTime = -1;
+            return true;
+        }
 
         return false;
     }

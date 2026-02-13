@@ -8,30 +8,36 @@ using UnityEngine;
 public class KillhouseEnemy : MonoBehaviour
 {
     [Header("Component References")]
-    [SerializeField] private BoxCollider boxCollider;
-    [SerializeField] private MeshRenderer mainMeshRenderer;
-    [SerializeField] private MeshRenderer childMeshRenderer1;
-    [SerializeField] private MeshRenderer childMeshRenderer2;
-    [SerializeField] private AudioSource audioSource;
+    // [SerializeField] private BoxCollider boxCollider;
+    // [SerializeField] private MeshRenderer mainMeshRenderer;
+    // [SerializeField] private MeshRenderer childMeshRenderer1;
+    // [SerializeField] private MeshRenderer childMeshRenderer2;
+    // [SerializeField] private AudioSource audioSource;
     [SerializeField] private KillhouseManager killhouseManager;
     [Header("Instance Values")]
     [SerializeField] private float pointsValue;
+    [SerializeField] private bool isFriendly;
     public bool isActive = true;
 
     void Awake()
     {
-        boxCollider = GetComponent<BoxCollider>();
-        mainMeshRenderer = GetComponent<MeshRenderer>();
-        childMeshRenderer1 = transform.GetChild(0).GetComponent<MeshRenderer>();
-        childMeshRenderer2 = transform.GetChild(1).GetComponent<MeshRenderer>();
-        audioSource = GetComponent<AudioSource>();
-        audioSource.playOnAwake = false;
+        // boxCollider = GetComponent<BoxCollider>();
+        // mainMeshRenderer = GetComponent<MeshRenderer>();
+        // childMeshRenderer1 = transform.GetChild(0).GetComponent<MeshRenderer>();
+        // childMeshRenderer2 = transform.GetChild(1).GetComponent<MeshRenderer>();
+        // audioSource = GetComponent<AudioSource>();
+        // audioSource.playOnAwake = false;
     }
 
     void Start()
     {
         killhouseManager = KillhouseManager.Instance;
         killhouseManager.PopulateEnemiesList(this);
+        if (isFriendly)
+        {
+            pointsValue = -1;
+        }
+        else {pointsValue = 1;}
     }
 
     public void Activate()
@@ -64,7 +70,7 @@ public class KillhouseEnemy : MonoBehaviour
         if (collision.gameObject.CompareTag("Projectile"))
         {
             killhouseManager.UpdatePoints(pointsValue);
-            audioSource.Play();
+            // audioSource.Play();
             Destroy(collision.gameObject);
             Deactivate();
 

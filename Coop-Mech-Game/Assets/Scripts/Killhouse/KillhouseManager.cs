@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class KillhouseManager : MonoBehaviour
 {
@@ -20,7 +21,9 @@ public class KillhouseManager : MonoBehaviour
     [SerializeField] private List<float> leaderBoard;
     [SerializeField] private List<KillhouseEnemy> enemiesList;
     [SerializeField] private TextMeshProUGUI timerText;
+    // [SerializeField] private TextMeshProUGUI UITimerText;
     [SerializeField] private TextMeshProUGUI pointsText;
+    // [SerializeField] private TextMeshProUGUI UIPointsText;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -112,11 +115,18 @@ public class KillhouseManager : MonoBehaviour
     }
     void Update()
     {
-        if (currentKHStatus == KillhouseStatus.Playing)
-        {
-            timer += Time.deltaTime;
-        }
-        timerText.text = "Time: " + timer.ToString("F2") + "s";
-        pointsText.text = "Points: " + points.ToString("F0");
+        // if (currentKHStatus == KillhouseStatus.Playing)
+        // {
+        //     timer += Time.deltaTime;
+        //     // UITimerText.text = "Time: " + timer.ToString("F2") + "s";
+        //     // UIPointsText.text = "Points: " + points.ToString("F0");
+        // }
+        // else
+        // {
+        //     // UITimerText.text = " ";
+        //     // UIPointsText.text = " ";
+        // }
+        // timerText.text = "Time: " + timer.ToString("F2") + "s";
+        // pointsText.text = "Points: " + points.ToString("F0");
     }
 }

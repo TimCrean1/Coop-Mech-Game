@@ -69,7 +69,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        //GameManager.Instance.AddController(this);
+        // GameManager.Instance.AddController(this);
         //mainCamera.GetComponent<Camera>().enabled = true;
     }
 
@@ -102,6 +102,7 @@ public class PlayerController : NetworkBehaviour
             }
             if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
             {
+                print(syncedShootInput);
                 baseMovement.Shoot(syncedShootInput);
             }
 

@@ -11,6 +11,18 @@ public class KillhouseEndScript : MonoBehaviour
         boxCollider = GetComponent<BoxCollider>();
     }
 
+    void FixedUpdate()
+    {
+        if (killhouseManager.currentKHStatus == KillhouseManager.KillhouseStatus.Playing)
+        {
+            boxCollider.isTrigger = true;
+        }
+        else
+        {
+            boxCollider.isTrigger = false;
+        }
+    }
+
     public void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player")){
