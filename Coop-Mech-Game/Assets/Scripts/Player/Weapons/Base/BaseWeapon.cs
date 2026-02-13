@@ -18,6 +18,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private MechScreen ammoCountScreen;
 
     [Header("Weapon Stats")]
+    public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
@@ -112,9 +113,15 @@ public abstract class BaseWeapon : MonoBehaviour
 
         yield return new WaitForSeconds(cooldownTime);
 
+        float reloadTimer = Time.deltaTime;
+        if (reloadTimer <= cooldownTime/3){ammoCountScreen.ChangeText("-..",false);}
+        else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
+        else {ammoCountScreen.ChangeText("---",false);}
+
         ammoCount = ammo;
         canFire = true;
         isCooldownOn = false;
+        ammoCountScreen.ChangeText(ammoCount.ToString(), false);
         //Debug.Log("cooldown end");
     }
 

@@ -36,7 +36,6 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private MovementIndicator rightIndicator;
     [SerializeField] public Camera baseCamera;
     [SerializeField] public Camera overlayCamera;
-    [SerializeField] public GameObject uiCanvas;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -69,7 +68,7 @@ public class PlayerController : NetworkBehaviour
 
     private void Start()
     {
-        //GameManager.Instance.AddController(this);
+        // GameManager.Instance.AddController(this);
         //mainCamera.GetComponent<Camera>().enabled = true;
     }
 
@@ -102,6 +101,7 @@ public class PlayerController : NetworkBehaviour
             }
             if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
             {
+                print(syncedShootInput);
                 baseMovement.Shoot(syncedShootInput);
             }
 

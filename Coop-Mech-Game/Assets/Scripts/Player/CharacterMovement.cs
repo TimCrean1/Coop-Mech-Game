@@ -248,10 +248,10 @@ public class CharacterMovement : BaseMovement
     #region Shooting
     public override void Shoot(float shootInput)
     {
+        print("Shoot Input: " + shootInput);
         if (!canMove) return;
         if (shootInput <= 0f) return;
-        Debug.Log("Shooting!");
-        weaponMgr.FireWeapons();
+        weaponMgr.FireWeapons(shootInput);
     }
     #endregion
 
