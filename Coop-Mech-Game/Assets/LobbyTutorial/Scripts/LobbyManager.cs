@@ -689,7 +689,14 @@ public class LobbyManager : MonoBehaviour {
             IsHost = true;
             alreadyStartedGame = true;
             //SceneManager.LoadScene(1);
-            LoadScene(1);
+            if (lobby.Data[KEY_GAME_MODE].Value == "Practice")
+            {
+                LoadScene(1);
+            }else if(lobby.Data[KEY_GAME_MODE].Value == "Duel")
+            {
+                LoadScene(2);
+            }
+           
 
             OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
         } catch (LobbyServiceException e) {
@@ -706,7 +713,15 @@ public class LobbyManager : MonoBehaviour {
 
         IsHost = false;
         RelayJoinCode = relayJoinCode;
-        SceneManager.LoadScene(1);
+        //SceneManager.LoadScene(1);
+        if (joinedLobby.Data[KEY_GAME_MODE].Value == "Practice")
+        {
+            SceneManager.LoadScene(1);
+        }
+        else if (joinedLobby.Data[KEY_GAME_MODE].Value == "Duel")
+        {
+            SceneManager.LoadScene(2);
+        }
         alreadyStartedGame = true;
         OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
     }
