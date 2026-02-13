@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 189139221
+  GlobalObjectIdHash: 2857293940
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
@@ -290,6 +290,7 @@ MonoBehaviour:
   rightIndicator: {fileID: 2745257931427264829}
   baseCamera: {fileID: 9078349854507471225}
   overlayCamera: {fileID: 3140883616751425228}
+  uiCanvas: {fileID: 0}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -440,6 +441,7 @@ MonoBehaviour:
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount: 0
 --- !u!114 &2724236685853379273
 MonoBehaviour:
@@ -460,6 +462,7 @@ MonoBehaviour:
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount: 0
 --- !u!114 &4675740159691710397
 MonoBehaviour:
@@ -668,6 +671,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1830247760849069671, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3227764340243886886, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _left
+      value: 
+      objectReference: {fileID: 2100000, guid: 87b1f6fa497fb7a439817219e7f661f6, type: 2}
+    - target: {fileID: 3227764340243886886, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _right
+      value: 
+      objectReference: {fileID: 2100000, guid: bc0712c22ad67af45933f28585d37f4f, type: 2}
+    - target: {fileID: 3227764340243886886, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _forward
+      value: 
+      objectReference: {fileID: 2100000, guid: b35034ea27cbd8546abeccce1e26fbdc, type: 2}
+    - target: {fileID: 3227764340243886886, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _backward
+      value: 
+      objectReference: {fileID: 2100000, guid: 712a2b9f16db6394bac7f5a59bf71d2a, type: 2}
     - target: {fileID: 3549644392731150838, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: m_Name
@@ -676,7 +704,7 @@ PrefabInstance:
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2933194237
+      value: 1365573705
       objectReference: {fileID: 0}
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
@@ -687,11 +715,16 @@ PrefabInstance:
         type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 189139221
+      objectReference: {fileID: 0}
+    - target: {fileID: 4598369532533939063, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1458904236
+      value: 770921114
       objectReference: {fileID: 0}
     - target: {fileID: 4778402675376932432, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
@@ -703,6 +736,26 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 189139221
       objectReference: {fileID: 0}
+    - target: {fileID: 8246166262732919509, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _left
+      value: 
+      objectReference: {fileID: 2100000, guid: f0181103e11b7974c9474a36deed6563, type: 2}
+    - target: {fileID: 8246166262732919509, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _right
+      value: 
+      objectReference: {fileID: 2100000, guid: 25994cf60ecd2d04eb26e58d50cc304f, type: 2}
+    - target: {fileID: 8246166262732919509, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _forward
+      value: 
+      objectReference: {fileID: 2100000, guid: 3b20642149d23994796b7c8a6d273902, type: 2}
+    - target: {fileID: 8246166262732919509, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: _backward
+      value: 
+      objectReference: {fileID: 2100000, guid: 0b5742c5245f353499cde51b6beff3b3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
