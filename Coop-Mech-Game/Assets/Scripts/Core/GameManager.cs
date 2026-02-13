@@ -50,7 +50,8 @@ public class GameManager : NetworkBehaviour
     #region Unity Functions
     public override void OnNetworkSpawn()
     {
-        
+        InitTeamHealthRpc();
+
     }
     private void Awake()
     {
@@ -84,7 +85,6 @@ public class GameManager : NetworkBehaviour
         // Resume the game so we don't start paused when the game loads a scene
         ResumeGame();
 
-        InitTeamHealthRpc();
     }
 
     #endregion
@@ -163,13 +163,15 @@ public class GameManager : NetworkBehaviour
         if(teamNumToDamage == 1)
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
+            Debug.Log("Damaging Team: " +  teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
         }
         else if(teamNumToDamage == 2)
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
+            Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
         }
 
-        if(_teamOneHealth.Value <= 0f)
+        if (_teamOneHealth.Value <= 0f)
         {
             MatchOverRpc();
         }
