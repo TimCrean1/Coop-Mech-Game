@@ -3133,10 +3133,12 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 737891650}
   muzzle: {fileID: 1271045809}
   ammoCountScreen: {fileID: 0}
+  owningPlayer: 0
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount: 0
 --- !u!114 &737891650
 MonoBehaviour:
@@ -5946,6 +5948,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LobbyManager
   LoadingScreen: {fileID: 143325170}
   LoadingBarFill: {fileID: 1880133747}
+  _redPlayers: []
+  _bluePlayers: []
 --- !u!1 &1406921496
 GameObject:
   m_ObjectHideFlags: 0
@@ -6485,6 +6489,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 126364250120707195, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4981211740844279624, guid: 0121f3be39827fb4c9f59b48056d9a51,
         type: 3}

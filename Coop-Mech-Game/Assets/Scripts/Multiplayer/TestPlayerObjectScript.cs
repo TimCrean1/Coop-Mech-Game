@@ -8,16 +8,11 @@ using Unity.Services.Authentication;
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
-    //[SerializeField]private bool isPlayerOne;
     private Vector2 mousePos;
-    //private float mouseX;
-    //private float mouseY;
     [SerializeField] private string playerIndex;
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
     [SerializeField] private string idCheck;
-    //[SerializeField]private NetworkVariable<int> playerIndex = new NetworkVariable<int>();
-    //private NetworkVariable<Vector2> mouseNetPos = new NetworkVariable<Vector2>();
     private PlayerInputActions playerInputActions;
 
     

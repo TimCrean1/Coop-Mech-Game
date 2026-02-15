@@ -14,6 +14,7 @@ public class KillhouseStartScript : MonoBehaviour
     public void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player")){
+            killhouseManager.ResetPoints();
             if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
             {
                 killhouseManager.StartTrial();

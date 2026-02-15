@@ -18,10 +18,11 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private MechScreen ammoCountScreen;
 
     [Header("Weapon Stats")]
+    public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
-    [SerializeField] private float damage = 5;
+    [SerializeField] private float damage = 50;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
 
     [Header("READ ONLY")]
@@ -56,13 +57,16 @@ public abstract class BaseWeapon : MonoBehaviour
             Physics.Raycast(muzzle.position, muzzle.forward, out hit);
             if (muzzleComp) { muzzleComp.SendFireEvent(); }
 
-            if (hit.collider.CompareTag("Player"))
+            if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
-                
                 // get team-specific info and send to wherever we're handling the health of the teams
+                GameManager.Instance.DamageTeamRpc(1, damage);
             }
-
-            else if (hit.collider.CompareTag("Target"))
+            else if (hit.collider.gameObject.CompareTag("TeamTwo"))
+            {
+                GameManager.Instance.DamageTeamRpc(2, damage);
+            }
+            else if (hit.collider.gameObject.CompareTag("Target"))
             {
                 Debug.Log("Hit!");
                 hit.collider.gameObject.SetActive(false);
@@ -112,9 +116,15 @@ public abstract class BaseWeapon : MonoBehaviour
 
         yield return new WaitForSeconds(cooldownTime);
 
+        float reloadTimer = Time.deltaTime;
+        if (reloadTimer <= cooldownTime/3){ammoCountScreen.ChangeText("-..",false);}
+        else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
+        else {ammoCountScreen.ChangeText("---",false);}
+
         ammoCount = ammo;
         canFire = true;
         isCooldownOn = false;
+        ammoCountScreen.ChangeText(ammoCount.ToString(), false);
         //Debug.Log("cooldown end");
     }
 

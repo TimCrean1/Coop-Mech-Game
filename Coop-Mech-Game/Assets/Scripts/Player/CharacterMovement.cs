@@ -250,8 +250,7 @@ public class CharacterMovement : BaseMovement
     {
         if (!canMove) return;
         if (shootInput <= 0f) return;
-        Debug.Log("Shooting!");
-        weaponMgr.FireWeapons();
+        weaponMgr.FireWeapons(shootInput);
     }
     #endregion
 

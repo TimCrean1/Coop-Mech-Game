@@ -16,27 +16,21 @@ public class GameManager : NetworkBehaviour
     // Static (global) reference to the single existing instance of the object
     private static GameManager _instance = null;
 
-    [SerializeField] private float _playerHealth = 50;
-    [SerializeField] private float _maxPlayerHealth = 50;
+    [Tooltip("The max health of the mech, is not edited during the game")]
+    [SerializeField] private float teamOneMaxHealth = 5000f;
+    [SerializeField] private float teamTwoMaxHealth = 5000f;
     
     [SerializeField] public List<PlayerController> _playerControllers; // this needs to be synced on the server
     //private NetworkList<PlayerController> _playerControllers;
     //private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     // team -> clientId
+
+    //this is the health of the mech, edited at runtime
+    public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
+    public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
     
     public int playerScore = 0;
-    public UnityEvent OnStartupSequence; //Invoke when all clients are connected
-
-    // Getter methods
-    public float GetPlayerHealth()
-    {
-        return _playerHealth;
-    }
-
-    public float GetMaxPlayerHealth()
-    {
-        return _maxPlayerHealth;
-    }
+    public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
 
 
     // Public property to allow access to the Singleton instance
@@ -56,7 +50,8 @@ public class GameManager : NetworkBehaviour
     #region Unity Functions
     public override void OnNetworkSpawn()
     {
-        
+        InitTeamHealthRpc();
+
     }
     private void Awake()
     {
@@ -89,9 +84,8 @@ public class GameManager : NetworkBehaviour
        // _playerController = new List<PlayerController>();
         // Resume the game so we don't start paused when the game loads a scene
         ResumeGame();
-    }
 
-    
+    }
 
     #endregion
 
@@ -155,16 +149,42 @@ public class GameManager : NetworkBehaviour
     {
         return NetworkManager.Singleton.ConnectedClients.Count;
     }
-    public void DamagePlayer(float damage)
-    {
-        print(damage);
-        _playerHealth = _playerHealth - damage;
-        //_playerDamageManager.DamageTaken(damage);
 
-        if (_playerHealth <= 0)
+    [Rpc(SendTo.Server)]
+    private void InitTeamHealthRpc()
+    {
+        _teamOneHealth.Value = teamOneMaxHealth;
+        _teamTwoHealth.Value = teamTwoMaxHealth;
+    }
+
+    [Rpc(SendTo.Server)]
+    public void DamageTeamRpc(int teamNumToDamage, float damage)
+    {
+        if(teamNumToDamage == 1)
         {
-            Application.Quit();
+            _teamOneHealth.Value = _teamOneHealth.Value - damage;
+            Debug.Log("Damaging Team: " +  teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
         }
+        else if(teamNumToDamage == 2)
+        {
+            _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
+            Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
+        }
+
+        if (_teamOneHealth.Value <= 0f)
+        {
+            MatchOverRpc();
+        }
+        else if(_teamTwoHealth.Value <= 0f)
+        {
+            MatchOverRpc();
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    private void MatchOverRpc()
+    {
+        Debug.Log("Match Over!");
     }
 
     #endregion
