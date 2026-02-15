@@ -113,6 +113,11 @@ public class KillhouseManager : MonoBehaviour
         Debug.Log("Adding points: " + newPoints);
         Debug.Log("Points updated! Current points: " + points);
     }
+
+    public void ResetPoints()
+    {
+        points = 0;
+    }
     void Update()
     {
         // if (currentKHStatus == KillhouseStatus.Playing)
