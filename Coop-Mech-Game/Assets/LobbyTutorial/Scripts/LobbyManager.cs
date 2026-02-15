@@ -112,71 +112,71 @@ public class LobbyManager : MonoBehaviour {
         return str[0] + "," + str[1];
     }
     
-    private void CheckTeamValue(PlayerTeam team)
-    {
-        Lobby lobby = GetJoinedLobby(); //grab the lobby so we can get the lobby team value
+    //private void CheckTeamValue(PlayerTeam team)
+    //{
+    //    Lobby lobby = GetJoinedLobby(); //grab the lobby so we can get the lobby team value
 
-        // check if the team is red or blue
-        if (team == PlayerTeam.Red) {
-            // split the value into two strings
-            string[] strings = SplitString(lobby.Data[KEY_LOBBY_RED_TEAM].Value);
-            for (int i = 0; i < strings.Length; i++) {
-                // loop through the list of strings and check if there is an empty string
-                if (strings[i] == "_")
-                {
-                    // if you find an empty slot, replace slot with your id
-                    strings[i] = AuthenticationService.Instance.PlayerId;
-                    UpdateLobbyRedTeam(CombineString(strings));
+    //    // check if the team is red or blue
+    //    if (team == PlayerTeam.Red) {
+    //        // split the value into two strings
+    //        string[] strings = SplitString(lobby.Data[KEY_LOBBY_RED_TEAM].Value);
+    //        for (int i = 0; i < strings.Length; i++) {
+    //            // loop through the list of strings and check if there is an empty string
+    //            if (strings[i] == "_")
+    //            {
+    //                // if you find an empty slot, replace slot with your id
+    //                strings[i] = AuthenticationService.Instance.PlayerId;
+    //                UpdateLobbyRedTeam(CombineString(strings));
                     
-                    //print(strings[0] + "," + strings[1]);
-                    if(i == 0)
-                    {
-                        Debug.Log("player set to one - red");
-                        UpdatePlayerNumber(PlayerNumber.One);
-                    }
-                    else
-                    {
-                        Debug.Log("player set to two - red");
-                        UpdatePlayerNumber(PlayerNumber.Two);
-                    }
+    //                //print(strings[0] + "," + strings[1]);
+    //                if(i == 0)
+    //                {
+    //                    Debug.Log("player set to one - red");
+    //                    UpdatePlayerNumber(PlayerNumber.One);
+    //                }
+    //                else
+    //                {
+    //                    Debug.Log("player set to two - red");
+    //                    UpdatePlayerNumber(PlayerNumber.Two);
+    //                }
 
                     
-                    //Player localPlayer = lobby.Players.Find(p =>
-                    //p.Id == AuthenticationService.Instance.PlayerId);
-                    //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
-                    //Debug.Log(strings[i].ToString());
-                    break;
-                }
-            }
-        }
-        if(team == PlayerTeam.Blue){
-            string[] strings = SplitString(lobby.Data[KEY_LOBBY_BLUE_TEAM].Value);
-            for (int i = 0; i < strings.Length; i++)
-            {
-                if (strings[i] == "_")
-                {
-                    strings[i] = AuthenticationService.Instance.PlayerId;
-                    UpdateLobbyBlueTeam(CombineString(strings));
-                    //print(strings);
-                    if (i == 0)
-                    {
-                        Debug.Log("player set to one - blue");
-                        UpdatePlayerNumber(PlayerNumber.One);
-                    }
-                    else
-                    {
-                        Debug.Log("player set to two - blue");
-                        UpdatePlayerNumber(PlayerNumber.Two);
-                    }
-                    //Player localPlayer = lobby.Players.Find(p =>
-                    //p.Id == AuthenticationService.Instance.PlayerId);
-                    //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
-                    //Debug.Log(strings[i].ToString());
-                    break;
-                }
-            }
-        }
-    }
+    //                //Player localPlayer = lobby.Players.Find(p =>
+    //                //p.Id == AuthenticationService.Instance.PlayerId);
+    //                //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
+    //                //Debug.Log(strings[i].ToString());
+    //                break;
+    //            }
+    //        }
+    //    }
+    //    if(team == PlayerTeam.Blue){
+    //        string[] strings = SplitString(lobby.Data[KEY_LOBBY_BLUE_TEAM].Value);
+    //        for (int i = 0; i < strings.Length; i++)
+    //        {
+    //            if (strings[i] == "_")
+    //            {
+    //                strings[i] = AuthenticationService.Instance.PlayerId;
+    //                UpdateLobbyBlueTeam(CombineString(strings));
+    //                //print(strings);
+    //                if (i == 0)
+    //                {
+    //                    Debug.Log("player set to one - blue");
+    //                    UpdatePlayerNumber(PlayerNumber.One);
+    //                }
+    //                else
+    //                {
+    //                    Debug.Log("player set to two - blue");
+    //                    UpdatePlayerNumber(PlayerNumber.Two);
+    //                }
+    //                //Player localPlayer = lobby.Players.Find(p =>
+    //                //p.Id == AuthenticationService.Instance.PlayerId);
+    //                //Debug.Log(localPlayer.Data[KEY_PLAYER_NUMBER].Value);
+    //                //Debug.Log(strings[i].ToString());
+    //                break;
+    //            }
+    //        }
+    //    }
+    //}
     public async void Authenticate(string playerName) {
         playerName = playerName.Replace(" ", "_");
 
@@ -408,7 +408,66 @@ public class LobbyManager : MonoBehaviour {
 
         OnJoinedLobby?.Invoke(this, new LobbyEventArgs { lobby = lobby });
     }
+    private int GetTeamCount(PlayerTeam team)
+    {
+        int count = 0;
 
+        foreach (Player player in joinedLobby.Players)
+        {
+            if (player.Data.TryGetValue(KEY_PLAYER_TEAM, out var teamData))
+            {
+                if (teamData.Value == team.ToString())
+                    count++;
+            }
+        }
+
+        return count;
+    }
+    public async void UpdatePlayerTeam(PlayerTeam newTeam)
+    {
+        if (joinedLobby == null) return;
+
+        int teamCount = GetTeamCount(newTeam);
+
+        PlayerNumber numberToAssign =
+            teamCount == 0 ? PlayerNumber.One : PlayerNumber.Two;
+
+        try
+        {
+            UpdatePlayerOptions options = new UpdatePlayerOptions
+            {
+                Data = new Dictionary<string, PlayerDataObject>
+            {
+                {
+                    KEY_PLAYER_TEAM,
+                    new PlayerDataObject(
+                        PlayerDataObject.VisibilityOptions.Public,
+                        newTeam.ToString())
+                },
+                {
+                    KEY_PLAYER_NUMBER,
+                    new PlayerDataObject(
+                        PlayerDataObject.VisibilityOptions.Public,
+                        numberToAssign.ToString())
+                }
+            }
+            };
+
+            string playerId = AuthenticationService.Instance.PlayerId;
+
+            joinedLobby = await LobbyService.Instance.UpdatePlayerAsync(
+                joinedLobby.Id,
+                playerId,
+                options);
+
+            OnJoinedLobbyUpdate?.Invoke(this,
+                new LobbyEventArgs { lobby = joinedLobby });
+        }
+        catch (LobbyServiceException e)
+        {
+            Debug.Log("Team update failed: " + e);
+        }
+    }
     public async void UpdatePlayerName(string playerName) {
         this.playerName = playerName;
 
@@ -490,39 +549,39 @@ public class LobbyManager : MonoBehaviour {
     //    }
     //}
 
-    public async void UpdatePlayerTeam(PlayerTeam newTeam) 
-    {
-        //Debug.Log("TEAM CLICK");
-        if (joinedLobby != null)
-        {
-            try
-            {
-                UpdatePlayerOptions options = new UpdatePlayerOptions();
+    //public async void UpdatePlayerTeam(PlayerTeam newTeam) 
+    //{
+    //    //Debug.Log("TEAM CLICK");
+    //    if (joinedLobby != null)
+    //    {
+    //        try
+    //        {
+    //            UpdatePlayerOptions options = new UpdatePlayerOptions();
 
-                options.Data = new Dictionary<string, PlayerDataObject>() {
-                    {
-                        KEY_PLAYER_TEAM, new PlayerDataObject(
-                    visibility: PlayerDataObject.VisibilityOptions.Public,
-                    value: newTeam.ToString())
-                    }
-                };
+    //            options.Data = new Dictionary<string, PlayerDataObject>() {
+    //                {
+    //                    KEY_PLAYER_TEAM, new PlayerDataObject(
+    //                visibility: PlayerDataObject.VisibilityOptions.Public,
+    //                value: newTeam.ToString())
+    //                }
+    //            };
 
 
-                string playerId = AuthenticationService.Instance.PlayerId;
+    //            string playerId = AuthenticationService.Instance.PlayerId;
 
-                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
-                joinedLobby = lobby;
-                CheckTeamValue(newTeam);
+    //            Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
+    //            joinedLobby = lobby;
+    //            CheckTeamValue(newTeam);
                 
 
-                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
+    //            OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
                
-            }
-            catch (LobbyServiceException e) {
-                Debug.Log("When trying to update players team: " + e);
-            }
-        }
-    }
+    //        }
+    //        catch (LobbyServiceException e) {
+    //            Debug.Log("When trying to update players team: " + e);
+    //        }
+    //    }
+    //}
     public async void UpdatePlayerNumber(PlayerNumber newNumber)
     {
         if (joinedLobby != null)
@@ -609,6 +668,7 @@ public class LobbyManager : MonoBehaviour {
     }
     public async void UpdateLobbyRedTeam(string newString)
     {
+        //currently only actually updates when the host runs the code
         try
         {
             Debug.Log("UpdateLobbyRedTeam " + newString);
