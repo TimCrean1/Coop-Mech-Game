@@ -4,9 +4,9 @@ using System.Collections;
 public class WeaponCannon : BaseWeapon
 {
 
-    public override void Fire()
+    public override void FireRpc()
     {
-        base.Fire();
+        base.FireRpc();
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)

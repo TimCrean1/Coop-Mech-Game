@@ -7,6 +7,7 @@ public class MechScreen : MonoBehaviour
 
     public void ChangeText(string newText, bool concatinate)
     {
+        Debug.Log("Yes this is actually being called" + newText);
         if (concatinate)
         {
             textToChange.text = textToChange.text + newText;

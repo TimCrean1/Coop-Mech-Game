@@ -117,6 +117,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (playerNumber == "One") 
         {
+            Debug.Log("Inputs are being subscribed - one");
             // OwnerClientId 0 is player 1 of mech 1
             // OwnerClientId 2 is player 1 of mech 2
 
@@ -134,6 +135,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         }
         else if (playerNumber == "Two") 
         {
+            Debug.Log("Inputs are being subscribed - two");
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
 
