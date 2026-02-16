@@ -101,9 +101,11 @@ public class SoloPlayerController : MonoBehaviour
     private void SubscribeInputActions()
     {
         playerInputActions.Player.P1Move.started += P1MoveAction;
+        playerInputActions.Player.P1Move.performed += P1MoveAction;
         playerInputActions.Player.P1Move.canceled += P1MoveAction;
 
         playerInputActions.Player.P2Move2.started += P2MoveAction;
+        playerInputActions.Player.P2Move2.performed += P2MoveAction;
         playerInputActions.Player.P2Move2.canceled += P2MoveAction;
 
         playerInputActions.Player.P1Shoot.started += P1ShootAction;
@@ -115,9 +117,11 @@ public class SoloPlayerController : MonoBehaviour
     private void UnsubscribeInputActions()
     {
         playerInputActions.Player.P1Move.started -= P1MoveAction;
+        playerInputActions.Player.P1Move.performed -= P1MoveAction;
         playerInputActions.Player.P1Move.canceled -= P1MoveAction;
 
         playerInputActions.Player.P2Move2.started -= P2MoveAction;
+        playerInputActions.Player.P2Move2.performed -= P2MoveAction;
         playerInputActions.Player.P2Move2.canceled -= P2MoveAction;
 
         playerInputActions.Player.P1Shoot.started -= P1ShootAction;

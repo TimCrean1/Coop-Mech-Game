@@ -126,9 +126,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
             // playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
             // playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
 
+            playerInputActions.Player.P1Move.started += P1MoveAction;
             playerInputActions.Player.P1Move.performed += P1MoveAction;
             playerInputActions.Player.P1Move.canceled += P1MoveAction;
 
+            playerInputActions.Player.P1Shoot.started += P1ShootAction;
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
         }
@@ -140,9 +142,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
             // playerInputActions.Player.P2Shoot.started += playerController.P2ShootAction;
             // playerInputActions.Player.P2Shoot.canceled += playerController.P2ShootAction;
 
+            playerInputActions.Player.P2Move.started += P2MoveAction;
             playerInputActions.Player.P2Move.performed += P2MoveAction;
             playerInputActions.Player.P2Move.canceled += P2MoveAction;
 
+            playerInputActions.Player.P2Shoot.started += P2ShootAction;
             playerInputActions.Player.P2Shoot.performed += P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
         }
@@ -154,6 +158,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         {
             // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
             // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
+            playerInputActions.Player.P1Move.started -= P1MoveAction;
             playerInputActions.Player.P1Move.performed -= P1MoveAction;
             playerInputActions.Player.P1Move.canceled -= P1MoveAction;
 
@@ -161,18 +166,21 @@ public class TestPlayerObjectScript : NetworkBehaviour
             // playerInputActions.Player.P1Shoot.canceled -= playerController.P1ShootAction;
 
             playerInputActions.Player.P1Shoot.started -= P1ShootAction;
+            playerInputActions.Player.P1Shoot.performed -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
         }
         else if (playerNumber == "Two")
         {
             // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
+            playerInputActions.Player.P2Move.started -= P2MoveAction;
             playerInputActions.Player.P2Move.performed -= P2MoveAction;
             playerInputActions.Player.P2Move.canceled -= P2MoveAction;
 
             // playerInputActions.Player.P2Shoot.started -= playerController.P2ShootAction;
             // playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
             playerInputActions.Player.P2Shoot.started -= P2ShootAction;
+            playerInputActions.Player.P2Shoot.performed -= P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled -= P2ShootAction;
         }
     }

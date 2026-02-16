@@ -18,8 +18,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     private float p2ShootTime;
 
     [Header("Input Storage")]
-    private Vector2 p1MoveInput;
-    private Vector2 p2MoveInput;
+    [SerializeField] private Vector2 p1MoveInput;
+    [SerializeField] private Vector2 p2MoveInput;
     private float p1ShootInput;
     private float p2ShootInput;
 
@@ -57,51 +57,32 @@ public class PlayerCoroutineManager : MonoBehaviour
     {
         syncedInput = Vector2.zero;
 
-        // Check if inputs are within the sync window and that inputs are identical
-        if (Mathf.Abs(p1MoveTime - p2MoveTime) <= movementSyncWindow && p1MoveInput == p2MoveInput)
-        {
-            // Inputs are synced
-            syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
+        bool p1Moving = p1MoveInput.magnitude > 0.1f;
+        bool p2Moving = p2MoveInput.magnitude > 0.1f;
 
-            // Reset times so it only triggers once
-            p1MoveTime = -1;
-            p2MoveTime = -1;
-            return true;
+        if (!p1Moving && !p2Moving)
+            return false;
+
+        float timeDiff = Mathf.Abs(p1MoveTime - p2MoveTime);
+        bool sameDirection = Vector2.Dot(p1MoveInput.normalized, p2MoveInput.normalized) > 0.75f;
+
+        // Within sync window
+        if (timeDiff <= movementSyncWindow)
+        {
+            if (sameDirection)
+                syncedInput = p1MoveInput.normalized * syncedMoveMultiplier;
+            else
+                syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+        }
+        else
+        {
+            if (sameDirection)
+                syncedInput = (p1MoveInput + p2MoveInput) * 0.5f;
+            else
+                syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
         }
 
-        // If the inputs are not identical, average the inputs anyway
-        else if(p1MoveInput != p2MoveInput)
-        {
-            // Average the two inputs even though they are not identical
-            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
-
-            // Reset times so it only triggers once
-            p1MoveTime = -1;
-            p2MoveTime = -1;
-            return true;
-        }
-        // If inputs are identical and sync has passed
-        else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
-        {
-            syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
-
-            p1MoveTime = -1;
-            p2MoveTime = -1;
-            return true;
-        }
-        // If inputs are identical and sync has passed
-        else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
-        {
-            // Average the two inputs even though they are not identical
-            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
-
-            // Reset times so it only triggers once
-            p1MoveTime = -1;
-            p2MoveTime = -1;
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public bool TryGetSyncedShoot(out float syncedInput)
