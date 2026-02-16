@@ -70,6 +70,16 @@ public class TeamWeaponManager : MonoBehaviour
 
             P1WeaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
+
+        for (int i = 0; i < P2WeaponsList.Count; i++)
+        {
+            //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
+            rotDir = hit.GetDirectionFromRaycastHit(P1WeaponsList[i].Muzzle.position);
+
+            //Debug.Log("rotDir is: " + rotDir);
+
+            P2WeaponsList[i].SetMuzzleRotation(hit, rotDir);
+        }
     }
     public void FireWeapons(float input)
     {
