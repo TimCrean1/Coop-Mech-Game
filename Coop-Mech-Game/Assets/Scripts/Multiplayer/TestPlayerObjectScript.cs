@@ -20,16 +20,22 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (!IsOwner) { return; }
 
-        Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
+        //Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
 
-        Player localPlayer = lobby.Players.Find(p =>
-        p.Id == AuthenticationService.Instance.PlayerId);
+        //Player localPlayer = lobby.Players.Find(p =>
+        //p.Id == AuthenticationService.Instance.PlayerId);
 
-        playerIndex = AuthenticationService.Instance.PlayerId;
+        //playerIndex = AuthenticationService.Instance.PlayerId;
 
-        playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
+        //playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
 
-        playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
+        //playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
+
+        playerIndex = BootstrapScript.Instance.playerIndex;
+
+        playerTeam = BootstrapScript.Instance.playerTeam;
+
+        playerNumber = BootstrapScript.Instance.playerNumber;
         
 
         
