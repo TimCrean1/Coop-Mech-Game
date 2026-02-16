@@ -1,4 +1,5 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -27,8 +28,11 @@ public abstract class BaseWeapon : MonoBehaviour
 
     [Header("READ ONLY")]
     [Tooltip("READY ONLY")]
-    [SerializeField] private int ammoCount;
-
+    //[SerializeField] private int ammoCount;
+    [SerializeField] private NetworkVariable<int> ammoCount = new NetworkVariable<int>(
+        default,
+        NetworkVariableReadPermission.Everyone,
+        NetworkVariableWritePermission.Server);
     private bool canFire = true;
     private bool isCooldownOn = false;
     private RaycastHit hit;
@@ -36,13 +40,13 @@ public abstract class BaseWeapon : MonoBehaviour
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
-    public float AmmoCount {  get { return ammoCount; } }
+    public float AmmoCount {  get { return ammoCount.Value; } }
     public bool CanWeaponFire { get { return canFire; } }
 
 
     private void Start()
     {
-        ammoCount = ammo;
+        ammoCount.Value = ammo;
         muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
     }
 
@@ -82,10 +86,10 @@ public abstract class BaseWeapon : MonoBehaviour
     }
     protected virtual void BuildCooldown()
     {
-        ammoCount = ammoCount - 1;
+        ammoCount.Value = ammoCount.Value - 1;
         ammoCountScreen.ChangeText(AmmoCount.ToString(), false);
         //Debug.Log("Ammo: " + ammoCount);
-        if (ammoCount <= 0)
+        if (ammoCount.Value <= 0)
         {
             ActivateCooldown();
         }
@@ -121,7 +125,7 @@ public abstract class BaseWeapon : MonoBehaviour
         else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
         else {ammoCountScreen.ChangeText("---",false);}
 
-        ammoCount = ammo;
+        ammoCount.Value = ammo;
         canFire = true;
         isCooldownOn = false;
         ammoCountScreen.ChangeText(ammoCount.ToString(), false);
