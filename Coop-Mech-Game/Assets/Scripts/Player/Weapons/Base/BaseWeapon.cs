@@ -134,7 +134,7 @@ public abstract class BaseWeapon : MonoBehaviour
         //clamp rotDir to be within (10,10,10) and negatives
         muzzle.transform.forward = rotDir;
 
-        //Debug.Log(this + " weapon muzzle forward is: " + muzzle.transform.forward);
+        Debug.Log(this + " weapon muzzle forward is: " + muzzle.transform.forward);
     }
 
 #if UNITY_EDITOR
