@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -19,8 +18,8 @@ public class PlayerCoroutineManager : MonoBehaviour
     private float p2ShootTime;
 
     [Header("Input Storage")]
-    [SerializeField] private Vector2 p1MoveInput;
-    [SerializeField] private Vector2 p2MoveInput;
+    private Vector2 p1MoveInput;
+    private Vector2 p2MoveInput;
     private float p1ShootInput;
     private float p2ShootInput;
 
@@ -58,70 +57,50 @@ public class PlayerCoroutineManager : MonoBehaviour
     {
         syncedInput = Vector2.zero;
 
-        bool p1Moving = p1MoveInput.magnitude > 0.1f;
-        bool p2Moving = p2MoveInput.magnitude > 0.1f;
-
-        if (!p1Moving && !p2Moving)
-            return false;
-
-        float timeDiff = Mathf.Abs(p1MoveTime - p2MoveTime);
-        bool sameDirection = false;
-
-        if (p1Moving && p2Moving)
-            sameDirection = Vector2.Dot(p1MoveInput.normalized, p2MoveInput.normalized) > 0.75f;
-
-        // Within sync window
-        // if (timeDiff <= movementSyncWindow)
-        // {
-        //     if (sameDirection)
-        //         syncedInput = p1MoveInput.normalized * syncedMoveMultiplier;
-        //     else
-        //         syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
-        // }
-        // else
-        // {
-        //     if (sameDirection)
-        //         syncedInput = (p1MoveInput + p2MoveInput) * 0.5f;
-        //     else
-        //         syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
-        // }
-
-        float x = ResolveAxis(p1MoveInput.x, p2MoveInput.x, timeDiff);
-        float y = ResolveAxis(p1MoveInput.y, p2MoveInput.y, timeDiff);
-
-        syncedInput = new Vector2(x, y);
-
-        // Prevent diagonal speed boost
-        syncedInput = Vector2.ClampMagnitude(syncedInput, 1f);
-
-        // Apply multipliers AFTER resolving direction
-        if (timeDiff <= movementSyncWindow)
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1MoveTime - p2MoveTime) <= movementSyncWindow && p1MoveInput == p2MoveInput)
         {
-            syncedInput *= syncedMoveMultiplier;
-        }
-        else
-        {
-            syncedInput *= unsyncedMoveMultiplier;
+            // Inputs are synced
+            syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
+
+            // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
         }
 
-        if (syncedInput.magnitude <= 0.01f)
-            return false;
-
-        Debug.Log(syncedInput);
-
-        return true;
-    }
-
-    private float ResolveAxis(float p1, float p2, float timeDiff)
-    {
-        // If both pushing same direction, reinforce
-        if (Mathf.Sign(p1) == Mathf.Sign(p2))
+        // If the inputs are not identical and the sync window has passed, average the inputs anyway
+        else if(p1MoveInput != p2MoveInput)
         {
-            return (p1 + p2) * 0.5f;
+            // Average the two inputs even though they are not identical
+            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+
+            // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
+        }
+        else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
+        {
+            syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
+
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
         }
 
-        // If opposing directions, cancel out
-        return 0f;
+        else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
+        {
+            // Average the two inputs even though they are not identical
+            syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+
+            // Reset times so it only triggers once
+            p1MoveTime = -1;
+            p2MoveTime = -1;
+            return true;
+        }
+
+        return false;
     }
 
     public bool TryGetSyncedShoot(out float syncedInput)
@@ -133,7 +112,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             && p1ShootInput == 1 && p2ShootInput == 1)
         {
             // Inputs are synced
-            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
+            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f; //this will be 2 * .5 = 1
 
             // Reset times so it only triggers once
             p1ShootTime = -1;
@@ -166,8 +145,8 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2ShootTime = -1;
             return true;
         }
-
         return false;
     }
+
     #endregion
 }
