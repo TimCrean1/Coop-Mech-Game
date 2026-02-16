@@ -12,6 +12,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
+    [SerializeField] private bool weirdRotate = false;
     // [SerializeField] private float maxVerticalSpeed = 25f;
 
     [Header("Character - Air Movement")]
@@ -135,7 +136,9 @@ public class CharacterMovement : BaseMovement
             // Sideways movement relative to camera's right direction
             if (movementDirection.x != 0)
             {
-                Vector3 camRight = playerCamera.transform.right;
+                Vector3 camRight;
+                if (weirdRotate){camRight = playerCamera.transform.right;}
+                else{camRight = transform.right;}
                 camRight.y = 0; // Ignore vertical component
                 camRight.Normalize();
 
@@ -257,28 +260,30 @@ public class CharacterMovement : BaseMovement
     #region Jumping
     public override void Jump()
     {
-        if (readyToJump && (isGrounded || currentJumps < maxJumps))
-        {
-            currentJumps++;
-            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
-            readyToJump = false;
-            StartCoroutine(JumpCooldownCoroutine());
-        }
+        // if (readyToJump && (isGrounded || currentJumps < maxJumps))
+        // {
+        //     currentJumps++;
+        //     float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+        //     rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+        //     readyToJump = false;
+        //     StartCoroutine(JumpCooldownCoroutine());
+        // }
+        return;
     }
 
-    private IEnumerator JumpCooldownCoroutine()
-    {
-        yield return new WaitForSeconds(jumpCoolDown);
-        readyToJump = true;
-    }
+    // private IEnumerator JumpCooldownCoroutine()
+    // {
+    //     yield return new WaitForSeconds(jumpCoolDown);
+    //     readyToJump = true;
+    // }
 
     public override void CancelJump()
     {
-        if (rigidbody.linearVelocity.y > 0f)
-        {
-            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
-        }
+        // if (rigidbody.linearVelocity.y > 0f)
+        // {
+        //     rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
+        // }
+        return;
     }
 
     #endregion
