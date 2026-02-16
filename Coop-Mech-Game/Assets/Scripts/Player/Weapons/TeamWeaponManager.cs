@@ -18,8 +18,8 @@ public class TeamWeaponManager : MonoBehaviour
     private int _p1EquippedWeapon = 0;
     private int _p2EquippedWeapon = 0;
 
-    public int P1EquippedWeapon { get {  return _p1EquippedWeapon; } }
-    public int P2EquippedWeapon { get {  return _p2EquippedWeapon; } }
+    public int P1EquippedWeapon { get { return _p1EquippedWeapon; } }
+    public int P2EquippedWeapon { get { return _p2EquippedWeapon; } }
 
     private RaycastHit hit;
     private Ray screenRay;
@@ -38,7 +38,7 @@ public class TeamWeaponManager : MonoBehaviour
             case 1:
                 _p1EquippedWeapon = weaponIdx; break;
             case 2:
-                _p2EquippedWeapon= weaponIdx; break;
+                _p2EquippedWeapon = weaponIdx; break;
         }
     }
 
@@ -61,7 +61,7 @@ public class TeamWeaponManager : MonoBehaviour
     {
         Physics.Raycast(screenRay, out hit);
 
-        for (int  i = 0; i < P1WeaponsList.Count; i++)
+        for (int i = 0; i < P1WeaponsList.Count; i++)
         {
             //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
             rotDir = hit.GetDirectionFromRaycastHit(P1WeaponsList[i].Muzzle.position);
@@ -91,35 +91,38 @@ public class TeamWeaponManager : MonoBehaviour
         //}
 
         // Check if the first weapon can fire
-        if (P1WeaponsList[0].CanWeaponFire)
+
+        if (input == 0.25) //Player 1 shooting
         {
-            if (input == 0.25) //Player 1 shooting
-            {
-                foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
-                    {
-                        weapon.Fire();
-                    }
-            }
-            else if (input == 0.75) //Player 2 shooting
-            {
-                foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 2)
-                    {
-                        weapon.Fire();
-                    }
-            }
-            else if (input == 1) //Both players shooting
-            {
-                // Fire all weapons simultaneously
-                foreach (BaseWeapon weapon in P1WeaponsList)
+            foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
                 {
                     weapon.Fire();
                 }
-            }
-            
-            // Generate camera impulse effect after firing
-            shootingImpulseSource.GenerateImpulse();
         }
+        else if (input == 0.75) //Player 2 shooting
+        {
+            foreach (BaseWeapon weapon in P2WeaponsList) if (weapon.owningPlayer == 2)
+                {
+                    weapon.Fire();
+                }
+        }
+        else if (input == 1) //Both players shooting
+        {
+            // Fire all weapons simultaneously
+            foreach (BaseWeapon weapon in P1WeaponsList)
+            {
+                weapon.Fire();
+            }
+            foreach (BaseWeapon weapon in P2WeaponsList)
+            {
+                weapon.Fire();
+            }
+        }
+
+        // Generate camera impulse effect after firing
+        shootingImpulseSource.GenerateImpulse();
     }
+
 
     //private IEnumerator WeaponFireRoutine(float input)
     //{
@@ -151,7 +154,7 @@ public class TeamWeaponManager : MonoBehaviour
     //                yield return new WaitForSeconds(staggeredFireTime);
     //            }
     //        }
-        
+
     //    yield return null;
     //}
 
@@ -176,7 +179,6 @@ public class TeamWeaponManager : MonoBehaviour
     }
 #endif
 }
-
 public enum TeamFireModes
 {
     Simultaneous,
