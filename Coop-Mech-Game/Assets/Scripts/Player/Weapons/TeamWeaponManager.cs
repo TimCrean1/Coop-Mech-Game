@@ -66,7 +66,7 @@ public class TeamWeaponManager : MonoBehaviour
             //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
             rotDir = hit.GetDirectionFromRaycastHit(P1WeaponsList[i].Muzzle.position);
 
-            Debug.Log("rotDir is: " + rotDir);
+            //Debug.Log("rotDir is: " + rotDir);
 
             P1WeaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
