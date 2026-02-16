@@ -56,7 +56,7 @@ public class PlayerController : NetworkBehaviour
      
     public override void OnNetworkSpawn()
     {
-        if(!IsOwner) { return; }
+        //if(!IsOwner) { return; }
         //mainCamera.GetComponent<Camera>().enabled = true;
         //GameManager.Instance.AddController(this);
     }

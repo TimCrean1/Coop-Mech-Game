@@ -63,8 +63,8 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         ammoCount.Value = ammoCount.Value + ammo;
     }
-    [Rpc(SendTo.Server)]
-    public virtual void FireRpc() //public because this will be called by weapon manager
+    
+    public virtual void Fire() //public because this will be called by weapon manager
     {
         Debug.Log("BaseWeapon Fire() " + canFire);
 

@@ -53,14 +53,14 @@ public class TeamWeaponManager : MonoBehaviour
                 {
                     foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 1)
                     {
-                        weapon.FireRpc();
+                        weapon.Fire();
                     }
                 }
                 else if (input == 0.75) //Player 2 shooting
                 {
                     foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 2)
                     {
-                        weapon.FireRpc();
+                        weapon.Fire();
                     }
                 }
                 else if (input == 1) //Both players shooting
@@ -68,7 +68,7 @@ public class TeamWeaponManager : MonoBehaviour
                     // Fire all weapons simultaneously
                     foreach (BaseWeapon weapon in weaponsList)
                     {
-                        weapon.FireRpc();
+                        weapon.Fire();
                     }
                 }
             }
@@ -83,7 +83,7 @@ public class TeamWeaponManager : MonoBehaviour
             {
                 foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 1)
                 {
-                    weapon.FireRpc();
+                    weapon.Fire();
                     shootingImpulseSource.GenerateImpulse();
                     yield return new WaitForSeconds(staggeredFireTime);
                 }
@@ -92,7 +92,7 @@ public class TeamWeaponManager : MonoBehaviour
             {
                 foreach (BaseWeapon weapon in weaponsList) if (weapon.owningPlayer == 2)
                 {
-                    weapon.FireRpc();
+                    weapon.Fire();
                     shootingImpulseSource.GenerateImpulse();
                     yield return new WaitForSeconds(staggeredFireTime);
                 }
@@ -102,7 +102,7 @@ public class TeamWeaponManager : MonoBehaviour
                 // Fire all weapons simultaneously
                 foreach (BaseWeapon weapon in weaponsList)
                 {
-                    weapon.FireRpc();
+                    weapon.Fire();
                     shootingImpulseSource.GenerateImpulse();
                     yield return new WaitForSeconds(staggeredFireTime);
                 }
