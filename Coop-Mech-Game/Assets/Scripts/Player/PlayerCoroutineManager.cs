@@ -69,7 +69,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             return true;
         }
 
-        // If the inputs are not identical and the sync window has passed, average the inputs anyway
+        // If the inputs are not identical, average the inputs anyway
         else if(p1MoveInput != p2MoveInput)
         {
             // Average the two inputs even though they are not identical
@@ -80,6 +80,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2MoveTime = -1;
             return true;
         }
+        // If inputs are identical and sync has passed
         else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
             syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
@@ -88,7 +89,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2MoveTime = -1;
             return true;
         }
-
+        // If inputs are identical and sync has passed
         else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
             // Average the two inputs even though they are not identical
@@ -135,9 +136,18 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2ShootTime = -1;
             return true;
         }
+        else if (Mathf.Abs(p1ShootTime - p2ShootTime) >= shootSyncWindow && p1ShootInput == 1 && p2ShootInput == 1)
+        {
+            // Inputs are synced
+            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1ShootTime = -1;
+            p2ShootTime = -1;
+            return true;
+        }
 
         return false;
     }
-
     #endregion
 }

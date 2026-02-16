@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RotationSO", menuName = "ScriptableObjects/Movement", order = 2)]
+[CreateAssetMenu(fileName = "RotationSO", menuName = "ScriptableObjects/Movement/RotationSO", order = 2)]
 public class RotationSO : ScriptableObject
 {
     public string rotationComponentName;

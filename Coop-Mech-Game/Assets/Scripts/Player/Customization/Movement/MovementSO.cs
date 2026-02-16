@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MovementSO", menuName = "ScriptableObjects/Movement", order = 1)]
+[CreateAssetMenu(fileName = "MovementSO", menuName = "ScriptableObjects/Movement/MovementSO", order = 1)]
 public class MovementSO : ScriptableObject
 {
     public string movementComponentName;
