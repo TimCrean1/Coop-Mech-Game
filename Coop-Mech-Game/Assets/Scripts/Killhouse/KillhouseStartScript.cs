@@ -15,7 +15,16 @@ public class KillhouseStartScript : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player")){
             killhouseManager.ResetPoints();
-            if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
+            // if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
+            // {
+            //     killhouseManager.StartTrial();
+            // }
+            // else
+            // {
+            //     killhouseManager.CancelTrial();
+            // }
+        }
+        if (killhouseManager.currentKHStatus != KillhouseManager.KillhouseStatus.Playing)
             {
                 killhouseManager.StartTrial();
             }
@@ -23,6 +32,5 @@ public class KillhouseStartScript : MonoBehaviour
             {
                 killhouseManager.CancelTrial();
             }
-        }
     }
 }

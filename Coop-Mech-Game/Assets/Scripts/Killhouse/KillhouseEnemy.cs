@@ -27,6 +27,7 @@ public class KillhouseEnemy : MonoBehaviour
 
     public void Activate()
     {
+        this.enabled = true;
         gameObject.SetActive(true);
     }
     public void Deactivate()
