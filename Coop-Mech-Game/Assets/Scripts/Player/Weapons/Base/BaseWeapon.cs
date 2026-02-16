@@ -31,7 +31,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Tooltip("READY ONLY")]
     //[SerializeField] private int ammoCount;
     [SerializeField] private NetworkVariable<int> ammoCount = new NetworkVariable<int>(
-        default,
+        0,
         NetworkVariableReadPermission.Everyone,
         NetworkVariableWritePermission.Server);
     private bool canFire = true;
@@ -47,19 +47,22 @@ public abstract class BaseWeapon : NetworkBehaviour
    
     private void Start()
     {
-        ammoCount.Value = ammo;
+        //ammoCount.Value = ammo;
         muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
     }
     public override void OnNetworkSpawn()
     {
-        
+        //set ammo in OnNetworkSpawn because its a networkvariable
+        //also set as an rpc so the client can set their ammo too?
+       
+        SetAmmoRpc(ammo);
     }
     [Rpc(SendTo.Server)]
-    private void ChangeAmmoRpc(int ammoChange) { 
+    private void SetAmmoRpc(int ammo)
+    {
 
-        ammoCount.Value -= ammoChange;
+        ammoCount.Value = ammoCount.Value + ammo;
     }
-    
     public virtual void Fire() //public because this will be called by weapon manager
     {
         //Debug.Log("BaseWeapon Fire() " + canFire);
@@ -96,7 +99,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     }
     protected virtual void BuildCooldown()
     {
-        ammoCount.Value = ammoCount.Value - 1;
+        SetAmmoRpc(-1);
+        //ammoCount.Value = ammoCount.Value - 1;
         ammoCountScreen.ChangeText(AmmoCount.ToString(), false);
         //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount.Value <= 0)
