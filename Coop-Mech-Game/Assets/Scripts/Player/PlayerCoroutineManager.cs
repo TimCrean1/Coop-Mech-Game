@@ -109,7 +109,7 @@ public class PlayerCoroutineManager : MonoBehaviour
 
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow 
-            && Mathf.Approximately(p1ShootInput, p2ShootInput))
+            && p1ShootInput == 1 && p2ShootInput == 1)
         {
             // Inputs are synced
             syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
