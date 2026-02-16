@@ -75,18 +75,18 @@ public class TeamWeaponManager : MonoBehaviour
     {
         if(input == 0.25f) //P1 fire
         {
-            if (P1WeaponsList[_p1EquippedWeapon].CanWeaponFire) { P1WeaponsList[_p1EquippedWeapon].Fire(); }
+            P1WeaponsList[_p1EquippedWeapon].Fire();
             shootingImpulseSource.GenerateImpulse();
         }
         else if(input == 0.75f) //P2 fire
         {
-            if (P2WeaponsList[_p2EquippedWeapon].CanWeaponFire) { P2WeaponsList[_p2EquippedWeapon].Fire(); }
+            P2WeaponsList[_p2EquippedWeapon].Fire();
             shootingImpulseSource.GenerateImpulse();
         }
         else if(input == 1f) //Both P1 & P2 fire
         {
-            if (P1WeaponsList[_p1EquippedWeapon].CanWeaponFire) { P1WeaponsList[_p1EquippedWeapon].Fire(); }
-            else if (P2WeaponsList[_p2EquippedWeapon].CanWeaponFire) { P2WeaponsList[_p2EquippedWeapon].Fire(); }
+            P1WeaponsList[_p1EquippedWeapon].Fire();
+            P2WeaponsList[_p2EquippedWeapon].Fire();
             shootingImpulseSource.GenerateImpulse();
         }
 
