@@ -12,7 +12,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
-    [SerializeField] private float maxVerticalSpeed = 25f;
+    // [SerializeField] private float maxVerticalSpeed = 25f;
 
     [Header("Character - Air Movement")]
     [SerializeField] private int maxJumps = 2;
