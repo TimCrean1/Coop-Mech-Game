@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using Unity.Netcode;
 using UnityEngine;
 
@@ -64,25 +65,63 @@ public class PlayerCoroutineManager : MonoBehaviour
             return false;
 
         float timeDiff = Mathf.Abs(p1MoveTime - p2MoveTime);
-        bool sameDirection = Vector2.Dot(p1MoveInput.normalized, p2MoveInput.normalized) > 0.75f;
+        bool sameDirection = false;
+
+        if (p1Moving && p2Moving)
+            sameDirection = Vector2.Dot(p1MoveInput.normalized, p2MoveInput.normalized) > 0.75f;
 
         // Within sync window
+        // if (timeDiff <= movementSyncWindow)
+        // {
+        //     if (sameDirection)
+        //         syncedInput = p1MoveInput.normalized * syncedMoveMultiplier;
+        //     else
+        //         syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+        // }
+        // else
+        // {
+        //     if (sameDirection)
+        //         syncedInput = (p1MoveInput + p2MoveInput) * 0.5f;
+        //     else
+        //         syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+        // }
+
+        float x = ResolveAxis(p1MoveInput.x, p2MoveInput.x, timeDiff);
+        float y = ResolveAxis(p1MoveInput.y, p2MoveInput.y, timeDiff);
+
+        syncedInput = new Vector2(x, y);
+
+        // Prevent diagonal speed boost
+        syncedInput = Vector2.ClampMagnitude(syncedInput, 1f);
+
+        // Apply multipliers AFTER resolving direction
         if (timeDiff <= movementSyncWindow)
         {
-            if (sameDirection)
-                syncedInput = p1MoveInput.normalized * syncedMoveMultiplier;
-            else
-                syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+            syncedInput *= syncedMoveMultiplier;
         }
         else
         {
-            if (sameDirection)
-                syncedInput = (p1MoveInput + p2MoveInput) * 0.5f;
-            else
-                syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
+            syncedInput *= unsyncedMoveMultiplier;
         }
 
+        if (syncedInput.magnitude <= 0.01f)
+            return false;
+
+        Debug.Log(syncedInput);
+
         return true;
+    }
+
+    private float ResolveAxis(float p1, float p2, float timeDiff)
+    {
+        // If both pushing same direction, reinforce
+        if (Mathf.Sign(p1) == Mathf.Sign(p2))
+        {
+            return (p1 + p2) * 0.5f;
+        }
+
+        // If opposing directions, cancel out
+        return 0f;
     }
 
     public bool TryGetSyncedShoot(out float syncedInput)
