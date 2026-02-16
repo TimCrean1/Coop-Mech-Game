@@ -73,60 +73,52 @@ public class TeamWeaponManager : MonoBehaviour
     }
     public void FireWeapons(float input)
     {
-        if(input == 0.25f) //P1 fire
-        {
-            P1WeaponsList[_p1EquippedWeapon].Fire();
-            shootingImpulseSource.GenerateImpulse();
-        }
-        else if(input == 0.75f) //P2 fire
-        {
-            P2WeaponsList[_p2EquippedWeapon].Fire();
-            shootingImpulseSource.GenerateImpulse();
-        }
-        else if(input == 1f) //Both P1 & P2 fire
-        {
-            P1WeaponsList[_p1EquippedWeapon].Fire();
-            P2WeaponsList[_p2EquippedWeapon].Fire();
-            shootingImpulseSource.GenerateImpulse();
-        }
-
-        // Check if the first weapon can fire
-        //if (P1WeaponsList[0].CanWeaponFire)
+        //if(input == 0.25f) //P1 fire
         //{
-        //    if (_enableStaggeredFire)
-        //    {
-        //        // Fire weapons one after another with a delay
-        //        StartCoroutine(WeaponFireRoutine(input));
-        //        return;
-        //    }
-        //    else
-        //    {
-        //        if (input == 0.25) //Player 1 shooting
-        //        {
-        //            foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
-        //            {
-        //                weapon.Fire();
-        //            }
-        //        }
-        //        else if (input == 0.75) //Player 2 shooting
-        //        {
-        //            foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 2)
-        //            {
-        //                weapon.Fire();
-        //            }
-        //        }
-        //        else if (input == 1) //Both players shooting
-        //        {
-        //            // Fire all weapons simultaneously
-        //            foreach (BaseWeapon weapon in P1WeaponsList)
-        //            {
-        //                weapon.Fire();
-        //            }
-        //        }
-        //    }
-        //    // Generate camera impulse effect after firing
+        //    P1WeaponsList[_p1EquippedWeapon].Fire();
         //    shootingImpulseSource.GenerateImpulse();
         //}
+        //else if(input == 0.75f) //P2 fire
+        //{
+        //    P2WeaponsList[_p2EquippedWeapon].Fire();
+        //    shootingImpulseSource.GenerateImpulse();
+        //}
+        //else if(input == 1f) //Both P1 & P2 fire
+        //{
+        //    P1WeaponsList[_p1EquippedWeapon].Fire();
+        //    P2WeaponsList[_p2EquippedWeapon].Fire();
+        //    shootingImpulseSource.GenerateImpulse();
+        //}
+
+        // Check if the first weapon can fire
+        if (P1WeaponsList[0].CanWeaponFire)
+        {
+            if (input == 0.25) //Player 1 shooting
+            {
+                foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
+                    {
+                        weapon.Fire();
+                    }
+            }
+            else if (input == 0.75) //Player 2 shooting
+            {
+                foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 2)
+                    {
+                        weapon.Fire();
+                    }
+            }
+            else if (input == 1) //Both players shooting
+            {
+                // Fire all weapons simultaneously
+                foreach (BaseWeapon weapon in P1WeaponsList)
+                {
+                    weapon.Fire();
+                }
+            }
+            
+            // Generate camera impulse effect after firing
+            shootingImpulseSource.GenerateImpulse();
+        }
     }
 
     //private IEnumerator WeaponFireRoutine(float input)
