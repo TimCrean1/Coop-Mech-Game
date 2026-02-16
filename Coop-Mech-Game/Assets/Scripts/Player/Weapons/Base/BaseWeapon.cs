@@ -1,10 +1,11 @@
 using System.Collections;
 using Unity.Netcode;
+using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI.Table;
 
-public abstract class BaseWeapon : MonoBehaviour
+public abstract class BaseWeapon : NetworkBehaviour
 {
     /// <summary>
     /// 
@@ -43,13 +44,22 @@ public abstract class BaseWeapon : MonoBehaviour
     public float AmmoCount {  get { return ammoCount.Value; } }
     public bool CanWeaponFire { get { return canFire; } }
 
-
+   
     private void Start()
     {
         ammoCount.Value = ammo;
         muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
     }
+    public override void OnNetworkSpawn()
+    {
+        
+    }
+    [Rpc(SendTo.Server)]
+    private void ChangeAmmoRpc(int ammoChange) { 
 
+        ammoCount.Value -= ammoChange;
+    }
+    
     public virtual void Fire() //public because this will be called by weapon manager
     {
         //Debug.Log("BaseWeapon Fire() " + canFire);
