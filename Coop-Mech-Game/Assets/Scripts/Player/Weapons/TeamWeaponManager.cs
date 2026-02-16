@@ -77,20 +77,20 @@ public class TeamWeaponManager : MonoBehaviour
 
         if (input == 0.25f) //P1 fire
         {
-            Debug.Log("Trying to fire P1 weapon: p1WeaponIdx: " + _p1EquippedWeapon);
+            //Debug.Log("Trying to fire P1 weapon: p1WeaponIdx: " + _p1EquippedWeapon);
             P1WeaponsList[_p1EquippedWeapon].Fire();
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 0.75f) //P2 fire
         {
-            Debug.Log("Trying to fire P2 weapon: p2WeaponIdx: " + _p2EquippedWeapon);
+            //Debug.Log("Trying to fire P2 weapon: p2WeaponIdx: " + _p2EquippedWeapon);
 
             P2WeaponsList[_p2EquippedWeapon].Fire();
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 1f) //Both P1 & P2 fire
         {
-            Debug.Log("Trying to fire both weapons: p1WeaponIdx: " + _p1EquippedWeapon + " p2WeaponIdx: " + _p2EquippedWeapon);
+            //Debug.Log("Trying to fire both weapons: p1WeaponIdx: " + _p1EquippedWeapon + " p2WeaponIdx: " + _p2EquippedWeapon);
 
             P1WeaponsList[_p1EquippedWeapon].Fire();
             P2WeaponsList[_p2EquippedWeapon].Fire();
