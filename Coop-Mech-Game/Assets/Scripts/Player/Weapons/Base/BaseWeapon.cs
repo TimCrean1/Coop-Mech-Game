@@ -101,7 +101,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         SetAmmoRpc(-1);
         //ammoCount.Value = ammoCount.Value - 1;
-        ammoCountScreen.ChangeText(AmmoCount.ToString(), false);
+        ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
         //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount.Value <= 0)
         {
