@@ -135,8 +135,15 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2ShootTime = -1;
             return true;
         }
+        else if (Mathf.Abs(p1ShootTime - p2ShootTime) >= shootSyncWindow && Mathf.Approximately(p1ShootInput, p2ShootInput))
+        {
+            syncedInput = 1;
 
-        return false;
+            p1ShootTime = -1;
+            p2ShootTime = -1;
+            return true;
+        }
+            return false;
     }
 
     #endregion
