@@ -84,7 +84,7 @@ public class TeamWeaponManager : MonoBehaviour
         else if(input == 1f) //Both P1 & P2 fire
         {
             if (P1WeaponsList[_p1EquippedWeapon].CanWeaponFire) { P1WeaponsList[_p1EquippedWeapon].Fire(); }
-            if (P2WeaponsList[_p2EquippedWeapon].CanWeaponFire) { P2WeaponsList[_p2EquippedWeapon].Fire(); }
+            else if (P2WeaponsList[_p2EquippedWeapon].CanWeaponFire) { P2WeaponsList[_p2EquippedWeapon].Fire(); }
             shootingImpulseSource.GenerateImpulse();
         }
 
