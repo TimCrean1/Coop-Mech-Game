@@ -260,12 +260,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void P1ShootAction(InputAction.CallbackContext context)
     {
+        
         float isShooting = context.ReadValue<float>();
         playerController.P1ShootActionServerRpc(isShooting);
     }
 
     private void P2ShootAction(InputAction.CallbackContext context)
     {
+        
         float isShooting = context.ReadValue<float>();
         playerController.P2ShootActionServerRpc(isShooting);
     }

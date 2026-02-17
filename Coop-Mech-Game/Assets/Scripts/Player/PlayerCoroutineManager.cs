@@ -22,6 +22,7 @@ public class PlayerCoroutineManager : MonoBehaviour
     private Vector2 p2MoveInput;
     private float p1ShootInput;
     private float p2ShootInput;
+    
 
     //[Header("Multiplayer Variables")]
     //private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
@@ -45,6 +46,7 @@ public class PlayerCoroutineManager : MonoBehaviour
     }
     public void SetP2Shoot(float ShootInput)
     {
+        Debug.Log("SetP2Shoot " + ShootInput);
         p2ShootInput = ShootInput;
         p2ShootTime = Time.time;
     }
@@ -60,6 +62,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1MoveTime - p2MoveTime) <= movementSyncWindow && p1MoveInput == p2MoveInput)
         {
+            Debug.Log("move1");
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
@@ -72,6 +75,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         // If the inputs are not identical and the sync window has passed, average the inputs anyway
         else if(p1MoveInput != p2MoveInput)
         {
+            Debug.Log("move2");
             // Average the two inputs even though they are not identical
             syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
@@ -82,6 +86,8 @@ public class PlayerCoroutineManager : MonoBehaviour
         }
         else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
+
+            Debug.Log("move3");
             syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
 
             p1MoveTime = -1;
@@ -91,6 +97,8 @@ public class PlayerCoroutineManager : MonoBehaviour
 
         else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
+
+            Debug.Log("move4");
             // Average the two inputs even though they are not identical
             syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
@@ -111,6 +119,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow 
             && Mathf.Approximately(p1ShootInput, p2ShootInput))
         {
+            //Debug.Log("This is where we might shoot1");
             // Inputs are synced
             syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
 
@@ -121,6 +130,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         }
         else if (p1ShootInput > 0 && p2ShootInput <= 0)
         {
+            //Debug.Log("This is where we might shoot2");
             syncedInput = 0.25f;
 
             p1ShootTime = -1;
@@ -129,6 +139,7 @@ public class PlayerCoroutineManager : MonoBehaviour
         }
         else if (p1ShootInput <= 0 && p2ShootInput > 0)
         {
+            //Debug.Log("This is where we might shoot3");
             syncedInput = 0.75f;
 
             p1ShootTime = -1;

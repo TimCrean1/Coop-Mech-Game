@@ -66,7 +66,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     
     public virtual void Fire() //public because this will be called by weapon manager
     {
-        Debug.Log("BaseWeapon Fire() " + canFire);
+        //Debug.Log("BaseWeapon Fire() " + canFire);
 
         if (canFire)
         {
