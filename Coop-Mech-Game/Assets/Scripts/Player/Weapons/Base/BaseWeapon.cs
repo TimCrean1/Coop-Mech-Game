@@ -143,7 +143,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         ammoCount.Value = ammo;
         canFire = true;
         isCooldownOn = false;
-        ammoCountScreen.ChangeText(ammoCount.ToString(), false);
+        ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
         //Debug.Log("cooldown end");
     }
 
