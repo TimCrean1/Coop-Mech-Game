@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 5132920644635074767}
   - component: {fileID: 5790533618384368019}
   - component: {fileID: 1041313949405104054}
+  - component: {fileID: 4602183613238038994}
   m_Layer: 0
   m_Name: PlayerTeamOne
   m_TagString: TeamOne
@@ -248,7 +249,7 @@ MonoBehaviour:
   accelerationRate: 90
   decelerationRate: 50
   maxWalkSpeed: 7
-  maxVerticalSpeed: 25
+  weirdRotate: 0
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
@@ -615,6 +616,18 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: 0, z: -0.1}
+--- !u!114 &4602183613238038994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ef70ee70124489f8d793bb9c5f77e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1001 &322673852593687342
 PrefabInstance:
   m_ObjectHideFlags: 0

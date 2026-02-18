@@ -258,7 +258,7 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Jumping
-    public override void Jump()
+    public override void Jump() 
     {
         // if (readyToJump && (isGrounded || currentJumps < maxJumps))
         // {

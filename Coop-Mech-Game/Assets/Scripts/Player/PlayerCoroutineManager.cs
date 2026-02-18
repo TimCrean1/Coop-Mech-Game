@@ -23,6 +23,9 @@ public class PlayerCoroutineManager : MonoBehaviour
     private float p1ShootInput;
     private float p2ShootInput;
 
+    [Header("Object/Component References")]
+    [SerializeField] private ComboManager comboManager;
+
     [Header("Multiplayer Variables")]
     private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
     #region Variable setters
@@ -66,6 +69,9 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Reset times so it only triggers once
             p1MoveTime = -1;
             p2MoveTime = -1;
+
+            comboManager.AddScore(10);
+
             return true;
         }
 
@@ -117,6 +123,9 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Reset times so it only triggers once
             p1ShootTime = -1;
             p2ShootTime = -1;
+
+            comboManager.AddScore(10);
+
             return true;
         }
         else if (p1ShootInput > 0 && p2ShootInput <= 0)
