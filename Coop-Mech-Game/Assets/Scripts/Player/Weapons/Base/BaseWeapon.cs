@@ -66,7 +66,12 @@ public abstract class BaseWeapon : NetworkBehaviour
     
     public virtual void Fire() //public because this will be called by weapon manager
     {
-        //Debug.Log("BaseWeapon Fire() " + canFire);
+
+
+        if (!IsOwner) { return; }
+        //FireServerRpc();
+
+        Debug.Log("BaseWeapon Fire() " + canFire);
 
         if (canFire)
         {
@@ -97,6 +102,28 @@ public abstract class BaseWeapon : NetworkBehaviour
         //{
         //    ActivateCooldown();
         //}
+    }
+    [ServerRpc]
+    private void FireServerRpc()
+    {
+        if (!canFire) return;
+
+        // Do raycast on server
+        Physics.Raycast(muzzle.position, muzzle.forward, out hit);
+
+        if (muzzleComp) { muzzleComp.SendFireEvent(); }
+
+        if (hit.collider.gameObject.CompareTag("TeamOne"))
+        {
+            GameManager.Instance.DamageTeamRpc(1, damage);
+        }
+        else if (hit.collider.gameObject.CompareTag("TeamTwo"))
+        {
+            GameManager.Instance.DamageTeamRpc(2, damage);
+        }
+
+        canFire = false;
+        BuildCooldown();
     }
     protected virtual void BuildCooldown()
     {
