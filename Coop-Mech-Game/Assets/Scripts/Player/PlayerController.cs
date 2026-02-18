@@ -209,7 +209,7 @@ public class PlayerController : NetworkBehaviour
     //     P1ShootInput = context.ReadValue<float>();
     //     playerCoroutineManager.SetP1Shoot(P1ShootInput);
     // }
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Server)]
     public void P1ShootActionServerRpc(float P1ShootInput)
     {
         playerCoroutineManager.SetP1Shoot(P1ShootInput);
@@ -220,7 +220,7 @@ public class PlayerController : NetworkBehaviour
     //     P2ShootInput = context.ReadValue<float>();
     //     playerCoroutineManager.SetP2Shoot(P2ShootInput);
     // }
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Server)]
     public void P2ShootActionServerRpc(float P2ShootInput)
     {
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
