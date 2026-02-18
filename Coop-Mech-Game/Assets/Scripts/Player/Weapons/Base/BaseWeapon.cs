@@ -69,45 +69,46 @@ public abstract class BaseWeapon : NetworkBehaviour
 
 
         if (!IsOwner) { return; }
-        //FireServerRpc();
+        
+        FireRpc();
 
-        Debug.Log("BaseWeapon Fire() " + canFire);
+        //Debug.Log("BaseWeapon Fire() " + canFire);
 
-        if (canFire)
-        {
-            //Debug.Log("Fire input received");
-
-            Physics.Raycast(muzzle.position, muzzle.forward, out hit);
-            if (muzzleComp) { muzzleComp.SendFireEvent(); }
-
-            if (hit.collider.gameObject.CompareTag("TeamOne"))
-            {
-                // get team-specific info and send to wherever we're handling the health of the teams
-                GameManager.Instance.DamageTeamRpc(1, damage);
-            }
-            else if (hit.collider.gameObject.CompareTag("TeamTwo"))
-            {
-                GameManager.Instance.DamageTeamRpc(2, damage);
-            }
-            else if (hit.collider.gameObject.CompareTag("Target"))
-            {
-                Debug.Log("Hit!");
-                hit.collider.gameObject.SetActive(false);
-            }
-
-            canFire = false;
-            BuildCooldown();
-        }
-        //else if (ammoCount <= 0)
+        //if (canFire)
         //{
-        //    ActivateCooldown();
+        //    //Debug.Log("Fire input received");
+
+        //    Physics.Raycast(muzzle.position, muzzle.forward, out hit);
+        //    if (muzzleComp) { muzzleComp.SendFireEvent(); }
+
+        //    if (hit.collider.gameObject.CompareTag("TeamOne"))
+        //    {
+        //        // get team-specific info and send to wherever we're handling the health of the teams
+        //        GameManager.Instance.DamageTeamRpc(1, damage);
+        //    }
+        //    else if (hit.collider.gameObject.CompareTag("TeamTwo"))
+        //    {
+        //        GameManager.Instance.DamageTeamRpc(2, damage);
+        //    }
+        //    else if (hit.collider.gameObject.CompareTag("Target"))
+        //    {
+        //        Debug.Log("Hit!");
+        //        hit.collider.gameObject.SetActive(false);
+        //    }
+
+        //    canFire = false;
+        //    BuildCooldown();
         //}
+        ////else if (ammoCount <= 0)
+        ////{
+        ////    ActivateCooldown();
+        ////}
     }
-    [ServerRpc]
-    private void FireServerRpc()
+    [Rpc(SendTo.Server)]
+    private void FireRpc()
     {
         if (!canFire) return;
-
+        Debug.Log("FireServerRpc");
         // Do raycast on server
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
 
