@@ -20,9 +20,10 @@ public class PlayerCoroutineManager : MonoBehaviour
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
     private Vector2 p2MoveInput;
-    private float p1ShootInput;
-    private float p2ShootInput;
-    
+    //private float p1ShootInput;
+    //private float p2ShootInput;
+    private NetworkVariable<float> p1ShootInput = new NetworkVariable<float>();
+    private NetworkVariable<float> p2ShootInput = new NetworkVariable<float>();
 
     //[Header("Multiplayer Variables")]
     //private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
@@ -41,13 +42,13 @@ public class PlayerCoroutineManager : MonoBehaviour
 
     public void SetP1Shoot(float ShootInput)
     {
-        p1ShootInput = ShootInput;
+        p1ShootInput.Value = ShootInput;
         p1ShootTime = Time.time;
     }
     public void SetP2Shoot(float ShootInput)
     {
         Debug.Log("SetP2Shoot " + ShootInput);
-        p2ShootInput = ShootInput;
+        p2ShootInput.Value = ShootInput;
         p2ShootTime = Time.time;
     }
 
@@ -117,18 +118,18 @@ public class PlayerCoroutineManager : MonoBehaviour
 
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow 
-            && Mathf.Approximately(p1ShootInput, p2ShootInput))
+            && Mathf.Approximately(p1ShootInput.Value, p2ShootInput.Value))
         {
             //Debug.Log("This is where we might shoot1");
             // Inputs are synced
-            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
+            syncedInput = (p1ShootInput.Value + p2ShootInput.Value) * 0.5f;
 
             // Reset times so it only triggers once
             p1ShootTime = -1;
             p2ShootTime = -1;
             return true;
         }
-        else if (p1ShootInput > 0 && p2ShootInput <= 0)
+        else if (p1ShootInput.Value > 0 && p2ShootInput.Value <= 0)
         {
             //Debug.Log("This is where we might shoot2");
             syncedInput = 0.25f;
@@ -137,7 +138,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             p2ShootTime = -1;
             return true;
         }
-        else if (p1ShootInput <= 0 && p2ShootInput > 0)
+        else if (p1ShootInput.Value <= 0 && p2ShootInput.Value > 0)
         {
             //Debug.Log("This is where we might shoot3");
             syncedInput = 0.75f;

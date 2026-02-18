@@ -54,13 +54,13 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         //set ammo in OnNetworkSpawn because its a networkvariable
         //also set as an rpc so the client can set their ammo too?
-       
+        if (!IsServer) { return; }
         SetAmmoRpc(ammo);
     }
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
     {
-
+        if (!IsServer) { return; }
         ammoCount.Value = ammoCount.Value + ammo;
     }
     
@@ -140,7 +140,8 @@ public abstract class BaseWeapon : NetworkBehaviour
         else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
         else {ammoCountScreen.ChangeText("---",false);}
 
-        ammoCount.Value = ammo;
+        SetAmmoRpc(ammo);
+        //ammoCount.Value = ammo;
         canFire = true;
         isCooldownOn = false;
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
