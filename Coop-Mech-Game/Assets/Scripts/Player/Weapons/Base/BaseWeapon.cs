@@ -139,8 +139,10 @@ public abstract class BaseWeapon : NetworkBehaviour
         if (reloadTimer <= cooldownTime/3){ammoCountScreen.ChangeText("-..",false);}
         else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
         else {ammoCountScreen.ChangeText("---",false);}
-
-        SetAmmoRpc(ammo);
+        if (IsServer)
+        {
+            SetAmmoRpc(ammo);
+        }
         //ammoCount.Value = ammo;
         canFire = true;
         isCooldownOn = false;
