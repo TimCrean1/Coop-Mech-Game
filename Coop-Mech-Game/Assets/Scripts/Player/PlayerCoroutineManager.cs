@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerCoroutineManager : MonoBehaviour
+public class PlayerCoroutineManager : NetworkBehaviour
 {
     [Header("Input Window Duration")]
     [SerializeField][Range(0.001f, 1)] private float movementSyncWindow = 0.5f;
