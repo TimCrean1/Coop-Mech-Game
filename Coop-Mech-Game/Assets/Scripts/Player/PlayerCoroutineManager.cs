@@ -68,7 +68,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1MoveTime - p2MoveTime) <= movementSyncWindow && p1MoveInput == p2MoveInput)
         {
-            Debug.Log("move1");
+            //Debug.Log("move1");
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
@@ -84,7 +84,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         // If the inputs are not identical and the sync window has passed, average the inputs anyway
         else if(p1MoveInput != p2MoveInput)
         {
-            Debug.Log("move2");
+            //Debug.Log("move2");
             // Average the two inputs even though they are not identical
             syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
@@ -96,7 +96,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         else if (p1MoveInput == p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
 
-            Debug.Log("move3");
+            //Debug.Log("move3");
             syncedInput = (p1MoveInput + p2MoveInput) * 0.5f; //1.0 speed
 
             p1MoveTime = -1;
@@ -107,7 +107,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         else if (p1MoveInput != p2MoveInput && Mathf.Abs(p1MoveTime - p2MoveTime) >= movementSyncWindow)
         {
 
-            Debug.Log("move4");
+            //Debug.Log("move4");
             // Average the two inputs even though they are not identical
             syncedInput = (p1MoveInput + p2MoveInput) * unsyncedMoveMultiplier;
 
