@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ComboManager : MonoBehaviour
+public class StyleComboManager : MonoBehaviour
 {
     #region Variables
     [Header("Combo Variables")]

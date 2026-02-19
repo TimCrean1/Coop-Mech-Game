@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCoroutineManager : MonoBehaviour
@@ -23,11 +24,12 @@ public class PlayerCoroutineManager : MonoBehaviour
     private float p1ShootInput;
     private float p2ShootInput;
 
-    [Header("Object/Component References")]
-    [SerializeField] private ComboManager comboManager;
+    [Header("Combo Variables")]
+    [SerializeField] private SingleComboScript comboManager;
+    [SerializeField][Range(0,100)] private float syncedMoveScore = 10;
+    [SerializeField][Range(0,100)] private float syncedShootScore = 10;
+    [SerializeField][Range(0,100)] private float syncedUtilityScore = 10;
 
-    [Header("Multiplayer Variables")]
-    private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
     #region Variable setters
 
     public void SetP1Input(Vector2 MoveInput)
@@ -66,11 +68,11 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
+            comboManager.AddPoints(syncedMoveScore);
+
             // Reset times so it only triggers once
             p1MoveTime = -1;
             p2MoveTime = -1;
-
-            comboManager.AddScore(10);
 
             return true;
         }
@@ -120,11 +122,11 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Inputs are synced
             syncedInput = (p1ShootInput + p2ShootInput) * 0.5f; //this will be 2 * .5 = 1
 
+            comboManager.AddPoints(syncedShootScore);
+
             // Reset times so it only triggers once
             p1ShootTime = -1;
             p2ShootTime = -1;
-
-            comboManager.AddScore(10);
 
             return true;
         }
@@ -156,6 +158,5 @@ public class PlayerCoroutineManager : MonoBehaviour
         }
         return false;
     }
-
     #endregion
 }
