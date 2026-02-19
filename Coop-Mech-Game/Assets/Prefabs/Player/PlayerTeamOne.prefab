@@ -314,7 +314,7 @@ MonoBehaviour:
   shootSyncWindow: 0.5
   unsyncedMoveMultiplier: 0.1
   syncedMoveMultiplier: 1
-  comboManager: {fileID: 0}
+  comboManager: {fileID: 2883541409271160028}
   syncedMoveScore: 0.1
   syncedShootScore: 5
   syncedUtilityScore: 5
@@ -443,7 +443,7 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 6726245692009760567}
   ammoCountScreen: {fileID: 8434067660091978942}
-  comboManager: {fileID: 0}
+  comboManager: {fileID: 2883541409271160028}
   owningPlayer: 2
   ammo: 10
   baseFireRate: 1
@@ -469,7 +469,7 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 5841196029665437024}
   ammoCountScreen: {fileID: 9115743320585158713}
-  comboManager: {fileID: 0}
+  comboManager: {fileID: 2883541409271160028}
   owningPlayer: 1
   ammo: 10
   baseFireRate: 1
@@ -491,8 +491,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e0988617b8cbd4da3b6322d725d5b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamWeaponManager
-  P1WeaponsList: []
-  P2WeaponsList: []
+  P1WeaponsList:
+  - {fileID: 2724236685853379273}
+  P2WeaponsList:
+  - {fileID: 5086179133204423352}
   shootingImpulseSource: {fileID: 1041313949405104054}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
@@ -585,7 +587,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
-    ImpulseChannel: 9
+    ImpulseChannel: 8
     ImpulseShape: 2
     CustomImpulseShape:
       serializedVersion: 2
