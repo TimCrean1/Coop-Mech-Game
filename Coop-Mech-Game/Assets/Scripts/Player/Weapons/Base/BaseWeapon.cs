@@ -23,6 +23,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
+    private float currentDamage;
     [SerializeField] private float damage = 50;
     [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
@@ -55,34 +56,26 @@ public abstract class BaseWeapon : MonoBehaviour
         if (canFire)
         {
             //Debug.Log("Fire input received");
-
+            if (comboManager.GetIsComboFull())
+            {
+                currentDamage = damage * damageMultiplier;
+                comboManager.UseMaxPoints();
+            }
+            else
+            {
+                currentDamage = damage;
+            }
             Physics.Raycast(muzzle.position, muzzle.forward, out hit);
             if (muzzleComp) { muzzleComp.SendFireEvent(); }
 
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
                 // get team-specific info and send to wherever we're handling the health of the teams
-                if (comboManager.GetIsComboFull())
-                {
-                    GameManager.Instance.DamageTeamRpc(1, damage * damageMultiplier);
-                    comboManager.UseMaxPoints();
-                }
-                else
-                {
-                    GameManager.Instance.DamageTeamRpc(1, damage);
-                }
+                GameManager.Instance.DamageTeamRpc(1, currentDamage);
             }
             else if (hit.collider.gameObject.CompareTag("TeamTwo"))
             {
-                if (comboManager.GetIsComboFull())
-                {
-                    GameManager.Instance.DamageTeamRpc(1, damage * damageMultiplier);
-                    comboManager.UseMaxPoints();
-                }
-                else
-                {
-                    GameManager.Instance.DamageTeamRpc(1, damage);
-                }
+                GameManager.Instance.DamageTeamRpc(1, currentDamage);
             }
             else if (hit.collider.gameObject.CompareTag("Target"))
             {
