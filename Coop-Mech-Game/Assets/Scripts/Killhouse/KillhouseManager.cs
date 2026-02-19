@@ -57,7 +57,7 @@ public class KillhouseManager : MonoBehaviour
     }
     void Start()
     {
-        DeactivateEnemies();
+        // DeactivateEnemies();
         currentKHStatus = KillhouseStatus.Waiting;
     }
     public void PopulateEnemiesList(KillhouseEnemy enemy)

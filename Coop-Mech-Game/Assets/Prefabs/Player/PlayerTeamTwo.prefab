@@ -248,7 +248,7 @@ MonoBehaviour:
   accelerationRate: 60
   decelerationRate: 30
   maxWalkSpeed: 4
-  maxVerticalSpeed: 25
+  weirdRotate: 0
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
@@ -314,6 +314,10 @@ MonoBehaviour:
   shootSyncWindow: 0.5
   unsyncedMoveMultiplier: 0.25
   syncedMoveMultiplier: 1
+  comboManager: {fileID: 0}
+  syncedMoveScore: 10
+  syncedShootScore: 10
+  syncedUtilityScore: 10
 --- !u!114 &6221149281486240100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -479,11 +483,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e0988617b8cbd4da3b6322d725d5b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamWeaponManager
-  weaponsList:
-  - {fileID: 5086179133204423352}
+  P1WeaponsList:
   - {fileID: 2724236685853379273}
-  _enableStaggeredFire: 1
-  staggeredFireTime: 0.25
+  P2WeaponsList:
+  - {fileID: 5086179133204423352}
   shootingImpulseSource: {fileID: 1041313949405104054}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
@@ -523,7 +526,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
-    ImpulseChannel: 2
+    ImpulseChannel: 16
     ImpulseShape: 2
     CustomImpulseShape:
       serializedVersion: 2
@@ -576,7 +579,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineImpulseSource
   ImpulseDefinition:
-    ImpulseChannel: 9
+    ImpulseChannel: 64
     ImpulseShape: 2
     CustomImpulseShape:
       serializedVersion: 2
@@ -845,10 +848,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2552202660774029418, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: ChannelMask
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3549644392731150838, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: m_Name
       value: LightMech_Team2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3816247404730960293, guid: 1f4781091b61def4290a390f109d33d0,
+        type: 3}
+      propertyPath: ChannelMask
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}

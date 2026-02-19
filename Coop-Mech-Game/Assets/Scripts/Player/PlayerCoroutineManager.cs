@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCoroutineManager : NetworkBehaviour
@@ -25,8 +26,12 @@ public class PlayerCoroutineManager : NetworkBehaviour
     private NetworkVariable<float> p1ShootInput = new NetworkVariable<float>();
     private NetworkVariable<float> p2ShootInput = new NetworkVariable<float>();
 
-    //[Header("Multiplayer Variables")]
-    //private NetworkVariable<bool> sendSyncInput = new NetworkVariable<bool>();
+    [Header("Combo Variables")]
+    [SerializeField] private SingleComboScript comboManager;
+    [SerializeField][Range(0,100)] private float syncedMoveScore = 0.1f;
+    [SerializeField][Range(0,100)] private float syncedShootScore = 5;
+    [SerializeField][Range(0,100)] private float syncedUtilityScore = 5;
+
     #region Variable setters
 
     public void SetP1Input(Vector2 MoveInput)
@@ -67,9 +72,12 @@ public class PlayerCoroutineManager : NetworkBehaviour
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
+            if (syncedInput!= Vector2.zero) comboManager.AddPoints(syncedMoveScore);
+
             // Reset times so it only triggers once
             p1MoveTime = -1;
             p2MoveTime = -1;
+
             return true;
         }
 
@@ -122,11 +130,14 @@ public class PlayerCoroutineManager : NetworkBehaviour
         {
             //Debug.Log("This is where we might shoot1");
             // Inputs are synced
-            syncedInput = (p1ShootInput.Value + p2ShootInput.Value) * 0.5f;
+            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f; //this will be 2 * .5 = 1
+
+            if (syncedInput != 0) comboManager.AddPoints(syncedShootScore);
 
             // Reset times so it only triggers once
             p1ShootTime = -1;
             p2ShootTime = -1;
+
             return true;
         }
         else if (p1ShootInput.Value > 0 && p2ShootInput.Value <= 0)
@@ -147,9 +158,17 @@ public class PlayerCoroutineManager : NetworkBehaviour
             p2ShootTime = -1;
             return true;
         }
+        else if (Mathf.Abs(p1ShootTime - p2ShootTime) >= shootSyncWindow && p1ShootInput == 1 && p2ShootInput == 1)
+        {
+            // Inputs are synced
+            syncedInput = (p1ShootInput + p2ShootInput) * 0.5f;
 
+            // Reset times so it only triggers once
+            p1ShootTime = -1;
+            p2ShootTime = -1;
+            return true;
+        }
         return false;
     }
-
     #endregion
 }

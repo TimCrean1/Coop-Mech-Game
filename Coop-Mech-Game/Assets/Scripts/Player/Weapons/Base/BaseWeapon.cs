@@ -18,6 +18,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
     [SerializeField] private MechScreen ammoCountScreen;
+    [SerializeField] private SingleComboScript comboManager;
 
     [Header("Weapon Stats")]
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
@@ -25,6 +26,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
     [SerializeField] private float damage = 50;
+    [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
 
     [Header("READ ONLY")]
