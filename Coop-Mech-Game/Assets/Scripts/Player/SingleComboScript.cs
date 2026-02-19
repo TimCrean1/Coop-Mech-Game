@@ -43,6 +43,10 @@ public class SingleComboScript : MonoBehaviour
     {
         currentPoints += points;
         decayTimer = 0;
+        if (currentPoints > maxPoints)
+        {
+            Debug.Log("Max Points!");
+        }
     }
 
     public void UseMaxPoints()
