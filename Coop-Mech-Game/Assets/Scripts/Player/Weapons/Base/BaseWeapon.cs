@@ -16,6 +16,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
     [SerializeField] private MechScreen ammoCountScreen;
+    [SerializeField] private SingleComboScript comboManager;
 
     [Header("Weapon Stats")]
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
@@ -23,6 +24,7 @@ public abstract class BaseWeapon : MonoBehaviour
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
     [SerializeField] private float damage = 50;
+    [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
 
     [Header("READ ONLY")]
@@ -60,11 +62,27 @@ public abstract class BaseWeapon : MonoBehaviour
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
                 // get team-specific info and send to wherever we're handling the health of the teams
-                GameManager.Instance.DamageTeamRpc(1, damage);
+                if (comboManager.GetIsComboFull())
+                {
+                    GameManager.Instance.DamageTeamRpc(1, damage * damageMultiplier);
+                    comboManager.UseMaxPoints();
+                }
+                else
+                {
+                    GameManager.Instance.DamageTeamRpc(1, damage);
+                }
             }
             else if (hit.collider.gameObject.CompareTag("TeamTwo"))
             {
-                GameManager.Instance.DamageTeamRpc(2, damage);
+                if (comboManager.GetIsComboFull())
+                {
+                    GameManager.Instance.DamageTeamRpc(1, damage * damageMultiplier);
+                    comboManager.UseMaxPoints();
+                }
+                else
+                {
+                    GameManager.Instance.DamageTeamRpc(1, damage);
+                }
             }
             else if (hit.collider.gameObject.CompareTag("Target"))
             {

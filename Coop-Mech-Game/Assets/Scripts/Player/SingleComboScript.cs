@@ -50,7 +50,7 @@ public class SingleComboScript : MonoBehaviour
         currentPoints = 0;
         isComboFull = false;
     }
-
+    #region Getters
     public float GetCurrentPoints()
     {
         return currentPoints;
@@ -60,4 +60,5 @@ public class SingleComboScript : MonoBehaviour
     {
         return isComboFull;
     }
+    #endregion
 }
