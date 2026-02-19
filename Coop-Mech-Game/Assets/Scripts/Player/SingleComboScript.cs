@@ -30,12 +30,13 @@ public class SingleComboScript : MonoBehaviour
         {
             isComboFull = true;
         }
-        if (decayTimer > decayWindow)
+        if (decayTimer > decayWindow && currentPoints >= 0)
         {
             currentPoints -= Time.deltaTime * decayRate;
         }
-        float meterLerp = Mathf.Lerp(0,maxPoints,currentPoints);
-        comboMeter.fillAmount = meterLerp;
+        if (currentPoints < 0) currentPoints = 0;
+        
+        comboMeter.fillAmount = currentPoints / maxPoints;
     }
 
     public void AddPoints(float points)

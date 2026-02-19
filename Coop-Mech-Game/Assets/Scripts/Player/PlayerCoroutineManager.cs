@@ -26,9 +26,9 @@ public class PlayerCoroutineManager : MonoBehaviour
 
     [Header("Combo Variables")]
     [SerializeField] private SingleComboScript comboManager;
-    [SerializeField][Range(0,100)] private float syncedMoveScore = 10;
-    [SerializeField][Range(0,100)] private float syncedShootScore = 10;
-    [SerializeField][Range(0,100)] private float syncedUtilityScore = 10;
+    [SerializeField][Range(0,100)] private float syncedMoveScore = 0.1f;
+    [SerializeField][Range(0,100)] private float syncedShootScore = 5;
+    [SerializeField][Range(0,100)] private float syncedUtilityScore = 5;
 
     #region Variable setters
 
@@ -68,7 +68,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
-            comboManager.AddPoints(syncedMoveScore);
+            if (syncedInput!= Vector2.zero) comboManager.AddPoints(syncedMoveScore);
 
             // Reset times so it only triggers once
             p1MoveTime = -1;
@@ -122,7 +122,7 @@ public class PlayerCoroutineManager : MonoBehaviour
             // Inputs are synced
             syncedInput = (p1ShootInput + p2ShootInput) * 0.5f; //this will be 2 * .5 = 1
 
-            comboManager.AddPoints(syncedShootScore);
+            if (syncedInput != 0) comboManager.AddPoints(syncedShootScore);
 
             // Reset times so it only triggers once
             p1ShootTime = -1;
