@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2910195415
+  GlobalObjectIdHash: 3713268822
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -316,9 +316,9 @@ MonoBehaviour:
   unsyncedMoveMultiplier: 0.1
   syncedMoveMultiplier: 1
   comboManager: {fileID: 1572367078562197019}
-  syncedMoveScore: 10
-  syncedShootScore: 10
-  syncedUtilityScore: 10
+  syncedMoveScore: 0.1
+  syncedShootScore: 1
+  syncedUtilityScore: 1
 --- !u!114 &6221149281486240100
 MonoBehaviour:
   m_ObjectHideFlags: 0
