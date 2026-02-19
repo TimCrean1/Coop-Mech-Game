@@ -66,11 +66,15 @@ public abstract class BaseWeapon : NetworkBehaviour
     
     public virtual void Fire() //public because this will be called by weapon manager
     {
+        if (!canFire) return;
+        FireEventMethod();
+       
+        if (IsOwner) {
+            FireRpc();
+        }
 
+        ChangeAmmoText();
 
-        if (!IsOwner) { return; }
-        
-        FireRpc();
 
         //Debug.Log("BaseWeapon Fire() " + canFire);
 
@@ -104,15 +108,25 @@ public abstract class BaseWeapon : NetworkBehaviour
         ////    ActivateCooldown();
         ////}
     }
+
+    private void FireEventMethod()
+    {
+        if (muzzleComp) { muzzleComp.SendFireEvent(); }
+    }
+    private void ChangeAmmoText()
+    {
+        ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
+    }
+
     [Rpc(SendTo.Server)]
     private void FireRpc()
     {
-        if (!canFire) return;
+       
         Debug.Log("FireServerRpc");
         // Do raycast on server
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
 
-        if (muzzleComp) { muzzleComp.SendFireEvent(); }
+       
 
         if (hit.collider.gameObject.CompareTag("TeamOne"))
         {
@@ -130,7 +144,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         SetAmmoRpc(-1);
         //ammoCount.Value = ammoCount.Value - 1;
-        ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
+        
         //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount.Value <= 0)
         {
