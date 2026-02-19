@@ -248,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1257322497
+  GlobalObjectIdHash: 2036190643
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
@@ -669,7 +669,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
-  ChannelMask: 1
+  ChannelMask: 112
   Gain: 0.1
   Use2DDistance: 0
   UseLocalSpace: 1
@@ -1214,7 +1214,7 @@ GameObject:
   - component: {fileID: 4958149026709782409}
   m_Layer: 8
   m_Name: LightMech_Team2
-  m_TagString: Untagged
+  m_TagString: TeamTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1321,7 +1321,7 @@ MeshCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 5
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1749307975940176764, guid: 5ffd9f441223d624282691e992ef2af8, type: 3}
 --- !u!1 &3968280776466813326
@@ -1573,7 +1573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
-  ChannelMask: 1
+  ChannelMask: 112
   Gain: 0.1
   Use2DDistance: 0
   UseLocalSpace: 1
@@ -1760,7 +1760,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1187643086
+  GlobalObjectIdHash: 57167648
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
