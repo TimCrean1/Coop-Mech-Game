@@ -25,6 +25,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private int ammo = 10;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
+    private float currentDamage;
     [SerializeField] private float damage = 50;
     [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
@@ -130,7 +131,15 @@ public abstract class BaseWeapon : NetworkBehaviour
         // Do raycast on server
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
 
-       
+        if (comboManager.GetIsComboFull())
+        {
+            currentDamage = damage * damageMultiplier;
+            comboManager.UseMaxPoints();
+        }
+        else
+        {
+            currentDamage = damage;
+        }
 
         if (hit.collider.gameObject.CompareTag("TeamOne"))
         {
