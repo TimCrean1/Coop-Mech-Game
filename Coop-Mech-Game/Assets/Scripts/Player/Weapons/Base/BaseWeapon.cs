@@ -66,11 +66,13 @@ public abstract class BaseWeapon : NetworkBehaviour
     
     public virtual void Fire() //public because this will be called by weapon manager
     {
-        if (!canFire) return;
-        FireEventMethod();
+        
        
         if (IsOwner) {
+            if (!canFire) return;
             FireRpc();
+            FireEventMethodClientRpc();
+
         }
 
         ChangeAmmoText();
@@ -108,8 +110,8 @@ public abstract class BaseWeapon : NetworkBehaviour
         ////    ActivateCooldown();
         ////}
     }
-
-    private void FireEventMethod()
+    [ClientRpc]
+    private void FireEventMethodClientRpc()
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(); }
     }
