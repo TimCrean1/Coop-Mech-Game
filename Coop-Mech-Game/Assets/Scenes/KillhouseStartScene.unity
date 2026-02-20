@@ -6047,6 +6047,11 @@ PrefabInstance:
       objectReference: {fileID: 738848410}
     - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
         type: 3}
+      propertyPath: t1HealthScreen
+      value: 
+      objectReference: {fileID: 2084924315}
+    - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
       propertyPath: '_playerControllers.Array.data[0]'
       value: 
       objectReference: {fileID: 1573088384}
@@ -13728,6 +13733,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2084573983}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2084924315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1011132713317059075, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1573088383}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechScreen
 --- !u!1 &2088263094
 GameObject:
   m_ObjectHideFlags: 0

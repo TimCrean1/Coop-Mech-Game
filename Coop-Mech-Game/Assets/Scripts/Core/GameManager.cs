@@ -25,6 +25,9 @@ public class GameManager : NetworkBehaviour
     //private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     // team -> clientId
 
+    [SerializeField] private MechScreen t1HealthScreen;
+    [SerializeField] private MechScreen t2HealthScreen;
+
     //this is the health of the mech, edited at runtime
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
@@ -155,6 +158,18 @@ public class GameManager : NetworkBehaviour
     {
         _teamOneHealth.Value = teamOneMaxHealth;
         _teamTwoHealth.Value = teamTwoMaxHealth;
+        if(t1HealthScreen != null)
+        {
+            //t1HealthScreen.ChangeText(((_teamOneHealth.Value / teamOneMaxHealth) * 100f).ToString(), false);
+            Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+        }
+        if (t2HealthScreen != null)
+        {
+            Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+            //t2HealthScreen.ChangeText(((_teamTwoHealth.Value / teamTwoMaxHealth) * 100f).ToString(), false);
+        }
+
+        
     }
 
     [Rpc(SendTo.Server)]
@@ -164,11 +179,30 @@ public class GameManager : NetworkBehaviour
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
             Debug.Log("Damaging Team: " +  teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
+            if(t1HealthScreen != null)
+            {
+                //t1HealthScreen.ChangeText(((_teamOneHealth.Value / teamOneMaxHealth) * 100f).ToString(), false);
+                Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+            }
+            else
+            {
+                Debug.LogWarning("t1 health screen not set in GM");
+            }
         }
         else if(teamNumToDamage == 2)
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
             Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
+            if(t2HealthScreen != null)
+            {
+                //t2HealthScreen.ChangeText(((_teamTwoHealth.Value / teamTwoMaxHealth) * 100f).ToString(), false);
+                Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+            }
+            else
+            {
+                Debug.LogWarning("t2 health screen not set in GM");
+            }
+
         }
 
         if (_teamOneHealth.Value <= 0f)
@@ -179,6 +213,16 @@ public class GameManager : NetworkBehaviour
         {
             MatchOverRpc();
         }
+    }
+    [ClientRpc]
+    private void Changet1HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
+    {
+        t1HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
+    }
+    [ClientRpc]
+    private void Changet2HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
+    {
+        t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
     }
 
     [Rpc(SendTo.Server)]
