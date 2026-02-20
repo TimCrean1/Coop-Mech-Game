@@ -1,12 +1,14 @@
 using UnityEngine.UI;
 using UnityEngine;
 using Unity.VisualScripting;
+using Unity.Netcode;
 
-public class SingleComboScript : MonoBehaviour
+public class SingleComboScript : NetworkBehaviour
 {
     #region Variables
     [Header("Combo Variables")]
-    [SerializeField] private float currentPoints = 0;
+    //[SerializeField] private float currentPoints = 0;
+    [SerializeField] private NetworkVariable<float> currentPoints = new NetworkVariable<float>();
     [SerializeField][Range(1,200)] private float maxPoints = 100;
     [SerializeField] private bool isComboFull = false;
 
@@ -21,7 +23,7 @@ public class SingleComboScript : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (currentPoints < maxPoints)
+        if (currentPoints.Value < maxPoints)
         {
             decayTimer += Time.deltaTime;
             isComboFull = false;
@@ -30,30 +32,30 @@ public class SingleComboScript : MonoBehaviour
         {
             isComboFull = true;
         }
-        if (decayTimer > decayWindow && currentPoints >= 0)
+        if (decayTimer > decayWindow && currentPoints.Value >= 0)
         {
-            currentPoints -= Time.deltaTime * decayRate;
+            currentPoints.Value -= Time.deltaTime * decayRate;
         }
-        if (currentPoints < 0) currentPoints = 0;
+        if (currentPoints.Value < 0) currentPoints.Value = 0;
         
-        comboMeter.fillAmount = currentPoints / maxPoints;
+        comboMeter.fillAmount = currentPoints.Value / maxPoints;
     }
-
-    public void AddPoints(float points)
+    [Rpc(SendTo.Server)]
+    public void AddPointsRpc(float points)
     {
-        currentPoints += points;
+        currentPoints.Value += points;
         decayTimer = 0;
     }
 
     public void UseMaxPoints()
     {
-        currentPoints = 0;
+        currentPoints.Value = 0;
         isComboFull = false;
     }
     #region Getters
     public float GetCurrentPoints()
     {
-        return currentPoints;
+        return currentPoints.Value;
     }
 
     public bool GetIsComboFull()

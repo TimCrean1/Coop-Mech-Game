@@ -72,7 +72,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
             // Inputs are synced
             syncedInput = (p1MoveInput + p2MoveInput) * (syncedMoveMultiplier - 0.5f);
 
-            if (syncedInput!= Vector2.zero) comboManager.AddPoints(syncedMoveScore);
+            if (syncedInput!= Vector2.zero) comboManager.AddPointsRpc(syncedMoveScore);
 
             // Reset times so it only triggers once
             p1MoveTime = -1;
@@ -132,7 +132,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
             // Inputs are synced
             syncedInput = (p1ShootInput.Value + p2ShootInput.Value) * 0.5f; //this will be 2 * .5 = 1
 
-            if (syncedInput != 0) comboManager.AddPoints(syncedShootScore);
+            if (syncedInput != 0) comboManager.AddPointsRpc(syncedShootScore);
 
             // Reset times so it only triggers once
             p1ShootTime = -1;
