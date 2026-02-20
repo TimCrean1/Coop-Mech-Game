@@ -83,7 +83,7 @@ public class TeamWeaponManager : MonoBehaviour
     }
     public void FireWeapons(float input)
     {
-        Debug.Log("Input is: " + input);
+        //Debug.Log("Input is: " + input);
 
         if (input == 0.25f) //P1 fire
         {
