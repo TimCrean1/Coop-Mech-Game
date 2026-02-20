@@ -325,6 +325,13 @@ public class CharacterMovement : BaseMovement
 
     #endregion
 
+    #region Shop Functions
+    public void NewStatItem(ShopObjectSO item)
+    {
+        Debug.Log("Implement!");
+    }
+    #endregion
+
     #region Gizmos
 
 #if UNITY_EDITOR

@@ -17,6 +17,9 @@ public class SingleComboScript : MonoBehaviour
 
     [Header("UI Variables")]
     [SerializeField] private Image comboMeter;
+    [SerializeField] private Material comboMaterial;
+    [SerializeField] private Color normalColor = Color.orangeRed;
+    [SerializeField] private Color filledColor = Color.purple;
     #endregion
 
     void FixedUpdate()
@@ -37,6 +40,15 @@ public class SingleComboScript : MonoBehaviour
         if (currentPoints < 0) currentPoints = 0;
         
         comboMeter.fillAmount = currentPoints / maxPoints;
+
+        if (isComboFull)
+        {
+            comboMaterial.color = filledColor;
+        }
+        else
+        {
+            comboMaterial.color = normalColor;
+        }
     }
 
     public void AddPoints(float points)

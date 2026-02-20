@@ -1,0 +1,40 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Scripts/Buy%20Round/ShopSelection.uss?fileID=7433441132597879392&amp;guid=ba5a4e49383bb4176beb6a12998f31f9&amp;type=3#ShopSelection"/>
+    <ui:VisualElement class="root">
+        <ui:Label text="Choose an Item" class="title"/>
+        <ui:VisualElement class="card-container">
+            <ui:Button name="card0" class="shop-card">
+                <ui:VisualElement name="image0" class="card-image"/>
+                <ui:Label name="type0" class="card-type"/>
+                <ui:VisualElement name="playerImageContainer0" style="flex-grow: 1; transform-origin: center; align-self: center; align-content: auto; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1008301579157283121&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-left@2x" name="p1Image0" enabled="true" style="align-self: flex-start; justify-content: flex-start;"/>
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-right@2x" name="p2Image0" style="align-self: flex-end; justify-content: flex-start;"/>
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button name="card1" class="shop-card">
+                <ui:VisualElement name="image1" class="card-image"/>
+                <ui:Label name="type1" class="card-type"/>
+                <ui:VisualElement name="playerImageContainer1" style="flex-grow: 1; transform-origin: center; align-self: center; align-content: auto; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1008301579157283121&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-left@2x" name="p1Image1" style="align-self: flex-start; justify-content: flex-start;"/>
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-right@2x" name="p2Image1" style="align-self: flex-end; justify-content: flex-start;"/>
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button name="card2" class="shop-card">
+                <ui:VisualElement name="image2" class="card-image"/>
+                <ui:Label name="type2" class="card-type"/>
+                <ui:VisualElement name="playerImageContainer2" style="flex-grow: 1; transform-origin: center; align-self: center; align-content: auto; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1008301579157283121&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-left@2x" name="p1Image2" style="align-self: flex-start; justify-content: flex-start;"/>
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-right@2x" name="p2Image2" style="align-self: flex-end; justify-content: flex-start;"/>
+                </ui:VisualElement>
+            </ui:Button>
+            <ui:Button name="card3" class="shop-card">
+                <ui:VisualElement name="image3" class="card-image"/>
+                <ui:Label name="type3" class="card-type"/>
+                <ui:VisualElement name="playerImageContainer3" style="flex-grow: 1; transform-origin: center; align-self: center; align-content: auto; align-items: center; justify-content: flex-start; flex-wrap: wrap;">
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1008301579157283121&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-left@2x" name="p1Image3" style="align-self: flex-start; justify-content: flex-start;"/>
+                    <ui:Image source="project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=-1087164816274819069&amp;guid=934d033e239314885a2f9653bdee75fd&amp;type=3#arrow-right@2x" name="p2Image3" style="align-self: flex-end; justify-content: flex-start;"/>
+                </ui:VisualElement>
+            </ui:Button>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -348,11 +348,13 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 6726245692009760567}
   ammoCountScreen: {fileID: 0}
+  comboManager: {fileID: 0}
   owningPlayer: 0
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  damageMultiplier: 2.5
   maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount: 0
 --- !u!114 &2724236685853379273
@@ -370,11 +372,13 @@ MonoBehaviour:
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 5841196029665437024}
   ammoCountScreen: {fileID: 0}
+  comboManager: {fileID: 0}
   owningPlayer: 0
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  damageMultiplier: 2.5
   maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount: 0
 --- !u!114 &4675740159691710397
@@ -564,6 +568,7 @@ MonoBehaviour:
   decayWindow: 2
   decayTimer: 0
   comboMeter: {fileID: 3780084637755241917}
+  comboMaterial: {fileID: 2100000, guid: b1577d33a8b5a442d975df9002f2ee9f, type: 2}
 --- !u!1 &1814908073961375165
 GameObject:
   m_ObjectHideFlags: 0
