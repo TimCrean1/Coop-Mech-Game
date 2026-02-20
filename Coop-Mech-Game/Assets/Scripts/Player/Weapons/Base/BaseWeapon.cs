@@ -127,10 +127,10 @@ public abstract class BaseWeapon : NetworkBehaviour
     private void FireRpc()
     {
        
-        Debug.Log("FireServerRpc");
+        //Debug.Log("FireServerRpc");
         // Do raycast on server
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
-        Debug.Log("Hit layer: " + hit.collider.gameObject.layer + " hit tag: " + hit.collider.gameObject.tag);
+        //Debug.Log("Hit layer: " + hit.collider.gameObject.layer + " hit tag: " + hit.collider.gameObject.tag);
 
         if (comboManager.GetIsComboFull())
         {
