@@ -8,7 +8,7 @@ public class WeaponMuzzle : MonoBehaviour
 
     public void SendFireEvent()
     {
-        Debug.Log("Sending event");
+        //Debug.Log("Sending event");
         if (bulletEffect)
         {
             bulletEffect.SendEvent("OnFire");
