@@ -43,6 +43,7 @@ public class SingleComboScript : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void AddPointsRpc(float points)
     {
+        if(!IsServer) return;
         currentPoints.Value += points;
         decayTimer = 0;
     }
