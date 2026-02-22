@@ -315,9 +315,9 @@ MonoBehaviour:
   unsyncedMoveMultiplier: 0.25
   syncedMoveMultiplier: 1
   comboManager: {fileID: 6390946799449206911}
-  syncedMoveScore: 10
-  syncedShootScore: 10
-  syncedUtilityScore: 10
+  syncedMoveScore: 0.1
+  syncedShootScore: 0.5
+  syncedUtilityScore: 0.5
 --- !u!114 &6221149281486240100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,7 +639,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b98dd2bd4695414f85d900cb09b59e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SingleComboScript
-  currentPoints: 0
+  ShowTopMostFoldoutHeaderGroup: 1
+  currentPoints:
+    m_InternalValue: 0
   maxPoints: 100
   isComboFull: 0
   decayRate: 2

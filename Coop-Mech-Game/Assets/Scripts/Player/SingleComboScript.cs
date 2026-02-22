@@ -23,8 +23,11 @@ public class SingleComboScript : NetworkBehaviour
 
     void FixedUpdate()
     {
-        if(!IsOwner) return;
-        ComboFunctionalityRpc();
+        if (IsOwner)
+        {
+            ComboFunctionalityRpc();
+        }
+        ChangeFillBarClient();
         
     }
     [Rpc(SendTo.Server)]
@@ -45,9 +48,14 @@ public class SingleComboScript : NetworkBehaviour
         }
         if (currentPoints.Value < 0) currentPoints.Value = 0;
 
-        comboMeter.fillAmount = currentPoints.Value / maxPoints;
+            
     }
 
+
+    private void ChangeFillBarClient()
+    {
+        comboMeter.fillAmount = currentPoints.Value / maxPoints;
+    }
     [Rpc(SendTo.Server)]
     public void AddPointsRpc(float points)
     {
