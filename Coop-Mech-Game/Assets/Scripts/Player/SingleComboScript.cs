@@ -47,9 +47,10 @@ public class SingleComboScript : NetworkBehaviour
         currentPoints.Value += points;
         decayTimer = 0;
     }
-
-    public void UseMaxPoints()
+    [Rpc(SendTo.Server)]
+    public void UseMaxPointsRpc()
     {
+        if (!IsServer) return;
         currentPoints.Value = 0;
         isComboFull = false;
     }

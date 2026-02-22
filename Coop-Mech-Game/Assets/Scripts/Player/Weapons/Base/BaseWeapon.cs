@@ -135,7 +135,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         if (comboManager.GetIsComboFull())
         {
             currentDamage = damage * damageMultiplier;
-            comboManager.UseMaxPoints();
+            comboManager.UseMaxPointsRpc();
         }
         else
         {
