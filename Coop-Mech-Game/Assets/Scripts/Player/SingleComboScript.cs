@@ -23,6 +23,13 @@ public class SingleComboScript : NetworkBehaviour
 
     void FixedUpdate()
     {
+        if(!IsOwner) return;
+        ComboFunctionalityRpc();
+        
+    }
+    [Rpc(SendTo.Server)]
+    private void ComboFunctionalityRpc()
+    {
         if (currentPoints.Value < maxPoints)
         {
             decayTimer += Time.deltaTime;
@@ -37,9 +44,10 @@ public class SingleComboScript : NetworkBehaviour
             currentPoints.Value -= Time.deltaTime * decayRate;
         }
         if (currentPoints.Value < 0) currentPoints.Value = 0;
-        
+
         comboMeter.fillAmount = currentPoints.Value / maxPoints;
     }
+
     [Rpc(SendTo.Server)]
     public void AddPointsRpc(float points)
     {
