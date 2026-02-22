@@ -144,11 +144,11 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         if (hit.collider.gameObject.CompareTag("TeamOne"))
         {
-            GameManager.Instance.DamageTeamRpc(1, damage);
+            GameManager.Instance.DamageTeamRpc(1, currentDamage);
         }
         else if (hit.collider.gameObject.CompareTag("TeamTwo"))
         {
-            GameManager.Instance.DamageTeamRpc(2, damage);
+            GameManager.Instance.DamageTeamRpc(2, currentDamage);
         }
 
         canFire = false;
