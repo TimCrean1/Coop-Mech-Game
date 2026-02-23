@@ -1,8 +1,9 @@
-using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
+using UnityEngine;
 
-public class HealthPack : MonoBehaviour
+public class HealthPack : NetworkBehaviour
 {
     [SerializeField] private float healAmount = 150f;
     [SerializeField] private BoxCollider coll;
@@ -11,7 +12,7 @@ public class HealthPack : MonoBehaviour
 
     private int idx = 0;
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
         StartCoroutine(NextPosRoutine());
     }
@@ -38,9 +39,13 @@ public class HealthPack : MonoBehaviour
     {
         gameObject.SetActive(false);
 
+        Debug.Log("Entered pos routine; Waiting for seconds: " + cooldown);
+
         yield return new WaitForSeconds(cooldown);
 
         transform.position = locations[idx];
+        Debug.Log("Exiting pos routine; moving to pos: " + locations[idx]);
+
         idx = (idx + 1) % locations.Count;
 
         gameObject.SetActive(true);
