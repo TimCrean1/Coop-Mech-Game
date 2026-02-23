@@ -19,16 +19,18 @@ public class HealthPack : NetworkBehaviour
             Debug.Log("Collided with team one!");
             GameManager.Instance.HealTeamRpc(1, healAmount); //team, health
 
-            gameObject.SetActive(false);
             StartCoroutine(NextPosRoutine());
+            gameObject.SetActive(false);
 
-        } else if (collision.gameObject.CompareTag("TeamTwo"))
+        }
+        else if (collision.gameObject.CompareTag("TeamTwo"))
         {
             Debug.Log("Collided with team two!");
             GameManager.Instance.HealTeamRpc(2, healAmount);
 
-            gameObject.SetActive(false);
             StartCoroutine(NextPosRoutine());
+            gameObject.SetActive(false);
+
         }
     }
 
