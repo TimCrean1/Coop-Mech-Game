@@ -214,6 +214,51 @@ public class GameManager : NetworkBehaviour
             MatchOverRpc();
         }
     }
+
+    [Rpc(SendTo.Server)]
+    public void HealTeamRpc(int teamNumToHeal, float healAmt)
+    {
+        if (teamNumToHeal == 1)
+        {
+            if(_teamOneHealth.Value + healAmt >= teamOneMaxHealth)
+            {
+                return;
+            }
+
+            _teamOneHealth.Value = _teamOneHealth.Value + healAmt;
+            Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamOneHealth.Value);
+            if (t1HealthScreen != null)
+            {
+                //t1HealthScreen.ChangeText(((_teamOneHealth.Value / teamOneMaxHealth) * 100f).ToString(), false);
+                Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+            }
+            else
+            {
+                Debug.LogWarning("t1 health screen not set in GM");
+            }
+        }
+        else if (teamNumToHeal == 2)
+        {
+            if(_teamTwoHealth.Value + healAmt >= teamTwoMaxHealth)
+            {
+                return;
+            }
+
+            _teamTwoHealth.Value = _teamTwoHealth.Value + healAmt;
+            Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamTwoHealth.Value);
+            if (t2HealthScreen != null)
+            {
+                //t2HealthScreen.ChangeText(((_teamTwoHealth.Value / teamTwoMaxHealth) * 100f).ToString(), false);
+                Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+            }
+            else
+            {
+                Debug.LogWarning("t2 health screen not set in GM");
+            }
+
+        }
+    }
+
     [ClientRpc]
     private void Changet1HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
