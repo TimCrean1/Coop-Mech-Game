@@ -20,16 +20,20 @@ public class SingleComboScript : NetworkBehaviour
     [Header("UI Variables")]
     [SerializeField] private Image comboMeter;
     #endregion
+    private void Awake()
+    {
+        NetworkManager.NetworkTickSystem.Tick += Tick;
+    }
 
-    void FixedUpdate()
+    void Tick()
     {
         if (IsOwner)
         {
             ComboFunctionalityRpc();
         }
         ChangeFillBarClient();
-        
     }
+    
     [Rpc(SendTo.Server)]
     private void ComboFunctionalityRpc()
     {
