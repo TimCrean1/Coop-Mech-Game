@@ -442,7 +442,7 @@ PrefabInstance:
     - target: {fileID: 1804985672850002406, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1804985672850002406, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
@@ -497,7 +497,7 @@ PrefabInstance:
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
       propertyPath: locations.Array.data[0].y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
@@ -512,7 +512,7 @@ PrefabInstance:
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
       propertyPath: locations.Array.data[1].y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
@@ -527,12 +527,27 @@ PrefabInstance:
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
       propertyPath: locations.Array.data[2].y
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7394473572862470632, guid: 2428060a34d0db1418a5eb82971e17a4,
         type: 3}
       propertyPath: locations.Array.data[2].z
       value: -30
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127903316094761344, guid: 2428060a34d0db1418a5eb82971e17a4,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3078137178
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127903316094761344, guid: 2428060a34d0db1418a5eb82971e17a4,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9127903316094761344, guid: 2428060a34d0db1418a5eb82971e17a4,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2264109844
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
