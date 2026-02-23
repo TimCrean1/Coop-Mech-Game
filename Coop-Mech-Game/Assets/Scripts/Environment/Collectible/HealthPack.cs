@@ -12,11 +12,6 @@ public class HealthPack : NetworkBehaviour
 
     private int idx = 0;
 
-    public override void OnNetworkSpawn()
-    {
-        StartCoroutine(NextPosRoutine());
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("TeamOne"))
@@ -43,10 +38,9 @@ public class HealthPack : NetworkBehaviour
 
         yield return new WaitForSeconds(cooldown);
 
+        idx = (idx + 1) % locations.Count;
         transform.position = locations[idx];
         Debug.Log("Exiting pos routine; moving to pos: " + locations[idx]);
-
-        idx = (idx + 1) % locations.Count;
 
         gameObject.SetActive(true);
     }
