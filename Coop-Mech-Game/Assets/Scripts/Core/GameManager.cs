@@ -220,11 +220,6 @@ public class GameManager : NetworkBehaviour
     {
         if (teamNumToHeal == 1)
         {
-            if(_teamOneHealth.Value + healAmt >= teamOneMaxHealth)
-            {
-                return;
-            }
-
             _teamOneHealth.Value = _teamOneHealth.Value + healAmt;
             Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamOneHealth.Value);
             if (t1HealthScreen != null)
@@ -236,13 +231,15 @@ public class GameManager : NetworkBehaviour
             {
                 Debug.LogWarning("t1 health screen not set in GM");
             }
+
+            if (_teamOneHealth.Value >= teamOneMaxHealth)
+            {
+                _teamOneHealth.Value = teamOneMaxHealth;
+            }
         }
         else if (teamNumToHeal == 2)
         {
-            if(_teamTwoHealth.Value + healAmt >= teamTwoMaxHealth)
-            {
-                return;
-            }
+
 
             _teamTwoHealth.Value = _teamTwoHealth.Value + healAmt;
             Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamTwoHealth.Value);
@@ -256,6 +253,10 @@ public class GameManager : NetworkBehaviour
                 Debug.LogWarning("t2 health screen not set in GM");
             }
 
+            if (_teamTwoHealth.Value >= teamTwoMaxHealth)
+            {
+                _teamTwoHealth.Value = teamTwoMaxHealth;
+            }
         }
     }
 

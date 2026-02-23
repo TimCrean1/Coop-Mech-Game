@@ -60,6 +60,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         ChangeAmmoText();
         if (!IsServer) { return; }
         SetAmmoRpc(ammo);
+        ChangeAmmoText();
     }
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
