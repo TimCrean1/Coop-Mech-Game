@@ -24,6 +24,7 @@ public class HealthPack : NetworkBehaviour
             Debug.Log("Collided with team one!");
             GameManager.Instance.HealTeamRpc(1, healAmount); //team, health
 
+            gameObject.SetActive(false);
             StartCoroutine(NextPosRoutine());
 
         } else if (collision.gameObject.CompareTag("TeamTwo"))
@@ -31,14 +32,13 @@ public class HealthPack : NetworkBehaviour
             Debug.Log("Collided with team two!");
             GameManager.Instance.HealTeamRpc(2, healAmount);
 
+            gameObject.SetActive(false);
             StartCoroutine(NextPosRoutine());
         }
     }
 
     private IEnumerator NextPosRoutine()
     {
-        gameObject.SetActive(false);
-
         Debug.Log("Entered pos routine; Waiting for seconds: " + cooldown);
 
         yield return new WaitForSeconds(cooldown);
