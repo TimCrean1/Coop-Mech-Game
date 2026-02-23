@@ -83,7 +83,7 @@ public class CharacterMovement : BaseMovement
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                movementImpulseSource.GenerateImpulse();
+                //movementImpulseSource.GenerateImpulse();
                 impulseTimer = 0f;
                 // movementSFXManager.PlayFootstepSound();
             }
