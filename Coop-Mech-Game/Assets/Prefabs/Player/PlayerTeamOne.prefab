@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 356324594
+  GlobalObjectIdHash: 3713268822
   InScenePlacedSourceGlobalObjectIdHash: 3713268822
   DeferredDespawnTick: 0
   Ownership: 1
@@ -448,7 +448,7 @@ MonoBehaviour:
   ammo: 30
   baseFireRate: 0.2
   cooldownTime: 4
-  damage: 5
+  damage: 100
   damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount:
@@ -474,7 +474,7 @@ MonoBehaviour:
   ammo: 30
   baseFireRate: 0.2
   cooldownTime: 4
-  damage: 5
+  damage: 100
   damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
   ammoCount:
@@ -528,7 +528,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -581,7 +581,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -714,12 +714,12 @@ PrefabInstance:
     - target: {fileID: 6042662251399226608, guid: e8ef8c156346d5f428ea70949159c8fd,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 627161158
+      value: 2540119518
       objectReference: {fileID: 0}
     - target: {fileID: 8085020048077069744, guid: e8ef8c156346d5f428ea70949159c8fd,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2148784522
+      value: 4294789996
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

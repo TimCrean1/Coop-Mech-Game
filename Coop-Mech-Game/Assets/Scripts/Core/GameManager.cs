@@ -228,7 +228,9 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     private void MatchOverRpc()
     {
+        
         Debug.Log("Match Over!");
+        Time.timeScale = 0f;
     }
 
     #endregion
