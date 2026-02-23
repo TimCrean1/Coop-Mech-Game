@@ -20,7 +20,9 @@ public class SingleComboScript : NetworkBehaviour
     [Header("UI Variables")]
     [SerializeField] private Image comboMeter;
     #endregion
-    private void Awake()
+    
+
+    public override void OnNetworkSpawn()
     {
         NetworkManager.NetworkTickSystem.Tick += Tick;
     }

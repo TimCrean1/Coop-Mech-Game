@@ -22,7 +22,7 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     [Header("Weapon Stats")]
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
-    [SerializeField] private int ammo = 10;
+    [SerializeField] private int ammo = 30;
     [SerializeField] private float baseFireRate = 1f;
     [SerializeField] private float cooldownTime = 1.0f;
     private float currentDamage;
@@ -57,6 +57,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         //set ammo in OnNetworkSpawn because its a networkvariable
         //also set as an rpc so the client can set their ammo too?
+        ChangeAmmoText();
         if (!IsServer) { return; }
         SetAmmoRpc(ammo);
     }
