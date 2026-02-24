@@ -31,7 +31,8 @@ public class GameManager : NetworkBehaviour
     //this is the health of the mech, edited at runtime
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
-    
+
+    private int lobbyMaxPlayers;
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
 
@@ -58,6 +59,9 @@ public class GameManager : NetworkBehaviour
     }
     private void Awake()
     {
+        if (NetworkManager.Singleton != null) {
+            NetworkManager.Singleton.OnClientConnectedCallback += WaitForConnectedPlayers;
+        }
         #region Singleton
 
         // If an instance of the GameManager does not already exist
@@ -90,6 +94,17 @@ public class GameManager : NetworkBehaviour
 
     }
 
+    private void WaitForConnectedPlayers(ulong clientId)
+    {
+        lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
+
+        if (NetworkManager.Singleton.ConnectedClients.Count >= lobbyMaxPlayers)
+        {
+            //invoke start event here
+            OnStartupSequence?.Invoke();
+        }
+
+    }
     #endregion
 
     #region Custom Functions

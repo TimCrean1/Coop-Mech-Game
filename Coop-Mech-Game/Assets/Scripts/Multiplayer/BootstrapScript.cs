@@ -8,8 +8,10 @@ public class BootstrapScript : MonoBehaviour
     [SerializeField] public string playerIndex;
     [SerializeField] public string playerTeam;
     [SerializeField] public string playerNumber;
+    [SerializeField] public int maxPlayers;
     private Lobby lobby;
     private Player localPlayer;
+    
     public static BootstrapScript Instance { get; private set; }
 
     private void Awake()
@@ -30,6 +32,8 @@ public class BootstrapScript : MonoBehaviour
     public void GetDataOnStart(object sender, LobbyManager.LobbyEventArgs e)
     {
         lobby = LobbyManager.Instance.GetJoinedLobby();
+
+        maxPlayers = lobby.MaxPlayers;
 
         localPlayer = lobby.Players.Find(p =>
         p.Id == AuthenticationService.Instance.PlayerId);
