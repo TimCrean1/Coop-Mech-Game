@@ -41,6 +41,7 @@ public class StartupAnimation : MonoBehaviour
 
     private IEnumerator StartStartupRoutine()
     {
+        Debug.Log("StartingUpRoutine");
         for(int i = 0; i< refStrings.Count; i++)
         {
             if (i.IsValidIndex(refStrings))

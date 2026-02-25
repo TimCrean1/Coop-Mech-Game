@@ -100,8 +100,10 @@ public class GameManager : NetworkBehaviour
 
         if (NetworkManager.Singleton.ConnectedClients.Count >= lobbyMaxPlayers)
         {
+            Debug.Log("GameManagerStartupSequence");
             //invoke start event here
-            OnStartupSequence?.Invoke();
+            StartCoroutine(StartTimeDelay());
+            
         }
 
     }
@@ -110,6 +112,11 @@ public class GameManager : NetworkBehaviour
     #region Custom Functions
 
     // This function is called by some external script in order to set the game state to paused.
+    private IEnumerator StartTimeDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        OnStartupSequence?.Invoke();
+    }
     public void PauseGame()
     {
         // Update the Game's Status in the GameState
