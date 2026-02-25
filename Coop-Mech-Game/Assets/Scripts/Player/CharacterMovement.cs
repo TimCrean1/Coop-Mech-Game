@@ -83,7 +83,7 @@ public class CharacterMovement : BaseMovement
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                movementImpulseSource.GenerateImpulse();
+                //movementImpulseSource.GenerateImpulse();
                 impulseTimer = 0f;
                 // movementSFXManager.PlayFootstepSound();
             }
@@ -251,6 +251,7 @@ public class CharacterMovement : BaseMovement
     #region Shooting
     public override void Shoot(float shootInput)
     {
+        //Debug.Log("Shoot method being called, canmove: " + canMove + " Shootinput: " + shootInput);
         if (!canMove) return;
         if (shootInput <= 0f) return;
         weaponMgr.FireWeapons(shootInput);

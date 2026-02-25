@@ -71,6 +71,7 @@ public class LobbyUI : MonoBehaviour {
 
     private void UpdateLobby_Event(object sender, LobbyManager.LobbyEventArgs e) {
         UpdateLobby();
+        
     }
 
     private void UpdateLobby() {

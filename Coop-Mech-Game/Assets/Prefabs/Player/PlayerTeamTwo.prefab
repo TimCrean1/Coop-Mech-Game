@@ -26,7 +26,8 @@ GameObject:
   - component: {fileID: 5132920644635074767}
   - component: {fileID: 5790533618384368019}
   - component: {fileID: 1041313949405104054}
-  m_Layer: 0
+  - component: {fileID: 6390946799449206911}
+  m_Layer: 8
   m_Name: PlayerTeamTwo
   m_TagString: TeamTwo
   m_Icon: {fileID: 0}
@@ -98,10 +99,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 1.3061385
+  m_Height: 5.495263
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1.754889, z: 0}
 --- !u!82 &3878826384544283473
 AudioSource:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 189139221
+  GlobalObjectIdHash: 3874569957
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
@@ -237,7 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  currentMaxSpeed: 7
+  currentMaxSpeed: 12
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
@@ -247,7 +248,7 @@ MonoBehaviour:
   canMove: 1
   accelerationRate: 60
   decelerationRate: 30
-  maxWalkSpeed: 4
+  maxWalkSpeed: 12
   weirdRotate: 0
   maxJumps: 2
   jumpCoolDown: 0.25
@@ -282,8 +283,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   currentState: 0
-  P1ShootInput: 0
-  P2ShootInput: 0
   baseMovement: {fileID: 6930851332102331895}
   playerCoroutineManager: {fileID: 2446774336366214823}
   mainCamera: {fileID: 3087497272772946061}
@@ -310,14 +309,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 556aa0130985e44739ec7d0e1e0ad16c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   movementSyncWindow: 0.5
   shootSyncWindow: 0.5
   unsyncedMoveMultiplier: 0.25
   syncedMoveMultiplier: 1
-  comboManager: {fileID: 0}
-  syncedMoveScore: 10
-  syncedShootScore: 10
-  syncedUtilityScore: 10
+  comboManager: {fileID: 6390946799449206911}
+  syncedMoveScore: 0.1
+  syncedShootScore: 0.15
+  syncedUtilityScore: 0.15
 --- !u!114 &6221149281486240100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,16 +439,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+  ShowTopMostFoldoutHeaderGroup: 1
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 6726245692009760567}
   ammoCountScreen: {fileID: 2673120560523318392}
+  comboManager: {fileID: 6390946799449206911}
   owningPlayer: 2
-  ammo: 10
-  baseFireRate: 1
-  cooldownTime: 1
-  damage: 5
+  ammo: 30
+  baseFireRate: 0.2
+  cooldownTime: 4
+  damage: 12
+  damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
-  ammoCount: 0
+  ammoCount:
+    m_InternalValue: 0
 --- !u!114 &2724236685853379273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -461,16 +465,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+  ShowTopMostFoldoutHeaderGroup: 1
   teamProjectilePool: {fileID: 6221149281486240100}
   muzzle: {fileID: 5841196029665437024}
   ammoCountScreen: {fileID: 3355928728733688063}
+  comboManager: {fileID: 6390946799449206911}
   owningPlayer: 1
-  ammo: 10
-  baseFireRate: 1
-  cooldownTime: 1
-  damage: 5
+  ammo: 30
+  baseFireRate: 0.2
+  cooldownTime: 4
+  damage: 12
+  damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
-  ammoCount: 0
+  ammoCount:
+    m_InternalValue: 0
 --- !u!114 &4675740159691710397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -520,7 +528,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -573,7 +581,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -619,6 +627,27 @@ MonoBehaviour:
     DissipationDistance: 100
     PropagationSpeed: 343
   DefaultVelocity: {x: 0, y: 0, z: -0.1}
+--- !u!114 &6390946799449206911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b98dd2bd4695414f85d900cb09b59e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SingleComboScript
+  ShowTopMostFoldoutHeaderGroup: 1
+  currentPoints:
+    m_InternalValue: 0
+  maxPoints: 100
+  isComboFull: 0
+  decayRate: 2
+  decayWindow: 2
+  decayTimer: 0
+  comboMeter: {fileID: 156923850172819328}
 --- !u!1001 &1613849491914122479
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -806,7 +835,7 @@ PrefabInstance:
     - target: {fileID: 629250220551108806, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 629250220551108806, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
@@ -848,20 +877,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2552202660774029418, guid: 1f4781091b61def4290a390f109d33d0,
-        type: 3}
-      propertyPath: ChannelMask
-      value: 112
-      objectReference: {fileID: 0}
     - target: {fileID: 3549644392731150838, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
       propertyPath: m_Name
       value: LightMech_Team2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3816247404730960293, guid: 1f4781091b61def4290a390f109d33d0,
-        type: 3}
-      propertyPath: ChannelMask
-      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 4414625965431549697, guid: 1f4781091b61def4290a390f109d33d0,
         type: 3}
@@ -878,6 +897,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f4781091b61def4290a390f109d33d0, type: 3}
+--- !u!114 &156923850172819328 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6216331311848377448, guid: 1f4781091b61def4290a390f109d33d0,
+    type: 3}
+  m_PrefabInstance: {fileID: 6082490686434323432}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &2673120560523318392 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8174470865438850960, guid: 1f4781091b61def4290a390f109d33d0,
@@ -960,7 +991,7 @@ PrefabInstance:
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}
@@ -1040,7 +1071,7 @@ PrefabInstance:
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3016460160315109112, guid: 54e38da5fa86bf6409ab6da9b5f72219,
         type: 3}

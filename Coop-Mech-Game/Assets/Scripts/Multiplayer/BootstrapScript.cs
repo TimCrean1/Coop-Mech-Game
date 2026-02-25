@@ -5,9 +5,13 @@ using static LobbyManager;
 
 public class BootstrapScript : MonoBehaviour
 {
-    [SerializeField] private string playerIndex;
-    [SerializeField] private string playerTeam;
-    [SerializeField] private string playerNumber;
+    [SerializeField] public string playerIndex;
+    [SerializeField] public string playerTeam;
+    [SerializeField] public string playerNumber;
+    [SerializeField] public int maxPlayers;
+    private Lobby lobby;
+    private Player localPlayer;
+    
     public static BootstrapScript Instance { get; private set; }
 
     private void Awake()
@@ -22,9 +26,16 @@ public class BootstrapScript : MonoBehaviour
 
     private void Start()
     {
-        Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
+        LobbyManager.Instance.OnLobbyStartGame += GetDataOnStart;
+    }
 
-        Player localPlayer = lobby.Players.Find(p =>
+    public void GetDataOnStart(object sender, LobbyManager.LobbyEventArgs e)
+    {
+        lobby = LobbyManager.Instance.GetJoinedLobby();
+
+        maxPlayers = lobby.MaxPlayers;
+
+        localPlayer = lobby.Players.Find(p =>
         p.Id == AuthenticationService.Instance.PlayerId);
 
         playerIndex = AuthenticationService.Instance.PlayerId;

@@ -333,6 +333,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2724236685853379273, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: comboManager
+      value: 
+      objectReference: {fileID: 951311528}
     - target: {fileID: 3780084637755241917, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
         type: 3}
       propertyPath: m_FillAmount
@@ -353,6 +358,31 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 554368816
       objectReference: {fileID: 0}
+    - target: {fileID: 4675740159691710397, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: P1WeaponsList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675740159691710397, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: P2WeaponsList.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4675740159691710397, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: 'P1WeaponsList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 951311534}
+    - target: {fileID: 4675740159691710397, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: 'P2WeaponsList.Array.data[0]'
+      value: 
+      objectReference: {fileID: 951311535}
+    - target: {fileID: 5086179133204423352, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+        type: 3}
+      propertyPath: comboManager
+      value: 
+      objectReference: {fileID: 951311528}
     - target: {fileID: 8034055435280708182, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
         type: 3}
       propertyPath: p1Cursor
@@ -373,6 +403,42 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3e4f3d2a2477849ed834d33d8b107bb4, type: 3}
+--- !u!114 &951311528 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1551071763937382793, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 785476240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b98dd2bd4695414f85d900cb09b59e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SingleComboScript
+--- !u!114 &951311534 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2724236685853379273, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 785476240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
+--- !u!114 &951311535 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5086179133204423352, guid: 3e4f3d2a2477849ed834d33d8b107bb4,
+    type: 3}
+  m_PrefabInstance: {fileID: 785476240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a16fb776ebccf7446aed765e20d2023c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
 --- !u!1001 &1076573423
 PrefabInstance:
   m_ObjectHideFlags: 0

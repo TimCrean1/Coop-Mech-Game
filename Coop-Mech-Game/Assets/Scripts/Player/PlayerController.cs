@@ -23,8 +23,8 @@ public class PlayerController : NetworkBehaviour
     //[SerializeField] private Vector2 P2MovementInput;
     // public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
     // public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
-    [SerializeField] private float P1ShootInput;
-    [SerializeField] private float P2ShootInput;
+    //[SerializeField] private float P1ShootInput;
+    //[SerializeField] private float P2ShootInput;
 
 
 
@@ -56,7 +56,7 @@ public class PlayerController : NetworkBehaviour
      
     public override void OnNetworkSpawn()
     {
-        if(!IsOwner) { return; }
+        //if(!IsOwner) { return; }
         //mainCamera.GetComponent<Camera>().enabled = true;
         //GameManager.Instance.AddController(this);
     }

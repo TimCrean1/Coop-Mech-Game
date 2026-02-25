@@ -20,16 +20,22 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (!IsOwner) { return; }
 
-        Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
+        //Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
 
-        Player localPlayer = lobby.Players.Find(p =>
-        p.Id == AuthenticationService.Instance.PlayerId);
+        //Player localPlayer = lobby.Players.Find(p =>
+        //p.Id == AuthenticationService.Instance.PlayerId);
 
-        playerIndex = AuthenticationService.Instance.PlayerId;
+        //playerIndex = AuthenticationService.Instance.PlayerId;
 
-        playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
+        //playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
 
-        playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
+        //playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
+
+        playerIndex = BootstrapScript.Instance.playerIndex;
+
+        playerTeam = BootstrapScript.Instance.playerTeam;
+
+        playerNumber = BootstrapScript.Instance.playerNumber;
         
 
         
@@ -117,6 +123,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (playerNumber == "One") 
         {
+            Debug.Log("Inputs are being subscribed - one");
             // OwnerClientId 0 is player 1 of mech 1
             // OwnerClientId 2 is player 1 of mech 2
 
@@ -136,6 +143,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         }
         else if (playerNumber == "Two") 
         {
+            Debug.Log("Inputs are being subscribed - two");
             // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
             // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
 
@@ -260,12 +268,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void P1ShootAction(InputAction.CallbackContext context)
     {
+        
         float isShooting = context.ReadValue<float>();
         playerController.P1ShootActionServerRpc(isShooting);
     }
 
     private void P2ShootAction(InputAction.CallbackContext context)
     {
+        
         float isShooting = context.ReadValue<float>();
         playerController.P2ShootActionServerRpc(isShooting);
     }
