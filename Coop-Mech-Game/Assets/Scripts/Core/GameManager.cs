@@ -115,6 +115,11 @@ public class GameManager : NetworkBehaviour
     private IEnumerator StartTimeDelay()
     {
         yield return new WaitForSeconds(3f);
+        StartGameRpc();
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void StartGameRpc()
+    {
         OnStartupSequence?.Invoke();
     }
     public void PauseGame()

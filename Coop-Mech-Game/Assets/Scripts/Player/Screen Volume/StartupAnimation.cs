@@ -39,7 +39,7 @@ public class StartupAnimation : MonoBehaviour
         StartCoroutine(StartStartupRoutine());
     }
 
-    private IEnumerator StartStartupRoutine()
+    private IEnumerator StartStartupRoutine() //start each screen
     {
         Debug.Log("StartingUpRoutine");
         for(int i = 0; i< refStrings.Count; i++)
@@ -54,7 +54,7 @@ public class StartupAnimation : MonoBehaviour
         yield return null;
     }
 
-    private IEnumerator StartupRoutine(string target)
+    private IEnumerator StartupRoutine(string target) //individual screen flicker
     {
         //Debug.Log("Routine start");
 
