@@ -116,8 +116,9 @@ public class GameManager : NetworkBehaviour
     {
         yield return new WaitForSeconds(3f);
         StartGameRpc();
+        OnStartupSequence?.Invoke();
     }
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.NotOwner)]
     private void StartGameRpc()
     {
         OnStartupSequence?.Invoke();
