@@ -31,7 +31,7 @@ public class StartupAnimation : MonoBehaviour
 
         GameManager.Instance.OnStartupSequence.AddListener(StartFunction);
 
-        StartFunction(); //remove when the above event is implemented in the GameManager
+        //StartFunction(); //remove when the above event is implemented in the GameManager
     }
 
     private void StartFunction()
