@@ -102,7 +102,10 @@ public class GameManager : NetworkBehaviour
         {
             Debug.Log("GameManagerStartupSequence");
             //invoke start event here
-            StartCoroutine(StartTimeDelay());
+            if (IsOwner)
+            {
+                StartCoroutine(StartTimeDelay());
+            }
             
         }
 
