@@ -1,11 +1,8 @@
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting.FullSerializer;
-using UnityEngine.InputSystem;
 
-public class WeaponCannon : BaseWeapon
+public class WeaponShotgun : BaseWeapon
 {
-
     public override void Fire(float mouseDistance)
     {
         base.Fire(mouseDistance);
@@ -13,7 +10,7 @@ public class WeaponCannon : BaseWeapon
     
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
-        currentFireRate = baseFireRate * mouseDistance;
+        // currentKnockback = ?
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)
