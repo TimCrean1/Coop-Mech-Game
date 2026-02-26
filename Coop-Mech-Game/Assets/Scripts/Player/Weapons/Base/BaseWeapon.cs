@@ -23,12 +23,16 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Header("Weapon Stats")]
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 30;
-    [SerializeField] private float baseFireRate = 1f;
-    [SerializeField] private float cooldownTime = 1.0f;
-    private float currentDamage;
-    [SerializeField] private float damage = 50;
+    [SerializeField] protected float baseFireRate = 1f;
+    [SerializeField] protected float cooldownTime = 1.0f;
+    [SerializeField] protected float damage = 50;
     [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
+
+    [Header("Current Weapon Stats")]
+    [SerializeField] protected float currentDamage;
+    [SerializeField] protected float currentFireRate;
+    [SerializeField] protected float currentKnockback;
 
     [Header("READ ONLY")]
     [Tooltip("READY ONLY")]
@@ -52,6 +56,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         //ammoCount.Value = ammo;
         muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
+        currentDamage = damage;
+        currentFireRate = baseFireRate;
     }
     public override void OnNetworkSpawn()
     {
@@ -69,12 +75,13 @@ public abstract class BaseWeapon : NetworkBehaviour
         ammoCount.Value = ammoCount.Value + ammo;
     }
     
-    public virtual void Fire() //public because this will be called by weapon manager
+    public virtual void Fire(float mouseDistance) //public because this will be called by weapon manager
     {
         
        
         if (IsOwner) {
             if (!canFire) return;
+            AdjustDistanceBasedStats(mouseDistance);
             FireRpc();
             FireEventMethodClientRpc();
 
@@ -115,6 +122,9 @@ public abstract class BaseWeapon : NetworkBehaviour
         ////    ActivateCooldown();
         ////}
     }
+
+    protected abstract void AdjustDistanceBasedStats(float mouseDistance);
+
     [ClientRpc]
     private void FireEventMethodClientRpc()
     {
@@ -134,15 +144,15 @@ public abstract class BaseWeapon : NetworkBehaviour
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
         //Debug.Log("Hit layer: " + hit.collider.gameObject.layer + " hit tag: " + hit.collider.gameObject.tag);
 
-        if (comboManager.GetIsComboFull())
-        {
-            currentDamage = damage * damageMultiplier;
-            comboManager.UseMaxPointsRpc();
-        }
-        else
-        {
-            currentDamage = damage;
-        }
+        // if (comboManager.GetIsComboFull())
+        // {
+        //     currentDamage = damage * damageMultiplier;
+        //     comboManager.UseMaxPointsRpc();
+        // }
+        // else
+        // {
+        //     currentDamage = damage;
+        // }
 
         if (hit.collider.gameObject.CompareTag("TeamOne"))
         {
@@ -168,7 +178,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         }
         else
         {
-            StartCoroutine(FireRateRoutine(baseFireRate));
+            StartCoroutine(FireRateRoutine(currentFireRate));
         }
     }
 

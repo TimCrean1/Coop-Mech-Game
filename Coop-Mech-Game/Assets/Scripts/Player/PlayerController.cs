@@ -37,6 +37,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public Camera baseCamera;
     [SerializeField] public Camera overlayCamera;
     [SerializeField] public GameObject uiCanvas;
+    [SerializeField] private TeamWeaponManager teamWeaponManager;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -106,6 +107,8 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+
+            teamWeaponManager.SetMouseDistance(Vector2.Distance(mouse1Pos.Value, mouse2Pos.Value));
             
             // if (leftIndicator != null && rightIndicator != null)
             // {
