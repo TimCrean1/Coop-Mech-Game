@@ -190,13 +190,18 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
         //Debug.Log("cooldown start");
+        ammoCountScreen.ChangeText("-..", false);
 
-        yield return new WaitForSeconds(cooldownTime);
+        yield return new WaitForSeconds(cooldownTime*0.33f);
 
-        float reloadTimer = Time.deltaTime;
-        if (reloadTimer <= cooldownTime/3){ammoCountScreen.ChangeText("-..",false);}
-        else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
-        else {ammoCountScreen.ChangeText("---",false);}
+        ammoCountScreen.ChangeText("--.", false);
+
+        yield return new WaitForSeconds(cooldownTime * 0.33f);
+
+        ammoCountScreen.ChangeText("---",false);
+
+        yield return new WaitForSeconds(cooldownTime * 0.33f);
+
         if (IsServer)
         {
             SetAmmoRpc(ammo);

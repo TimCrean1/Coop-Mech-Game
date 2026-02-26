@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -32,10 +33,13 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
 
+    private int currentRound = 0;
+
     private int lobbyMaxPlayers;
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
-
+    public UnityEvent OnRoundEnd;
+    public event Action<bool> RoundEnd = null;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -78,7 +82,7 @@ public class GameManager : NetworkBehaviour
         }
 
         #endregion
-
+        OnRoundEnd.AddListener(OnRoundEndTriggered);
 
     }
 
@@ -94,6 +98,14 @@ public class GameManager : NetworkBehaviour
 
     }
 
+
+    #endregion
+
+    #region Custom Functions
+
+
+
+    #region Game Start Functions
     private void WaitForConnectedPlayers(ulong clientId)
     {
         lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
@@ -106,14 +118,10 @@ public class GameManager : NetworkBehaviour
             {
                 StartCoroutine(StartTimeDelay());
             }
-            
+
         }
 
     }
-    #endregion
-
-    #region Custom Functions
-
     // This function is called by some external script in order to set the game state to paused.
     private IEnumerator StartTimeDelay()
     {
@@ -125,6 +133,24 @@ public class GameManager : NetworkBehaviour
     private void StartGameRpc()
     {
         OnStartupSequence?.Invoke();
+    }
+
+    #endregion
+
+    void OnRoundEndTriggered()
+    {
+
+        // when the round ends, do things here
+        currentRound += 1;
+
+
+
+
+
+        if (currentRound >= 3)
+        {
+            MatchOverRpc();
+        }
     }
     public void PauseGame()
     {
@@ -238,11 +264,14 @@ public class GameManager : NetworkBehaviour
 
         if (_teamOneHealth.Value <= 0f)
         {
-            MatchOverRpc();
+            OnRoundEnd?.Invoke();
+            //MatchOverRpc();
         }
         else if(_teamTwoHealth.Value <= 0f)
         {
-            MatchOverRpc();
+
+            OnRoundEnd?.Invoke();
+            //MatchOverRpc();
         }
     }
 
