@@ -144,6 +144,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Jump.started += P1JumpAction;
             playerInputActions.Player.P1Jump.performed += P1JumpAction;
             playerInputActions.Player.P1Jump.canceled += P1JumpAction;
+
+            playerInputActions.Player.P1Dash.started += P1DashAction;
+            playerInputActions.Player.P1Dash.performed += P1DashAction;
+            playerInputActions.Player.P1Dash.canceled += P1DashAction;
         }
         else if (playerNumber == "Two") 
         {
@@ -165,6 +169,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Jump.started += P2JumpAction;
             playerInputActions.Player.P2Jump.performed += P2JumpAction;
             playerInputActions.Player.P2Jump.canceled += P2JumpAction;
+
+            playerInputActions.Player.P2Dash.started += P2DashAction;
+            playerInputActions.Player.P2Dash.performed += P2DashAction;
+            playerInputActions.Player.P2Dash.canceled += P2DashAction;
         }
     }
 
@@ -188,6 +196,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Jump.started -= P1JumpAction;
             playerInputActions.Player.P1Jump.performed -= P1JumpAction;
             playerInputActions.Player.P1Jump.canceled -= P1JumpAction;
+
+            playerInputActions.Player.P1Dash.started -= P1DashAction;
+            playerInputActions.Player.P1Dash.performed -= P1DashAction;
+            playerInputActions.Player.P1Dash.canceled -= P1DashAction;
         }
         else if (playerNumber == "Two")
         {
@@ -206,13 +218,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Jump.started -= P2JumpAction;
             playerInputActions.Player.P2Jump.performed -= P2JumpAction;
             playerInputActions.Player.P2Jump.canceled -= P2JumpAction;
+
+            playerInputActions.Player.P2Dash.started -= P2DashAction;
+            playerInputActions.Player.P2Dash.performed -= P2DashAction;
+            playerInputActions.Player.P2Dash.canceled -= P2DashAction;
         }
     }
-    //[ClientRpc]
-    //private void SendMousePosToServerRpc(Vector2 mousePos)
-    //{
 
-    //}
     void Tick()
     {
         if (!IsOwner) { return; }
@@ -306,6 +318,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         float isJumping = context.ReadValue<float>();
         playerController.P2JumpInputServerRpc(isJumping);
+    }
+
+    private void P1DashAction(InputAction.CallbackContext context)
+    {
+        float isDashing = context.ReadValue<float>();
+        playerController.P1DashInputServerRpc(isDashing);
+    }
+
+    private void P2DashAction(InputAction.CallbackContext context)
+    {
+        float isDashing = context.ReadValue<float>();
+        playerController.P2DashInputServerRpc(isDashing);
     }
     #endregion
 }

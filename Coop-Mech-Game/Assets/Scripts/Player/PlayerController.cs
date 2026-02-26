@@ -253,6 +253,16 @@ public class PlayerController : NetworkBehaviour
     {
         playerCoroutineManager.SetP2Jump(P2JumpInput);
     }
+    [Rpc(SendTo.Server)]
+    public void P1DashInputServerRpc(float P1DashInput)
+    {
+        playerCoroutineManager.SetP1Dash(P1DashInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P2DashInputServerRpc(float P2DashInput)
+    {
+        playerCoroutineManager.SetP2Dash(P2DashInput);
+    }
 
     #endregion
 

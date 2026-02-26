@@ -154,6 +154,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""b3be8393-d593-4981-972f-a3912d92ce7c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Dash"",
+                    ""type"": ""Button"",
+                    ""id"": ""1edb4c87-07eb-41a8-8094-469124c14460"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -365,6 +383,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""P2Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8b6e5dd-f1a9-4fed-8f66-9492daf880d9"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13aa4c6e-ee23-4db3-896f-66db30621183"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -408,6 +448,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P2Move2 = m_Player.FindAction("P2Move2", throwIfNotFound: true);
         m_Player_P1Jump = m_Player.FindAction("P1Jump", throwIfNotFound: true);
         m_Player_P2Jump = m_Player.FindAction("P2Jump", throwIfNotFound: true);
+        m_Player_P1Dash = m_Player.FindAction("P1Dash", throwIfNotFound: true);
+        m_Player_P2Dash = m_Player.FindAction("P2Dash", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -499,6 +541,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P2Move2;
     private readonly InputAction m_Player_P1Jump;
     private readonly InputAction m_Player_P2Jump;
+    private readonly InputAction m_Player_P1Dash;
+    private readonly InputAction m_Player_P2Dash;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -538,6 +582,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/P2Jump".
         /// </summary>
         public InputAction @P2Jump => m_Wrapper.m_Player_P2Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Dash".
+        /// </summary>
+        public InputAction @P1Dash => m_Wrapper.m_Player_P1Dash;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Dash".
+        /// </summary>
+        public InputAction @P2Dash => m_Wrapper.m_Player_P2Dash;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -585,6 +637,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Jump.started += instance.OnP2Jump;
             @P2Jump.performed += instance.OnP2Jump;
             @P2Jump.canceled += instance.OnP2Jump;
+            @P1Dash.started += instance.OnP1Dash;
+            @P1Dash.performed += instance.OnP1Dash;
+            @P1Dash.canceled += instance.OnP1Dash;
+            @P2Dash.started += instance.OnP2Dash;
+            @P2Dash.performed += instance.OnP2Dash;
+            @P2Dash.canceled += instance.OnP2Dash;
         }
 
         /// <summary>
@@ -617,6 +675,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Jump.started -= instance.OnP2Jump;
             @P2Jump.performed -= instance.OnP2Jump;
             @P2Jump.canceled -= instance.OnP2Jump;
+            @P1Dash.started -= instance.OnP1Dash;
+            @P1Dash.performed -= instance.OnP1Dash;
+            @P1Dash.canceled -= instance.OnP1Dash;
+            @P2Dash.started -= instance.OnP2Dash;
+            @P2Dash.performed -= instance.OnP2Dash;
+            @P2Dash.canceled -= instance.OnP2Dash;
         }
 
         /// <summary>
@@ -802,6 +866,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Jump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Dash(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Dash" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Dash(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
