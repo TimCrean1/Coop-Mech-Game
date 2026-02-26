@@ -13,10 +13,10 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
     [SerializeField] private bool weirdRotate = false;
-    // [SerializeField] private float maxVerticalSpeed = 25f;
+    [SerializeField] private float maxVerticalSpeed = 25f;
 
     [Header("Character - Air Movement")]
-    [SerializeField] private int maxJumps = 2;
+    [SerializeField] private int maxJumps = 1;
     private int currentJumps = 0;
     [SerializeField] private float jumpCoolDown = 0.25f;
     [SerializeField] private float airControlMultiplier = 0.4f;
@@ -171,14 +171,14 @@ public class CharacterMovement : BaseMovement
                 rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
             }
 
-            //Jumping logic
+            // Jumping logic
 
-            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
-            // {
-            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
-            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
-            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
-            // }
+            if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            {
+                Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+                float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+                rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
+            }
         }
         else
         {
@@ -189,14 +189,14 @@ public class CharacterMovement : BaseMovement
                 rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
             }
 
-            //Jumping logic
+            // Jumping logic
 
-            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
-            // {
-            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
-            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
-            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
-            // }
+            if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            {
+                Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+                float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+                rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
+            }
         }
     }
     #endregion
@@ -259,31 +259,32 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Jumping
-    public override void Jump() 
+    public override void Jump(float jumpInput) 
     {
-        // if (readyToJump && (isGrounded || currentJumps < maxJumps))
-        // {
-        //     currentJumps++;
-        //     float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-        //     rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
-        //     readyToJump = false;
-        //     StartCoroutine(JumpCooldownCoroutine());
-        // }
+        if (readyToJump && (isGrounded || currentJumps < maxJumps))
+        {
+            currentJumps++;
+            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+            adjustedJumpForce *= jumpInput;
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+            readyToJump = false;
+            StartCoroutine(JumpCooldownCoroutine());
+        }
         return;
     }
 
-    // private IEnumerator JumpCooldownCoroutine()
-    // {
-    //     yield return new WaitForSeconds(jumpCoolDown);
-    //     readyToJump = true;
-    // }
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(jumpCoolDown);
+        readyToJump = true;
+    }
 
     public override void CancelJump()
     {
-        // if (rigidbody.linearVelocity.y > 0f)
-        // {
-        //     rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
-        // }
+        if (rigidbody.linearVelocity.y > 0f)
+        {
+            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
+        }
         return;
     }
 

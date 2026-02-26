@@ -136,6 +136,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""P1Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""018f0055-005c-445b-adc4-9013591b7159"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""b4ae3c2b-fc7b-4ca3-86b8-b8d6fddabddc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -325,6 +343,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""P2Move2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4deba2f7-9ccd-41ac-ac2e-984199bf1340"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9f6f0c5a-57c4-4ff0-86ae-7459c16bf4cf"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -366,6 +406,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P1Shoot = m_Player.FindAction("P1Shoot", throwIfNotFound: true);
         m_Player_P2Shoot = m_Player.FindAction("P2Shoot", throwIfNotFound: true);
         m_Player_P2Move2 = m_Player.FindAction("P2Move2", throwIfNotFound: true);
+        m_Player_P1Jump = m_Player.FindAction("P1Jump", throwIfNotFound: true);
+        m_Player_P2Jump = m_Player.FindAction("P2Jump", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -455,6 +497,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P1Shoot;
     private readonly InputAction m_Player_P2Shoot;
     private readonly InputAction m_Player_P2Move2;
+    private readonly InputAction m_Player_P1Jump;
+    private readonly InputAction m_Player_P2Jump;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -486,6 +530,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/P2Move2".
         /// </summary>
         public InputAction @P2Move2 => m_Wrapper.m_Player_P2Move2;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Jump".
+        /// </summary>
+        public InputAction @P1Jump => m_Wrapper.m_Player_P1Jump;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Jump".
+        /// </summary>
+        public InputAction @P2Jump => m_Wrapper.m_Player_P2Jump;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -527,6 +579,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Move2.started += instance.OnP2Move2;
             @P2Move2.performed += instance.OnP2Move2;
             @P2Move2.canceled += instance.OnP2Move2;
+            @P1Jump.started += instance.OnP1Jump;
+            @P1Jump.performed += instance.OnP1Jump;
+            @P1Jump.canceled += instance.OnP1Jump;
+            @P2Jump.started += instance.OnP2Jump;
+            @P2Jump.performed += instance.OnP2Jump;
+            @P2Jump.canceled += instance.OnP2Jump;
         }
 
         /// <summary>
@@ -553,6 +611,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Move2.started -= instance.OnP2Move2;
             @P2Move2.performed -= instance.OnP2Move2;
             @P2Move2.canceled -= instance.OnP2Move2;
+            @P1Jump.started -= instance.OnP1Jump;
+            @P1Jump.performed -= instance.OnP1Jump;
+            @P1Jump.canceled -= instance.OnP1Jump;
+            @P2Jump.started -= instance.OnP2Jump;
+            @P2Jump.performed -= instance.OnP2Jump;
+            @P2Jump.canceled -= instance.OnP2Jump;
         }
 
         /// <summary>
@@ -724,6 +788,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Move2(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Jump(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Jump(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

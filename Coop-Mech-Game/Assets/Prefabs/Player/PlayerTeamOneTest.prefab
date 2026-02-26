@@ -28,7 +28,7 @@ GameObject:
   - component: {fileID: 1041313949405104054}
   - component: {fileID: 2883541409271160028}
   m_Layer: 8
-  m_Name: PlayerTeamOne
+  m_Name: PlayerTeamOneTest
   m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,7 +51,6 @@ Transform:
   - {fileID: 5841196029665437024}
   - {fileID: 919250635238388712}
   - {fileID: 3210845880709511743}
-  - {fileID: 7107494322323195105}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &6701683397916495984
@@ -98,7 +97,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.3061385
   m_Height: 5.495263
@@ -243,7 +242,7 @@ MonoBehaviour:
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
-  capsuleCollider: {fileID: 2519657300501427233}
+  capsuleCollider: {fileID: 8968820689189305560}
   audioSource: {fileID: 3878826384544283473}
   characterModel: {fileID: 1787830087806188225}
   canMove: 1
@@ -251,7 +250,6 @@ MonoBehaviour:
   decelerationRate: 50
   maxWalkSpeed: 12
   weirdRotate: 0
-  maxVerticalSpeed: 25
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
@@ -293,7 +291,7 @@ MonoBehaviour:
   baseCamera: {fileID: 3310075575075238335}
   overlayCamera: {fileID: 8900711722738611722}
   uiCanvas: {fileID: 2245150896999167826}
-  teamWeaponManager: {fileID: 4675740159691710397}
+  teamWeaponManager: {fileID: 0}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -317,7 +315,6 @@ MonoBehaviour:
   shootSyncWindow: 0.5
   unsyncedMoveMultiplier: 0.1
   syncedMoveMultiplier: 1
-  jumpSyncWindow: 0.5
   comboManager: {fileID: 2883541409271160028}
   syncedMoveScore: 0.1
   syncedShootScore: 0.15
@@ -396,7 +393,7 @@ MonoBehaviour:
   TickSyncChildren: 0
   UseUnreliableDeltas: 0
   SyncPositionX: 1
-  SyncPositionY: 1
+  SyncPositionY: 0
   SyncPositionZ: 1
   SyncRotAngleX: 0
   SyncRotAngleY: 1
@@ -658,61 +655,6 @@ MonoBehaviour:
   decayWindow: 2
   decayTimer: 0
   comboMeter: {fileID: 3643084543083260092}
---- !u!1 &2982015928421129102
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7107494322323195105}
-  - component: {fileID: 2519657300501427233}
-  m_Layer: 8
-  m_Name: CapsuleCollider
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7107494322323195105
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2982015928421129102}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1787830087806188225}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2519657300501427233
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2982015928421129102}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.3061385
-  m_Height: 5.495263
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.754889, z: 0}
 --- !u!1001 &322673852593687342
 PrefabInstance:
   m_ObjectHideFlags: 0

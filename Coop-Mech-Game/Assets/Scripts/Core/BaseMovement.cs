@@ -62,7 +62,7 @@ public abstract class BaseMovement : NetworkBehaviour
     {
         /* Do nothing */
     }
-    public virtual void Jump()
+    public virtual void Jump(float jumpInput)
     {
 
     }

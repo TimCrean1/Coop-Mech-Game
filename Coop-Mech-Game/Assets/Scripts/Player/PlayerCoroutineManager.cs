@@ -11,12 +11,15 @@ public class PlayerCoroutineManager : NetworkBehaviour
     [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
     [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
     [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
+    [SerializeField][Range(0.001f, 2)] private float jumpSyncWindow = 0.5f;
 
     [Header("Time Counters")]
     private float p1MoveTime;
     private float p2MoveTime;
     private float p1ShootTime;
     private float p2ShootTime;
+    private float p1JumpTime;
+    private float p2JumpTime;
 
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
@@ -25,6 +28,8 @@ public class PlayerCoroutineManager : NetworkBehaviour
     //private float p2ShootInput;
     private NetworkVariable<float> p1ShootInput = new NetworkVariable<float>();
     private NetworkVariable<float> p2ShootInput = new NetworkVariable<float>();
+    private float p1JumpInput;
+    private float p2JumpInput;
 
     [Header("Combo Variables")]
     [SerializeField] private SingleComboScript comboManager;
@@ -55,6 +60,16 @@ public class PlayerCoroutineManager : NetworkBehaviour
         Debug.Log("SetP2Shoot " + ShootInput);
         p2ShootInput.Value = ShootInput;
         p2ShootTime = Time.time;
+    }
+    public void SetP1Jump(float JumpInput)
+    {
+        p1JumpInput = JumpInput;
+        p1JumpTime = Time.time;
+    }
+    public void SetP2Jump(float JumpInput)
+    {
+        p2JumpInput = JumpInput;
+        p2JumpTime = Time.time;
     }
 
     #endregion
@@ -168,6 +183,52 @@ public class PlayerCoroutineManager : NetworkBehaviour
             p2ShootTime = -1;
             return true;
         }
+        return false;
+    }
+
+    public bool TryGetSyncedJump(out float syncedJumpInput)
+    {
+        syncedJumpInput = 0;
+
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1JumpTime - p2JumpTime) <= jumpSyncWindow && Mathf.Approximately(p1JumpInput, p2JumpInput))
+        {
+            // Inputs are synced
+            syncedJumpInput = (p1JumpInput + p2JumpInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+
+            return true;
+        }
+        else if (p1JumpInput > 0 && p2JumpInput <= 0)
+        {
+            syncedJumpInput = 0.25f;
+
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+        else if (p1JumpInput <= 0 && p2JumpInput > 0)
+        {
+            syncedJumpInput = 0.75f;
+
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+        else if (Mathf.Abs(p1JumpTime - p2JumpTime) >= jumpSyncWindow && p1JumpInput == 1 && p2JumpInput == 1)
+        {
+            // Inputs are synced
+            syncedJumpInput = (p1JumpInput + p2JumpInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+
         return false;
     }
     #endregion

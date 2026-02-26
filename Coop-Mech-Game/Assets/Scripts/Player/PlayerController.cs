@@ -109,6 +109,11 @@ public class PlayerController : NetworkBehaviour
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
 
             teamWeaponManager.SetMouseDistance(Vector2.Distance(mouse1Pos.Value, mouse2Pos.Value));
+
+            if (playerCoroutineManager.TryGetSyncedJump(out float syncedJumpInput))
+            {
+                baseMovement.Jump(syncedJumpInput);
+            }
             
             // if (leftIndicator != null && rightIndicator != null)
             // {
@@ -237,6 +242,16 @@ public class PlayerController : NetworkBehaviour
     public void ProcessMouse2InputServerRpc(Vector2 mousePos)
     {
         mouse2Pos.Value = mousePos;
+    }
+    [Rpc(SendTo.Server)]
+    public void P1JumpInputServerRpc(float P1JumpInput)
+    {
+        playerCoroutineManager.SetP1Jump(P1JumpInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P2JumpInputServerRpc(float P2JumpInput)
+    {
+        playerCoroutineManager.SetP2Jump(P2JumpInput);
     }
 
     #endregion
