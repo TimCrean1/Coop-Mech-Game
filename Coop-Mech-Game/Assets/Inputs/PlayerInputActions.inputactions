@@ -50,6 +50,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "P1Jump",
+                    "type": "Button",
+                    "id": "018f0055-005c-445b-adc4-9013591b7159",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2Jump",
+                    "type": "Button",
+                    "id": "b4ae3c2b-fc7b-4ca3-86b8-b8d6fddabddc",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -239,6 +257,28 @@
                     "action": "P2Move2",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "4deba2f7-9ccd-41ac-ac2e-984199bf1340",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P1Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9f6f0c5a-57c4-4ff0-86ae-7459c16bf4cf",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },

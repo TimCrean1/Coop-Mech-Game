@@ -140,6 +140,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.started += P1ShootAction;
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
+
+            playerInputActions.Player.P1Jump.started += P1JumpAction;
+            playerInputActions.Player.P1Jump.performed += P1JumpAction;
+            playerInputActions.Player.P1Jump.canceled += P1JumpAction;
         }
         else if (playerNumber == "Two") 
         {
@@ -157,6 +161,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Shoot.started += P2ShootAction;
             playerInputActions.Player.P2Shoot.performed += P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
+
+            playerInputActions.Player.P2Jump.started += P2JumpAction;
+            playerInputActions.Player.P2Jump.performed += P2JumpAction;
+            playerInputActions.Player.P2Jump.canceled += P2JumpAction;
         }
     }
 
@@ -176,6 +184,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Shoot.started -= P1ShootAction;
             playerInputActions.Player.P1Shoot.performed -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
+
+            playerInputActions.Player.P1Jump.started -= P1JumpAction;
+            playerInputActions.Player.P1Jump.performed -= P1JumpAction;
+            playerInputActions.Player.P1Jump.canceled -= P1JumpAction;
         }
         else if (playerNumber == "Two")
         {
@@ -190,6 +202,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Shoot.started -= P2ShootAction;
             playerInputActions.Player.P2Shoot.performed -= P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled -= P2ShootAction;
+
+            playerInputActions.Player.P2Jump.started -= P2JumpAction;
+            playerInputActions.Player.P2Jump.performed -= P2JumpAction;
+            playerInputActions.Player.P2Jump.canceled -= P2JumpAction;
         }
     }
     //[ClientRpc]
@@ -278,6 +294,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
         
         float isShooting = context.ReadValue<float>();
         playerController.P2ShootActionServerRpc(isShooting);
+    }
+
+    private void P1JumpAction(InputAction.CallbackContext context)
+    {
+        float isJumping = context.ReadValue<float>();
+        playerController.P1JumpInputServerRpc(isJumping);
+    }
+
+    private void P2JumpAction(InputAction.CallbackContext context)
+    {
+        float isJumping = context.ReadValue<float>();
+        playerController.P2JumpInputServerRpc(isJumping);
     }
     #endregion
 }
