@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -142,6 +143,13 @@ public class GameManager : NetworkBehaviour
         OnStartupSequence?.Invoke();
     }
 
+    private IEnumerator EndTimeDelay()
+    {
+        //MatchOverRpc();
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(0);
+        
+    }
     [Rpc(SendTo.NotOwner)]
     private void StartGameRpc()
     {
@@ -152,7 +160,11 @@ public class GameManager : NetworkBehaviour
 
     void OnRoundEndTriggered()
     {
-
+        if (currRound.Value >= 3)
+        {
+            StartCoroutine(EndTimeDelay());
+            return;
+        }
         // when the round ends, do things here
         if (IsServer)
         {
@@ -164,10 +176,7 @@ public class GameManager : NetworkBehaviour
 
 
 
-        if (currRound.Value >= 3)
-        {
-            MatchOverRpc();
-        }
+        
     }
     public void PauseGame()
     {
