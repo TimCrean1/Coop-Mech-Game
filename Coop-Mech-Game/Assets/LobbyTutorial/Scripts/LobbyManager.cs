@@ -660,11 +660,11 @@ public class LobbyManager : MonoBehaviour {
         //SceneManager.LoadScene(1);
         if (joinedLobby.Data[KEY_GAME_MODE].Value == "Practice")
         {
-            SceneManager.LoadScene(1);
+            LoadScene(1);
         }
         else if (joinedLobby.Data[KEY_GAME_MODE].Value == "Duel")
         {
-            SceneManager.LoadScene(2);
+            LoadScene(2);
         }
         alreadyStartedGame = true;
         OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });

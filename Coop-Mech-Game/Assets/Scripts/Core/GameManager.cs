@@ -141,6 +141,7 @@ public class GameManager : NetworkBehaviour
         StartGameRpc();
         OnStartupSequence?.Invoke();
     }
+
     [Rpc(SendTo.NotOwner)]
     private void StartGameRpc()
     {
