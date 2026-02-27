@@ -1,6 +1,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using NUnit.Framework.Internal;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -24,6 +25,7 @@ public class GameState : MonoBehaviour
     public UnityEvent OnPlayerWon;
     public UnityEvent OnPlayerLost;
     public UnityEvent OnFinalWaveStart;
+   // public UnityEvent OnRoundEnd;
 
 
     /// <summary>
@@ -125,6 +127,9 @@ public class GameState : MonoBehaviour
             case GameStatus.PlayerLost:
                 OnPlayerLost.Invoke();
                 break;
+            case GameStatus.RoundEnd:
+                //OnRoundEnd.Invoke();
+                break;
             default:
                 Debug.LogError("Unhandled GameStatus! This shouldn't happen.");
                 break;
@@ -147,6 +152,7 @@ public class GameState : MonoBehaviour
         OnPlayerWon.RemoveAllListeners();
         OnPlayerLost.RemoveAllListeners();
         OnFinalWaveStart.RemoveAllListeners();
+        //OnRoundEnd.RemoveAllListeners();
        
 
     }
@@ -173,7 +179,8 @@ public enum GameStatus
     Playing,        // The game is in progress
     Paused,         // The game is paused
     PlayerWon,      // The player has won the game
-    PlayerLost      // The player has lost the game
+    PlayerLost,     // The player has lost the game
+    RoundEnd        // The current round has ended
 }
 
 

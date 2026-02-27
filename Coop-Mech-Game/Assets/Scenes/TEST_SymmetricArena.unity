@@ -314,6 +314,46 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3793969435284035663, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.99215686
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793969435284035663, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793969435284035663, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.8745098
+      objectReference: {fileID: 0}
+    - target: {fileID: 3793969435284035663, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294770911
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552172206061350088, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552172206061350088, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552172206061350088, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552172206061350088, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+        type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278255360
+      objectReference: {fileID: 0}
     - target: {fileID: 6314477023271546846, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -358,6 +398,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechScreen
+--- !u!1 &483270506
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 483270507}
+  m_Layer: 0
+  m_Name: teamOneSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &483270507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 483270506}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -29.336, y: 0.04392, z: -32.31}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &746148992
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -426,6 +497,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5b6e8b8a63e19f24f92876bc145ca9e9, type: 3}
+--- !u!1 &769536629
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 769536630}
+  m_Layer: 0
+  m_Name: teamTwoSpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &769536630
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769536629}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 30.75, y: 0.04392, z: 31.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1462737644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,6 +723,16 @@ PrefabInstance:
       propertyPath: t2HealthScreen
       value: 
       objectReference: {fileID: 1462737646}
+    - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
+      propertyPath: teamOneSpawnPoint
+      value: 
+      objectReference: {fileID: 483270507}
+    - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
+      propertyPath: teamTwoSpawnPoint
+      value: 
+      objectReference: {fileID: 769536630}
     - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
         type: 3}
       propertyPath: '_playerControllers.Array.data[0]'
@@ -1457,3 +1569,5 @@ SceneRoots:
   - {fileID: 1462737644}
   - {fileID: 746148992}
   - {fileID: 1979200186}
+  - {fileID: 483270507}
+  - {fileID: 769536630}

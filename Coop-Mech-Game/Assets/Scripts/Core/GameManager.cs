@@ -25,6 +25,11 @@ public class GameManager : NetworkBehaviour
     //private NetworkList<PlayerController> _playerControllers;
     //private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     // team -> clientId
+    [SerializeField] public Transform teamOneSpawnPoint;
+    [SerializeField] public Transform teamTwoSpawnPoint;
+
+    [SerializeField] private GameObject MechOne;
+    [SerializeField] private GameObject MechTwo;
 
     [SerializeField] private MechScreen t1HealthScreen;
     [SerializeField] private MechScreen t2HealthScreen;
@@ -33,7 +38,8 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
 
-    private int currentRound = 0;
+    //private int currentRound = 0;
+    NetworkVariable<int> currRound = new NetworkVariable<int>();
 
     private int lobbyMaxPlayers;
     public int playerScore = 0;
@@ -123,6 +129,12 @@ public class GameManager : NetworkBehaviour
 
     }
     // This function is called by some external script in order to set the game state to paused.
+    [Rpc(SendTo.Server)]
+    private void ResetPlayerPositionRpc()
+    {
+        MechOne.transform.position = teamOneSpawnPoint.transform.position;
+        MechTwo.transform.position = teamTwoSpawnPoint.transform.position;
+    }
     private IEnumerator StartTimeDelay()
     {
         yield return new WaitForSeconds(3f);
@@ -141,13 +153,17 @@ public class GameManager : NetworkBehaviour
     {
 
         // when the round ends, do things here
-        currentRound += 1;
+        if (IsServer)
+        {
+            currRound.Value += 1;
+        }
+        
+        ResetPlayerPositionRpc();
 
 
 
 
-
-        if (currentRound >= 3)
+        if (currRound.Value >= 3)
         {
             MatchOverRpc();
         }
@@ -278,6 +294,7 @@ public class GameManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public void HealTeamRpc(int teamNumToHeal, float healAmt)
     {
+        
         if (teamNumToHeal == 1)
         {
             float h = teamOneMaxHealth - _teamOneHealth.Value;
