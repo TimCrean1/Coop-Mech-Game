@@ -159,7 +159,7 @@ public class GameManager : NetworkBehaviour
         }
         
         ResetPlayerPositionRpc();
-
+        InitTeamHealthRpc();
 
 
 

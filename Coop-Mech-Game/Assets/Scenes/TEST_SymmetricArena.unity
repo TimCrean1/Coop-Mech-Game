@@ -380,7 +380,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 390963470}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 390963473}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 696ecc83316fd42a59e348319697e974, type: 3}
@@ -398,6 +398,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechScreen
+--- !u!1 &390963473 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1110307106174362958, guid: 9a19cc23748ce5f44a0fd2d3ab4203c6,
+    type: 3}
+  m_PrefabInstance: {fileID: 390963470}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &483270506
 GameObject:
   m_ObjectHideFlags: 0
@@ -632,7 +638,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1462737644}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1462737647}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 696ecc83316fd42a59e348319697e974, type: 3}
@@ -650,6 +656,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechScreen
+--- !u!1 &1462737647 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1110307106174362958, guid: d8aadf6f9e824334fb72c64a19dca918,
+    type: 3}
+  m_PrefabInstance: {fileID: 1462737644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1979200186
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -713,6 +725,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
+      propertyPath: MechOne
+      value: 
+      objectReference: {fileID: 390963473}
+    - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
+        type: 3}
+      propertyPath: MechTwo
+      value: 
+      objectReference: {fileID: 1462737647}
     - target: {fileID: 5349684076975016810, guid: 0121f3be39827fb4c9f59b48056d9a51,
         type: 3}
       propertyPath: t1HealthScreen
