@@ -142,15 +142,20 @@ public class GameManager : NetworkBehaviour
         StartGameRpc();
         OnStartupSequence?.Invoke();
     }
-
+    [Rpc(SendTo.NotServer)]
+    private void OnGameEndRpc()
+    {
+        StartCoroutine(EndTimeDelay());
+    }
     private IEnumerator EndTimeDelay()
     {
         //MatchOverRpc();
+
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene(0);
         
     }
-    [Rpc(SendTo.NotOwner)]
+    [Rpc(SendTo.NotServer)]
     private void StartGameRpc()
     {
         OnStartupSequence?.Invoke();
@@ -160,9 +165,10 @@ public class GameManager : NetworkBehaviour
 
     void OnRoundEndTriggered()
     {
-        if (currRound.Value >= 3)
+        if (currRound.Value >= 2)
         {
             StartCoroutine(EndTimeDelay());
+            OnGameEndRpc();
             return;
         }
         // when the round ends, do things here
@@ -170,13 +176,31 @@ public class GameManager : NetworkBehaviour
         {
             currRound.Value += 1;
         }
+        StartCoroutine(RoundEndCoroutine());
         
+        
+    }
+    
+    private void SetTimeScale(float newTimeScale)
+    {
+        Time.timeScale = newTimeScale;
+    }
+
+    [Rpc(SendTo.NotServer)]
+    private void SetTimeScaleClientRpc(float newTimeScale)
+    {
+        Time.timeScale = newTimeScale;
+    }
+    
+    private IEnumerator RoundEndCoroutine()
+    {
+        SetTimeScale(0.5f);
+        SetTimeScaleClientRpc(0.5f);
+        yield return new WaitForSeconds(3f);
+        SetTimeScale(1f);
+        SetTimeScaleClientRpc(1f);
         ResetPlayerPositionRpc();
         InitTeamHealthRpc();
-
-
-
-        
     }
     public void PauseGame()
     {
