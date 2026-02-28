@@ -169,6 +169,10 @@ public class GameManager : NetworkBehaviour
         {
             StartCoroutine(EndTimeDelay());
             OnGameEndRpc();
+            if (IsServer)
+            {
+                NetworkManager.Singleton.Shutdown();
+            }
             return;
         }
         // when the round ends, do things here

@@ -74,8 +74,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     private void SetAmmoRpc(int ammo)
     {
         if (!IsServer) { return; }
-        
-        ammoCount.Value = ammo;
+        ammoCount.Value = 0;
+        ammoCount.Value = ammoCount.Value + ammo;
     }
     
     public virtual void Fire() //public because this will be called by weapon manager
