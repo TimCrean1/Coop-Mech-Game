@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour
 
     //private int currentRound = 0;
     NetworkVariable<int> currRound = new NetworkVariable<int>();
-
+    private int maxRounds = 3;
     private int lobbyMaxPlayers;
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
@@ -165,7 +165,7 @@ public class GameManager : NetworkBehaviour
 
     void OnRoundEndTriggered()
     {
-        if (currRound.Value >= 2)
+        if (currRound.Value >= maxRounds)
         {
             StartCoroutine(EndTimeDelay());
             OnGameEndRpc();
