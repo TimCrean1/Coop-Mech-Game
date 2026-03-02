@@ -6,7 +6,6 @@ using Unity.Netcode;
 public class CharacterMovement : BaseMovement
 {
     #region Variables
-
     [Header("Walking")]
     [SerializeField] private bool canMove = true;
     [SerializeField] private float accelerationRate = 60f;
@@ -59,6 +58,9 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
 
+    [Header("Misc")]
+    private bool isBeingKnockedBack = false;
+
     #endregion
 
     #region Unity Functions
@@ -85,7 +87,7 @@ public class CharacterMovement : BaseMovement
         MoveCharacter();
         CharacterLook();
 
-        if (limitingMotion && !currentlyDashing)
+        if (limitingMotion && !currentlyDashing && !isBeingKnockedBack)
             LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
 
         if (!currentlyRechargingDash && currentDashes > 0)
@@ -180,6 +182,8 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(dampingForce, ForceMode.Acceleration);
         }
     }
+
+    #region Limit Velocity
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
@@ -223,6 +227,7 @@ public class CharacterMovement : BaseMovement
             }
         }
     }
+    #endregion
     #endregion
 
     #region Rotation
@@ -355,6 +360,28 @@ public class CharacterMovement : BaseMovement
         currentDashes -= 1;
         currentlyRechargingDash = false;
     }
+    #endregion
+
+    #region Knockback
+    public void ApplyKnockback(Vector3 forceVec, float knockbackForce, float duration = 1)
+    {
+        forceVec.Normalize();
+        rigidbody.AddForce(forceVec * knockbackForce, ForceMode.Impulse);
+        StartCoroutine(KnockbackCoroutine(duration));
+    }
+
+    private IEnumerator KnockbackCoroutine(float duration)
+    {
+        isBeingKnockedBack = true;
+        yield return new WaitForSeconds(duration);
+        isBeingKnockedBack = false;
+    }
+
+    public bool GetIsBeingKnockedBack()
+    {
+        return isBeingKnockedBack;
+    }
+
     #endregion
 
     #region Ground Check
