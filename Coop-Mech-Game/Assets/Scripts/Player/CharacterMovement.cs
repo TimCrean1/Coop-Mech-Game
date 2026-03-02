@@ -317,6 +317,18 @@ public class CharacterMovement : BaseMovement
         return;
     }
 
+    /// <summary>
+    /// Applies a downward force to the character to quickly return them to the ground. 
+    /// Used by utilities that require the player to be grounded.
+    /// </summary>
+    public void ReturnToGround()
+    {
+        if (!isGrounded)
+        {
+            rigidbody.AddForce(Vector3.down * 10f, ForceMode.VelocityChange);
+        }
+    }
+
     #endregion
 
     #region Dashing

@@ -95,6 +95,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "P1Utility",
+                    "type": "Button",
+                    "id": "b01b09b6-67df-439c-a08c-c05f41e97f35",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2Utility",
+                    "type": "Button",
+                    "id": "6c7a6f09-80f9-403d-bf6b-a5d14229fff0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -337,6 +355,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "P2Dash2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b0effdec-f764-4ab8-aebb-66ac4513a12c",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P1Utility",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bd371c2-2395-4c22-8f22-24f2569ee666",
+                    "path": "<Keyboard>/u",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2Utility",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

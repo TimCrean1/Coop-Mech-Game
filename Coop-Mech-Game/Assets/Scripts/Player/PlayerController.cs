@@ -38,6 +38,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public Camera overlayCamera;
     [SerializeField] public GameObject uiCanvas;
     [SerializeField] private TeamWeaponManager teamWeaponManager;
+    [SerializeField] private UtilityManagerScript utilityManager;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -267,6 +268,16 @@ public class PlayerController : NetworkBehaviour
     public void P2DashInputServerRpc(float P2DashInput)
     {
         playerCoroutineManager.SetP2Dash(P2DashInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P1UtilityInputServerRpc(float P1UtilityInput)
+    {
+        utilityManager.P1Utility();
+    }
+    [Rpc(SendTo.Server)]
+    public void P2UtilityInputServerRpc(float P2UtilityInput)
+    {
+        utilityManager.P2Utility();
     }
 
     #endregion

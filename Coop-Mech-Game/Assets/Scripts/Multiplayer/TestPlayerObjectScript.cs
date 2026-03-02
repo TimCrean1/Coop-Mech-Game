@@ -148,6 +148,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Dash.started += P1DashAction;
             playerInputActions.Player.P1Dash.performed += P1DashAction;
             playerInputActions.Player.P1Dash.canceled += P1DashAction;
+
+            playerInputActions.Player.P1Utility.started += P1UtilityAction;
+            playerInputActions.Player.P1Utility.performed += P1UtilityAction;
+            playerInputActions.Player.P1Utility.canceled += P1UtilityAction;
         }
         else if (playerNumber == "Two") 
         {
@@ -173,6 +177,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Dash.started += P2DashAction;
             playerInputActions.Player.P2Dash.performed += P2DashAction;
             playerInputActions.Player.P2Dash.canceled += P2DashAction;
+
+            playerInputActions.Player.P2Utility.started += P2UtilityAction;
+            playerInputActions.Player.P2Utility.performed += P2UtilityAction;
+            playerInputActions.Player.P2Utility.canceled += P2UtilityAction;
         }
     }
 
@@ -200,6 +208,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Dash.started -= P1DashAction;
             playerInputActions.Player.P1Dash.performed -= P1DashAction;
             playerInputActions.Player.P1Dash.canceled -= P1DashAction;
+
+            playerInputActions.Player.P1Utility.started -= P1UtilityAction;
+            playerInputActions.Player.P1Utility.performed -= P1UtilityAction;
+            playerInputActions.Player.P1Utility.canceled -= P1UtilityAction;
         }
         else if (playerNumber == "Two")
         {
@@ -222,6 +234,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Dash.started -= P2DashAction;
             playerInputActions.Player.P2Dash.performed -= P2DashAction;
             playerInputActions.Player.P2Dash.canceled -= P2DashAction;
+
+            playerInputActions.Player.P2Utility.started -= P2UtilityAction;
+            playerInputActions.Player.P2Utility.performed -= P2UtilityAction;
+            playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
         }
     }
 
@@ -330,6 +346,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         float isDashing = context.ReadValue<float>();
         playerController.P2DashInputServerRpc(isDashing);
+    }
+
+    private void P1UtilityAction(InputAction.CallbackContext context)
+    {
+        float isUsingUtility = context.ReadValue<float>();
+        playerController.P1UtilityInputServerRpc(isUsingUtility);
+    }
+
+    private void P2UtilityAction(InputAction.CallbackContext context)
+    {
+        float isUsingUtility = context.ReadValue<float>();
+        playerController.P2UtilityInputServerRpc(isUsingUtility);
     }
     #endregion
 }
