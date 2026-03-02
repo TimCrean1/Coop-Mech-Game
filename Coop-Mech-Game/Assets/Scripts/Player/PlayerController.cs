@@ -37,6 +37,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public Camera baseCamera;
     [SerializeField] public Camera overlayCamera;
     [SerializeField] public GameObject uiCanvas;
+    [SerializeField] private TeamWeaponManager teamWeaponManager;
+    [SerializeField] private UtilityManagerScript utilityManager;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -106,6 +108,18 @@ public class PlayerController : NetworkBehaviour
             }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
+
+            teamWeaponManager.SetMouseDistance(Vector2.Distance(mouse1Pos.Value, mouse2Pos.Value));
+
+            if (playerCoroutineManager.TryGetSyncedJump(out float syncedJumpInput))
+            {
+                baseMovement.Jump(syncedJumpInput);
+            }
+
+            if (playerCoroutineManager.TryGetSyncedDash(out Vector2 syncedDashOutput))
+            {
+                baseMovement.Dash(syncedDashOutput);
+            }
             
             // if (leftIndicator != null && rightIndicator != null)
             // {
@@ -234,6 +248,36 @@ public class PlayerController : NetworkBehaviour
     public void ProcessMouse2InputServerRpc(Vector2 mousePos)
     {
         mouse2Pos.Value = mousePos;
+    }
+    [Rpc(SendTo.Server)]
+    public void P1JumpInputServerRpc(float P1JumpInput)
+    {
+        playerCoroutineManager.SetP1Jump(P1JumpInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P2JumpInputServerRpc(float P2JumpInput)
+    {
+        playerCoroutineManager.SetP2Jump(P2JumpInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P1DashInputServerRpc(float P1DashInput)
+    {
+        playerCoroutineManager.SetP1Dash(P1DashInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P2DashInputServerRpc(float P2DashInput)
+    {
+        playerCoroutineManager.SetP2Dash(P2DashInput);
+    }
+    [Rpc(SendTo.Server)]
+    public void P1UtilityInputServerRpc(float P1UtilityInput)
+    {
+        utilityManager.P1Utility();
+    }
+    [Rpc(SendTo.Server)]
+    public void P2UtilityInputServerRpc(float P2UtilityInput)
+    {
+        utilityManager.P2Utility();
     }
 
     #endregion

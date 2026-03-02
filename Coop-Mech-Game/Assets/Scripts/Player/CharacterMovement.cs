@@ -6,36 +6,48 @@ using Unity.Netcode;
 public class CharacterMovement : BaseMovement
 {
     #region Variables
-
-    [Header("Character - Ground Movement")]
+    [Header("Walking")]
     [SerializeField] private bool canMove = true;
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
     [SerializeField] private bool weirdRotate = false;
-    // [SerializeField] private float maxVerticalSpeed = 25f;
+    [SerializeField] private bool limitingMotion = true;
+    [SerializeField][Range(0.01f, 1)] private float limitVelocityStrength = 0.1f;
 
-    [Header("Character - Air Movement")]
-    [SerializeField] private int maxJumps = 2;
+    [Header("Jumping")]
+    [SerializeField] private float maxVerticalSpeed = 25f;
+    [SerializeField] private int maxJumps = 1;
     private int currentJumps = 0;
     [SerializeField] private float jumpCoolDown = 0.25f;
     [SerializeField] private float airControlMultiplier = 0.4f;
-    private bool readyToJump = true;
+    private bool canJump = true;
 
-    [Header("Player - Rotation")]
+    [Header("Dashing")]
+    [SerializeField] private bool canDash = true;
+    [SerializeField] private float dashSpeed = 100;
+    [SerializeField][Range(0.1f, 10)] private float dashCooldown = 2;
+    [SerializeField][Range(0.1f, 10)] private float dashRecharge = 2;
+    [SerializeField][Range(0.1f, 10)] private float dashLength = 0.2f;
+    [SerializeField][Range(1,5)] private int maxDashes = 2;
+    private int currentDashes = 0;
+    private bool currentlyRechargingDash = false;
+    private bool currentlyDashing = false;
+
+    [Header("Rotation")]
     [SerializeField][Range(0,10)] private float horizontalRotationRate = 2;
     [SerializeField][Range(0,10)] private float verticalRotationRate = 2;
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
 
-    [Header("Player - Ground Check")]
+    [Header("Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
     [SerializeField] private LayerMask environmentLayerMask;
     private bool wasGroundedLastFrame = false;
     [SerializeField] private bool isGrounded = false;
 
-    [Header("Player - Shooting")]
+    [Header("Shooting")]
     [SerializeField] private TeamWeaponManager weaponMgr;
 
     [Header("Camera")]
@@ -45,6 +57,9 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private CinemachineImpulseSource movementImpulseSource;
     [SerializeField][Range(0.01f, 3)] private float impulseRate;
     private float impulseTimer;
+
+    [Header("Misc")]
+    private bool isBeingKnockedBack = false;
 
     #endregion
 
@@ -71,7 +86,15 @@ public class CharacterMovement : BaseMovement
         if (!canMove) { return; }
         MoveCharacter();
         CharacterLook();
-        LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
+
+        if (limitingMotion && !currentlyDashing && !isBeingKnockedBack)
+            LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
+
+        if (!currentlyRechargingDash && currentDashes > 0)
+        {
+            currentlyRechargingDash = true;
+            StartCoroutine(DashRechargeCoroutine());
+        }
     }
 
     private void Update()
@@ -159,26 +182,31 @@ public class CharacterMovement : BaseMovement
             rigidbody.AddForce(dampingForce, ForceMode.Acceleration);
         }
     }
+
+    #region Limit Velocity
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
+        // If the player is actively providing movement input (magnitude >= 1)
         if (movementDirection.magnitude >= 1)
         {
+            // If the horizontal velocity exceeds the allowed maximum speed
             if (horizontalVel.magnitude > currentMaxSpeed)
             {
-                Vector3 counteract = -horizontalVel.normalized;
-                float excess = horizontalVel.magnitude - currentMaxSpeed;
-                rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
+            // Calculate a force in the opposite direction to reduce speed to the maximum allowed
+            Vector3 counteract = -horizontalVel.normalized;
+            float excess = horizontalVel.magnitude - currentMaxSpeed;
+            rigidbody.AddForce(counteract * excess * limitVelocityStrength, ForceMode.VelocityChange);
             }
 
-            //Jumping logic
+            // Jumping logic
 
-            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
-            // {
-            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
-            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
-            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
-            // }
+            if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            {
+                Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+                float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+                rigidbody.AddForce(counteract * excessY * limitVelocityStrength, ForceMode.VelocityChange);
+            }
         }
         else
         {
@@ -186,19 +214,20 @@ public class CharacterMovement : BaseMovement
             {
                 Vector3 counteract = -horizontalVel.normalized;
                 float excess = horizontalVel.magnitude - currentMaxSpeed * 0.5f;
-                rigidbody.AddForce(counteract * excess, ForceMode.VelocityChange);
+                rigidbody.AddForce(counteract * excess * limitVelocityStrength, ForceMode.VelocityChange);
             }
 
-            //Jumping logic
+            // Jumping logic
 
-            // if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
-            // {
-            //     Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
-            //     float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
-            //     rigidbody.AddForce(counteract * excessY, ForceMode.VelocityChange);
-            // }
+            if (Mathf.Abs(rigidbody.linearVelocity.y) > maxVerticalSpeed)
+            {
+                Vector3 counteract = Vector3.up * -Mathf.Sign(rigidbody.linearVelocity.y);
+                float excessY = Mathf.Abs(rigidbody.linearVelocity.y) - maxVerticalSpeed;
+                rigidbody.AddForce(counteract * excessY * limitVelocityStrength, ForceMode.VelocityChange);
+            }
         }
     }
+    #endregion
     #endregion
 
     #region Rotation
@@ -259,32 +288,110 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Jumping
-    public override void Jump() 
+    public override void Jump(float jumpInput) 
     {
-        // if (readyToJump && (isGrounded || currentJumps < maxJumps))
-        // {
-        //     currentJumps++;
-        //     float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-        //     rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
-        //     readyToJump = false;
-        //     StartCoroutine(JumpCooldownCoroutine());
-        // }
+        if (canJump && (isGrounded || currentJumps < maxJumps))
+        {
+            currentJumps++;
+            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+            adjustedJumpForce *= jumpInput;
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+            canJump = false;
+            StartCoroutine(JumpCooldownCoroutine());
+        }
         return;
     }
 
-    // private IEnumerator JumpCooldownCoroutine()
-    // {
-    //     yield return new WaitForSeconds(jumpCoolDown);
-    //     readyToJump = true;
-    // }
+    private IEnumerator JumpCooldownCoroutine()
+    {
+        yield return new WaitForSeconds(jumpCoolDown);
+        canJump = true;
+    }
 
     public override void CancelJump()
     {
-        // if (rigidbody.linearVelocity.y > 0f)
-        // {
-        //     rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
-        // }
+        if (rigidbody.linearVelocity.y > 0f)
+        {
+            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
+        }
         return;
+    }
+
+    /// <summary>
+    /// Applies a downward force to the character to quickly return them to the ground. 
+    /// Used by utilities that require the player to be grounded.
+    /// </summary>
+    public void ReturnToGround()
+    {
+        if (!isGrounded)
+        {
+            rigidbody.AddForce(Vector3.down * 10f, ForceMode.VelocityChange);
+        }
+    }
+
+    #endregion
+
+    #region Dashing
+    public override void Dash(Vector2 dashInput)
+    {
+        if (dashInput.magnitude > 0)
+        {
+            Debug.Log("Dashing!");
+            if (canDash && currentDashes < maxDashes)
+            {
+                currentDashes++;
+                Vector3 dashDirection = new Vector3(dashInput.x, 0, dashInput.y).normalized;
+                Vector3 adjustedDashForce = dashDirection * dashSpeed - rigidbody.linearVelocity;
+                rigidbody.AddForce(adjustedDashForce, ForceMode.VelocityChange);
+                canDash = false;
+                StartCoroutine(DashCooldownCoroutine());
+                StartCoroutine(DashLengthCoroutine());
+            }
+        }
+        return;
+    }
+
+    private IEnumerator DashCooldownCoroutine()
+    {
+        Debug.Log("Dash Cooling Down!");
+        yield return new WaitForSeconds(dashCooldown);
+        canDash = true;
+    }
+
+    private IEnumerator DashLengthCoroutine()
+    {
+        currentlyDashing = true;
+        yield return new WaitForSeconds(dashLength);
+        currentlyDashing = false;
+    }
+
+    private IEnumerator DashRechargeCoroutine()
+    {
+        Debug.Log("Dashing Rechargin!");
+        yield return new WaitForSeconds(dashRecharge);
+        currentDashes -= 1;
+        currentlyRechargingDash = false;
+    }
+    #endregion
+
+    #region Knockback
+    public void ApplyKnockback(Vector3 forceVec, float knockbackForce, float duration = 1)
+    {
+        forceVec.Normalize();
+        rigidbody.AddForce(forceVec * knockbackForce, ForceMode.Impulse);
+        StartCoroutine(KnockbackCoroutine(duration));
+    }
+
+    private IEnumerator KnockbackCoroutine(float duration)
+    {
+        isBeingKnockedBack = true;
+        yield return new WaitForSeconds(duration);
+        isBeingKnockedBack = false;
+    }
+
+    public bool GetIsBeingKnockedBack()
+    {
+        return isBeingKnockedBack;
     }
 
     #endregion

@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3874569957
+  GlobalObjectIdHash: 189139221
   InScenePlacedSourceGlobalObjectIdHash: 189139221
   DeferredDespawnTick: 0
   Ownership: 1
@@ -250,6 +250,7 @@ MonoBehaviour:
   decelerationRate: 30
   maxWalkSpeed: 12
   weirdRotate: 0
+  maxVerticalSpeed: 25
   maxJumps: 2
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
@@ -291,6 +292,7 @@ MonoBehaviour:
   baseCamera: {fileID: 9078349854507471225}
   overlayCamera: {fileID: 3140883616751425228}
   uiCanvas: {fileID: 1410443551020584361}
+  teamWeaponManager: {fileID: 4675740159691710397}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -314,6 +316,7 @@ MonoBehaviour:
   shootSyncWindow: 0.5
   unsyncedMoveMultiplier: 0.25
   syncedMoveMultiplier: 1
+  jumpSyncWindow: 0.5
   comboManager: {fileID: 6390946799449206911}
   syncedMoveScore: 0.1
   syncedShootScore: 0.15
@@ -451,6 +454,9 @@ MonoBehaviour:
   damage: 12
   damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
+  currentDamage: 0
+  currentFireRate: 0
+  currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
 --- !u!114 &2724236685853379273
@@ -477,6 +483,9 @@ MonoBehaviour:
   damage: 12
   damageMultiplier: 5
   maxRotationAxes: {x: 0, y: 0, z: 0}
+  currentDamage: 0
+  currentFireRate: 0
+  currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
 --- !u!114 &4675740159691710397

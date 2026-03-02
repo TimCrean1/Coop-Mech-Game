@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 
 public class TeamWeaponManager : MonoBehaviour
@@ -24,6 +25,7 @@ public class TeamWeaponManager : MonoBehaviour
     private RaycastHit hit;
     private Ray screenRay;
     private Vector3 rotDir;
+    private float mouseDistance;
 
     public void SetScreenRay(Ray ray)
     {
@@ -40,6 +42,10 @@ public class TeamWeaponManager : MonoBehaviour
             case 2:
                 _p2EquippedWeapon = weaponIdx; break;
         }
+    }
+    public void SetMouseDistance(float distance)
+    {
+        mouseDistance = distance;
     }
 
     public void UpgradeWeapon(int player, int weaponIdx)
@@ -88,24 +94,24 @@ public class TeamWeaponManager : MonoBehaviour
         if (input == 0.25f) //P1 fire
         {
             //Debug.Log("Trying to fire P1 weapon: p1WeaponIdx: " + _p1EquippedWeapon);
-            P1WeaponsList[_p1EquippedWeapon].Fire();
+            P1WeaponsList[_p1EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 0.75f) //P2 fire
         {
             //Debug.Log("Trying to fire P2 weapon: p2WeaponIdx: " + _p2EquippedWeapon);
 
-            P2WeaponsList[_p2EquippedWeapon].Fire();
+            P2WeaponsList[_p2EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 1f) //Both P1 & P2 fire
         {
             //Debug.Log("Trying to fire both weapons: p1WeaponIdx: " + _p1EquippedWeapon + " p2WeaponIdx: " + _p2EquippedWeapon);
 
-            P1WeaponsList[_p1EquippedWeapon].Fire();
+            P1WeaponsList[_p1EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
 
-            P2WeaponsList[_p2EquippedWeapon].Fire();
+            P2WeaponsList[_p2EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
         }
 

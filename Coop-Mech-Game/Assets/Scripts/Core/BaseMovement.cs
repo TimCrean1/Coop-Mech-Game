@@ -62,13 +62,18 @@ public abstract class BaseMovement : NetworkBehaviour
     {
         /* Do nothing */
     }
-    public virtual void Jump()
+    public virtual void Jump(float jumpInput)
     {
 
     }
     public virtual void CancelJump()
     {
 
+    }
+
+    public virtual void Dash(Vector2 dashInput)
+    {
+        
     }
 
     public virtual void UpdateMovementDelta(Vector3 delta)

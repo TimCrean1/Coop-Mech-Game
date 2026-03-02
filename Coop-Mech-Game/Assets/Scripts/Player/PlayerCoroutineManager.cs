@@ -11,12 +11,17 @@ public class PlayerCoroutineManager : NetworkBehaviour
     [SerializeField][Range(0.001f, 1)] private float shootSyncWindow = 0.2f;
     [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
     [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
+    [SerializeField][Range(0.001f, 2)] private float jumpSyncWindow = 0.5f;
 
     [Header("Time Counters")]
     private float p1MoveTime;
     private float p2MoveTime;
     private float p1ShootTime;
     private float p2ShootTime;
+    private float p1JumpTime;
+    private float p2JumpTime;
+    private float p1DashTime;
+    private float p2DashTime;
 
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
@@ -25,6 +30,10 @@ public class PlayerCoroutineManager : NetworkBehaviour
     //private float p2ShootInput;
     private NetworkVariable<float> p1ShootInput = new NetworkVariable<float>();
     private NetworkVariable<float> p2ShootInput = new NetworkVariable<float>();
+    private float p1JumpInput;
+    private float p2JumpInput;
+    private float p1DashInput;
+    private float p2DashInput;
 
     [Header("Combo Variables")]
     [SerializeField] private SingleComboScript comboManager;
@@ -56,11 +65,31 @@ public class PlayerCoroutineManager : NetworkBehaviour
         p2ShootInput.Value = ShootInput;
         p2ShootTime = Time.time;
     }
+    public void SetP1Jump(float JumpInput)
+    {
+        p1JumpInput = JumpInput;
+        p1JumpTime = Time.time;
+    }
+    public void SetP2Jump(float JumpInput)
+    {
+        p2JumpInput = JumpInput;
+        p2JumpTime = Time.time;
+    }
+    public void SetP1Dash(float DashInput)
+    {
+        p1DashInput = DashInput;
+        p1DashTime = Time.time;
+    }
+    public void SetP2Dash(float DashInput)
+    {
+        p2DashInput = DashInput;
+        p2DashTime = Time.time;
+    }
 
     #endregion
 
     #region Input Retrieval
-
+    #region Movement
     public bool TryGetSyncedMove(out Vector2 syncedInput)
     {
         syncedInput = Vector2.zero;
@@ -119,7 +148,8 @@ public class PlayerCoroutineManager : NetworkBehaviour
 
         return false;
     }
-
+    #endregion
+    #region Shooting
     public bool TryGetSyncedShoot(out float syncedInput)
     {
         syncedInput = 0;
@@ -170,5 +200,100 @@ public class PlayerCoroutineManager : NetworkBehaviour
         }
         return false;
     }
+    #endregion
+    #region Jumping
+    public bool TryGetSyncedJump(out float syncedJumpInput)
+    {
+        syncedJumpInput = 0;
+
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1JumpTime - p2JumpTime) <= jumpSyncWindow && Mathf.Approximately(p1JumpInput, p2JumpInput))
+        {
+            // Inputs are synced
+            syncedJumpInput = (p1JumpInput + p2JumpInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+
+            return true;
+        }
+        else if (p1JumpInput > 0 && p2JumpInput <= 0)
+        {
+            syncedJumpInput = 0.5f;
+
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+        else if (p1JumpInput <= 0 && p2JumpInput > 0)
+        {
+            syncedJumpInput = 0.5f;
+
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+        else if (Mathf.Abs(p1JumpTime - p2JumpTime) >= jumpSyncWindow && p1JumpInput == 1 && p2JumpInput == 1)
+        {
+            // Inputs are synced
+            syncedJumpInput = (p1JumpInput + p2JumpInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1JumpTime = -1;
+            p2JumpTime = -1;
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
+    #region Dashing
+    public bool TryGetSyncedDash(out Vector2 syncedDashOutput)
+    {
+        syncedDashOutput = Vector2.zero;
+
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1DashTime - p2DashTime) <= jumpSyncWindow && Mathf.Approximately(p1DashInput, p2DashInput))
+        {
+            // Inputs are synced
+            syncedDashOutput = ((p1MoveInput * p1DashInput) + (p2MoveInput * p2DashInput)) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1DashTime = -1;
+            p2DashTime = -1;
+
+            return true;
+        }
+        else if (p1DashInput > 0 && p2DashInput <= 0)
+        {
+            syncedDashOutput = p1MoveInput;
+
+            p1DashTime = -1;
+            p2DashTime = -1;
+            return true;
+        }
+        else if (p1DashInput <= 0 && p2DashInput > 0)
+        {
+            syncedDashOutput = p2MoveInput;
+
+            p1DashTime = -1;
+            p2DashTime = -1;
+            return true;
+        }
+        else if (Mathf.Abs(p1DashTime - p2DashTime) >= jumpSyncWindow && p1DashInput == 1 && p2DashInput == 1)
+        {
+            // Inputs are synced
+            syncedDashOutput = (p1MoveInput + p2MoveInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1DashTime = -1;
+            p2DashTime = -1;
+            return true;
+        }
+
+        return false;
+    }
+    #endregion
     #endregion
 }
