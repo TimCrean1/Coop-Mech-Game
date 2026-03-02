@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public enum ESoloPlayerState
-{
-    Moving,
-    Paused
-}
-
 public class SoloPlayerController : MonoBehaviour
 {
     #region Variables
@@ -17,35 +11,31 @@ public class SoloPlayerController : MonoBehaviour
     public EPlayerState currentState = EPlayerState.Moving;
 
     [Header("Player Input")]
-    private PlayerInputActions playerInputActions; 
+    private PlayerInputActions playerInputActions;
+
     [SerializeField] private Vector2 P1MovementInput;
     [SerializeField] private Vector2 P2MovementInput;
     [SerializeField] private float P1ShootInput;
     [SerializeField] private float P2ShootInput;
+    [SerializeField] private float P1DashInput;
+    [SerializeField] private float P2DashInput;
 
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
     [SerializeField] private PlayerCoroutineManager playerCoroutineManager;
     [SerializeField] private GameObject mainCamera;
-    // [SerializeField] private MovementIndicator leftIndicator;
-    // [SerializeField] private MovementIndicator rightIndicator;
 
     [Header("Mouse Positions")]
-    [SerializeField] public Vector2 mouse1Pos; //Screen space pos
+    [SerializeField] public Vector2 mouse1Pos;
     [SerializeField] public Vector2 mouse2Pos;
+
     #endregion
 
     #region Unity Functions
+
     private void Awake()
     {
-        
         playerInputActions = new PlayerInputActions();
-    }
-
-    private void Start()
-    {
-        // GameManager.Instance.AddController(this);
-        //mainCamera.GetComponent<Camera>().enabled = true;
     }
 
     private void OnEnable()
@@ -58,40 +48,39 @@ public class SoloPlayerController : MonoBehaviour
     {
         UnsubscribeInputActions();
         playerInputActions.Disable();
-        // if (player1 != null){player1.SwitchActionMap(currentState);}
-        // if (player2 != null){player2.SwitchActionMap(currentState);}
     }
 
     private void FixedUpdate()
     {
         ProcessMouseInput();
-        if (currentState == EPlayerState.Moving)
-        {    
-            if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
-            {
-                baseMovement.SetMovementInput(syncedMoveInput);
-            }
-            else
-            {
-                baseMovement.SetMovementInput(Vector2.zero);
-            }
-            if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
-            {
-                baseMovement.Shoot(syncedShootInput);
-            }
 
-            baseMovement.SetLookInput(mouse1Pos, mouse2Pos);
+        if (currentState != EPlayerState.Moving)
+            return;
 
-            // if (leftIndicator != null && rightIndicator != null)
-            // {
-            //     leftIndicator.SetMoveInput(P1MovementInput);
-            //     rightIndicator.SetMoveInput(P2MovementInput);
-            // }
-            // else
-            // {
-            //     Debug.LogError("Left and right movement indicator references are not set in the Player Controller!");
-            // }
+        // Movement
+        if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))
+        {
+            baseMovement.SetMovementInput(syncedMoveInput);
         }
+        else
+        {
+            baseMovement.SetMovementInput(Vector2.zero);
+        }
+
+        // Shooting
+        if (playerCoroutineManager.TryGetSyncedShoot(out float syncedShootInput))
+        {
+            baseMovement.Shoot(syncedShootInput);
+        }
+
+        // Dash
+        if (playerCoroutineManager.TryGetSyncedDash(out Vector2 syncedDashOutput))
+        {
+            baseMovement.Dash(syncedDashOutput);
+        }
+
+        // Look
+        baseMovement.SetLookInput(mouse1Pos, mouse2Pos);
     }
 
     #endregion
@@ -112,6 +101,15 @@ public class SoloPlayerController : MonoBehaviour
         playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
 
         playerInputActions.Player.P2Shoot.started += P2ShootAction;
+
+        // Dash
+        playerInputActions.Player.P1Dash.started += P1DashAction;
+        playerInputActions.Player.P1Dash.performed += P1DashAction;
+        playerInputActions.Player.P1Dash.canceled += P1DashAction;
+
+        playerInputActions.Player.P2Dash2.started += P2DashAction;
+        playerInputActions.Player.P2Dash2.performed += P2DashAction;
+        playerInputActions.Player.P2Dash2.canceled += P2DashAction;
     }
 
     private void UnsubscribeInputActions()
@@ -128,30 +126,15 @@ public class SoloPlayerController : MonoBehaviour
         playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
 
         playerInputActions.Player.P2Shoot.started -= P2ShootAction;
-    }
 
-    private void SwitchActionMap(EPlayerState state)
-    {
-        playerInputActions.Player.Disable();
-        playerInputActions.UI.Disable();
+        // Dash
+        playerInputActions.Player.P1Dash.started -= P1DashAction;
+        playerInputActions.Player.P1Dash.performed -= P1DashAction;
+        playerInputActions.Player.P1Dash.canceled -= P1DashAction;
 
-        switch (state)
-        {
-            case EPlayerState.Moving:
-                playerInputActions.Player.Enable();
-                break;
-
-            case EPlayerState.Paused:
-                playerInputActions.UI.Enable();
-                // Cursor.visible = true;
-                // Cursor.lockState = CursorLockMode.None;
-                break;
-
-            default:
-                // Cursor.visible = true;
-                // Cursor.lockState = CursorLockMode.None;
-                break;
-        }
+        playerInputActions.Player.P2Dash2.started -= P2DashAction;
+        playerInputActions.Player.P2Dash2.performed -= P2DashAction;
+        playerInputActions.Player.P2Dash2.canceled -= P2DashAction;
     }
 
     #endregion
@@ -160,7 +143,6 @@ public class SoloPlayerController : MonoBehaviour
 
     public void P1MoveAction(InputAction.CallbackContext context)
     {
-        // Debug.Log("yes");
         P1MovementInput = context.ReadValue<Vector2>();
         playerCoroutineManager.SetP1Input(P1MovementInput);
     }
@@ -183,28 +165,28 @@ public class SoloPlayerController : MonoBehaviour
         playerCoroutineManager.SetP2Shoot(P2ShootInput);
     }
 
+    public void P1DashAction(InputAction.CallbackContext context)
+    {
+        P1DashInput = context.ReadValue<float>();
+        playerCoroutineManager.SetP1Dash(P1DashInput);
+    }
+
+    public void P2DashAction(InputAction.CallbackContext context)
+    {
+        P2DashInput = context.ReadValue<float>();
+        playerCoroutineManager.SetP2Dash(P2DashInput);
+    }
+
     public void ProcessMouseInput()
     {
         Vector2 mousePos = Input.mousePosition;
-        mousePos.x = mousePos.x/Screen.width;
-        mousePos.y = mousePos.y/Screen.height;
+
+        mousePos.x /= Screen.width;
+        mousePos.y /= Screen.height;
+
         mouse1Pos = mousePos;
         mouse2Pos = mousePos;
     }
-
-    #endregion
-
-    #region Callbacks
-
-    // public void OnGamePausedReceived()
-    // {
-        
-    // }
-
-    // public void OnGameResumedReceived()
-    // {
-        
-    // }
 
     #endregion
 }

@@ -114,6 +114,11 @@ public class PlayerController : NetworkBehaviour
             {
                 baseMovement.Jump(syncedJumpInput);
             }
+
+            if (playerCoroutineManager.TryGetSyncedDash(out Vector2 syncedDashOutput))
+            {
+                baseMovement.Dash(syncedDashOutput);
+            }
             
             // if (leftIndicator != null && rightIndicator != null)
             // {

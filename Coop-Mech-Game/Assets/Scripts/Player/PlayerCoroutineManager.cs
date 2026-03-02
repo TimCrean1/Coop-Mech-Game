@@ -249,15 +249,15 @@ public class PlayerCoroutineManager : NetworkBehaviour
     }
     #endregion
     #region Dashing
-    public bool TryGetSyncedDash(out float syncedDashInput)
+    public bool TryGetSyncedDash(out Vector2 syncedDashOutput)
     {
-        syncedDashInput = 0;
+        syncedDashOutput = Vector2.zero;
 
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1DashTime - p2DashTime) <= jumpSyncWindow && Mathf.Approximately(p1DashInput, p2DashInput))
         {
             // Inputs are synced
-            syncedDashInput = (p1DashInput + p2DashInput) * 0.5f;
+            syncedDashOutput = ((p1MoveInput * p1DashInput) + (p2MoveInput * p2DashInput)) * 0.5f;
 
             // Reset times so it only triggers once
             p1DashTime = -1;
@@ -267,7 +267,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         }
         else if (p1DashInput > 0 && p2DashInput <= 0)
         {
-            syncedDashInput = 0.5f;
+            syncedDashOutput = p1MoveInput;
 
             p1DashTime = -1;
             p2DashTime = -1;
@@ -275,7 +275,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         }
         else if (p1DashInput <= 0 && p2DashInput > 0)
         {
-            syncedDashInput = 0.5f;
+            syncedDashOutput = p2MoveInput;
 
             p1DashTime = -1;
             p2DashTime = -1;
@@ -284,7 +284,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
         else if (Mathf.Abs(p1DashTime - p2DashTime) >= jumpSyncWindow && p1DashInput == 1 && p2DashInput == 1)
         {
             // Inputs are synced
-            syncedDashInput = (p1DashInput + p2DashInput) * 0.5f;
+            syncedDashOutput = (p1MoveInput + p2MoveInput) * 0.5f;
 
             // Reset times so it only triggers once
             p1DashTime = -1;
