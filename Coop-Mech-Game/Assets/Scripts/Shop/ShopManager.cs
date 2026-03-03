@@ -15,12 +15,13 @@ public class ShopManager : MonoBehaviour
 {
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
+    [SerializeField] private Transform itemDisplayParent; // Parent transform for item UI elements
     [SerializeField] private GameObject itemPrefab; // Prefab for shop items
     [SerializeField] private Button nextRoundButton; // Button to proceed to the next buy round
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons; // Current buy round type
     [SerializeField] private List<ShopItemSO> allItems; // All available shop items
-    [SerializeField] private PlayerController assignedMech; // Player's mech assigned to the shop
+    // [SerializeField] private PlayerController assignedMech; // Player's mech assigned to the shop
 
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
@@ -30,6 +31,10 @@ public class ShopManager : MonoBehaviour
     {
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
+        displayedItems = new List<ShopItemSO>();
+        displayedItemObjects = new List<GameObject>();
+
+        OpenShop();
     }
 
     // Opens the shop UI and initializes items for the current round
@@ -37,10 +42,6 @@ public class ShopManager : MonoBehaviour
     {
         shopCanvas.gameObject.SetActive(true);
         InitializeBuyRound(currentBuyRound);
-        foreach (ShopItemSO item in displayedItems)
-        {
-            InitializeShopItem(item);
-        }
     }
 
     // Closes the shop UI
@@ -52,7 +53,7 @@ public class ShopManager : MonoBehaviour
     // Instantiates and initializes a shop item UI element
     public void InitializeShopItem(ShopItemSO item)
     {
-        GameObject newItem = Instantiate(itemPrefab, shopCanvas.transform);
+        GameObject newItem = Instantiate(itemPrefab, itemDisplayParent);
         newItem.GetComponent<ShopItemDisplayScript>().InitializeItem(item, this);
         displayedItemObjects.Add(newItem);
     }
@@ -63,7 +64,7 @@ public class ShopManager : MonoBehaviour
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
         displayedItemObjects.Clear();
-        
+
         if (round == CurrentBuyRound.Weapons)
         {
             foreach (ShopItemSO item in allItems)
@@ -83,6 +84,10 @@ public class ShopManager : MonoBehaviour
                     displayedItems.Add(item);
                 }
             }
+        }
+        foreach (ShopItemSO item in displayedItems)
+        {
+            InitializeShopItem(item);
         }
     }
 
