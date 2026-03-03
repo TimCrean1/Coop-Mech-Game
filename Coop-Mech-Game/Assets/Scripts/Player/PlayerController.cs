@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Unity.Netcode;
+using System;
 
 public enum EPlayerState
 {
@@ -51,6 +52,11 @@ public class PlayerController : NetworkBehaviour
     [Header("Players")]
     [SerializeField]public TestPlayerObjectScript player1;
     [SerializeField]public TestPlayerObjectScript player2;
+
+    [Header("Inventory")]
+    public Tuple<ShopItemSO,ShopItemSO> playerWeapons;
+    public Tuple<ShopItemSO,ShopItemSO> playerUtilities;
+    
     #endregion
 
     #region Unity Functions
