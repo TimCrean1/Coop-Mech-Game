@@ -71,6 +71,11 @@ public abstract class BaseMovement : NetworkBehaviour
 
     }
 
+    public virtual void Dash(Vector2 dashInput)
+    {
+        
+    }
+
     public virtual void UpdateMovementDelta(Vector3 delta)
     {
         movementDelta = delta;

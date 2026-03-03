@@ -10,7 +10,7 @@ public class WeaponShotgun : BaseWeapon
     
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
-        // currentKnockback = ?
+        currentKnockback = baseKnockbackForce * mouseDistance;
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)

@@ -5,6 +5,13 @@ using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI.Table;
 
+public enum WeaponType
+{
+    Autocannon,
+    Shotgun,
+    Sniper
+}
+
 public abstract class BaseWeapon : NetworkBehaviour
 {
     /// <summary>
@@ -21,11 +28,13 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private SingleComboScript comboManager;
 
     [Header("Weapon Stats")]
+    [SerializeField] private WeaponType weaponType;
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 30;
     [SerializeField] protected float baseFireRate = 1f;
     [SerializeField] protected float cooldownTime = 1.0f;
     [SerializeField] protected float damage = 50;
+    [SerializeField] protected float baseKnockbackForce = 1;
     [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
 
@@ -142,6 +151,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         //Debug.Log("FireServerRpc");
         // Do raycast on server
         Physics.Raycast(muzzle.position, muzzle.forward, out hit);
+        GameObject other = hit.collider.gameObject;
         //Debug.Log("Hit layer: " + hit.collider.gameObject.layer + " hit tag: " + hit.collider.gameObject.tag);
 
         // if (comboManager.GetIsComboFull())
@@ -154,13 +164,23 @@ public abstract class BaseWeapon : NetworkBehaviour
         //     currentDamage = damage;
         // }
 
-        if (hit.collider.gameObject.CompareTag("TeamOne"))
+        if (other.CompareTag("TeamOne"))
         {
             GameManager.Instance.DamageTeamRpc(1, currentDamage);
         }
-        else if (hit.collider.gameObject.CompareTag("TeamTwo"))
+        else if (other.CompareTag("TeamTwo"))
         {
             GameManager.Instance.DamageTeamRpc(2, currentDamage);
+        }
+
+        if (weaponType == WeaponType.Shotgun)
+        {
+            CharacterMovement characterMovement = other.GetComponent<CharacterMovement>();
+            if (!characterMovement.GetIsBeingKnockedBack())
+            {
+                Vector3 c = characterMovement.transform.position;
+                characterMovement.ApplyKnockback(c.GetDirectionFromVectors(transform.position), currentKnockback);
+            }
         }
 
         canFire = false;
