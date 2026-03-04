@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -83,16 +84,25 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         // reset everything to do with weapons in this function
         if(!IsServer) { return; }
-        SetAmmoRpc(ammo);
+        ResetAmmoRpc();
+        StartCoroutine(CooldownRotuine());
+        
     }
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
     {
         if (!IsServer) { return; }
-        ammoCount.Value = 0;
+        //ammoCount.Value = 0;
         ammoCount.Value = ammoCount.Value + ammo;
     }
-    
+    [Rpc(SendTo.Server)]
+    private void ResetAmmoRpc()
+    {
+        if (!IsServer) { return; }
+        //ammoCount.Value = 0;
+        ammoCount.Value = 0;
+    }
+
     public virtual void Fire(float mouseDistance) //public because this will be called by weapon manager
     {
         

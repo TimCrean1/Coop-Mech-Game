@@ -41,12 +41,13 @@ public class GameManager : NetworkBehaviour
 
     //private int currentRound = 0;
     NetworkVariable<int> currRound = new NetworkVariable<int>();
+    private bool roundOver = false;
     private int maxRounds = 3;
     private int lobbyMaxPlayers;
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
     public UnityEvent OnRoundEnd;
-    public event Action<bool> RoundEnd = null;
+    //public event Action<bool> RoundEnd = null;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -165,13 +166,14 @@ public class GameManager : NetworkBehaviour
 
     void OnRoundEndTriggered()
     {
+        roundOver = true;
         if (currRound.Value >= maxRounds)
         {
             StartCoroutine(EndTimeDelay());
             OnGameEndRpc();
             if (IsServer)
             {
-                NetworkManager.Singleton.Shutdown();
+                NetworkManager.Singleton.Shutdown(true);
             }
             return;
         }
@@ -205,6 +207,7 @@ public class GameManager : NetworkBehaviour
         SetTimeScaleClientRpc(1f);
         ResetPlayerPositionRpc();
         InitTeamHealthRpc();
+        roundOver = false;
     }
     public void PauseGame()
     {
@@ -316,12 +319,12 @@ public class GameManager : NetworkBehaviour
 
         }
 
-        if (_teamOneHealth.Value <= 0f)
+        if (_teamOneHealth.Value <= 0f && roundOver == false)
         {
             OnRoundEnd?.Invoke();
             //MatchOverRpc();
         }
-        else if(_teamTwoHealth.Value <= 0f)
+        else if(_teamTwoHealth.Value <= 0f && roundOver == false)
         {
 
             OnRoundEnd?.Invoke();
