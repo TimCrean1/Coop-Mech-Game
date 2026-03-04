@@ -1,6 +1,8 @@
-using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting.FullSerializer;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class WeaponCannon : BaseWeapon
@@ -10,10 +12,15 @@ public class WeaponCannon : BaseWeapon
     {
         base.Fire(mouseDistance);
     }
-    
+
+    protected override void FireRpc()
+    {
+        base.FireRpc();
+    }
+
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
-        currentFireRate = baseFireRate * mouseDistance;
+        currentFireRate = baseFireRate * mouseDistance/10f;
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)
@@ -40,6 +47,13 @@ public class WeaponCannon : BaseWeapon
     {
         base.SetMuzzleRotation(rayHit, rotDir);
     }
+
+    protected override void ChangeAmmoText()
+    {
+        base.ChangeAmmoText();
+    }
+
+
 
 #if UNITY_EDITOR
     protected override void OnDrawGizmos()

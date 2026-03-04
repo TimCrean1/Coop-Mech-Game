@@ -281,21 +281,21 @@ public static class VectorExtensions
     /// <param name="deviationHalfAngle"></param>
     /// <param name="isDebug"></param>
     /// <returns> a list of raycast hit locations, in the case of sequential raycasts, only the last hit locations are returned</returns>
-    public static List<Vector3> MultipleRaycastInCone(Vector3 start, Vector3 forward, Vector3 up, int numCasts, float maxRange, float deviationHalfAngle = 30f, bool isDebug = false)
+    public static List<RaycastHit> MultipleRaycastInCone(Vector3 start, Vector3 forward, Vector3 up, int numCasts, float maxRange, float deviationHalfAngle = 30f, bool isDebug = false)
     {
         RaycastHit hit;
-        List<Vector3> hitPoints = new List<Vector3>();
+        List<RaycastHit> hits = new List<RaycastHit>();
 
         for (int i = 0; i < numCasts; ++i)
         {
             Vector3 dir = GetRandomVectorInCone(forward, up, deviationHalfAngle);
             Physics.Raycast(start, dir, out hit, maxRange);
-            hitPoints.Add(hit.point);
+            hits.Add(hit);
 
             if (isDebug) Debug.DrawLine(start, hit.point, Color.chartreuse);
         }
 
-        return hitPoints;
+        return hits;
     }
 
     #endregion

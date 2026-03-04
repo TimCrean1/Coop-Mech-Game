@@ -135,17 +135,17 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
     [ClientRpc]
-    private void FireEventMethodClientRpc()
+    protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(); }
     }
-    private void ChangeAmmoText()
+    protected virtual void ChangeAmmoText()
     {
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
     }
 
     [Rpc(SendTo.Server)]
-    private void FireRpc()
+    protected virtual void FireRpc()
     {
        
         //Debug.Log("FireServerRpc");
