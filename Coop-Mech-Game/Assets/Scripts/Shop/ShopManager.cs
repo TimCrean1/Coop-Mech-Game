@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
@@ -12,13 +13,13 @@ public enum CurrentBuyRound
 }
 
 // Manages the shop UI and item logic
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
     [SerializeField] private Transform itemDisplayParent; // Parent transform for item UI elements
     [SerializeField] private GameObject itemPrefab; // Prefab for shop items
-    [SerializeField] private ShopNetworkManager shopNetworkManager;
+    [SerializeField] private Button nextRoundButton; // Button to proceed to the next buy round
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons; // Current buy round type
     [SerializeField] private List<ShopItemSO> allItems; // All available shop items
@@ -26,6 +27,8 @@ public class ShopManager : MonoBehaviour
 
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
+
+    public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
     // void Awake()
     // {
@@ -41,19 +44,78 @@ public class ShopManager : MonoBehaviour
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
+
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
+
+    public override void OnNetworkSpawn()
+    {
+        nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
+
+        if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ChangeReadyPlayersRpc(int addNum)
+    {
+        readyPlayerCount.Value = readyPlayerCount.Value + addNum;
+    }
+
+    // private void StartEnd()
+    // {
+    //     StartCoroutine(Wait4());
+    // }
+
+    // private System.Collections.IEnumerator Wait4()
+    // {
+    //     yield return new WaitForSeconds(2);
+    //     // If you are the host run the normal function
+        
+    //     OpenShop();
+        
+
+    //     // Then have the host run it for clients
+    //     OpenShopClientRpc();
+    // }
 
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
+        // }
+
         Debug.Log("Opening For Host");
+        // shopCanvas.gameObject.SetActive(true);
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
     }
 
+    [ClientRpc]
+    public void OpenShopClientRpc()
+    {
+        Debug.Log("Opening For Client");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        InitializeBuyRound(currentBuyRound); 
+    }
+
+        
+    
+
     // Closes the shop UI
     public void CloseShop()
     {
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
+    }
+    [ClientRpc]
+    public void CloseShopClientRpc()
+    {
+        // shopCanvas.gameObject.SetActive(false);
         shopCanvas.enabled = false;
     }
 
@@ -66,7 +128,7 @@ public class ShopManager : MonoBehaviour
     }
 
     // Filters and sets displayed items based on the current buy round
-    public void InitializeBuyRound(CurrentBuyRound round)
+    private void InitializeBuyRound(CurrentBuyRound round)
     {
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -104,17 +166,31 @@ public class ShopManager : MonoBehaviour
         Debug.Log("Clicked " + item.itemName);
     }
 
-    #region Getters and Setters
-
-    public void SetCurrentBuyRound(CurrentBuyRound newRound)
+    public void NextRoundButtonClicked()
     {
-        currentBuyRound = newRound;
-    }
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(1);
+        //     nextRoundButton.enabled = false;
+        // }
+        ChangeReadyPlayersRpc(1);
+        nextRoundButton.enabled = false;
 
-    public CurrentBuyRound GetCurrentBuyRound()
-    {
-        return currentBuyRound;
+        if (readyPlayerCount.Value >= 4)
+        {
+            if (currentBuyRound == CurrentBuyRound.Weapons)
+            {
+                currentBuyRound = CurrentBuyRound.Utilities;
+            }
+            else
+            {
+                currentBuyRound = CurrentBuyRound.Weapons;
+                CloseShop();
+                CloseShopClientRpc();
+                return;
+            }
+            InitializeBuyRound(currentBuyRound);
+            nextRoundButton.enabled = true;
+        }
     }
-
-    #endregion
 }

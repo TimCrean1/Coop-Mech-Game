@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6638419593742901245}
   - component: {fileID: 801373690129052686}
   - component: {fileID: 5456280292121330361}
-  - component: {fileID: 2205376143429379569}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -71,27 +70,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3ae0c36dd174c11a28f92bfe841d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopManager
+  ShowTopMostFoldoutHeaderGroup: 1
   shopCanvas: {fileID: 0}
   itemDisplayParent: {fileID: 0}
   itemPrefab: {fileID: 7949488877905775886, guid: a456e23e9459e4864a9abc6e62825d92,
     type: 3}
-  shopNetworkManager: {fileID: 2205376143429379569}
+  nextRoundButton: {fileID: 0}
   currentBuyRound: 0
   allItems: []
---- !u!114 &2205376143429379569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 899479349623671881}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3d4b42baa6cf43cea2a73eb411b0fe8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ShopNetworkManager
-  ShowTopMostFoldoutHeaderGroup: 1
-  shopManager: {fileID: 5456280292121330361}
-  nextRoundButton: {fileID: 0}
-  readyPlayersCount:
+  readyPlayerCount:
     m_InternalValue: 0
