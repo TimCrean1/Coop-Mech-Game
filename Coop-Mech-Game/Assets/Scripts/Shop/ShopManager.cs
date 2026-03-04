@@ -39,7 +39,7 @@ public class ShopManager : NetworkBehaviour
         displayedItemObjects = new List<GameObject>();
 
         // OpenShop();
-        GameManager.Instance.OnRoundEnd.AddListener(StartEnd);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
     }
 
     private void StartEnd()
