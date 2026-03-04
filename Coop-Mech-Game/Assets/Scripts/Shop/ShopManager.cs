@@ -42,24 +42,25 @@ public class ShopManager : NetworkBehaviour
 
         // OpenShop();
         GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
-    private void StartEnd()
-    {
-        StartCoroutine(Wait4());
-    }
+    // private void StartEnd()
+    // {
+    //     StartCoroutine(Wait4());
+    // }
 
-    private System.Collections.IEnumerator Wait4()
-    {
-        yield return new WaitForSeconds(2);
-        // If you are the host run the normal function
+    // private System.Collections.IEnumerator Wait4()
+    // {
+    //     yield return new WaitForSeconds(2);
+    //     // If you are the host run the normal function
         
-        OpenShop();
+    //     OpenShop();
         
 
-        // Then have the host run it for clients
-        OpenShopClientRpc();
-    }
+    //     // Then have the host run it for clients
+    //     OpenShopClientRpc();
+    // }
 
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
