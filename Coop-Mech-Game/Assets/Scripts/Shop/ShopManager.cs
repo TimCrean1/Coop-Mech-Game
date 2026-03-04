@@ -32,6 +32,8 @@ public class ShopManager : NetworkBehaviour
     void Start()
     {
         shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        shopCanvas.enabled = false;
 
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
