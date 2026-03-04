@@ -169,10 +169,13 @@ public class GameManager : NetworkBehaviour
         roundOver = true;
         if (currRound.Value >= maxRounds)
         {
+            // start a coroutine to end the game 
             StartCoroutine(EndTimeDelay());
+            // send out game end rpc
             OnGameEndRpc();
             if (IsServer)
             {
+                // host shuts down the server as players are being sent back to menu
                 NetworkManager.Singleton.Shutdown(true);
             }
             return;
@@ -182,6 +185,8 @@ public class GameManager : NetworkBehaviour
         {
             currRound.Value += 1;
         }
+
+        // run all round end functionality
         StartCoroutine(RoundEndCoroutine());
         
         
