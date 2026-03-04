@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,7 +12,7 @@ public enum CurrentBuyRound
 }
 
 // Manages the shop UI and item logic
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
@@ -33,12 +34,13 @@ public class ShopManager : MonoBehaviour
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
-
-        OpenShop();
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopRpc);
+        //OpenShopRpc();
     }
 
     // Opens the shop UI and initializes items for the current round
-    public void OpenShop()
+    [Rpc(SendTo.ClientsAndHost)]
+    public void OpenShopRpc()
     {
         shopCanvas.gameObject.SetActive(true);
         InitializeBuyRound(currentBuyRound);
