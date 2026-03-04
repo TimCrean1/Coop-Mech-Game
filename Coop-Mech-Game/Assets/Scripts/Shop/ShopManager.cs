@@ -56,7 +56,7 @@ public class ShopManager : NetworkBehaviour
         
 
         // Then have the host run it for clients
-        OpenShopRpc();
+        OpenShopClientRpc();
     }
 
     // Opens the shop UI and initializes items for the current round
@@ -68,8 +68,8 @@ public class ShopManager : NetworkBehaviour
         InitializeBuyRound(currentBuyRound);
     }
 
-    [Rpc(SendTo.NotServer)]
-    public void OpenShopRpc()
+    [ClientRpc]
+    public void OpenShopClientRpc()
     {
         Debug.Log("Opening For Client");
         // shopCanvas.gameObject.SetActive(true);
@@ -86,8 +86,8 @@ public class ShopManager : NetworkBehaviour
         // shopCanvas.gameObject.SetActive(false);
         shopCanvas.enabled = false;
     }
-    [Rpc(SendTo.NotServer)]
-    public void CloseShopRpc()
+    [ClientRpc]
+    public void CloseShopClientRpc()
     {
         // shopCanvas.gameObject.SetActive(false);
         shopCanvas.enabled = false;
@@ -150,7 +150,7 @@ public class ShopManager : NetworkBehaviour
         {
             // if (IsServer) {CloseShop();}
             CloseShop();
-            CloseShopRpc();
+            CloseShopClientRpc();
             return;
         }
         InitializeBuyRound(currentBuyRound);
