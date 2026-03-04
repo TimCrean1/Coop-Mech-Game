@@ -42,14 +42,14 @@ public class ShopManager : NetworkBehaviour
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
 
-        // OpenShop();
-        GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
-        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+    }
 
-        // if (IsOwner)
-        // {
-        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
-        // }
+    public override void OnNetworkSpawn()
+    {
+        if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
     [Rpc(SendTo.Server)]
