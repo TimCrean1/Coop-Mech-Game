@@ -7,6 +7,12 @@ public class ShopNetworkManager : NetworkBehaviour
     [SerializeField] private ShopManager shopManager;
     [SerializeField] private Button nextRoundButton;
     public NetworkVariable<int> readyPlayersCount = new NetworkVariable<int>();
+
+    public override void OnNetworkSpawn()
+    {
+        nextRoundButton.onClick.AddListener(OnNextButtonClicked);
+    }
+
     public void OnNextButtonClicked()
     {
         AddReadyPlayersRpc(1);
