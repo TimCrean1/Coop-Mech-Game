@@ -34,6 +34,18 @@ public class ShopManager : MonoBehaviour
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
 
+        // OpenShop();
+        GameManager.Instance.OnRoundEnd.AddListener(StartEnd);
+    }
+
+    private void StartEnd()
+    {
+        StartCoroutine(Wait4());
+    }
+
+    private System.Collections.IEnumerator Wait4()
+    {
+        yield return new WaitForSeconds(4);
         OpenShop();
     }
 
