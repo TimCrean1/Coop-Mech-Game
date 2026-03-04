@@ -46,16 +46,16 @@ public class ShopManager : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
 
-        if (IsOwner)
-        {
-            ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
-        }
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
+        // }
     }
 
     [Rpc(SendTo.Server)]
     public void ChangeReadyPlayersRpc(int addNum)
     {
-        readyPlayerCount.Value += addNum;
+        readyPlayerCount.Value = readyPlayerCount.Value + addNum;
     }
 
     // private void StartEnd()
@@ -78,10 +78,10 @@ public class ShopManager : NetworkBehaviour
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
-        if (IsOwner)
-        {
-            ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
-        }
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
+        // }
 
         Debug.Log("Opening For Host");
         // shopCanvas.gameObject.SetActive(true);
@@ -163,11 +163,14 @@ public class ShopManager : NetworkBehaviour
 
     public void NextRoundButtonClicked()
     {
-        if (IsOwner)
-        {
-            ChangeReadyPlayersRpc(1);
-            nextRoundButton.enabled = false;
-        }
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(1);
+        //     nextRoundButton.enabled = false;
+        // }
+        ChangeReadyPlayersRpc(1);
+        nextRoundButton.enabled = false;
+
         if (readyPlayerCount.Value >= 4)
         {
             if (currentBuyRound == CurrentBuyRound.Weapons)

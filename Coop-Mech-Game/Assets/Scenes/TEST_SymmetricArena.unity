@@ -557,6 +557,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
+      objectReference: {fileID: 2342489324060327303}
+    - target: {fileID: 5487741092138211946, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: NextRoundButtonClicked
       objectReference: {fileID: 0}
     - target: {fileID: 6285329319869947032, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
@@ -1211,6 +1216,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4588e6eb3aff24481b0d86d1bb1cf920, type: 3}
+--- !u!114 &2342489324060327303 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5456280292121330361, guid: 4588e6eb3aff24481b0d86d1bb1cf920,
+    type: 3}
+  m_PrefabInstance: {fileID: 2342489324060327302}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa3ae0c36dd174c11a28f92bfe841d3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopManager
 --- !u!23 &2597911820017667227
 MeshRenderer:
   m_ObjectHideFlags: 0
