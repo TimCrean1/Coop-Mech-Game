@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 
 // Enum representing the current buy round type in the shop
@@ -30,26 +31,69 @@ public class ShopManager : NetworkBehaviour
     // Initializes shop items on start
     void Start()
     {
+        shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        shopCanvas.enabled = false;
+
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
-        GameManager.Instance.OnRoundEnd.AddListener(OpenShopRpc);
-        //OpenShopRpc();
+
+        // OpenShop();
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
+    // private void StartEnd()
+    // {
+    //     StartCoroutine(Wait4());
+    // }
+
+    // private System.Collections.IEnumerator Wait4()
+    // {
+    //     yield return new WaitForSeconds(2);
+    //     // If you are the host run the normal function
+        
+    //     OpenShop();
+        
+
+    //     // Then have the host run it for clients
+    //     OpenShopClientRpc();
+    // }
+
     // Opens the shop UI and initializes items for the current round
-    [Rpc(SendTo.ClientsAndHost)]
-    public void OpenShopRpc()
+    public void OpenShop()
     {
-        shopCanvas.gameObject.SetActive(true);
+        Debug.Log("Opening For Host");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
     }
+
+    [ClientRpc]
+    public void OpenShopClientRpc()
+    {
+        Debug.Log("Opening For Client");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        InitializeBuyRound(currentBuyRound); 
+    }
+
+        
+    
 
     // Closes the shop UI
     public void CloseShop()
     {
-        shopCanvas.gameObject.SetActive(false);
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
+    }
+    [ClientRpc]
+    public void CloseShopClientRpc()
+    {
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
     }
 
     // Instantiates and initializes a shop item UI element
@@ -107,7 +151,10 @@ public class ShopManager : NetworkBehaviour
         }
         else
         {
+            // if (IsServer) {CloseShop();}
+            currentBuyRound = CurrentBuyRound.Weapons;
             CloseShop();
+            CloseShopClientRpc();
             return;
         }
         InitializeBuyRound(currentBuyRound);

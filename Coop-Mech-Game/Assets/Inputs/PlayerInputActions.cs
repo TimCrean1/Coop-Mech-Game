@@ -199,6 +199,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RoundEnd"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa1c92dc-d578-4426-940d-612378be6fcc"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -465,6 +474,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""P2Utility"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2d19efb1-630b-444f-ae82-743931bab854"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RoundEnd"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -513,6 +533,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P2Dash2 = m_Player.FindAction("P2Dash2", throwIfNotFound: true);
         m_Player_P1Utility = m_Player.FindAction("P1Utility", throwIfNotFound: true);
         m_Player_P2Utility = m_Player.FindAction("P2Utility", throwIfNotFound: true);
+        m_Player_RoundEnd = m_Player.FindAction("RoundEnd", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -609,6 +630,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P2Dash2;
     private readonly InputAction m_Player_P1Utility;
     private readonly InputAction m_Player_P2Utility;
+    private readonly InputAction m_Player_RoundEnd;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -668,6 +690,10 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/P2Utility".
         /// </summary>
         public InputAction @P2Utility => m_Wrapper.m_Player_P2Utility;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/RoundEnd".
+        /// </summary>
+        public InputAction @RoundEnd => m_Wrapper.m_Player_RoundEnd;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -730,6 +756,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Utility.started += instance.OnP2Utility;
             @P2Utility.performed += instance.OnP2Utility;
             @P2Utility.canceled += instance.OnP2Utility;
+            @RoundEnd.started += instance.OnRoundEnd;
+            @RoundEnd.performed += instance.OnRoundEnd;
+            @RoundEnd.canceled += instance.OnRoundEnd;
         }
 
         /// <summary>
@@ -777,6 +806,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Utility.started -= instance.OnP2Utility;
             @P2Utility.performed -= instance.OnP2Utility;
             @P2Utility.canceled -= instance.OnP2Utility;
+            @RoundEnd.started -= instance.OnRoundEnd;
+            @RoundEnd.performed -= instance.OnRoundEnd;
+            @RoundEnd.canceled -= instance.OnRoundEnd;
         }
 
         /// <summary>
@@ -997,6 +1029,13 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Utility(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "RoundEnd" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnRoundEnd(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
