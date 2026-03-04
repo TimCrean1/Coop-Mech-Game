@@ -30,7 +30,10 @@ public class ShopManager : NetworkBehaviour
 
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
-    // Initializes shop items on start
+    // void Awake()
+    // {
+    //     nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
+    // }
     void Start()
     {
         shopCanvas.gameObject.SetActive(true);
@@ -48,6 +51,8 @@ public class ShopManager : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
+
         if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
