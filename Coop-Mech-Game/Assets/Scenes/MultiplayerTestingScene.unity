@@ -3135,13 +3135,18 @@ MonoBehaviour:
   muzzle: {fileID: 1271045809}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
+  weaponType: 0
   owningPlayer: 0
   ammo: 10
   baseFireRate: 1
   cooldownTime: 1
   damage: 5
+  baseKnockbackForce: 1
   damageMultiplier: 2.5
   maxRotationAxes: {x: 0, y: 0, z: 0}
+  currentDamage: 0
+  currentFireRate: 0
+  currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
 --- !u!114 &737891650
@@ -4759,6 +4764,7 @@ MonoBehaviour:
   playerIndex: 
   playerTeam: 
   playerNumber: 
+  maxPlayers: 0
 --- !u!4 &1090053449
 Transform:
   m_ObjectHideFlags: 0
