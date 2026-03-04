@@ -57,10 +57,11 @@ public class ShopManager : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
-    [Rpc(SendTo.Server)]
-    public void ChangeReadyPlayersRpc(int addNum)
+    [ServerRpc(RequireOwnership = false)]
+    public void ChangeReadyPlayersServerRpc(int addNum)
     {
         readyPlayerCount.Value = readyPlayerCount.Value + addNum;
+        Debug.Log(readyPlayerCount.Value + "/4 players ready");
     }
 
     // private void StartEnd()
@@ -173,7 +174,7 @@ public class ShopManager : NetworkBehaviour
         //     ChangeReadyPlayersRpc(1);
         //     nextRoundButton.enabled = false;
         // }
-        ChangeReadyPlayersRpc(1);
+        ChangeReadyPlayersServerRpc(1);
         nextRoundButton.enabled = false;
 
         if (readyPlayerCount.Value >= 4)
