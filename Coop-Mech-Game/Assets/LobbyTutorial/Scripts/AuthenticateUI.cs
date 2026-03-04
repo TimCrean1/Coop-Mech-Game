@@ -16,16 +16,16 @@ public class AuthenticateUI : MonoBehaviour {
             LobbyManager.Instance.Authenticate(EditPlayerName.Instance.GetPlayerName());
             Hide();
         });
-        try
-        {
-            if (AuthenticationService.Instance.IsSignedIn)
-            {
-                Hide();
-            }
-        }catch(ServicesInitializationException e)
-        {
-            Debug.LogWarning("AuthenticationService not yet initialized, most likely just started game");
-        }
+        //try
+        //{
+        //    if (AuthenticationService.Instance.IsSignedIn)
+        //    {
+        //        Hide();
+        //    }
+        //}catch(ServicesInitializationException e)
+        //{
+        //    Debug.LogWarning("AuthenticationService not yet initialized, most likely just started game");
+        //}
     }
 
     private void Hide() {
