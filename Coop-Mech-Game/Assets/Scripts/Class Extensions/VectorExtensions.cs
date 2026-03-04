@@ -215,6 +215,18 @@ public static class VectorExtensions
         return new Vector4(CustomSign(vec.x), CustomSign(vec.y), CustomSign(vec.z), CustomSign(vec.w));
     }
 
+    /// <summary>
+    /// Flattens a vector onto a plane. <br/> 
+    /// The normal param should be the normal vector of the plane that vec is being flattened to.
+    /// </summary>
+    /// <param name="vec"></param>
+    /// <param name="normal"></param>
+    /// <returns> a normalised vector</returns>
+    public static Vector3 FlattenVector(this Vector3 vec, Vector3 normal)
+    {
+        return Vector3.ProjectOnPlane(vec, normal).normalized;
+    }
+
     #endregion
 
     #region Raycast Utilities
