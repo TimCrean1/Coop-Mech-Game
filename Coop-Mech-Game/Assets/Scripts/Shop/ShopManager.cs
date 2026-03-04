@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 
 // Enum representing the current buy round type in the shop
@@ -11,7 +13,7 @@ public enum CurrentBuyRound
 }
 
 // Manages the shop UI and item logic
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
@@ -29,6 +31,8 @@ public class ShopManager : MonoBehaviour
     // Initializes shop items on start
     void Start()
     {
+        // shopCanvas.gameObject.SetActive(false);
+
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
@@ -45,8 +49,14 @@ public class ShopManager : MonoBehaviour
 
     private System.Collections.IEnumerator Wait4()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(2);
+        // If you are the host run the normal function
+        if(IsServer){
         OpenShop();
+        }
+
+        // Then have the host run it for clients
+        OpenShopRpc();
     }
 
     // Opens the shop UI and initializes items for the current round
@@ -56,8 +66,23 @@ public class ShopManager : MonoBehaviour
         InitializeBuyRound(currentBuyRound);
     }
 
+    [Rpc(SendTo.NotServer)]
+    public void OpenShopRpc()
+    {
+        shopCanvas.gameObject.SetActive(true);
+        InitializeBuyRound(currentBuyRound); 
+    }
+
+        
+    
+
     // Closes the shop UI
     public void CloseShop()
+    {
+        shopCanvas.gameObject.SetActive(false);
+    }
+    [Rpc(SendTo.NotServer)]
+    public void CloseShopRpc()
     {
         shopCanvas.gameObject.SetActive(false);
     }
@@ -117,7 +142,8 @@ public class ShopManager : MonoBehaviour
         }
         else
         {
-            CloseShop();
+            if (IsServer) {CloseShop();}
+            CloseShopRpc();
             return;
         }
         InitializeBuyRound(currentBuyRound);
