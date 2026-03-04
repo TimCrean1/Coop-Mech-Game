@@ -48,12 +48,12 @@ public class ShopManager : NetworkBehaviour
 
         if (IsOwner)
         {
-            ChangeReadyPlayers(readyPlayerCount.Value * - 1);
+            ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
         }
     }
 
     [Rpc(SendTo.Server)]
-    public void ChangeReadyPlayers(int addNum)
+    public void ChangeReadyPlayersRpc(int addNum)
     {
         readyPlayerCount.Value += addNum;
     }
@@ -80,7 +80,7 @@ public class ShopManager : NetworkBehaviour
     {
         if (IsOwner)
         {
-            ChangeReadyPlayers(readyPlayerCount.Value * - 1);
+            ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
         }
 
         Debug.Log("Opening For Host");
@@ -165,7 +165,7 @@ public class ShopManager : NetworkBehaviour
     {
         if (IsOwner)
         {
-            ChangeReadyPlayers(1);
+            ChangeReadyPlayersRpc(1);
             nextRoundButton.enabled = false;
         }
         if (readyPlayerCount.Value >= 4)
