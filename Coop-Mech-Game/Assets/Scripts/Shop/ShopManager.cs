@@ -51,9 +51,9 @@ public class ShopManager : NetworkBehaviour
     {
         yield return new WaitForSeconds(2);
         // If you are the host run the normal function
-        if(IsServer){
+        
         OpenShop();
-        }
+        
 
         // Then have the host run it for clients
         OpenShopRpc();
@@ -62,14 +62,18 @@ public class ShopManager : NetworkBehaviour
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
-        shopCanvas.gameObject.SetActive(true);
+        Debug.Log("Opening For Host");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
     }
 
     [Rpc(SendTo.NotServer)]
     public void OpenShopRpc()
     {
-        shopCanvas.gameObject.SetActive(true);
+        Debug.Log("Opening For Client");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound); 
     }
 
@@ -79,12 +83,14 @@ public class ShopManager : NetworkBehaviour
     // Closes the shop UI
     public void CloseShop()
     {
-        shopCanvas.gameObject.SetActive(false);
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
     }
     [Rpc(SendTo.NotServer)]
     public void CloseShopRpc()
     {
-        shopCanvas.gameObject.SetActive(false);
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
     }
 
     // Instantiates and initializes a shop item UI element
@@ -142,7 +148,8 @@ public class ShopManager : NetworkBehaviour
         }
         else
         {
-            if (IsServer) {CloseShop();}
+            // if (IsServer) {CloseShop();}
+            CloseShop();
             CloseShopRpc();
             return;
         }
