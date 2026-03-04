@@ -28,6 +28,8 @@ public class ShopManager : NetworkBehaviour
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
 
+    public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
+
     // Initializes shop items on start
     void Start()
     {
@@ -43,6 +45,17 @@ public class ShopManager : NetworkBehaviour
         // OpenShop();
         GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+
+        if (IsOwner)
+        {
+            ChangeReadyPlayers(readyPlayerCount.Value * - 1);
+        }
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ChangeReadyPlayers(int addNum)
+    {
+        readyPlayerCount.Value += addNum;
     }
 
     // private void StartEnd()
@@ -65,6 +78,11 @@ public class ShopManager : NetworkBehaviour
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
+        if (IsOwner)
+        {
+            ChangeReadyPlayers(readyPlayerCount.Value * - 1);
+        }
+
         Debug.Log("Opening For Host");
         // shopCanvas.gameObject.SetActive(true);
         shopCanvas.enabled = true;
@@ -145,18 +163,26 @@ public class ShopManager : NetworkBehaviour
 
     public void NextRoundButtonClicked()
     {
-        if (currentBuyRound == CurrentBuyRound.Weapons)
+        if (IsOwner)
         {
-            currentBuyRound = CurrentBuyRound.Utilities;
+            ChangeReadyPlayers(1);
+            nextRoundButton.enabled = false;
         }
-        else
+        if (readyPlayerCount.Value >= 4)
         {
-            // if (IsServer) {CloseShop();}
-            currentBuyRound = CurrentBuyRound.Weapons;
-            CloseShop();
-            CloseShopClientRpc();
-            return;
+            if (currentBuyRound == CurrentBuyRound.Weapons)
+            {
+                currentBuyRound = CurrentBuyRound.Utilities;
+            }
+            else
+            {
+                currentBuyRound = CurrentBuyRound.Weapons;
+                CloseShop();
+                CloseShopClientRpc();
+                return;
+            }
+            InitializeBuyRound(currentBuyRound);
+            nextRoundButton.enabled = true;
         }
-        InitializeBuyRound(currentBuyRound);
     }
 }
