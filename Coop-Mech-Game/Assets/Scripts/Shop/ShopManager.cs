@@ -31,7 +31,7 @@ public class ShopManager : NetworkBehaviour
     // Initializes shop items on start
     void Start()
     {
-        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.gameObject.SetActive(true);
 
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
@@ -149,6 +149,7 @@ public class ShopManager : NetworkBehaviour
         else
         {
             // if (IsServer) {CloseShop();}
+            currentBuyRound = CurrentBuyRound.Weapons;
             CloseShop();
             CloseShopClientRpc();
             return;
