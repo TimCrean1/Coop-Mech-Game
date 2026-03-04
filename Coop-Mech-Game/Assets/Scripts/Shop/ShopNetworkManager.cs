@@ -11,6 +11,8 @@ public class ShopNetworkManager : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         nextRoundButton.onClick.AddListener(OnNextButtonClicked);
+
+        if (IsOwner) {GameManager.Instance.OnRoundEnd.AddListener(shopManager.OpenShop);}
     }
 
     public void OnNextButtonClicked()
