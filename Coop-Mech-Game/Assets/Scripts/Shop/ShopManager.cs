@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 // Enum representing the current buy round type in the shop
 public enum CurrentBuyRound
@@ -30,6 +31,7 @@ public class ShopManager : NetworkBehaviour
 
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
+    private UnityEvent OnChangeRound;
     // void Awake()
     // {
     //     nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
@@ -41,13 +43,13 @@ public class ShopManager : NetworkBehaviour
         shopCanvas.enabled = false;
         nextRoundButton.gameObject.SetActive(true);
         nextRoundButton.enabled = true;
-        nextRoundButton.enabled = false;
+        //nextRoundButton.enabled = false;
 
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
-
+        OnChangeRound.AddListener(ChangeRound);
         // GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
         // GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
@@ -65,6 +67,10 @@ public class ShopManager : NetworkBehaviour
     {
         readyPlayerCount.Value = readyPlayerCount.Value + addNum;
         Debug.Log(readyPlayerCount.Value + "/4 players ready");
+        if(readyPlayerCount.Value >= 4)
+        {
+            OnChangeRound?.Invoke();
+        }
     }
 
     // Opens the shop UI and initializes items for the current round
@@ -158,11 +164,6 @@ public class ShopManager : NetworkBehaviour
         ChangeReadyPlayersServerRpc(1);
         nextRoundButton.enabled = false;
 
-        if (readyPlayerCount.Value >= 4)
-        {
-            Debug.Log("4 people are ready");
-            ChangeRound();
-        }
     }
 
     private void ChangeRound()
