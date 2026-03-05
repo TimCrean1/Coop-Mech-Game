@@ -131,6 +131,7 @@ public class ShopManager : NetworkBehaviour
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
         displayedItemObjects.Clear();
+        nextRoundButton.enabled = true;
 
         if (round == CurrentBuyRound.Weapons)
         {
