@@ -160,6 +160,7 @@ public class ShopManager : NetworkBehaviour
 
         if (readyPlayerCount.Value >= 4)
         {
+            Debug.Log("4 people are ready");
             ChangeRound();
         }
     }
