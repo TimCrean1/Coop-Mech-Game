@@ -31,7 +31,7 @@ public class ShopManager : NetworkBehaviour
 
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
-    private UnityEvent OnChangeRound;
+    public UnityEvent OnChangeRound;
     // void Awake()
     // {
     //     nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
@@ -62,7 +62,7 @@ public class ShopManager : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
-    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
+    [Rpc(SendTo.Everyone)]
     public void ChangeReadyPlayersServerRpc(int addNum)
     {
         readyPlayerCount.Value = readyPlayerCount.Value + addNum;
@@ -161,7 +161,10 @@ public class ShopManager : NetworkBehaviour
 
     public void NextRoundButtonClicked()
     {
-        ChangeReadyPlayersServerRpc(1);
+        if (IsServer)
+        {
+            ChangeReadyPlayersServerRpc(1);
+        }
         nextRoundButton.enabled = false;
 
     }
