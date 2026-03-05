@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.VFX;
 using static UnityEngine.Rendering.DebugUI.Table;
@@ -65,6 +66,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         //ammoCount.Value = ammo;
         muzzleComp = muzzle.GetComponent<WeaponMuzzle>();
+        GameManager.Instance.OnRoundEnd.AddListener(ResetGunAttributes);
         currentDamage = damage;
         currentFireRate = baseFireRate;
     }
@@ -77,13 +79,30 @@ public abstract class BaseWeapon : NetworkBehaviour
         SetAmmoRpc(ammo);
         ChangeAmmoText();
     }
+
+    private void ResetGunAttributes()
+    {
+        // reset everything to do with weapons in this function
+        if(!IsServer) { return; }
+        ResetAmmoRpc();
+        StartCoroutine(CooldownRotuine());
+        
+    }
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
     {
         if (!IsServer) { return; }
+        //ammoCount.Value = 0;
         ammoCount.Value = ammoCount.Value + ammo;
     }
-    
+    [Rpc(SendTo.Server)]
+    private void ResetAmmoRpc()
+    {
+        if (!IsServer) { return; }
+        //ammoCount.Value = 0;
+        ammoCount.Value = 0;
+    }
+
     public virtual void Fire(float mouseDistance) //public because this will be called by weapon manager
     {
         
@@ -99,37 +118,6 @@ public abstract class BaseWeapon : NetworkBehaviour
         ChangeAmmoText();
 
 
-        //Debug.Log("BaseWeapon Fire() " + canFire);
-
-        //if (canFire)
-        //{
-        //    //Debug.Log("Fire input received");
-
-        //    Physics.Raycast(muzzle.position, muzzle.forward, out hit);
-        //    if (muzzleComp) { muzzleComp.SendFireEvent(); }
-
-        //    if (hit.collider.gameObject.CompareTag("TeamOne"))
-        //    {
-        //        // get team-specific info and send to wherever we're handling the health of the teams
-        //        GameManager.Instance.DamageTeamRpc(1, damage);
-        //    }
-        //    else if (hit.collider.gameObject.CompareTag("TeamTwo"))
-        //    {
-        //        GameManager.Instance.DamageTeamRpc(2, damage);
-        //    }
-        //    else if (hit.collider.gameObject.CompareTag("Target"))
-        //    {
-        //        Debug.Log("Hit!");
-        //        hit.collider.gameObject.SetActive(false);
-        //    }
-
-        //    canFire = false;
-        //    BuildCooldown();
-        //}
-        ////else if (ammoCount <= 0)
-        ////{
-        ////    ActivateCooldown();
-        ////}
     }
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
@@ -220,13 +208,20 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
         //Debug.Log("cooldown start");
+        yield return new WaitForSeconds(cooldownTime * 0.25f);
 
-        yield return new WaitForSeconds(cooldownTime);
+        ammoCountScreen.ChangeText("-..", false);
 
-        float reloadTimer = Time.deltaTime;
-        if (reloadTimer <= cooldownTime/3){ammoCountScreen.ChangeText("-..",false);}
-        else if (reloadTimer <= cooldownTime * (2/3)){ammoCountScreen.ChangeText("--.",false);}
-        else {ammoCountScreen.ChangeText("---",false);}
+        yield return new WaitForSeconds(cooldownTime*0.25f);
+
+        ammoCountScreen.ChangeText("--.", false);
+
+        yield return new WaitForSeconds(cooldownTime * 0.25f);
+
+        ammoCountScreen.ChangeText("---",false);
+
+        yield return new WaitForSeconds(cooldownTime * 0.25f);
+
         if (IsServer)
         {
             SetAmmoRpc(ammo);

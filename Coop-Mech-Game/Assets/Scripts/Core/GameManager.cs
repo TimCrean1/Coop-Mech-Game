@@ -1,9 +1,11 @@
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : NetworkBehaviour
 {
@@ -24,6 +26,11 @@ public class GameManager : NetworkBehaviour
     //private NetworkList<PlayerController> _playerControllers;
     //private NetworkVariable<int> playerMechIndex = new NetworkVariable<int>();
     // team -> clientId
+    [SerializeField] public Transform teamOneSpawnPoint;
+    [SerializeField] public Transform teamTwoSpawnPoint;
+
+    [SerializeField] private GameObject MechOne;
+    [SerializeField] private GameObject MechTwo;
 
     [SerializeField] private MechScreen t1HealthScreen;
     [SerializeField] private MechScreen t2HealthScreen;
@@ -32,10 +39,15 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
 
+    //private int currentRound = 0;
+    NetworkVariable<int> currRound = new NetworkVariable<int>();
+    private bool roundOver = false;
+    private int maxRounds = 3;
     private int lobbyMaxPlayers;
     public int playerScore = 0;
     public UnityEvent OnStartupSequence; //Invoke when all clients are connected to scene
-
+    public UnityEvent OnRoundEnd;
+    //public event Action<bool> RoundEnd = null;
 
     // Public property to allow access to the Singleton instance
     // A property is a member that provides a flexible mechanism to read, write, or compute the value of a data field.
@@ -78,7 +90,7 @@ public class GameManager : NetworkBehaviour
         }
 
         #endregion
-
+        OnRoundEnd.AddListener(OnRoundEndTriggered);
 
     }
 
@@ -94,6 +106,14 @@ public class GameManager : NetworkBehaviour
 
     }
 
+
+    #endregion
+
+    #region Custom Functions
+
+
+
+    #region Game Start Functions
     private void WaitForConnectedPlayers(ulong clientId)
     {
         lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
@@ -106,25 +126,93 @@ public class GameManager : NetworkBehaviour
             {
                 StartCoroutine(StartTimeDelay());
             }
-            
+
         }
 
     }
-    #endregion
-
-    #region Custom Functions
-
     // This function is called by some external script in order to set the game state to paused.
+    [Rpc(SendTo.Server)]
+    private void ResetPlayerPositionRpc()
+    {
+        MechOne.transform.position = teamOneSpawnPoint.transform.position;
+        MechTwo.transform.position = teamTwoSpawnPoint.transform.position;
+    }
     private IEnumerator StartTimeDelay()
     {
         yield return new WaitForSeconds(3f);
         StartGameRpc();
         OnStartupSequence?.Invoke();
     }
-    [Rpc(SendTo.NotOwner)]
+    [Rpc(SendTo.NotServer)]
+    private void OnGameEndRpc()
+    {
+        StartCoroutine(EndTimeDelay());
+    }
+    private IEnumerator EndTimeDelay()
+    {
+        //MatchOverRpc();
+
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(0);
+        
+    }
+    [Rpc(SendTo.NotServer)]
     private void StartGameRpc()
     {
         OnStartupSequence?.Invoke();
+    }
+
+    #endregion
+
+    void OnRoundEndTriggered()
+    {
+        roundOver = true;
+        if (currRound.Value >= maxRounds)
+        {
+            // start a coroutine to end the game 
+            StartCoroutine(EndTimeDelay());
+            // send out game end rpc
+            OnGameEndRpc();
+            if (IsServer)
+            {
+                // host shuts down the server as players are being sent back to menu
+                NetworkManager.Singleton.Shutdown(true);
+            }
+            return;
+        }
+        // when the round ends, do things here
+        if (IsServer)
+        {
+            currRound.Value += 1;
+        }
+
+        // run all round end functionality
+        StartCoroutine(RoundEndCoroutine());
+        
+        
+    }
+    
+    private void SetTimeScale(float newTimeScale)
+    {
+        Time.timeScale = newTimeScale;
+    }
+
+    [Rpc(SendTo.NotServer)]
+    private void SetTimeScaleClientRpc(float newTimeScale)
+    {
+        Time.timeScale = newTimeScale;
+    }
+    
+    private IEnumerator RoundEndCoroutine()
+    {
+        SetTimeScale(0.5f);
+        SetTimeScaleClientRpc(0.5f);
+        yield return new WaitForSeconds(3f);
+        SetTimeScale(1f);
+        SetTimeScaleClientRpc(1f);
+        ResetPlayerPositionRpc();
+        InitTeamHealthRpc();
+        roundOver = false;
     }
     public void PauseGame()
     {
@@ -236,19 +324,23 @@ public class GameManager : NetworkBehaviour
 
         }
 
-        if (_teamOneHealth.Value <= 0f)
+        if (_teamOneHealth.Value <= 0f && roundOver == false)
         {
-            MatchOverRpc();
+            OnRoundEnd?.Invoke();
+            //MatchOverRpc();
         }
-        else if(_teamTwoHealth.Value <= 0f)
+        else if(_teamTwoHealth.Value <= 0f && roundOver == false)
         {
-            MatchOverRpc();
+
+            OnRoundEnd?.Invoke();
+            //MatchOverRpc();
         }
     }
 
     [Rpc(SendTo.Server)]
     public void HealTeamRpc(int teamNumToHeal, float healAmt)
     {
+        
         if (teamNumToHeal == 1)
         {
             float h = teamOneMaxHealth - _teamOneHealth.Value;

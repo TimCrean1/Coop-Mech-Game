@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 // Enum representing the current buy round type in the shop
 public enum CurrentBuyRound
@@ -11,7 +14,7 @@ public enum CurrentBuyRound
 }
 
 // Manages the shop UI and item logic
-public class ShopManager : MonoBehaviour
+public class ShopManager : NetworkBehaviour
 {
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
@@ -26,28 +29,93 @@ public class ShopManager : MonoBehaviour
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
 
-    // Initializes shop items on start
+    public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
+
+    public UnityEvent OnChangeRound;
+    // void Awake()
+    // {
+    //     nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
+    // }
     void Start()
     {
+        shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        shopCanvas.enabled = false;
+        nextRoundButton.gameObject.SetActive(true);
+        nextRoundButton.enabled = true;
+        //nextRoundButton.enabled = false;
+
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
+        OnChangeRound.AddListener(ChangeRound);
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        // GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+    }
 
-        OpenShop();
+    public override void OnNetworkSpawn()
+    {
+        nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
+
+        if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+    }
+
+    [Rpc(SendTo.Server)]
+    public void ChangeReadyPlayersServerRpc(int addNum)
+    {
+        readyPlayerCount.Value = readyPlayerCount.Value + addNum;
+        Debug.Log(readyPlayerCount.Value + "/4 players ready");
+        if(readyPlayerCount.Value >= 4)
+        {
+            ClientRoundEventRpc();
+            readyPlayerCount.Value = 0;
+        }
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ClientRoundEventRpc()
+    {
+        OnChangeRound?.Invoke();
     }
 
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
-        shopCanvas.gameObject.SetActive(true);
+        // if (IsOwner)
+        // {
+        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
+        // }
+
+        Debug.Log("Opening For Host");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
     }
+
+    [ClientRpc]
+    public void OpenShopClientRpc()
+    {
+        Debug.Log("Opening For Client");
+        // shopCanvas.gameObject.SetActive(true);
+        shopCanvas.enabled = true;
+        InitializeBuyRound(currentBuyRound); 
+    }
+
+        
+    
 
     // Closes the shop UI
     public void CloseShop()
     {
-        shopCanvas.gameObject.SetActive(false);
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
+    }
+    [ClientRpc]
+    public void CloseShopClientRpc()
+    {
+        // shopCanvas.gameObject.SetActive(false);
+        shopCanvas.enabled = false;
     }
 
     // Instantiates and initializes a shop item UI element
@@ -64,6 +132,7 @@ public class ShopManager : MonoBehaviour
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
         displayedItemObjects.Clear();
+        nextRoundButton.enabled = true;
 
         if (round == CurrentBuyRound.Weapons)
         {
@@ -99,15 +168,27 @@ public class ShopManager : MonoBehaviour
 
     public void NextRoundButtonClicked()
     {
+        
+        ChangeReadyPlayersServerRpc(1);
+        
+        nextRoundButton.enabled = false;
+
+    }
+
+    private void ChangeRound()
+    {
         if (currentBuyRound == CurrentBuyRound.Weapons)
-        {
-            currentBuyRound = CurrentBuyRound.Utilities;
-        }
-        else
-        {
-            CloseShop();
-            return;
-        }
-        InitializeBuyRound(currentBuyRound);
+            {
+                currentBuyRound = CurrentBuyRound.Utilities;
+            }
+            else
+            {
+                currentBuyRound = CurrentBuyRound.Weapons;
+                CloseShop();
+                CloseShopClientRpc();
+                return;
+            }
+            InitializeBuyRound(currentBuyRound);
+            nextRoundButton.enabled = true;
     }
 }

@@ -152,6 +152,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Utility.started += P1UtilityAction;
             playerInputActions.Player.P1Utility.performed += P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled += P1UtilityAction;
+
+            playerInputActions.Player.RoundEnd.started += EndRound;
+            playerInputActions.Player.RoundEnd.performed += EndRound;
+            playerInputActions.Player.RoundEnd.canceled += EndRound;
         }
         else if (playerNumber == "Two") 
         {
@@ -212,6 +216,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Utility.started -= P1UtilityAction;
             playerInputActions.Player.P1Utility.performed -= P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled -= P1UtilityAction;
+
+            playerInputActions.Player.P2Utility.started -= P2UtilityAction;
+            playerInputActions.Player.P2Utility.performed -= P2UtilityAction;
+            playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
         }
         else if (playerNumber == "Two")
         {
@@ -358,6 +366,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         float isUsingUtility = context.ReadValue<float>();
         playerController.P2UtilityInputServerRpc(isUsingUtility);
+    }
+
+    private void EndRound(InputAction.CallbackContext context)
+    {
+        GameManager.Instance.OnRoundEnd.Invoke();
     }
     #endregion
 }
