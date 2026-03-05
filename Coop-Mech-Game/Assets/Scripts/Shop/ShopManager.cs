@@ -62,15 +62,20 @@ public class ShopManager : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
-    [Rpc(SendTo.Everyone)]
+    [Rpc(SendTo.Server)]
     public void ChangeReadyPlayersServerRpc(int addNum)
     {
         readyPlayerCount.Value = readyPlayerCount.Value + addNum;
         Debug.Log(readyPlayerCount.Value + "/4 players ready");
         if(readyPlayerCount.Value >= 4)
         {
-            OnChangeRound?.Invoke();
+            ClientRoundEventRpc();
         }
+    }
+    [Rpc(SendTo.ClientsAndHost)]
+    private void ClientRoundEventRpc()
+    {
+        OnChangeRound?.Invoke();
     }
 
     // Opens the shop UI and initializes items for the current round
@@ -161,10 +166,9 @@ public class ShopManager : NetworkBehaviour
 
     public void NextRoundButtonClicked()
     {
-        if (IsServer)
-        {
-            ChangeReadyPlayersServerRpc(1);
-        }
+        
+        ChangeReadyPlayersServerRpc(1);
+        
         nextRoundButton.enabled = false;
 
     }
