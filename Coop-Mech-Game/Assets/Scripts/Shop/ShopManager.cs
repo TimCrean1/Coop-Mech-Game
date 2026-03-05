@@ -39,6 +39,9 @@ public class ShopManager : NetworkBehaviour
         shopCanvas.gameObject.SetActive(true);
         shopCanvas.enabled = true;
         shopCanvas.enabled = false;
+        nextRoundButton.gameObject.SetActive(true);
+        nextRoundButton.enabled = true;
+        nextRoundButton.enabled = false;
 
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
@@ -57,29 +60,12 @@ public class ShopManager : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
-    [ServerRpc(RequireOwnership = false)]
+    [Rpc(SendTo.Server, InvokePermission = RpcInvokePermission.Everyone)]
     public void ChangeReadyPlayersServerRpc(int addNum)
     {
         readyPlayerCount.Value = readyPlayerCount.Value + addNum;
         Debug.Log(readyPlayerCount.Value + "/4 players ready");
     }
-
-    // private void StartEnd()
-    // {
-    //     StartCoroutine(Wait4());
-    // }
-
-    // private System.Collections.IEnumerator Wait4()
-    // {
-    //     yield return new WaitForSeconds(2);
-    //     // If you are the host run the normal function
-        
-    //     OpenShop();
-        
-
-    //     // Then have the host run it for clients
-    //     OpenShopClientRpc();
-    // }
 
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
@@ -169,17 +155,18 @@ public class ShopManager : NetworkBehaviour
 
     public void NextRoundButtonClicked()
     {
-        // if (IsOwner)
-        // {
-        //     ChangeReadyPlayersRpc(1);
-        //     nextRoundButton.enabled = false;
-        // }
         ChangeReadyPlayersServerRpc(1);
         nextRoundButton.enabled = false;
 
         if (readyPlayerCount.Value >= 4)
         {
-            if (currentBuyRound == CurrentBuyRound.Weapons)
+            ChangeRound();
+        }
+    }
+
+    private void ChangeRound()
+    {
+        if (currentBuyRound == CurrentBuyRound.Weapons)
             {
                 currentBuyRound = CurrentBuyRound.Utilities;
             }
@@ -192,6 +179,5 @@ public class ShopManager : NetworkBehaviour
             }
             InitializeBuyRound(currentBuyRound);
             nextRoundButton.enabled = true;
-        }
     }
 }
