@@ -70,6 +70,7 @@ public class ShopManager : NetworkBehaviour
         if(readyPlayerCount.Value >= 4)
         {
             ClientRoundEventRpc();
+            readyPlayerCount.Value = 0;
         }
     }
     [Rpc(SendTo.ClientsAndHost)]
