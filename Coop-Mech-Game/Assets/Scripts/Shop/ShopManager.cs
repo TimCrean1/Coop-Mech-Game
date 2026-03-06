@@ -103,7 +103,13 @@ public class ShopManager : NetworkBehaviour
     }
 
         
-    
+    private void TestGrabPlayerFunction()
+    {
+        var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
+        var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
+        Debug.Log(playerObject.GetPlayerNum());
+        Debug.Log(playerObject.GetPlayerTeam());
+    }
 
     // Closes the shop UI
     public void CloseShop()
@@ -170,7 +176,7 @@ public class ShopManager : NetworkBehaviour
     {
         
         ChangeReadyPlayersServerRpc(1);
-        
+        TestGrabPlayerFunction();
         nextRoundButton.enabled = false;
 
     }

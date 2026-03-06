@@ -87,7 +87,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
-    
+    #region Getters
+
+    public string GetPlayerTeam()
+    {
+        return playerTeam;
+    }
+
+    public string GetPlayerNum()
+    {
+        return playerNumber;
+    }
+    #endregion
     void OnDisable()
     {
         UnsubscribeInputActions();
