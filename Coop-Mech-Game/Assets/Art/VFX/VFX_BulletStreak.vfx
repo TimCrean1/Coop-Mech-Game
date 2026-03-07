@@ -17,9 +17,9 @@ MonoBehaviour:
     position:
       serializedVersion: 2
       x: 1345
-      y: -1111
+      y: -1110
       width: 1321
-      height: 3528
+      height: 3527
     contents:
     - model: {fileID: 8926484042661616970}
       id: 0
@@ -168,9 +168,7 @@ MonoBehaviour:
   m_Label: 
   m_Data: {fileID: 8926484042661616971}
   m_InputFlowSlot:
-  - link:
-    - context: {fileID: 8926484042661617514}
-      slotIndex: 0
+  - link: []
   - link: []
   m_OutputFlowSlot:
   - link:
@@ -262,7 +260,7 @@ MonoBehaviour:
   - {fileID: 8926484042661617009}
   - {fileID: 8926484042661617113}
   dataType: 0
-  capacity: 64
+  capacity: 256
   stripCapacity: 16
   particlePerStripCount: 16
   needsComputeBounds: 0
@@ -454,9 +452,9 @@ MonoBehaviour:
   - {fileID: 8926484042661617061}
   - {fileID: 8926484042661617084}
   dataType: 1
-  capacity: 16384
-  stripCapacity: 128
-  particlePerStripCount: 128
+  capacity: 65536
+  stripCapacity: 256
+  particlePerStripCount: 256
   needsComputeBounds: 0
   boundsMode: 0
   m_Space: 1
@@ -475,7 +473,7 @@ MonoBehaviour:
   m_UIIgnoredErrors: []
   m_Parent: {fileID: 114350483966674976}
   m_Children: []
-  m_UIPosition: {x: 2216, y: 1573}
+  m_UIPosition: {x: 2216, y: 1574}
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots: []
@@ -2568,7 +2566,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 350
+      m_SerializableObject: 3
     m_Space: -1
   m_Property:
     name: MinSpeed
@@ -2602,7 +2600,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 360
+      m_SerializableObject: 3
     m_Space: -1
   m_Property:
     name: MaxSpeed
@@ -3420,7 +3418,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.8147374987602234,"outTangent":0.8147374987602234,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.5,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.0,"value":0.0,"inTangent":0.8147374987602234,"outTangent":0.8147374987602234,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":0.002917170524597168,"value":0.17446157336235047,"inTangent":0.7635834813117981,"outTangent":0.7635834813117981,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false},{"time":1.0,"value":0.5,"inTangent":0.0,"outTangent":0.0,"tangentMode":0,"leftTangentMode":0,"rightTangentMode":0,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: -1
   m_Property:
     name: Size
@@ -4860,9 +4858,7 @@ MonoBehaviour:
   m_InputFlowSlot:
   - link: []
   m_OutputFlowSlot:
-  - link:
-    - context: {fileID: 8926484042661616970}
-      slotIndex: 0
+  - link: []
   eventName: OnFire
 --- !u!114 &8926484042661617515
 MonoBehaviour:
@@ -5057,12 +5053,12 @@ MonoBehaviour:
   m_UICollapsed: 0
   m_UISuperCollapsed: 0
   m_InputSlots:
-  - {fileID: 8926484042661617541}
+  - {fileID: 8926484042661617554}
   m_OutputSlots:
   - {fileID: 8926484042661617522}
   m_Disabled: 0
   m_ActivationSlot: {fileID: 8926484042661617523}
-  mode: 1
+  mode: 2
   clampToOne: 1
 --- !u!114 &8926484042661617522
 MonoBehaviour:
@@ -5133,7 +5129,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661617541
+--- !u!114 &8926484042661617554
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5151,14 +5147,14 @@ MonoBehaviour:
   m_UIPosition: {x: 0, y: 0}
   m_UICollapsed: 1
   m_UISuperCollapsed: 0
-  m_MasterSlot: {fileID: 8926484042661617541}
+  m_MasterSlot: {fileID: 8926484042661617554}
   m_MasterData:
     m_Owner: {fileID: 8926484042661617520}
     m_Value:
       m_Type:
         m_SerializableType: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
           PublicKeyToken=b77a5c561934e089
-      m_SerializableObject: 120
+      m_SerializableObject: 256
     m_Space: -1
   m_Property:
     name: Rate
