@@ -72,7 +72,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   ShowTopMostFoldoutHeaderGroup: 1
-  teamProjectilePool: {fileID: 0}
   muzzle: {fileID: 430591710476676021}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
@@ -90,6 +89,8 @@ MonoBehaviour:
   currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
+  minFireRate: 0.1
+  maxFireRate: 1
 --- !u!1 &7259057471607518776
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488729712182714193}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0.1127823, y: 0.38519147, z: -0.5929819, w: 0.6980546}
   m_LocalPosition: {x: 0.72, y: 0.000013589859, z: -2.2860005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -240,7 +241,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7488729712182714193}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 067fdb1315706eb4a83327f18e00dccb, type: 3}
+  m_Asset: {fileID: 0}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
