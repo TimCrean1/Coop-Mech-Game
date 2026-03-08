@@ -142,12 +142,14 @@ public class TeamWeaponManager : MonoBehaviour
         if (player == 0)
         {
             P1WeaponsList.Remove(baseWeapon);
-            Destroy(weapon);
+            baseWeapon.gameObject.SetActive(false);
+            // Destroy(weapon);
         }
         else if (player == 1)
         {
             P2WeaponsList.Remove(baseWeapon);
-            Destroy(weapon);
+            baseWeapon.gameObject.SetActive(false);
+            // Destroy(weapon);
         }
         else
         {
