@@ -33,7 +33,7 @@ public class TeamWeaponManager : MonoBehaviour
     public int P1EquippedWeapon { get { return _p1EquippedWeapon; } }
     public int P2EquippedWeapon { get { return _p2EquippedWeapon; } }
 
-    public Tuple<Transform,Transform> weaponTransforms;
+    public Tuple<Transform,Transform> weaponTransforms = new Tuple<Transform, Transform>(null, null); //Item1 is P1 weapon transform, Item2 is P2 weapon transform
 
     #endregion
 
