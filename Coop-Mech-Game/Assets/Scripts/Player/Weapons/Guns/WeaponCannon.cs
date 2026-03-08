@@ -22,6 +22,7 @@ public class WeaponCannon : BaseWeapon
     {
         Debug.Log(mouseDistance + " " + currentFireRate);
         currentFireRate = baseFireRate * 1-mouseDistance;
+        Mathf.Clamp(currentFireRate, 0.1f, baseFireRate*2f);
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)
