@@ -573,6 +573,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShopCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 7116828122192551581, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3878277339
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116828122192551581, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7116828122192551581, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 723316975
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -602,6 +617,18 @@ Canvas:
     type: 3}
   m_PrefabInstance: {fileID: 601931017}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &601931021 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1747709585131502864, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 601931017}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1 &666220651
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1193,11 @@ PrefabInstance:
       propertyPath: nextRoundButton
       value: 
       objectReference: {fileID: 601931018}
+    - target: {fileID: 5456280292121330361, guid: 4588e6eb3aff24481b0d86d1bb1cf920,
+        type: 3}
+      propertyPath: readyPlayersText
+      value: 
+      objectReference: {fileID: 601931021}
     - target: {fileID: 5456280292121330361, guid: 4588e6eb3aff24481b0d86d1bb1cf920,
         type: 3}
       propertyPath: itemDisplayParent

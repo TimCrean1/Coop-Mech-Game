@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class WeaponCannon : BaseWeapon
 {
+
+    [SerializeField][Range(0.001f,1f)] private float minFireRate = 0.1f;
+    [SerializeField][Range(0.001f,2f)] private float maxFireRate = 1f;
 
     public override void Fire(float mouseDistance)
     {
@@ -20,7 +24,10 @@ public class WeaponCannon : BaseWeapon
 
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
-        currentFireRate = baseFireRate * mouseDistance/10f;
+        Debug.Log(mouseDistance + " " + currentFireRate);
+        currentFireRate = baseFireRate * 1-mouseDistance;
+        currentFireRate = Mathf.Lerp(minFireRate,maxFireRate,currentFireRate);
+        Mathf.Clamp(currentFireRate, minFireRate, maxFireRate);
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)

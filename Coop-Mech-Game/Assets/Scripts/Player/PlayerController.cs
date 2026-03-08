@@ -141,7 +141,28 @@ public class PlayerController : NetworkBehaviour
 
     #endregion
 
-    #region Input Handling
+    #region Shop
+
+    /// <summary>
+    /// Grabs the player number and team of the local player to determine which PlayerController to reference for shop interactions.
+    /// </summary>
+    /// <param name="item">Reference to the bought ShopItemSO</param>
+    /// <param name="playerNum"></param>
+
+    public void ChangeWeapon(ShopItemSO item, int playerNum)
+    {
+        teamWeaponManager.PurchaseWeapon(playerNum, item);
+        Debug.Log("Changed player " + playerNum + " weapon to " + item.itemName);
+    }
+
+    public void ChangeUtility(ShopItemSO item, int playerNum)
+    {
+        Debug.Log("Changed player " + playerNum + " utility to " + item.itemName);
+    }
+
+    #endregion
+
+    // #region Input Handling
 
     // private void SubscribeInputActions()
     // {
@@ -195,7 +216,7 @@ public class PlayerController : NetworkBehaviour
     //     }
     // }
 
-    #endregion
+    // #endregion
 
     #region Input Actions
 
@@ -300,6 +321,15 @@ public class PlayerController : NetworkBehaviour
     {
         if (player1 != null){player1.SwitchActionMap(EPlayerState.Moving);}
         if (player2 != null){player2.SwitchActionMap(EPlayerState.Moving);}
+    }
+
+    #endregion
+
+    #region Getters and Setters
+
+    public CharacterMovement GetCharacterMovement()
+    {
+        return gameObject.GetComponent<CharacterMovement>();
     }
 
     #endregion
