@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Cinemachine;
@@ -7,12 +8,22 @@ using UnityEngine.InputSystem;
 
 public class TeamWeaponManager : MonoBehaviour
 {
+    #region Serialized Fields
+
     [SerializeField] private List<BaseWeapon> P1WeaponsList = new List<BaseWeapon>();
     [SerializeField] private List<BaseWeapon> P2WeaponsList = new List<BaseWeapon>();
+
+    [SerializeField] public MechScreen ammoCountScreenL;
+    [SerializeField] public MechScreen ammoCountScreenR;
+    [SerializeField] public SingleComboScript comboManager;
 
     //[SerializeField] private bool _enableStaggeredFire = true;
     //[SerializeField] private float staggeredFireTime = 0.25f;
     [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
+
+    #endregion
+
+    #region Weapon State
 
     //public bool EnableStaggeredFire { get { return _enableStaggeredFire; } }
 
@@ -22,10 +33,32 @@ public class TeamWeaponManager : MonoBehaviour
     public int P1EquippedWeapon { get { return _p1EquippedWeapon; } }
     public int P2EquippedWeapon { get { return _p2EquippedWeapon; } }
 
+    public Tuple<Transform,Transform> weaponTransforms = new Tuple<Transform, Transform>(null, null); //Item1 is P1 weapon transform, Item2 is P2 weapon transform
+
+    #endregion
+
+    #region Targeting Variables
+
     private RaycastHit hit;
     private Ray screenRay;
     private Vector3 rotDir;
     private float mouseDistance;
+
+    #endregion
+
+    #region Unity Functions
+
+    void Start()
+    {
+        if (weaponTransforms.Item1 == null || weaponTransforms.Item2 == null)
+        {
+            weaponTransforms = new Tuple<Transform, Transform>(P1WeaponsList[_p1EquippedWeapon].transform, P2WeaponsList[_p2EquippedWeapon].transform);
+        }
+    }
+
+    #endregion
+
+    #region Input / External Setters
 
     public void SetScreenRay(Ray ray)
     {
@@ -33,35 +66,127 @@ public class TeamWeaponManager : MonoBehaviour
         UpdateWeaponTarget();
     }
 
-    public void ChangeEquippedWeapon(int player, int weaponIdx)
-    {
-        switch (player)
-        {
-            case 1:
-                _p1EquippedWeapon = weaponIdx; break;
-            case 2:
-                _p2EquippedWeapon = weaponIdx; break;
-        }
-    }
     public void SetMouseDistance(float distance)
     {
         mouseDistance = distance;
     }
 
-    public void UpgradeWeapon(int player, int weaponIdx)
-    {
+    /// <summary>
+    /// Changes the equipped weapon for the specified player and updates the weapon's position and rotation to match the player's weapon transform.
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="item"></param>
 
+    private void ChangeEquippedWeapon(int player, ShopItemSO item)
+    {
+        if (player == 0)
+        {
+            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item1.position, weaponTransforms.Item1.rotation, transform);
+            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+            bW.ammoCountScreen = ammoCountScreenL;
+            bW.comboManager = comboManager;
+        }
+        else if (player == 1)
+        {
+            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item2.position, weaponTransforms.Item2.rotation, transform);
+            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+            bW.ammoCountScreen = ammoCountScreenR;
+            bW.comboManager = comboManager;
+        }
     }
 
-    public void AppendWeaponToList(int player, int weaponIdx)
-    {
+    #endregion
 
+
+    #region Weapon Purchasing
+
+    public void PurchaseWeapon(int player, ShopItemSO item)
+    {
+        if (player == 0)
+        {
+            RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
+            AppendWeaponToList(0, item.itemPrefab);
+            ChangeEquippedWeapon(player, item);
+        }
+        else if (player == 1)
+        {
+            RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
+            AppendWeaponToList(1, item.itemPrefab);
+            ChangeEquippedWeapon(player, item);
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
     }
 
-    public void RemoveWeaponFromList(int player, int weaponIdx)
+    public void AppendWeaponToList(int player, GameObject weapon)
     {
-
+        if (player == 0)
+        {
+            P1WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+        }
+        else if (player == 1)
+        {
+            P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
     }
+
+    public void RemoveWeaponFromList(int player, GameObject weapon)
+    {
+        BaseWeapon baseWeapon = weapon.GetComponent<BaseWeapon>();
+        if (player == 0)
+        {
+            P1WeaponsList.Remove(baseWeapon);
+            baseWeapon.enabled = false;
+            // Destroy(weapon);
+        }
+        else if (player == 1)
+        {
+            P2WeaponsList.Remove(baseWeapon);
+            baseWeapon.enabled = false;
+            // Destroy(weapon);
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    #endregion
+
+    #region IMPLEMENT THIS!!!!!!!!
+
+
+
+
+    #region IMPLEMENT THIS!!!!!!!!
+    #endregion
+
+    public void PurchaseUtility(int player, ShopItemSO item) //TODO: Implement utility purchasing logic
+    {
+        if (player == 0)
+        {
+            
+        }
+        else if (player == 1)
+        {
+            
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    #endregion
+
+
+    #region Targeting
 
     private void UpdateWeaponTarget()
     {
@@ -69,45 +194,38 @@ public class TeamWeaponManager : MonoBehaviour
 
         for (int i = 0; i < P1WeaponsList.Count; i++)
         {
-            //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
             rotDir = hit.GetDirectionFromRaycastHit(P1WeaponsList[i].Muzzle.position);
-
-            //Debug.Log("rotDir is: " + rotDir);
-
             P1WeaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
 
         for (int i = 0; i < P2WeaponsList.Count; i++)
         {
-            //Vector3 direction = hit.GetDirectionFromRaycastHit(weaponsList[i].Muzzle.position);
             rotDir = hit.GetDirectionFromRaycastHit(P2WeaponsList[i].Muzzle.position);
-
-            //Debug.Log("rotDir is: " + rotDir);
-
             P2WeaponsList[i].SetMuzzleRotation(hit, rotDir);
         }
     }
+
+    #endregion
+
+
+    #region Firing
+
     public void FireWeapons(float input)
     {
         //Debug.Log("Input is: " + input);
 
         if (input == 0.25f) //P1 fire
         {
-            //Debug.Log("Trying to fire P1 weapon: p1WeaponIdx: " + _p1EquippedWeapon);
             P1WeaponsList[_p1EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 0.75f) //P2 fire
         {
-            //Debug.Log("Trying to fire P2 weapon: p2WeaponIdx: " + _p2EquippedWeapon);
-
             P2WeaponsList[_p2EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
         }
         else if (input == 1f) //Both P1 & P2 fire
         {
-            //Debug.Log("Trying to fire both weapons: p1WeaponIdx: " + _p1EquippedWeapon + " p2WeaponIdx: " + _p2EquippedWeapon);
-
             P1WeaponsList[_p1EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
 
@@ -115,86 +233,28 @@ public class TeamWeaponManager : MonoBehaviour
             shootingImpulseSource.GenerateImpulse();
         }
 
-        // Check if the first weapon can fire
-
-        //if (input == 0.25) //Player 1 shooting
-        //{
-        //    foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
-        //    {
-        //        weapon.Fire();
-        //    }
-        //}
-        //else if (input == 0.75) //Player 2 shooting
-        //{
-        //    foreach (BaseWeapon weapon in P2WeaponsList) if (weapon.owningPlayer == 2)
-        //    {
-        //        weapon.Fire();
-        //    }
-        //}
-        //else if (input == 1) //Both players shooting
-        //{
-        //    // Fire all weapons simultaneously
-        //    foreach (BaseWeapon weapon in P1WeaponsList)
-        //    {
-        //        weapon.Fire();
-        //    }
-        //    foreach (BaseWeapon weapon in P2WeaponsList)
-        //    {
-        //        weapon.Fire();
-        //    }
-        //}
-
-        // Generate camera impulse effect after firing
         shootingImpulseSource.GenerateImpulse();
     }
 
+    #endregion
+
+
+    #region Experimental / Old Code
 
     //private IEnumerator WeaponFireRoutine(float input)
     //{
-    //    if (input == 0.25) //Player 1 shooting
-    //        {
-    //            foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 1)
-    //            {
-    //                weapon.Fire();
-    //                shootingImpulseSource.GenerateImpulse();
-    //                yield return new WaitForSeconds(staggeredFireTime);
-    //            }
-    //        }
-    //        else if (input == 0.75) //Player 2 shooting
-    //        {
-    //            foreach (BaseWeapon weapon in P1WeaponsList) if (weapon.owningPlayer == 2)
-    //            {
-    //                weapon.Fire();
-    //                shootingImpulseSource.GenerateImpulse();
-    //                yield return new WaitForSeconds(staggeredFireTime);
-    //            }
-    //        }
-    //        else if (input == 1) //Both players shooting
-    //        {
-    //            // Fire all weapons simultaneously
-    //            foreach (BaseWeapon weapon in P1WeaponsList)
-    //            {
-    //                weapon.Fire();
-    //                shootingImpulseSource.GenerateImpulse();
-    //                yield return new WaitForSeconds(staggeredFireTime);
-    //            }
-    //        }
-
-    //    yield return null;
+    //    ...
     //}
 
     //public void SetTeamWeaponsFireMode(TeamFireModes fireMode)
     //{
-    //    switch (fireMode)
-    //    {
-    //        case TeamFireModes.Simultaneous:
-    //            _enableStaggeredFire = false;
-    //            break;
-    //        case TeamFireModes.Staggered:
-    //            _enableStaggeredFire = true;
-    //            break;
-    //    }
+    //    ...
     //}
+
+    #endregion
+
+
+    #region Debug
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
@@ -203,9 +263,16 @@ public class TeamWeaponManager : MonoBehaviour
         Gizmos.DrawSphere(hit.point, 0.25f);
     }
 #endif
+
+    #endregion
 }
+
+#region Enums
+
 public enum TeamFireModes
 {
     Simultaneous,
     Staggered
 }
+
+#endregion
