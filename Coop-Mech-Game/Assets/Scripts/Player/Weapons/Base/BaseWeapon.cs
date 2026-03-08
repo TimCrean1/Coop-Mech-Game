@@ -23,10 +23,10 @@ public abstract class BaseWeapon : NetworkBehaviour
     /// </summary>
 
     [Header("Object/Component References")]
-    [SerializeField] private TeamProjectilePool teamProjectilePool;
+    // [SerializeField] private TeamProjectilePool teamProjectilePool;
     [SerializeField] private Transform muzzle;
-    [SerializeField] private MechScreen ammoCountScreen;
-    [SerializeField] private SingleComboScript comboManager;
+    [SerializeField] public MechScreen ammoCountScreen;
+    [SerializeField] public SingleComboScript comboManager;
 
     [Header("Weapon Stats")]
     [SerializeField] private WeaponType weaponType;
