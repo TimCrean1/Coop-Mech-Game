@@ -20,7 +20,8 @@ public class WeaponCannon : BaseWeapon
 
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
-        currentFireRate = baseFireRate * mouseDistance/10f;
+        Debug.Log(mouseDistance + " " + currentFireRate);
+        currentFireRate = baseFireRate * (mouseDistance + 0.5f)/10f;
     }
 
     protected override IEnumerator FireRateRoutine(float fireRate)
