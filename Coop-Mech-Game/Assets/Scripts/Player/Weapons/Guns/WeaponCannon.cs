@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class WeaponCannon : BaseWeapon
 {
 
-    [SerializeField][Range(0.001f,1f)] private float minFireRate = 0.2f;
+    [SerializeField][Range(0.001f,1f)] private float minFireRate = 0.1f;
     [SerializeField][Range(0.001f,2f)] private float maxFireRate = 1f;
 
     public override void Fire(float mouseDistance)
