@@ -125,7 +125,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [ClientRpc]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp) { muzzleComp.SendFireEvent(); }
+        if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
     }
     protected virtual void ChangeAmmoText()
     {
