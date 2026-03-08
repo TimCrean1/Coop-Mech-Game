@@ -13,6 +13,10 @@ public class TeamWeaponManager : MonoBehaviour
     [SerializeField] private List<BaseWeapon> P1WeaponsList = new List<BaseWeapon>();
     [SerializeField] private List<BaseWeapon> P2WeaponsList = new List<BaseWeapon>();
 
+    [SerializeField] public MechScreen ammoCountScreenL;
+    [SerializeField] public MechScreen ammoCountScreenR;
+    [SerializeField] public SingleComboScript comboManager;
+
     //[SerializeField] private bool _enableStaggeredFire = true;
     //[SerializeField] private float staggeredFireTime = 0.25f;
     [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
@@ -77,11 +81,17 @@ public class TeamWeaponManager : MonoBehaviour
     {
         if (player == 0)
         {
-            Instantiate(item.itemPrefab, weaponTransforms.Item1.position, weaponTransforms.Item1.rotation, transform);
+            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item1.position, weaponTransforms.Item1.rotation, transform);
+            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+            bW.ammoCountScreen = ammoCountScreenL;
+            bW.comboManager = comboManager;
         }
         else if (player == 1)
         {
-            Instantiate(item.itemPrefab, weaponTransforms.Item2.position, weaponTransforms.Item2.rotation, transform);
+            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item2.position, weaponTransforms.Item2.rotation, transform);
+            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+            bW.ammoCountScreen = ammoCountScreenR;
+            bW.comboManager = comboManager;
         }
     }
 
@@ -147,7 +157,13 @@ public class TeamWeaponManager : MonoBehaviour
 
     #endregion
 
-    #region Utility Purchasing
+    #region IMPLEMENT THIS!!!!!!!!
+
+
+
+
+    #region IMPLEMENT THIS!!!!!!!!
+    #endregion
 
     public void PurchaseUtility(int player, ShopItemSO item) //TODO: Implement utility purchasing logic
     {
