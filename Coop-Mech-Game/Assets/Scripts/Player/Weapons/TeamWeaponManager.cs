@@ -143,13 +143,11 @@ public class TeamWeaponManager : MonoBehaviour
         {
             P1WeaponsList.Remove(baseWeapon);
             baseWeapon.enabled = false;
-            // Destroy(weapon);
         }
         else if (player == 1)
         {
             P2WeaponsList.Remove(baseWeapon);
             baseWeapon.enabled = false;
-            // Destroy(weapon);
         }
         else
         {
@@ -161,7 +159,8 @@ public class TeamWeaponManager : MonoBehaviour
 
     #region IMPLEMENT THIS!!!!!!!!
 
-
+        //UTILTIY PURCHASES ARE NOT IMPLEMENTED YET, BUT THE FUNCTION IS CALLED IN SHOPMANAGER, SO I LEFT A PLACEHOLDER FOR NOW. 
+        //WHEN UTILITIES ARE IMPLEMENTED, FILL IN THIS FUNCTION WITH THE APPROPRIATE LOGIC TO APPLY THE UTILITY TO THE CORRECT PLAYER.
 
 
     #region IMPLEMENT THIS!!!!!!!!

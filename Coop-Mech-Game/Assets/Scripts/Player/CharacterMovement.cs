@@ -1,7 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using Unity.Netcode;
 
 public class CharacterMovement : BaseMovement
 {
@@ -288,18 +287,26 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Jumping
-    public override void Jump(float jumpInput) 
+    public override void Jump(float jumpInput)
     {
-        if (canJump && (isGrounded || currentJumps < maxJumps))
+        if (!canJump) return;
+
+        if (isGrounded)
         {
-            currentJumps++;
-            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-            adjustedJumpForce *= jumpInput;
-            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
-            canJump = false;
-            StartCoroutine(JumpCooldownCoroutine());
+            currentJumps = 0;
         }
-        return;
+
+        if (currentJumps >= maxJumps) return;
+
+        currentJumps++;
+
+        float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+        adjustedJumpForce *= jumpInput;
+
+        rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+
+        canJump = false;
+        StartCoroutine(JumpCooldownCoroutine());
     }
 
     private IEnumerator JumpCooldownCoroutine()
@@ -312,9 +319,12 @@ public class CharacterMovement : BaseMovement
     {
         if (rigidbody.linearVelocity.y > 0f)
         {
-            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
+            rigidbody.linearVelocity = new Vector3(
+                rigidbody.linearVelocity.x,
+                rigidbody.linearVelocity.y * 0.5f,
+                rigidbody.linearVelocity.z
+            );
         }
-        return;
     }
 
     /// <summary>
@@ -340,9 +350,10 @@ public class CharacterMovement : BaseMovement
             if (canDash && currentDashes < maxDashes)
             {
                 currentDashes++;
-                Vector3 dashDirection = new Vector3(dashInput.x, 0, dashInput.y).normalized;
+                Vector3 dashDirection = (transform.right * dashInput.x + transform.forward * dashInput.y).normalized;
                 Vector3 adjustedDashForce = dashDirection * dashSpeed - rigidbody.linearVelocity;
                 rigidbody.AddForce(adjustedDashForce, ForceMode.VelocityChange);
+
                 canDash = false;
                 StartCoroutine(DashCooldownCoroutine());
                 StartCoroutine(DashLengthCoroutine());
