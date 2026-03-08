@@ -87,6 +87,22 @@ public class TestPlayerObjectScript : NetworkBehaviour
     //{
 
     //}
+
+    #region Getters
+
+    public string GetPlayerTeam()
+    {
+        return playerTeam;
+    }
+
+    public string GetPlayerNum()
+    {
+        return playerNumber;
+    }
+    #endregion
+
+
+
     
     void OnDisable()
     {
@@ -118,6 +134,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
                 break;
         }
     }
+
+#region Input Assignments
 
     private void SubscribeInputActions()
     {
@@ -248,6 +266,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
         }
     }
+#endregion
+#region Tick
 
     void Tick()
     {
@@ -302,6 +322,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         //    Debug.Log("playerInputActions is null");
         //}
     }
+    #endregion
 
     #region Input Actions
     private void P1MoveAction(InputAction.CallbackContext context)

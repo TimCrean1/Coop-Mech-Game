@@ -1,30 +1,33 @@
 using System.Collections.Generic;
 using Unity.Netcode;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
+using TMPro;
 
+#region Enums
 // Enum representing the current buy round type in the shop
 public enum CurrentBuyRound
 {
     Weapons,
     Utilities
 }
+#endregion
 
 // Manages the shop UI and item logic
 public class ShopManager : NetworkBehaviour
 {
+    #region Fields
     [Header("UI Variables")]
     [SerializeField] private Canvas shopCanvas; // Reference to the shop canvas
     [SerializeField] private Transform itemDisplayParent; // Parent transform for item UI elements
     [SerializeField] private GameObject itemPrefab; // Prefab for shop items
     [SerializeField] private Button nextRoundButton; // Button to proceed to the next buy round
+    [SerializeField] private TextMeshProUGUI readyPlayersText;
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons; // Current buy round type
     [SerializeField] private List<ShopItemSO> allItems; // All available shop items
-    // [SerializeField] private PlayerController assignedMech; // Player's mech assigned to the shop
 
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
@@ -32,10 +35,9 @@ public class ShopManager : NetworkBehaviour
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
     public UnityEvent OnChangeRound;
-    // void Awake()
-    // {
-    //     nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
-    // }
+    #endregion
+
+    #region Unity Functions
     void Start()
     {
         shopCanvas.gameObject.SetActive(true);
@@ -43,15 +45,12 @@ public class ShopManager : NetworkBehaviour
         shopCanvas.enabled = false;
         nextRoundButton.gameObject.SetActive(true);
         nextRoundButton.enabled = true;
-        //nextRoundButton.enabled = false;
 
         allItems = new List<ShopItemSO>();
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
         OnChangeRound.AddListener(ChangeRound);
-        // GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
-        // GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
 
     public override void OnNetworkSpawn()
@@ -61,63 +60,60 @@ public class ShopManager : NetworkBehaviour
         if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
         GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
     }
+    #endregion
 
+    #region RPCs
     [Rpc(SendTo.Server)]
     public void ChangeReadyPlayersServerRpc(int addNum)
     {
-        readyPlayerCount.Value = readyPlayerCount.Value + addNum;
+        readyPlayerCount.Value += addNum;
         Debug.Log(readyPlayerCount.Value + "/4 players ready");
         if(readyPlayerCount.Value >= 4)
         {
             ClientRoundEventRpc();
             readyPlayerCount.Value = 0;
         }
+        readyPlayersText.text = $"{readyPlayerCount.Value}/4 Players Ready";
     }
+
     [Rpc(SendTo.ClientsAndHost)]
     private void ClientRoundEventRpc()
     {
         OnChangeRound?.Invoke();
     }
 
-    // Opens the shop UI and initializes items for the current round
-    public void OpenShop()
-    {
-        // if (IsOwner)
-        // {
-        //     ChangeReadyPlayersRpc(readyPlayerCount.Value * - 1);
-        // }
-
-        Debug.Log("Opening For Host");
-        // shopCanvas.gameObject.SetActive(true);
-        shopCanvas.enabled = true;
-        InitializeBuyRound(currentBuyRound);
-    }
-
     [ClientRpc]
     public void OpenShopClientRpc()
     {
         Debug.Log("Opening For Client");
-        // shopCanvas.gameObject.SetActive(true);
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound); 
     }
 
-        
-    
+    [ClientRpc]
+    public void CloseShopClientRpc()
+    {
+        shopCanvas.enabled = false;
+    }
+    #endregion
+
+    #region Shop UI
+    // Opens the shop UI and initializes items for the current round
+    public void OpenShop()
+    {
+        Debug.Log("Opening For Host");
+        shopCanvas.enabled = true;
+        InitializeBuyRound(currentBuyRound);
+    }
 
     // Closes the shop UI
     public void CloseShop()
     {
-        // shopCanvas.gameObject.SetActive(false);
         shopCanvas.enabled = false;
     }
-    [ClientRpc]
-    public void CloseShopClientRpc()
-    {
-        // shopCanvas.gameObject.SetActive(false);
-        shopCanvas.enabled = false;
-    }
+    #endregion
 
+    #region Shop Item Logic
     // Instantiates and initializes a shop item UI element
     public void InitializeShopItem(ShopItemSO item)
     {
@@ -129,6 +125,7 @@ public class ShopManager : NetworkBehaviour
     // Filters and sets displayed items based on the current buy round
     private void InitializeBuyRound(CurrentBuyRound round)
     {
+        readyPlayersText.text = "0/4 Players Ready";
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
         displayedItemObjects.Clear();
@@ -163,32 +160,87 @@ public class ShopManager : NetworkBehaviour
     // Handles logic when a shop item is clicked
     public void ShopItemClicked(ShopItemSO item)
     {
-        Debug.Log("Clicked " + item.itemName);
-    }
+        Tuple<int, PlayerController> playerData = GrabPlayerFunction();
 
+        if (item.itemType == ItemType.Weapon)
+        {
+            playerData.Item2.ChangeWeapon(item, playerData.Item1);
+        }
+        else if (item.itemType == ItemType.Utility)
+        {
+            playerData.Item2.ChangeUtility(item, playerData.Item1);
+        }
+        else
+        {
+            Debug.LogError("Clicked item '" + item.itemName + "' has invalid itemType: " + item.itemType);
+        }
+    }
+    #endregion
+
+    #region Player Logic
+    /// <summary>
+    /// Grabs the player number and team of the local player to determine which PlayerController to reference for shop interactions.
+    /// </summary>
+    /// <returns>The player number and PlayerController of the local player.</returns>
+    private Tuple<int,PlayerController> GrabPlayerFunction()
+    {
+        var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
+        var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
+        string team = playerObject.GetPlayerTeam();
+        string num = playerObject.GetPlayerNum();
+        PlayerController controller;
+        if (team == "Red")
+        {
+            controller = GameManager.Instance._playerControllers[0];
+        }
+        else if (team == "Blue")
+        {
+            controller = GameManager.Instance._playerControllers[1];
+        }
+        else
+        {
+            Debug.LogError("Invalid team! Team '" + team + "' does not exist!");
+            return new Tuple<int, PlayerController>(-1, null);
+        }
+
+        if (num == "One")
+        {
+            return new Tuple<int, PlayerController>(0, controller);
+        }
+        else if (num == "Two")
+        {
+            return new Tuple<int, PlayerController>(1, controller);
+        }
+        else
+        {
+            Debug.LogError("Player number " + num + "does not exist on team " + team);
+            return new Tuple<int, PlayerController>(-1, null);
+        }
+    }
+    #endregion
+
+    #region Round Logic
     public void NextRoundButtonClicked()
     {
-        
         ChangeReadyPlayersServerRpc(1);
-        
         nextRoundButton.enabled = false;
-
     }
 
     private void ChangeRound()
     {
         if (currentBuyRound == CurrentBuyRound.Weapons)
-            {
-                currentBuyRound = CurrentBuyRound.Utilities;
-            }
-            else
-            {
-                currentBuyRound = CurrentBuyRound.Weapons;
-                CloseShop();
-                CloseShopClientRpc();
-                return;
-            }
-            InitializeBuyRound(currentBuyRound);
-            nextRoundButton.enabled = true;
+        {
+            currentBuyRound = CurrentBuyRound.Utilities;
+        }
+        else
+        {
+            currentBuyRound = CurrentBuyRound.Weapons;
+            CloseShop();
+            CloseShopClientRpc();
+            return;
+        }
+        InitializeBuyRound(currentBuyRound);
+        nextRoundButton.enabled = true;
     }
+    #endregion
 }

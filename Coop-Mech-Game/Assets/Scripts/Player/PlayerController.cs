@@ -141,6 +141,20 @@ public class PlayerController : NetworkBehaviour
 
     #endregion
 
+    #region Shop
+
+    public void ChangeWeapon(ShopItemSO item, int playerNum)
+    {
+        Debug.Log("Changed player " + playerNum + " weapon to " + item.itemName);
+    }
+
+    public void ChangeUtility(ShopItemSO item, int playerNum)
+    {
+        Debug.Log("Changed player " + playerNum + " utility to " + item.itemName);
+    }
+
+    #endregion
+
     #region Input Handling
 
     // private void SubscribeInputActions()
