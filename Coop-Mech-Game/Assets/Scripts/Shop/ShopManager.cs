@@ -82,6 +82,10 @@ public class ShopManager : NetworkBehaviour
         OnChangeRound?.Invoke();
     }
 
+    /// <summary>
+    /// Opens the shop UI for all clients and initializes the items for the current buy round. Called by the host at the end of each round and executed on all clients through an RPC.
+    /// </summary>
+
     [ClientRpc]
     public void OpenShopClientRpc()
     {
@@ -122,7 +126,10 @@ public class ShopManager : NetworkBehaviour
         displayedItemObjects.Add(newItem);
     }
 
-    // Filters and sets displayed items based on the current buy round
+    /// <summary>
+    /// Filters and sets displayed items based on the current buy round, then initializes the shop UI for those items.
+    /// </summary>
+    /// <param name="round">The current buy round.</param>
     private void InitializeBuyRound(CurrentBuyRound round)
     {
         readyPlayersText.text = "0/4 Players Ready";
