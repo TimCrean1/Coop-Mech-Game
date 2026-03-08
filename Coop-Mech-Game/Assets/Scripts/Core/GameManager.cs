@@ -181,6 +181,7 @@ public class GameManager : NetworkBehaviour
         SetTimeScale(1f);
         SetTimeScaleClientRpc(1f);
 
+        // DisablePlayerMovement();
         ResetPlayerPositionRpc();
         InitTeamHealthRpc();
 
@@ -242,6 +243,22 @@ public class GameManager : NetworkBehaviour
     public int SetPlayerIndex()
     {
         return NetworkManager.Singleton.ConnectedClients.Count;
+    }
+
+    public void EnablePlayerMovement()
+    {
+        foreach (PlayerController player in _playerControllers)
+        {
+            player.GetCharacterMovement().SetCanMove(true);
+        }
+    }
+
+    public void DisablePlayerMovement()
+    {
+        foreach (PlayerController player in _playerControllers)
+        {
+            player.GetCharacterMovement().SetCanMove(false);
+        }
     }
 
     #endregion

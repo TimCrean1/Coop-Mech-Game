@@ -324,4 +324,13 @@ public class PlayerController : NetworkBehaviour
     }
 
     #endregion
+
+    #region Getters and Setters
+
+    public CharacterMovement GetCharacterMovement()
+    {
+        return gameObject.GetComponent<CharacterMovement>();
+    }
+
+    #endregion
 }

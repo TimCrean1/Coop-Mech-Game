@@ -89,7 +89,8 @@ public class ShopManager : NetworkBehaviour
     [ClientRpc]
     public void OpenShopClientRpc()
     {
-        Debug.Log("Opening For Client");
+        // Debug.Log("Opening For Client");
+        GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound); 
     }
@@ -97,6 +98,7 @@ public class ShopManager : NetworkBehaviour
     [ClientRpc]
     public void CloseShopClientRpc()
     {
+        GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
     }
     #endregion
@@ -105,7 +107,8 @@ public class ShopManager : NetworkBehaviour
     // Opens the shop UI and initializes items for the current round
     public void OpenShop()
     {
-        Debug.Log("Opening For Host");
+        // Debug.Log("Opening For Host");
+        GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
     }
@@ -113,6 +116,7 @@ public class ShopManager : NetworkBehaviour
     // Closes the shop UI
     public void CloseShop()
     {
+        GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
     }
     #endregion
