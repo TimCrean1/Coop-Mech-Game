@@ -74,10 +74,12 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         //set ammo in OnNetworkSpawn because its a networkvariable
         //also set as an rpc so the client can set their ammo too?
-        ChangeAmmoText();
+        if (ammoCountScreen != null)
+            ChangeAmmoText();
         if (!IsServer) { return; }
         SetAmmoRpc(ammo);
-        ChangeAmmoText();
+        if (ammoCountScreen != null)
+            ChangeAmmoText();
     }
 
     private void ResetGunAttributes()

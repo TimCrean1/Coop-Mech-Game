@@ -999,6 +999,28 @@ PrefabInstance:
       propertyPath: owningPlayer
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4675740159691710397, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: playerOneStartGun
+      value: 
+      objectReference: {fileID: 11400000, guid: 929d0cd8fe32b42b3bc6ecef517a0804,
+        type: 2}
+    - target: {fileID: 4675740159691710397, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: playerTwoStartGun
+      value: 
+      objectReference: {fileID: 11400000, guid: c1c68729bf4da44299b25ef2ed70494e,
+        type: 2}
+    - target: {fileID: 4675740159691710397, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: weaponTranformOne
+      value: 
+      objectReference: {fileID: 1462737648}
+    - target: {fileID: 4675740159691710397, guid: d8aadf6f9e824334fb72c64a19dca918,
+        type: 3}
+      propertyPath: weaponTranformTwo
+      value: 
+      objectReference: {fileID: 1462737648}
     - target: {fileID: 5086179133204423352, guid: d8aadf6f9e824334fb72c64a19dca918,
         type: 3}
       propertyPath: owningPlayer
@@ -1046,6 +1068,12 @@ MonoBehaviour:
 --- !u!1 &1462737647 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1110307106174362958, guid: d8aadf6f9e824334fb72c64a19dca918,
+    type: 3}
+  m_PrefabInstance: {fileID: 1462737644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1462737648 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1787830087806188225, guid: d8aadf6f9e824334fb72c64a19dca918,
     type: 3}
   m_PrefabInstance: {fileID: 1462737644}
   m_PrefabAsset: {fileID: 0}

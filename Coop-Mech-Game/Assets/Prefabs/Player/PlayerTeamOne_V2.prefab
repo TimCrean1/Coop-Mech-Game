@@ -462,7 +462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1264583579
+  GlobalObjectIdHash: 2197409473
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -701,14 +701,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e0988617b8cbd4da3b6322d725d5b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TeamWeaponManager
-  P1WeaponsList:
-  - {fileID: 4335402267614121619, guid: 84d71986204887b4a875da62586bcb0d, type: 3}
-  P2WeaponsList:
-  - {fileID: 1740679705418939048, guid: 852fb2a8dba307b41a2c257d7c28fadb, type: 3}
+  ShowTopMostFoldoutHeaderGroup: 1
+  P1WeaponsList: []
+  P2WeaponsList: []
   ammoCountScreenL: {fileID: 2539692078851425510}
   ammoCountScreenR: {fileID: 5798132814945947494}
   comboManager: {fileID: 2883541409271160028}
   shootingImpulseSource: {fileID: 1041313949405104054}
+  weaponTranformOne: {fileID: 1529742402341660464}
+  weaponTranformTwo: {fileID: 7350136729302563965}
+  playerOneStartGun: {fileID: 11400000, guid: 929d0cd8fe32b42b3bc6ecef517a0804, type: 2}
+  playerTwoStartGun: {fileID: 11400000, guid: c1c68729bf4da44299b25ef2ed70494e, type: 2}
 --- !u!114 &5132920644635074767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -970,7 +973,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2627883119
+  GlobalObjectIdHash: 2908864996
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1051,6 +1054,37 @@ MonoBehaviour:
   MoveInput: {x: 0, y: 0}
   rotationAmount: 25
   rotationSpeed: 5
+--- !u!1 &2237337471181941608
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1529742402341660464}
+  m_Layer: 8
+  m_Name: WeaponPointOne
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1529742402341660464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237337471181941608}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -2.278489, y: 5.3384743, z: 0.6194972}
+  m_LocalScale: {x: 1.4999927, y: 1.4999927, z: 1.4999927}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6683621273959465336}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2982015928421129102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,6 +1453,8 @@ Transform:
   - {fileID: 3125174171236512835}
   - {fileID: 4278912497011724468}
   - {fileID: 2224519852348152796}
+  - {fileID: 1529742402341660464}
+  - {fileID: 7350136729302563965}
   m_Father: {fileID: 1787830087806188225}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &840574639490771228
@@ -1487,6 +1523,37 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &5398952585473400114
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7350136729302563965}
+  m_Layer: 8
+  m_Name: WeaponPointTwo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7350136729302563965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5398952585473400114}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.266489, y: 5.3384743, z: 0.6194972}
+  m_LocalScale: {x: 1.4999927, y: 1.4999927, z: 1.4999927}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6683621273959465336}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5769024988665068030
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,7 +2408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 966264519
+  GlobalObjectIdHash: 2609535781
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1

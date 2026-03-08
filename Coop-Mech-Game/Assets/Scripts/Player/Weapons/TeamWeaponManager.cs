@@ -4,9 +4,10 @@ using System.Collections.Generic;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Unity.Netcode;
 
 
-public class TeamWeaponManager : MonoBehaviour
+public class TeamWeaponManager : NetworkBehaviour
 {
     #region Serialized Fields
 
@@ -30,12 +31,18 @@ public class TeamWeaponManager : MonoBehaviour
     private int _p1EquippedWeapon = 0;
     private int _p2EquippedWeapon = 0;
 
+    
+
     public int P1EquippedWeapon { get { return _p1EquippedWeapon; } }
     public int P2EquippedWeapon { get { return _p2EquippedWeapon; } }
 
-    public Tuple<Transform,Transform> weaponTransforms = new Tuple<Transform, Transform>(null, null); //Item1 is P1 weapon transform, Item2 is P2 weapon transform
-
+    //public Tuple<Transform,Transform> weaponTransforms = new Tuple<Transform, Transform>(null, null); //Item1 is P1 weapon transform, Item2 is P2 weapon transform
+    [SerializeField] Transform weaponTranformOne;
+    [SerializeField] Transform weaponTranformTwo;
     #endregion
+    [Header("TESTING VARIABLES")]
+    [SerializeField] ShopItemSO playerOneStartGun;
+    [SerializeField] ShopItemSO playerTwoStartGun;
 
     #region Targeting Variables
 
@@ -50,10 +57,22 @@ public class TeamWeaponManager : MonoBehaviour
 
     void Start()
     {
-        if (weaponTransforms.Item1 == null || weaponTransforms.Item2 == null)
+        if (weaponTranformOne == null && P1WeaponsList.Count > 0)
         {
-            weaponTransforms = new Tuple<Transform, Transform>(P1WeaponsList[_p1EquippedWeapon].transform, P2WeaponsList[_p2EquippedWeapon].transform);
+            weaponTranformOne = P1WeaponsList[_p1EquippedWeapon].transform;
         }
+
+        if (weaponTranformTwo == null && P2WeaponsList.Count > 0)
+        {
+            weaponTranformTwo = P2WeaponsList[_p2EquippedWeapon].transform;
+        }
+    }
+    public override void OnNetworkSpawn()
+    {
+        if (!IsServer) return;
+
+        PurchaseWeapon(0, playerOneStartGun);
+        PurchaseWeapon(1, playerTwoStartGun);
     }
 
     #endregion
@@ -81,18 +100,24 @@ public class TeamWeaponManager : MonoBehaviour
     {
         if (player == 0)
         {
-            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item1.position, weaponTransforms.Item1.rotation, transform);
+            Transform mountPoint = (player == 0) ? weaponTranformOne : weaponTranformTwo;
+
+            // Instantiate WITHOUT parent
+            GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+
+            NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
+            netObj.Spawn(true);
+
+            // Parent after spawn
+            newWeapon.transform.SetParent(mountPoint, true);
+
             BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+            Debug.Log(bW.name);
             bW.ammoCountScreen = ammoCountScreenL;
+            Debug.Log(bW.ammoCountScreen.name);
             bW.comboManager = comboManager;
         }
-        else if (player == 1)
-        {
-            GameObject newWeapon = Instantiate(item.itemPrefab, weaponTransforms.Item2.position, weaponTransforms.Item2.rotation, transform);
-            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
-            bW.ammoCountScreen = ammoCountScreenR;
-            bW.comboManager = comboManager;
-        }
+      
     }
 
     #endregion
@@ -102,15 +127,27 @@ public class TeamWeaponManager : MonoBehaviour
 
     public void PurchaseWeapon(int player, ShopItemSO item)
     {
+        //Debug.Log($"[{gameObject.name}] Buying {item?.name}");
+        //Debug.LogError($"[{gameObject.name}] ITEM IS NULL");
+
+        //Debug.Log($"Buying {item.name} with prefab {item.itemPrefab.name}");
         if (player == 0)
         {
-            RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
+            if (P1WeaponsList.Count > 0)
+            {
+                RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
+            }
+            Debug.Log(item.itemName);
             AppendWeaponToList(0, item.itemPrefab);
             ChangeEquippedWeapon(player, item);
         }
         else if (player == 1)
         {
-            RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
+            if (P2WeaponsList.Count > 0)
+            {
+                RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
+            }
+
             AppendWeaponToList(1, item.itemPrefab);
             ChangeEquippedWeapon(player, item);
         }
@@ -122,6 +159,7 @@ public class TeamWeaponManager : MonoBehaviour
 
     public void AppendWeaponToList(int player, GameObject weapon)
     {
+        Debug.Log(weapon.name);
         if (player == 0)
         {
             P1WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
@@ -139,16 +177,31 @@ public class TeamWeaponManager : MonoBehaviour
     public void RemoveWeaponFromList(int player, GameObject weapon)
     {
         BaseWeapon baseWeapon = weapon.GetComponent<BaseWeapon>();
+
         if (player == 0)
         {
-            P1WeaponsList.Remove(baseWeapon);
-            baseWeapon.enabled = false;
+            if (P1WeaponsList.Count > 0)
+            {
+                P1WeaponsList.Remove(baseWeapon);
+                baseWeapon.enabled = false;
+            }
+            else
+            {
+                return;
+            }
             // Destroy(weapon);
         }
         else if (player == 1)
         {
-            P2WeaponsList.Remove(baseWeapon);
-            baseWeapon.enabled = false;
+            if (P2WeaponsList.Count > 0)
+            {
+                P2WeaponsList.Remove(baseWeapon);
+                baseWeapon.enabled = false;
+            }
+            else
+            {
+                return;
+            }
             // Destroy(weapon);
         }
         else
