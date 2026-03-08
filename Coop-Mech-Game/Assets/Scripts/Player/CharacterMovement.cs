@@ -24,7 +24,7 @@ public class CharacterMovement : BaseMovement
 
     [Header("Dashing")]
     [SerializeField] private bool canDash = true;
-    [SerializeField] private float dashSpeed = 100;
+    [SerializeField] private float dashSpeed = 50f;
     [SerializeField][Range(0.1f, 10)] private float dashCooldown = 2;
     [SerializeField][Range(0.1f, 10)] private float dashRecharge = 2;
     [SerializeField][Range(0.1f, 10)] private float dashLength = 0.2f;
@@ -183,6 +183,11 @@ public class CharacterMovement : BaseMovement
     }
 
     #region Limit Velocity
+
+    /// <summary>
+    /// Limits the character's horizontal velocity to the defined maximum walk speed, and vertical velocity to the defined maximum vertical speed.
+    /// </summary>
+
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
@@ -230,7 +235,11 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Rotation
-    // Handles character look direction and camera pitch based on look input
+    /// <summary>
+    /// Rotates the character to face the target point determined by the look input, 
+    /// with rotation rates that increase as the look input moves further from the center of the screen. 
+    /// Also applies vertical rotation to the camera for looking up and down.
+    /// </summary>
     private void CharacterLook()
     {
         // Clamp look input to defined min/max values
