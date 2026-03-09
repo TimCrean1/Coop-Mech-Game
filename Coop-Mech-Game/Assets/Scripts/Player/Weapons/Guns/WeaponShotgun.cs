@@ -4,11 +4,14 @@ using System.Collections.Generic;
 
 public class WeaponShotgun : BaseWeapon
 {
-    List<RaycastHit> hits = new List<RaycastHit>();
+    [Header("Shotgun Variables")]
+    [SerializeField] private int numPellets = 8;
+    [SerializeField] private float spreadHalfAngle = 30f;
+    private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
-        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, 8, 30f);
+        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
         foreach(var hit in hits)
         {
             if (hit.collider.gameObject.CompareTag("TeamOne"))

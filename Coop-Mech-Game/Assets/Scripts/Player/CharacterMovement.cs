@@ -1,7 +1,6 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
-using Unity.Netcode;
 
 public class CharacterMovement : BaseMovement
 {
@@ -25,7 +24,7 @@ public class CharacterMovement : BaseMovement
 
     [Header("Dashing")]
     [SerializeField] private bool canDash = true;
-    [SerializeField] private float dashSpeed = 100;
+    [SerializeField] private float dashSpeed = 50f;
     [SerializeField][Range(0.1f, 10)] private float dashCooldown = 2;
     [SerializeField][Range(0.1f, 10)] private float dashRecharge = 2;
     [SerializeField][Range(0.1f, 10)] private float dashLength = 0.2f;
@@ -184,6 +183,11 @@ public class CharacterMovement : BaseMovement
     }
 
     #region Limit Velocity
+
+    /// <summary>
+    /// Limits the character's horizontal velocity to the defined maximum walk speed, and vertical velocity to the defined maximum vertical speed.
+    /// </summary>
+
     private void LimitVelocity()
     {
         Vector3 horizontalVel = GetHorizontalRBVelocity();
@@ -231,7 +235,11 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Rotation
-    // Handles character look direction and camera pitch based on look input
+    /// <summary>
+    /// Rotates the character to face the target point determined by the look input, 
+    /// with rotation rates that increase as the look input moves further from the center of the screen. 
+    /// Also applies vertical rotation to the camera for looking up and down.
+    /// </summary>
     private void CharacterLook()
     {
         // Clamp look input to defined min/max values
@@ -288,18 +296,26 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Jumping
-    public override void Jump(float jumpInput) 
+    public override void Jump(float jumpInput)
     {
-        if (canJump && (isGrounded || currentJumps < maxJumps))
+        if (!canJump) return;
+
+        if (isGrounded)
         {
-            currentJumps++;
-            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-            adjustedJumpForce *= jumpInput;
-            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
-            canJump = false;
-            StartCoroutine(JumpCooldownCoroutine());
+            currentJumps = 0;
         }
-        return;
+
+        if (currentJumps >= maxJumps) return;
+
+        currentJumps++;
+
+        float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+        adjustedJumpForce *= jumpInput;
+
+        rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+
+        canJump = false;
+        StartCoroutine(JumpCooldownCoroutine());
     }
 
     private IEnumerator JumpCooldownCoroutine()
@@ -312,9 +328,12 @@ public class CharacterMovement : BaseMovement
     {
         if (rigidbody.linearVelocity.y > 0f)
         {
-            rigidbody.AddForce(Vector3.down * (rigidbody.linearVelocity.y * 0.5f), ForceMode.VelocityChange);
+            rigidbody.linearVelocity = new Vector3(
+                rigidbody.linearVelocity.x,
+                rigidbody.linearVelocity.y * 0.5f,
+                rigidbody.linearVelocity.z
+            );
         }
-        return;
     }
 
     /// <summary>
@@ -340,9 +359,10 @@ public class CharacterMovement : BaseMovement
             if (canDash && currentDashes < maxDashes)
             {
                 currentDashes++;
-                Vector3 dashDirection = new Vector3(dashInput.x, 0, dashInput.y).normalized;
+                Vector3 dashDirection = (transform.right * dashInput.x + transform.forward * dashInput.y).normalized;
                 Vector3 adjustedDashForce = dashDirection * dashSpeed - rigidbody.linearVelocity;
                 rigidbody.AddForce(adjustedDashForce, ForceMode.VelocityChange);
+
                 canDash = false;
                 StartCoroutine(DashCooldownCoroutine());
                 StartCoroutine(DashLengthCoroutine());

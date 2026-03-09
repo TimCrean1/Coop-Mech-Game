@@ -1,11 +1,14 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using Unity.Netcode;
 [RequireComponent(typeof(BoxCollider))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(AudioSource))]
-public class KillhouseEnemy : MonoBehaviour
+[RequireComponent(typeof(NetworkObject))]
+    
+
+public class KillhouseEnemy : NetworkBehaviour
 {
     [Header("Component References")]
     [SerializeField] private KillhouseManager killhouseManager;
@@ -27,14 +30,29 @@ public class KillhouseEnemy : MonoBehaviour
 
     public void Activate()
     {
-        this.enabled = true;
-        gameObject.SetActive(true);
+        GetComponent<MeshRenderer>().enabled = true;
+        isActive = true;
     }
-    public void Deactivate()
+    [Rpc(SendTo.Everyone)]
+    public void ActivateRpc()
     {
-        gameObject.SetActive(false);
+        Debug.Log("Activating On The Server");
+        GetComponent<MeshRenderer>().enabled = true;
+        isActive = true;
     }
 
+    public void Deactivate()
+    {
+        GetComponent<MeshRenderer>().enabled = false;
+        isActive = false;
+    }
+    [Rpc(SendTo.Everyone)]
+    public void DeactivateRpc()
+    {
+        Debug.Log("Deactivating On The Server");
+        GetComponent<MeshRenderer>().enabled = false;
+        isActive = false;
+    }
     void OnDisable()
     {
         if (killhouseManager.currentKHStatus == KillhouseManager.KillhouseStatus.Playing)
@@ -51,6 +69,10 @@ public class KillhouseEnemy : MonoBehaviour
             // audioSource.Play();
             Destroy(collision.gameObject);
             Deactivate();
+            if (!IsServer)
+            {
+                DeactivateRpc();
+            }
         }
     }
 }

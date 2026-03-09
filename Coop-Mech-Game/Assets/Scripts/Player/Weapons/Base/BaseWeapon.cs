@@ -162,6 +162,11 @@ public abstract class BaseWeapon : NetworkBehaviour
         {
             GameManager.Instance.DamageTeamRpc(2, currentDamage);
         }
+        else if (other.CompareTag("Target"))
+        {
+            other.GetComponent<KillhouseEnemy>().Deactivate();
+            other.GetComponent<KillhouseEnemy>().DeactivateRpc();
+        }
 
         if (weaponType == WeaponType.Shotgun)
         {
