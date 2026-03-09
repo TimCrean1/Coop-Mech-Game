@@ -138,6 +138,7 @@ public class TeamWeaponManager : NetworkBehaviour
             }
             Debug.Log(item.itemName);
             AppendWeaponToList(0, item.itemPrefab);
+            AppendWeaponToListRpc(0, item.itemPrefab);
             ChangeEquippedWeapon(player, item);
         }
         else if (player == 1)
@@ -148,6 +149,7 @@ public class TeamWeaponManager : NetworkBehaviour
             }
 
             AppendWeaponToList(1, item.itemPrefab);
+            AppendWeaponToListRpc(1, item.itemPrefab);
             ChangeEquippedWeapon(player, item);
         }
         else
@@ -157,6 +159,24 @@ public class TeamWeaponManager : NetworkBehaviour
     }
 
     public void AppendWeaponToList(int player, GameObject weapon)
+    {
+        // Debug.Log(weapon.name);
+        if (player == 0)
+        {
+            P1WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+        }
+        else if (player == 1)
+        {
+            P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    [Rpc(SendTo.Owner)]
+    public void AppendWeaponToListRpc(int player, GameObject weapon)
     {
         Debug.Log(weapon.name);
         if (player == 0)
