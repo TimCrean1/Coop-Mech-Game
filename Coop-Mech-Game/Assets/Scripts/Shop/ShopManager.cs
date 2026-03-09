@@ -147,7 +147,7 @@ public class ShopManager : NetworkBehaviour
     public void InitializeShopItem(ShopItemSO item)
     {
         GameObject newItem = Instantiate(itemPrefab, itemDisplayParent);
-        newItem.GetComponent<NetworkObject>().Spawn(true);
+        //newItem.GetComponent<NetworkObject>().Spawn(true);
         newItem.GetComponent<ShopItemDisplayScript>().InitializeItem(item, this);
         displayedItemObjects.Add(newItem);
     }
