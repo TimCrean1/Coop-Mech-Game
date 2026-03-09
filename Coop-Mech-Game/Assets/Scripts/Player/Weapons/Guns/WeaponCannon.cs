@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class WeaponCannon : BaseWeapon
 {
-
+    [Header("Cannon Variables")]
     [SerializeField][Range(0.001f,1f)] private float minFireRate = 0.1f;
     [SerializeField][Range(0.001f,2f)] private float maxFireRate = 1f;
 
