@@ -73,6 +73,9 @@ public class TeamWeaponManager : NetworkBehaviour
 
         PurchaseWeapon(0, playerOneStartGun);
         PurchaseWeapon(1, playerTwoStartGun);
+
+        PurchaseWeaponRpc(0, 0);
+        PurchaseWeaponRpc(1, 1);
     }
 
     #endregion

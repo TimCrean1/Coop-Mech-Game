@@ -61,10 +61,6 @@ public class ShopManager : NetworkBehaviour
         displayedItemObjects = new List<GameObject>();
         OnChangeRound.AddListener(ChangeRound);
 
-        for (int i = 0; i < allItems.Count; i++)
-        {
-            Debug.Log(allItems[i]);
-        }
 
     }
 
