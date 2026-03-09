@@ -71,6 +71,7 @@ public class KillhouseManager : MonoBehaviour
             if (!enemy.isActive)
             {
                 enemy.Activate();
+                enemy.ActivateRpc();
             }
         }
     }
@@ -81,6 +82,7 @@ public class KillhouseManager : MonoBehaviour
             if (enemy.isActive)
             {
                 enemy.Deactivate();
+                enemy.DeactivateRpc();
             }
         }
     }
@@ -96,7 +98,7 @@ public class KillhouseManager : MonoBehaviour
         Debug.Log("Cancelled Kill House!");
         currentKHStatus = KillhouseStatus.Waiting;
         timer = 0;
-        DeactivateEnemies();
+        // DeactivateEnemies();
     }
     public void CompleteTrial()
     {
@@ -105,7 +107,7 @@ public class KillhouseManager : MonoBehaviour
         leaderBoard.Sort((a, b) => a.CompareTo(b));
         Debug.Log("Trial Complete! Your time was: " + timer + ". You got " + points + " points!");
         currentKHStatus = KillhouseStatus.Waiting;
-        DeactivateEnemies();
+        // DeactivateEnemies();
     }
     public void UpdatePoints(float newPoints)
     {
