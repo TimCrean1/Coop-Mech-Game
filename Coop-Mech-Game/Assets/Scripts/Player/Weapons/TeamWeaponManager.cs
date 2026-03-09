@@ -69,13 +69,13 @@ public class TeamWeaponManager : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
-        if (IsOwner)
-        {
-            PurchaseWeaponRpc(0, 0);
-            PurchaseWeaponRpc(1, 1);
-        }
+        //if (IsOwner)
+        //{
+        //    PurchaseWeaponRpc(0, 0);
+        //    PurchaseWeaponRpc(1, 1);
+        //}
 
-        if(!IsServer) { return; }
+        //if(!IsServer) { return; }
         PurchaseWeapon(0, playerOneStartGun);
         PurchaseWeapon(1, playerTwoStartGun);
 
@@ -118,6 +118,8 @@ public class TeamWeaponManager : NetworkBehaviour
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
                 newWeapon.transform.SetParent(mountPoint, true);
+
+                AppendWeaponToListRpc(player, item.itemIndex);
             }
 
             // Parent after spawn
