@@ -110,6 +110,7 @@ public class TeamWeaponManager : NetworkBehaviour
 
             // Instantiate WITHOUT parent
             GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+            AppendWeaponToList(player, newWeapon);
 
 
             if (IsServer)
@@ -149,7 +150,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
             }
             //Debug.Log(item.itemName);
-            AppendWeaponToList(0, item.itemPrefab);
+            // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
@@ -159,8 +160,7 @@ public class TeamWeaponManager : NetworkBehaviour
             {
                 RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
             }
-
-            AppendWeaponToList(1, item.itemPrefab);
+            // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
@@ -183,7 +183,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
             }
             //Debug.Log(item.itemName);
-            AppendWeaponToList(0, item.itemPrefab);
+            // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
@@ -194,7 +194,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
             }
 
-            AppendWeaponToList(1, item.itemPrefab);
+            // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
