@@ -98,8 +98,7 @@ public class TeamWeaponManager : NetworkBehaviour
 
     private void ChangeEquippedWeapon(int player, ShopItemSO item)
     {
-        if (player == 0)
-        {
+        
             Transform mountPoint = (player == 0) ? weaponTranformOne : weaponTranformTwo;
 
             // Instantiate WITHOUT parent
@@ -116,7 +115,7 @@ public class TeamWeaponManager : NetworkBehaviour
             bW.ammoCountScreen = ammoCountScreenL;
             Debug.Log(bW.ammoCountScreen.name);
             bW.comboManager = comboManager;
-        }
+        
       
     }
 
