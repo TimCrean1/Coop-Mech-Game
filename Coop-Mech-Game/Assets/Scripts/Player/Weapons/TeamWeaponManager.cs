@@ -112,11 +112,11 @@ public class TeamWeaponManager : NetworkBehaviour
 
             BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
             Debug.Log(bW.name);
-            bW.ammoCountScreen = ammoCountScreenL;
+            bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
             Debug.Log(bW.ammoCountScreen.name);
             bW.comboManager = comboManager;
         
-      
+            
     }
 
     #endregion
