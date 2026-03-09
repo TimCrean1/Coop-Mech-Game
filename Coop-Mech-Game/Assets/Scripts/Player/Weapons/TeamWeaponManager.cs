@@ -69,13 +69,14 @@ public class TeamWeaponManager : NetworkBehaviour
     }
     public override void OnNetworkSpawn()
     {
-        if (!IsServer) return;
+        PurchaseWeaponRpc(0, 0);
+        PurchaseWeaponRpc(1, 1);
 
+        if(!IsServer) { return; }
         PurchaseWeapon(0, playerOneStartGun);
         PurchaseWeapon(1, playerTwoStartGun);
 
-        PurchaseWeaponRpc(0, 0);
-        PurchaseWeaponRpc(1, 1);
+        
     }
 
     #endregion
@@ -161,13 +162,12 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.Server)]
     public void PurchaseWeaponRpc(int player, int index)
     {
-        //Debug.Log($"[{gameObject.name}] Buying {item?.name}");
-        //Debug.LogError($"[{gameObject.name}] ITEM IS NULL");
+        Debug.Log("start" + ShopManager.Instance.allItems.Count);
         ShopItemSO item = ShopManager.Instance.allItems[index];
-        //Debug.Log($"Buying {item.name} with prefab {item.itemPrefab.name}");
+        
         if (player == 0)
         {
             if (P1WeaponsList.Count > 0)
@@ -194,6 +194,7 @@ public class TeamWeaponManager : NetworkBehaviour
         {
             Debug.LogError("Player " + player + " does not exist!");
         }
+        Debug.Log("end" + ShopManager.Instance.allItems.Count);
     }
 
     public void AppendWeaponToList(int player, GameObject weapon)

@@ -141,7 +141,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (playerNumber == "One") 
         {
-            Debug.Log("Inputs are being subscribed - one");
+            //Debug.Log("Inputs are being subscribed - one");
             // OwnerClientId 0 is player 1 of mech 1
             // OwnerClientId 2 is player 1 of mech 2
 
