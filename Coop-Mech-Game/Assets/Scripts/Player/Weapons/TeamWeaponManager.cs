@@ -162,7 +162,7 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.NotServer)]
     public void PurchaseWeaponRpc(int player, int index)
     {
         Debug.Log("start" + ShopManager.Instance.allItems.Count);
