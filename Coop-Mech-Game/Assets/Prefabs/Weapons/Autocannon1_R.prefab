@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4994680573633615346}
   - component: {fileID: 1729890538843730585}
   - component: {fileID: 6658343144220768653}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -144,7 +144,7 @@ GameObject:
   - component: {fileID: 830983208384420787}
   - component: {fileID: 7131273723123149353}
   - component: {fileID: 1740679705418939048}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Autocannon1_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   ShowTopMostFoldoutHeaderGroup: 1
-  teamProjectilePool: {fileID: 0}
   muzzle: {fileID: 6292108309621055733}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
@@ -223,6 +222,8 @@ MonoBehaviour:
   currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
+  minFireRate: 0.1
+  maxFireRate: 1
 --- !u!1 &6991565007066483521
 GameObject:
   m_ObjectHideFlags: 0
@@ -234,7 +235,7 @@ GameObject:
   - component: {fileID: 7873524366212576367}
   - component: {fileID: 612846220943692146}
   - component: {fileID: 7374152122791675893}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AutocannonR
   m_TagString: Untagged
   m_Icon: {fileID: 0}

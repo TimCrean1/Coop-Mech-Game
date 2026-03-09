@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8994243229922445254}
   - component: {fileID: 4637087336809337171}
   - component: {fileID: 7530388928367372849}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Shotgun_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,6 +89,8 @@ MonoBehaviour:
   currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
+  numPellets: 8
+  spreadHalfAngle: 30
 --- !u!1 &7259057471607518776
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +102,7 @@ GameObject:
   - component: {fileID: 8683630039169373989}
   - component: {fileID: 7155172253684499783}
   - component: {fileID: 1440943156847414103}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: AutocannonLMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +197,7 @@ GameObject:
   - component: {fileID: 3679062586185121936}
   - component: {fileID: 7027600258630830532}
   - component: {fileID: 7541603140366743065}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Muzzle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
