@@ -14,4 +14,5 @@ public class ShopItemSO : ScriptableObject
     public Sprite itemIcon;
     public string itemDescription;
     public string itemName;
+    public int itemIndex;
 }

@@ -138,7 +138,7 @@ public class TeamWeaponManager : NetworkBehaviour
             }
             Debug.Log(item.itemName);
             AppendWeaponToList(0, item.itemPrefab);
-            AppendWeaponToListRpc(0, item.itemPrefab);
+            AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else if (player == 1)
@@ -149,7 +149,7 @@ public class TeamWeaponManager : NetworkBehaviour
             }
 
             AppendWeaponToList(1, item.itemPrefab);
-            AppendWeaponToListRpc(1, item.itemPrefab);
+            AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else
@@ -176,8 +176,9 @@ public class TeamWeaponManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Owner)]
-    public void AppendWeaponToListRpc(int player, GameObject weapon)
+    public void AppendWeaponToListRpc(int player, int index)
     {
+        GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
         Debug.Log(weapon.name);
         if (player == 0)
         {
