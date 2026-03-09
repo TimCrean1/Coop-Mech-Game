@@ -138,7 +138,7 @@ public class TeamWeaponManager : NetworkBehaviour
             }
             //Debug.Log(item.itemName);
             AppendWeaponToList(0, item.itemPrefab);
-            AppendWeaponToListRpc(0, item.itemIndex);
+            //AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else if (player == 1)
@@ -149,7 +149,42 @@ public class TeamWeaponManager : NetworkBehaviour
             }
 
             AppendWeaponToList(1, item.itemPrefab);
-            AppendWeaponToListRpc(1, item.itemIndex);
+            //AppendWeaponToListRpc(1, item.itemIndex);
+            ChangeEquippedWeapon(player, item);
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    [Rpc(SendTo.NotServer)]
+    public void PurchaseWeaponRpc(int player, int index)
+    {
+        //Debug.Log($"[{gameObject.name}] Buying {item?.name}");
+        //Debug.LogError($"[{gameObject.name}] ITEM IS NULL");
+        ShopItemSO item = ShopManager.Instance.allItems[index];
+        //Debug.Log($"Buying {item.name} with prefab {item.itemPrefab.name}");
+        if (player == 0)
+        {
+            if (P1WeaponsList.Count > 0)
+            {
+                RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
+            }
+            //Debug.Log(item.itemName);
+            AppendWeaponToList(0, item.itemPrefab);
+            //AppendWeaponToListRpc(0, item.itemIndex);
+            ChangeEquippedWeapon(player, item);
+        }
+        else if (player == 1)
+        {
+            if (P2WeaponsList.Count > 0)
+            {
+                RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
+            }
+
+            AppendWeaponToList(1, item.itemPrefab);
+            //AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else

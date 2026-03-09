@@ -27,7 +27,7 @@ public class ShopManager : NetworkBehaviour
     [SerializeField] private TextMeshProUGUI readyPlayersText;
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons; // Current buy round type
-    [SerializeField] private List<ShopItemSO> allItems; // All available shop items
+    [SerializeField] public List<ShopItemSO> allItems; // All available shop items
 
     private List<ShopItemSO> displayedItems; // Items currently displayed in the shop
     private List<GameObject> displayedItemObjects; // UI objects for the displayed items
@@ -36,7 +36,16 @@ public class ShopManager : NetworkBehaviour
 
     public UnityEvent OnChangeRound;
     #endregion
+    #region Singleton
 
+    private static ShopManager _instance = null;
+
+    public static ShopManager Instance
+    {
+        get { return _instance; }
+    }
+
+    #endregion
     #region Unity Functions
     void Start()
     {
@@ -51,6 +60,12 @@ public class ShopManager : NetworkBehaviour
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
         OnChangeRound.AddListener(ChangeRound);
+
+        for (int i = 0; i < allItems.Count; i++)
+        {
+            Debug.Log(allItems[i]);
+        }
+
     }
 
     public override void OnNetworkSpawn()
