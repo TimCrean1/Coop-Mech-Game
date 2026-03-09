@@ -111,9 +111,9 @@ public class TeamWeaponManager : NetworkBehaviour
             newWeapon.transform.SetParent(mountPoint, true);
 
             BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
-            Debug.Log(bW.name);
+            //Debug.Log(bW.name);
             bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
-            Debug.Log(bW.ammoCountScreen.name);
+            //Debug.Log(bW.ammoCountScreen.name);
             bW.comboManager = comboManager;
         
             
@@ -136,7 +136,7 @@ public class TeamWeaponManager : NetworkBehaviour
             {
                 RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
             }
-            Debug.Log(item.itemName);
+            //Debug.Log(item.itemName);
             AppendWeaponToList(0, item.itemPrefab);
             AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
@@ -175,9 +175,11 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Owner)]
+    [Rpc(SendTo.Everyone)]
     public void AppendWeaponToListRpc(int player, int index)
     {
+
+        Debug.Log("Appending Weapon to player"+ player + index);
         GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
         Debug.Log(weapon.name);
         if (player == 0)
