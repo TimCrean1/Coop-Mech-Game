@@ -108,8 +108,12 @@ public class TeamWeaponManager : NetworkBehaviour
             // Instantiate WITHOUT parent
             GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
 
-            NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
-            netObj.Spawn(true);
+
+            if (IsServer)
+            {
+                NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
+                netObj.Spawn(true);
+            }
 
             // Parent after spawn
             newWeapon.transform.SetParent(mountPoint, true);
