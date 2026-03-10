@@ -28,6 +28,7 @@ public class SmokeGrenadeUtility : BaseUtility
             _owningCharacter = utilityManager.GetCharacterMovement();
         }
     }
+
     public override void ActivateUtilityRpc()
     {
         if (UtilityConditionsMet())
