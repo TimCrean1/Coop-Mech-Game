@@ -1,14 +1,17 @@
 using System.Collections;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class BaseUtility : MonoBehaviour
+public abstract class BaseUtility : NetworkBehaviour
 {
     [Header("Object/Component References")]
     [SerializeField] protected UtilityManagerScript utilityManager;
     [Header("Utility Stats")]
     [SerializeField] protected bool canActivateUtility = true;
     [SerializeField] protected float utilityCooldownTime = 5f;
-    public abstract void ActivateUtility();
+
+    [ClientRpc]
+    public abstract void ActivateUtilityRpc();
     protected virtual void DeactivateUtility() { }
     protected virtual IEnumerator UtilityCooldown(float cooldownTime)
     {
