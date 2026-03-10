@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6292108309621055733}
-  - component: {fileID: 4994680573633615346}
+  - component: {fileID: 9007807141651695639}
   - component: {fileID: 1729890538843730585}
   - component: {fileID: 6658343144220768653}
   m_Layer: 8
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7873524366212576367}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &4994680573633615346
+--- !u!114 &9007807141651695639
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1385938763859944064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076fced9e0e546d4bb209cde13a76dee, type: 3}
+  m_Script: {fileID: 11500000, guid: 350c43a2348d0b34b9c6f9a65b65d51b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponMuzzle
+  m_EditorClassIdentifier: Assembly-CSharp::SniperMuzzle
   bulletEffect: {fileID: 1729890538843730585}
-  fireEffect: {fileID: 0}
 --- !u!2083052967 &1729890538843730585
 VisualEffect:
   m_ObjectHideFlags: 0
@@ -56,7 +55,7 @@ VisualEffect:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1385938763859944064}
   m_Enabled: 1
-  m_Asset: {fileID: 8926484042661614526, guid: 067fdb1315706eb4a83327f18e00dccb, type: 3}
+  m_Asset: {fileID: 8926484042661614526, guid: 79e8cf7d6528f9446acfea8e045ff95b, type: 3}
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0

@@ -194,7 +194,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 430591710476676021}
-  - component: {fileID: 3679062586185121936}
+  - component: {fileID: 3006935235167535551}
   - component: {fileID: 7027600258630830532}
   - component: {fileID: 7541603140366743065}
   m_Layer: 8
@@ -219,7 +219,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8683630039169373989}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &3679062586185121936
+--- !u!114 &3006935235167535551
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -228,11 +228,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7488729712182714193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 076fced9e0e546d4bb209cde13a76dee, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aa0e3756552d0d42962c4ed1992532b, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponMuzzle
-  bulletEffect: {fileID: 0}
-  fireEffect: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::CannonMuzzle
+  bulletEffect: {fileID: 7027600258630830532}
 --- !u!2083052967 &7027600258630830532
 VisualEffect:
   m_ObjectHideFlags: 0

@@ -6,13 +6,14 @@ public class WeaponSniper : BaseWeapon
 {
     [Header("Sniper Variables")]
     [SerializeField] private int maxBounceCount = 2;
-    [SerializeField] private float maxCastDistance = 100f;
+    [SerializeField] private float maxCastDistance = 300f;
     [SerializeField] private float castBounceMult = 0.5f;
     private List<RaycastHit> weaponHits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
         weaponHits = VectorExtensions.SequentialRaycast(Muzzle.transform.position, Muzzle.transform.forward, maxCastDistance, maxBounceCount, castBounceMult);
+        hit = weaponHits[0];
 
         foreach (var hit in weaponHits)
         {
