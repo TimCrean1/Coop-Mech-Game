@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using UnityEngine.VFX;
@@ -28,7 +29,7 @@ public class SmokeGrenadeUtility : BaseUtility
             _owningCharacter = utilityManager.GetCharacterMovement();
         }
     }
-
+    
     public override void ActivateUtilityRpc()
     {
         if (UtilityConditionsMet())
