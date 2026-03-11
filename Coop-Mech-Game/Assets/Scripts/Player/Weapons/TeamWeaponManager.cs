@@ -116,7 +116,6 @@ public class TeamWeaponManager : NetworkBehaviour
             if (IsServer)
             {
                 //Destroy old weapon
-                // DESTROY OLD WEAPON
                 BaseWeapon oldWeapon = null;
 
                 if (player == 0 && P1WeaponsList.Count > 0)
