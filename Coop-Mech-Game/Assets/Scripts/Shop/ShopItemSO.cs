@@ -10,7 +10,8 @@ public enum ItemType
 public class ShopItemSO : ScriptableObject
 {
     public ItemType itemType;
-    public GameObject itemPrefab;
+    public GameObject leftItemPrefab;
+    public GameObject rightItemPrefab;
     public Sprite itemIcon;
     public string itemDescription;
     public string itemName;

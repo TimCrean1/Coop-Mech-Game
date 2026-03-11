@@ -115,8 +115,20 @@ public class TeamWeaponManager : NetworkBehaviour
 
             if (IsServer)
             {
-                GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
-                
+                GameObject newWeapon; //= Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+                if (player == 0)
+                {
+                    newWeapon = Instantiate(item.leftItemPrefab, mountPoint.position, mountPoint.rotation);
+                }
+                else if (player == 1)
+                {
+                    newWeapon = Instantiate(item.rightItemPrefab, mountPoint.position, mountPoint.rotation);
+                }
+                else
+                {
+                    Debug.LogError("Invalid player assignment: Player Number " + player);
+                    newWeapon = null;
+                }
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
                 if (isStart)
@@ -207,10 +219,10 @@ public class TeamWeaponManager : NetworkBehaviour
         
         if (player == 0)
         {
-            //if (P1WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
-            //}
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
+            // }
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
@@ -218,10 +230,10 @@ public class TeamWeaponManager : NetworkBehaviour
         }
         else if (player == 1)
         {
-            //if (P2WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
-            //}
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
+            // }
 
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);

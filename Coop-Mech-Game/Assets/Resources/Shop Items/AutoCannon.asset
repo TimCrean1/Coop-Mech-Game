@@ -10,11 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a32c2c969e9b485885af3c85b46c00f, type: 3}
-  m_Name: AutoCannonL
+  m_Name: AutoCannon
   m_EditorClassIdentifier: Assembly-CSharp::ShopItemSO
   itemType: 1
-  itemPrefab: {fileID: 6178409282293903379, guid: 84d71986204887b4a875da62586bcb0d,
+  leftItemPrefab: {fileID: 6178409282293903379, guid: 84d71986204887b4a875da62586bcb0d,
     type: 3}
-  itemIcon: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
-  itemDescription: Yes
-  itemName: AutoCannon1L
+  rightItemPrefab: {fileID: 4233974594380943137, guid: 852fb2a8dba307b41a2c257d7c28fadb,
+    type: 3}
+  itemIcon: {fileID: 21300000, guid: d7a067d8a329c4f298c6193d493ec1fe, type: 3}
+  itemDescription: :)
+  itemName: AutoCannon1
+  itemIndex: 0
