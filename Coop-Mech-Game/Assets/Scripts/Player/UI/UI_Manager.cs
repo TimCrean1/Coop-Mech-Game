@@ -55,7 +55,7 @@ public class UI_Manager : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         weaponMgr = GetComponent<TeamWeaponManager>();
 
-        Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
+        //Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
     }
 
     // Update is called once per frame
@@ -101,14 +101,16 @@ public class UI_Manager : MonoBehaviour
     public void SetHealthBarPercent(float MechMaxHealth, float MechCurrHealth)
     {
         float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 0f, 1f);
-        //_mechInteriorRenderer.GetPropertyBlock(_block, _healthIdx);
+        _mechInteriorRenderer.GetPropertyBlock(_block, _healthIdx);
+        Debug.Log("Setting health bar _BarPercent to: " + h);
         _block.SetFloat("_BarPercent", h);
         _mechInteriorRenderer.SetPropertyBlock(_block, _healthIdx);
     }
 
     public void SetComboBarPercent(float factor01)
     {
-        //_mechInteriorRenderer.GetPropertyBlock(_block, _comboIdx);
+        _mechInteriorRenderer.GetPropertyBlock(_block, _comboIdx);
+        Debug.Log("Setting combo bar _BarPercent to: " + factor01);
         _block.SetFloat("_BarPercent", factor01);
         _mechInteriorRenderer.SetPropertyBlock(_block, _comboIdx);
     }
