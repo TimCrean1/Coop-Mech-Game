@@ -51,6 +51,8 @@ public class UI_Manager : MonoBehaviour
                 _comboIdx = i;
             }
         }
+
+        Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
     }
 
     // Update is called once per frame
