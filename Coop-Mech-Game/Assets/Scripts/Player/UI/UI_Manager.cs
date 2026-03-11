@@ -29,28 +29,31 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private Vector2 mouse2Pos;
     [SerializeField] private Vector2 averagePos;
 
-    void Start()
+    private void Awake()
     {
-        playerController = GetComponent<PlayerController>();
-        weaponMgr = GetComponent<TeamWeaponManager>();
-        
         _mechInteriorRenderer = mechInterior.GetComponent<Renderer>();
         _block = new MaterialPropertyBlock();
 
         var mats = _mechInteriorRenderer.sharedMaterials;
 
-        for(int i = 0; i < mats.Length; i++)
+        for (int i = 0; i < mats.Length; i++)
         {
-            if(mats[i] == healthMaterial)
+            if (mats[i] == healthMaterial)
             {
                 _healthIdx = i;
             }
 
-            if(mats[i] == comboMaterial)
+            if (mats[i] == comboMaterial)
             {
                 _comboIdx = i;
             }
         }
+    }
+
+    void Start()
+    {
+        playerController = GetComponent<PlayerController>();
+        weaponMgr = GetComponent<TeamWeaponManager>();
 
         Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
     }
