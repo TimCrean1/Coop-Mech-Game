@@ -288,16 +288,22 @@ public class TeamWeaponManager : NetworkBehaviour
         // Debug.Log(weapon.name);
         if (player == 0)
         {
-            P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            Destroy(P1WeaponsList[0]);
+            if (P1WeaponsList.Count > 0)
+            {
+                P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+                Destroy(P1WeaponsList[0]);
+            }
 
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            Destroy(P2WeaponsList[0]);
-            
+            if (P2WeaponsList.Count > 0)
+            {
+                P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+                Destroy(P2WeaponsList[0]);
+            }
+
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
@@ -318,15 +324,21 @@ public class TeamWeaponManager : NetworkBehaviour
         Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
         if (player == 0)
         {
-            P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            Destroy(P1WeaponsList[0]);
+            if (P1WeaponsList.Count > 0)
+            {
+                P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+                Destroy(P1WeaponsList[0]);
+            }
 
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            Destroy(P2WeaponsList[0]);
+            if (P2WeaponsList.Count > 0)
+            {
+                P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+                Destroy(P2WeaponsList[0]);
+            }
             // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
