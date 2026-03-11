@@ -28,7 +28,7 @@ public class WeaponSniper : BaseWeapon
         }
 
         Debug.Log("FireRpc in WeaponSniper");
-
+        
         BuildCooldown();
     }
 
