@@ -19,6 +19,7 @@ public class SingleComboScript : NetworkBehaviour
 
     [Header("UI Variables")]
     [SerializeField] private Image comboMeter;
+    [SerializeField] private UI_Manager _uiManager;
     #endregion
     
 
@@ -61,6 +62,7 @@ public class SingleComboScript : NetworkBehaviour
     private void ChangeFillBarClient()
     {
         comboMeter.fillAmount = currentPoints.Value / maxPoints;
+        if (_uiManager) { _uiManager.SetComboBarPercent(currentPoints.Value / maxPoints); }
     }
     [Rpc(SendTo.Server)]
     public void AddPointsRpc(float points)
