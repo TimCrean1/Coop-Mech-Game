@@ -11,19 +11,28 @@ public class WeaponShotgun : BaseWeapon
 
     protected override void FireRpc()
     {
+        float t1dmg = 0;
+        float t2dmg = 0;
+
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+
         foreach(var hit in hits)
         {
             // Debug.Log(hit);
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
-                GameManager.Instance.DamageTeamRpc(1, currentDamage);
+                t1dmg += currentDamage;
             }
             else if (hit.collider.gameObject.CompareTag("TeamTwo"))
             {
-                GameManager.Instance.DamageTeamRpc(2, currentDamage);
+                t2dmg += currentDamage;
             }
         }
+
+        GameManager.Instance.DamageTeamRpc(1, t1dmg);
+        GameManager.Instance.DamageTeamRpc(2, t2dmg);
+
+        BuildCooldown();
     }
 
     public override void Fire(float mouseDistance)
