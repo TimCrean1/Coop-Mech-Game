@@ -115,8 +115,8 @@ public class ShopManager : NetworkBehaviour
         // Debug.Log("Opening For Client");
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
-        InitializeBuyRound(currentBuyRound); 
         currentBuyRound = CurrentBuyRound.Weapons;
+        InitializeBuyRound(currentBuyRound); 
     }
 
     [ClientRpc]
@@ -134,8 +134,8 @@ public class ShopManager : NetworkBehaviour
         // Debug.Log("Opening For Host");
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
-        InitializeBuyRound(currentBuyRound);
         currentBuyRound = CurrentBuyRound.Weapons;
+        InitializeBuyRound(currentBuyRound);
     }
 
     // Closes the shop UI
@@ -269,6 +269,10 @@ public class ShopManager : NetworkBehaviour
 
     private void ChangeRound()
     {
+        if (currentBuyRound == CurrentBuyRound.Closed)
+        {
+            currentBuyRound = CurrentBuyRound.Weapons;
+        }
         if (currentBuyRound == CurrentBuyRound.Weapons)
         {
             currentBuyRound = CurrentBuyRound.Utilities;
