@@ -57,6 +57,7 @@ public class TeamWeaponManager : NetworkBehaviour
 
     void Start()
     {
+        GameManager.Instance.OnStartupSequence.AddListener(InitWeaponBuy);
         if (weaponTranformOne == null && P1WeaponsList.Count > 0)
         {
             weaponTranformOne = P1WeaponsList[_p1EquippedWeapon].transform;
@@ -75,9 +76,7 @@ public class TeamWeaponManager : NetworkBehaviour
         //    PurchaseWeaponRpc(1, 1);
         //}
 
-        //if(!IsServer) { return; }
-        PurchaseWeapon(0, playerOneStartGun);
-        PurchaseWeapon(1, playerTwoStartGun);
+       
 
         
     }
@@ -109,27 +108,30 @@ public class TeamWeaponManager : NetworkBehaviour
             Transform mountPoint = (player == 0) ? weaponTranformOne : weaponTranformTwo;
 
             // Instantiate WITHOUT parent
-            GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
-            AppendWeaponToList(player, newWeapon);
+            
 
 
             if (IsServer)
             {
+                GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+                
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
+                AppendWeaponToList(player, newWeapon);
+                AppendWeaponToListRpc(player, netObj.NetworkObjectId);
                 newWeapon.transform.SetParent(mountPoint, true);
-
-                AppendWeaponToListRpc(player, item.itemIndex);
+                BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+                //Debug.Log(bW.name);
+                bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
+                //Debug.Log(bW.ammoCountScreen.name);
+                bW.comboManager = comboManager;
+            
             }
 
             // Parent after spawn
             
 
-            BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
-            //Debug.Log(bW.name);
-            bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
-            //Debug.Log(bW.ammoCountScreen.name);
-            bW.comboManager = comboManager;
+            
         
             
     }
@@ -138,7 +140,12 @@ public class TeamWeaponManager : NetworkBehaviour
 
 
     #region Weapon Purchasing
-
+    private void InitWeaponBuy()
+    {
+        if(!IsServer) { return; }
+        PurchaseWeapon(0, playerOneStartGun);
+        PurchaseWeapon(1, playerTwoStartGun);
+    }
     public void PurchaseWeapon(int player, ShopItemSO item)
     {
         //Debug.Log($"[{gameObject.name}] Buying {item?.name}");
@@ -224,13 +231,15 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Everyone)]
-    public void AppendWeaponToListRpc(int player, int index)
+    [Rpc(SendTo.NotServer)]
+    public void AppendWeaponToListRpc(int player, ulong networkObjId)
     {
 
-        Debug.Log("Appending Weapon to player"+ player + index);
-        GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
-        Debug.Log(weapon.name);
+        
+        //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
+        //Debug.Log(weapon.name);
+        GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
+        Debug.Log("Appending Weapon to player" + player + weapon);
         if (player == 0)
         {
             P1WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
