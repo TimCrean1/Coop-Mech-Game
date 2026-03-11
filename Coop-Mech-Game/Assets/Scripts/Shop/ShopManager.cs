@@ -36,6 +36,7 @@ public class ShopManager : NetworkBehaviour
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
     public UnityEvent OnChangeRound;
+    public UnityEvent OnShopEnd;
     #endregion
     #region Singleton
 
@@ -141,6 +142,7 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
         currentBuyRound = CurrentBuyRound.Closed;
+        OnShopEnd.Invoke();
     }
     #endregion
 

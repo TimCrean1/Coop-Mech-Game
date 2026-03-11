@@ -80,6 +80,7 @@ public class CharacterMovement : BaseMovement
         canMove = false;
 
         GameManager.Instance.OnRoundEnd.AddListener(SetCanMoveFalse);
+        ShopManager.Instance.OnShopEnd.AddListener(SetCanMoveTrue);
     }
 
     private void FixedUpdate()
