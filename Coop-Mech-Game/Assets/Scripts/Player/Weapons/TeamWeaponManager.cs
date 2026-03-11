@@ -144,8 +144,9 @@ public class TeamWeaponManager : NetworkBehaviour
             
     }
     [Rpc(SendTo.Server)]
-    private void requestChangeWeaponRpc(int player, ShopItemSO item)
+    private void requestChangeWeaponRpc(int player, int index)
     {
+        ShopItemSO item = ShopManager.Instance.allItems[index];
         ChangeEquippedWeapon(player, item);
     }
     [Rpc(SendTo.NotServer)]
