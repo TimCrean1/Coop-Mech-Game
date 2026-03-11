@@ -127,7 +127,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 ReplaceWeaponInList(player, newWeapon);
                 ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
                 newWeapon.transform.SetParent(mountPoint, true);
-                BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+                BaseWeapon bW = newWeapon.GetComponent<BaseWeapon>();
                 //Debug.Log(bW.name);
                 bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
                 //Debug.Log(bW.ammoCountScreen.name);
@@ -148,7 +148,7 @@ public class TeamWeaponManager : NetworkBehaviour
     {
         Debug.Log("adding ref");
         BaseWeapon weapon = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseWeapon>();
-        BaseWeapon cannon = weapon.GetComponent<WeaponCannon>();
+        BaseWeapon cannon = weapon.GetComponent<BaseWeapon>();
         cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
         cannon.comboManager = comboManager;
     }
