@@ -14,6 +14,7 @@ public class WeaponShotgun : BaseWeapon
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
         foreach(var hit in hits)
         {
+            // Debug.Log(hit);
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
                 GameManager.Instance.DamageTeamRpc(1, currentDamage);
