@@ -148,6 +148,7 @@ public class TeamWeaponManager : NetworkBehaviour
     {
         ShopItemSO item = ShopManager.Instance.allItems[index];
         ChangeEquippedWeapon(player, item);
+        Debug.Log("Client requests item purchase " + item);
     }
     [Rpc(SendTo.NotServer)]
     private void addReferencesRpc(int player, ulong netObjId)
@@ -209,7 +210,7 @@ public class TeamWeaponManager : NetworkBehaviour
     public void PurchaseWeaponRpc(int player, int index)
     {
         Debug.Log("client is buying this index of weapon " + index);
-        ShopItemSO item = ShopManager.Instance.allItems[index];
+        //ShopItemSO item = ShopManager.Instance.allItems[index];
         
         if (player == 0)
         {
@@ -221,7 +222,7 @@ public class TeamWeaponManager : NetworkBehaviour
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
             //ChangeEquippedWeapon(player, item);
-            requestChangeWeaponRpc(player,item);
+            requestChangeWeaponRpc(player,index);
         }
         else if (player == 1)
         {
@@ -233,7 +234,7 @@ public class TeamWeaponManager : NetworkBehaviour
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
             //ChangeEquippedWeapon(player, item);
-            requestChangeWeaponRpc(player, item);
+            requestChangeWeaponRpc(player, index);
         }
         else
         {
