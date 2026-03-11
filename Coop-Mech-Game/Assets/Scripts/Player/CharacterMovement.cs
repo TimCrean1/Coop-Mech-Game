@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterMovement : BaseMovement
 {
@@ -77,6 +78,8 @@ public class CharacterMovement : BaseMovement
         rigidbody.angularDamping = 8f;
         // StartupAnimation script sets this to true when start up animation is complete
         canMove = false;
+
+        GameManager.Instance.OnRoundEnd.AddListener(SetCanMoveFalse);
     }
 
     private void FixedUpdate()
@@ -451,6 +454,8 @@ public class CharacterMovement : BaseMovement
     public float GetDeadZoneSize(){return deadZoneSize;}
     public bool GetCanMove(){return canMove;}
     public void SetCanMove(bool In){canMove = In;}
+    private void SetCanMoveFalse(){SetCanMove(false);}
+    private void SetCanMoveTrue(){SetCanMove(true);}
 
     #endregion
 
