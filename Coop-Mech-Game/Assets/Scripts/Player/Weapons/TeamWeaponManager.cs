@@ -207,10 +207,10 @@ public class TeamWeaponManager : NetworkBehaviour
         
         if (player == 0)
         {
-            //if (P1WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
-            //}
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
+            // }
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
@@ -218,10 +218,10 @@ public class TeamWeaponManager : NetworkBehaviour
         }
         else if (player == 1)
         {
-            //if (P2WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
-            //}
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
+            // }
 
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);

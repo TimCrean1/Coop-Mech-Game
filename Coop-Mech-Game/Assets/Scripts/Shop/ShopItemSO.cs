@@ -15,4 +15,5 @@ public class ShopItemSO : ScriptableObject
     public string itemDescription;
     public string itemName;
     public int itemIndex;
+    public int playerID;
 }
