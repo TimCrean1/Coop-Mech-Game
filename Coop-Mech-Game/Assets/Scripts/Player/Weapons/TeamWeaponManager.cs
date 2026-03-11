@@ -115,20 +115,8 @@ public class TeamWeaponManager : NetworkBehaviour
 
             if (IsServer)
             {
-                GameObject newWeapon; //= Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
-                if (player == 0)
-                {
-                    newWeapon = Instantiate(item.leftItemPrefab, mountPoint.position, mountPoint.rotation);
-                }
-                else if (player == 1)
-                {
-                    newWeapon = Instantiate(item.rightItemPrefab, mountPoint.position, mountPoint.rotation);
-                }
-                else
-                {
-                    Debug.LogError("Invalid player assignment: Player Number " + player);
-                    newWeapon = null;
-                }
+                GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+                
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
                 if (isStart)

@@ -158,6 +158,8 @@ public class ShopManager : NetworkBehaviour
     /// <param name="round">The current buy round.</param>
     private void InitializeBuyRound(CurrentBuyRound round)
     {
+        Tuple<int, PlayerController> playerData = GrabPlayerFunction();
+
         readyPlayersText.text = "0/4 Players Ready";
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -168,7 +170,7 @@ public class ShopManager : NetworkBehaviour
         {
             foreach (ShopItemSO item in allItems)
             {
-                if (item.itemType == ItemType.Weapon)
+                if (item.itemType == ItemType.Weapon && item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
                 }
@@ -178,7 +180,7 @@ public class ShopManager : NetworkBehaviour
         {
             foreach (ShopItemSO item in allItems)
             {
-                if (item.itemType == ItemType.Utility)
+                if (item.itemType == ItemType.Utility && item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
                 }
