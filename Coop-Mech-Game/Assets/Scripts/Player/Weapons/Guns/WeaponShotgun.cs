@@ -11,8 +11,8 @@ public class WeaponShotgun : BaseWeapon
 
     protected override void FireRpc()
     {
-        float t1dmg = 0;
-        float t2dmg = 0;
+        float t1dmg = 0f;
+        float t2dmg = 0f;
 
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
 
