@@ -202,7 +202,7 @@ public class TeamWeaponManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void PurchaseWeaponRpc(int player, int index)
     {
-        Debug.Log("start" + ShopManager.Instance.allItems.Count);
+        Debug.Log("client is buying this index of weapon " + index);
         ShopItemSO item = ShopManager.Instance.allItems[index];
         
         if (player == 0)
