@@ -80,7 +80,7 @@ public class ShopManager : NetworkBehaviour
     {
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
 
-        if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
+        if (IsOwner) GameManager.Instance.OnBuyRoundStart.AddListener(OpenShop);
         GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
     }
     #endregion
