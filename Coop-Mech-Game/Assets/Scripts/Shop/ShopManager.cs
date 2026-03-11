@@ -116,6 +116,7 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound); 
+        currentBuyRound = CurrentBuyRound.Weapons;
     }
 
     [ClientRpc]
@@ -134,6 +135,7 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
+        currentBuyRound = CurrentBuyRound.Weapons;
     }
 
     // Closes the shop UI
