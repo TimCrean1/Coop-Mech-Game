@@ -72,7 +72,7 @@ public class ShopManager : NetworkBehaviour
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
-        OnChangeRound.AddListener(ChangeRound);
+        OnChangeRound.AddListener(ChangeRound);     
     }
 
     public override void OnNetworkSpawn()
@@ -80,7 +80,7 @@ public class ShopManager : NetworkBehaviour
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
 
         if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
-        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+        GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
     }
     #endregion
 

@@ -70,6 +70,8 @@ public class GameManager : NetworkBehaviour
 
     public UnityEvent OnStartupSequence;
     public UnityEvent OnRoundEnd;
+    public UnityEvent OnBuyRoundStart;
+    
 
     #endregion
 
@@ -187,6 +189,8 @@ public class GameManager : NetworkBehaviour
         // DisablePlayerMovement();
         ResetPlayerPositionRpc();
         InitTeamHealthRpc();
+
+        OnBuyRoundStart.Invoke();
 
         roundOver = false;
     }
