@@ -51,6 +51,8 @@ public class TeamWeaponManager : NetworkBehaviour
     private Vector3 rotDir;
     private float mouseDistance;
 
+    private bool isStart = true;
+
     #endregion
 
     #region Unity Functions
@@ -117,8 +119,11 @@ public class TeamWeaponManager : NetworkBehaviour
                 
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
-                // AppendWeaponToList(player, newWeapon);
-                // AppendWeaponToListRpc(player, netObj.NetworkObjectId);
+                if (isStart)
+                {
+                    AppendWeaponToList(player, newWeapon);
+                    AppendWeaponToListRpc(player, netObj.NetworkObjectId);
+                }
                 ReplaceWeaponInList(player, newWeapon);
                 ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
                 newWeapon.transform.SetParent(mountPoint, true);
@@ -158,6 +163,7 @@ public class TeamWeaponManager : NetworkBehaviour
         if(!IsServer) { return; }
         PurchaseWeapon(0, playerOneStartGun);
         PurchaseWeapon(1, playerTwoStartGun);
+        isStart = false;
     }
     public void PurchaseWeapon(int player, ShopItemSO item)
     {
