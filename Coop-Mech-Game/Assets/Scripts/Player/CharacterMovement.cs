@@ -7,6 +7,7 @@ public class CharacterMovement : BaseMovement
     #region Variables
     [Header("Walking")]
     [SerializeField] private bool canMove = true;
+    public bool isStartingUp;
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;

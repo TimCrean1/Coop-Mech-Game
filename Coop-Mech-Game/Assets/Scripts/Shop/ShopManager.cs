@@ -10,6 +10,7 @@ using TMPro;
 // Enum representing the current buy round type in the shop
 public enum CurrentBuyRound
 {
+    Closed,
     Weapons,
     Utilities
 }
@@ -56,6 +57,8 @@ public class ShopManager : NetworkBehaviour
         }
 
         _instance = this;
+
+        currentBuyRound = CurrentBuyRound.Closed;
     }
     void Start()
     {
@@ -70,8 +73,6 @@ public class ShopManager : NetworkBehaviour
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
         OnChangeRound.AddListener(ChangeRound);
-
-
     }
 
     public override void OnNetworkSpawn()
@@ -132,6 +133,7 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
+        GetComponent<CharacterMovement>().SetCanMove(false);
     }
 
     // Closes the shop UI
@@ -139,6 +141,8 @@ public class ShopManager : NetworkBehaviour
     {
         // GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
+        currentBuyRound = CurrentBuyRound.Closed;
+        GetComponent<CharacterMovement>().SetCanMove(true);
     }
     #endregion
 
