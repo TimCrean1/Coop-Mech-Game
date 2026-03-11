@@ -133,7 +133,6 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
         InitializeBuyRound(currentBuyRound);
-        GetComponent<CharacterMovement>().SetCanMove(false);
     }
 
     // Closes the shop UI
@@ -142,7 +141,6 @@ public class ShopManager : NetworkBehaviour
         // GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
         currentBuyRound = CurrentBuyRound.Closed;
-        GetComponent<CharacterMovement>().SetCanMove(true);
     }
     #endregion
 
