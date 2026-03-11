@@ -288,10 +288,16 @@ public class TeamWeaponManager : NetworkBehaviour
         // Debug.Log(weapon.name);
         if (player == 0)
         {
+            P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            Destroy(P1WeaponsList[0]);
+
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
+            P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            Destroy(P2WeaponsList[0]);
+            
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
@@ -307,14 +313,20 @@ public class TeamWeaponManager : NetworkBehaviour
         
         //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
         //Debug.Log(weapon.name);
+
         GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
         Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
         if (player == 0)
         {
+            P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            Destroy(P1WeaponsList[0]);
+
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
+            P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            Destroy(P2WeaponsList[0]);
             // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
