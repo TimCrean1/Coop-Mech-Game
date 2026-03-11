@@ -115,6 +115,24 @@ public class TeamWeaponManager : NetworkBehaviour
 
             if (IsServer)
             {
+                //Destroy old weapon
+                // DESTROY OLD WEAPON
+                BaseWeapon oldWeapon = null;
+
+                if (player == 0 && P1WeaponsList.Count > 0)
+                    oldWeapon = P1WeaponsList[_p1EquippedWeapon];
+                else if (player == 1 && P2WeaponsList.Count > 0)
+                    oldWeapon = P2WeaponsList[_p2EquippedWeapon];
+
+                if (oldWeapon != null)
+                {
+                    NetworkObject _netObj = oldWeapon.GetComponent<NetworkObject>();
+
+                    if (_netObj != null && _netObj.IsSpawned)
+                        _netObj.Despawn(true);   // true = destroy object on clients
+                }
+
+                //Spawn new weapon
                 GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
                 
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
@@ -288,21 +306,21 @@ public class TeamWeaponManager : NetworkBehaviour
         // Debug.Log(weapon.name);
         if (player == 0)
         {
-            if (P1WeaponsList.Count > 0)
-            {
-                P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-                Destroy(P1WeaponsList[0]);
-            }
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P1WeaponsList[0]);
+            // }
 
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            if (P2WeaponsList.Count > 0)
-            {
-                P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-                Destroy(P2WeaponsList[0]);
-            }
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P2WeaponsList[0]);
+            // }
 
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
@@ -324,21 +342,21 @@ public class TeamWeaponManager : NetworkBehaviour
         Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
         if (player == 0)
         {
-            if (P1WeaponsList.Count > 0)
-            {
-                P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-                Destroy(P1WeaponsList[0]);
-            }
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P1WeaponsList[0]);
+            // }
 
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            if (P2WeaponsList.Count > 0)
-            {
-                P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-                Destroy(P2WeaponsList[0]);
-            }
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P2WeaponsList[0]);
+            // }
             // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
