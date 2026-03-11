@@ -125,6 +125,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
                 //Debug.Log(bW.ammoCountScreen.name);
                 bW.comboManager = comboManager;
+                addReferencesRpc(player, netObj.NetworkObjectId);
             
             }
 
@@ -135,9 +136,19 @@ public class TeamWeaponManager : NetworkBehaviour
         
             
     }
+    [Rpc(SendTo.NotServer)]
+    private void addReferencesRpc(int player, ulong netObjId)
+    {
+        Debug.Log("adding ref");
+        BaseWeapon weapon = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseWeapon>();
+        BaseWeapon cannon = weapon.GetComponent<WeaponCannon>();
+        cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
+        cannon.comboManager = comboManager;
+    }
 
     #endregion
 
+    
 
     #region Weapon Purchasing
     private void InitWeaponBuy()
