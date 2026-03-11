@@ -18,7 +18,7 @@ public class ShockwaveUtility : BaseUtility
         }
     }
 
-    public override void ActivateUtility()
+    public override void ActivateUtilityRpc()
     {
         if (canActivateUtility && UtilityConditionsMet())
         {

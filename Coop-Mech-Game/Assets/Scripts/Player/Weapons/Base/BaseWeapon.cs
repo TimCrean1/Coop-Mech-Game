@@ -53,7 +53,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         NetworkVariableWritePermission.Server);
     private bool canFire = true;
     private bool isCooldownOn = false;
-    private RaycastHit hit;
+    protected RaycastHit hit;
     private WeaponMuzzle muzzleComp;
 
     public float FireRate { get { return baseFireRate; } }
