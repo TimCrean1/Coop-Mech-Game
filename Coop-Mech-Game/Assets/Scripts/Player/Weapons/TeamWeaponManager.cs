@@ -117,8 +117,10 @@ public class TeamWeaponManager : NetworkBehaviour
                 
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
                 netObj.Spawn(true);
-                AppendWeaponToList(player, newWeapon);
-                AppendWeaponToListRpc(player, netObj.NetworkObjectId);
+                // AppendWeaponToList(player, newWeapon);
+                // AppendWeaponToListRpc(player, netObj.NetworkObjectId);
+                ReplaceWeaponInList(player, newWeapon);
+                ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
                 newWeapon.transform.SetParent(mountPoint, true);
                 BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
                 //Debug.Log(bW.name);
@@ -165,10 +167,10 @@ public class TeamWeaponManager : NetworkBehaviour
         //Debug.Log($"Buying {item.name} with prefab {item.itemPrefab.name}");
         if (player == 0)
         {
-            if (P1WeaponsList.Count > 0)
-            {
-                RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
-            }
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
+            // }
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
@@ -176,10 +178,11 @@ public class TeamWeaponManager : NetworkBehaviour
         }
         else if (player == 1)
         {
-            if (P2WeaponsList.Count > 0)
-            {
-                RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
-            }
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
+            //     // P2WeaponsList[0] = item.itemPrefab.GetComponent<BaseWeapon>();
+            // }
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
@@ -200,7 +203,7 @@ public class TeamWeaponManager : NetworkBehaviour
         {
             if (P1WeaponsList.Count > 0)
             {
-                RemoveWeaponFromList(0, P1WeaponsList[_p1EquippedWeapon].gameObject);
+                RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
             }
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
@@ -211,7 +214,7 @@ public class TeamWeaponManager : NetworkBehaviour
         {
             if (P2WeaponsList.Count > 0)
             {
-                RemoveWeaponFromList(1, P2WeaponsList[_p2EquippedWeapon].gameObject);
+                RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
             }
 
             // AppendWeaponToList(1, item.itemPrefab);
@@ -258,6 +261,47 @@ public class TeamWeaponManager : NetworkBehaviour
         else if (player == 1)
         {
             P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    public void ReplaceWeaponInList(int player, GameObject weapon)
+    {
+        // Debug.Log(weapon.name);
+        if (player == 0)
+        {
+            P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
+        }
+        else if (player == 1)
+        {
+            P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    [Rpc(SendTo.NotServer)]
+    public void ReplaceWeaponInListRpc(int player, ulong networkObjId)
+    {
+
+        
+        //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
+        //Debug.Log(weapon.name);
+        GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
+        Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
+        if (player == 0)
+        {
+            P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
+        }
+        else if (player == 1)
+        {
+            // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
+            P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
         {

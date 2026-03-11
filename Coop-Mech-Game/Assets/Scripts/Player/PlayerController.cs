@@ -152,6 +152,7 @@ public class PlayerController : NetworkBehaviour
     public void ChangeWeapon(ShopItemSO item, int playerNum)
     {
         teamWeaponManager.PurchaseWeapon(playerNum, item);
+        teamWeaponManager.PurchaseWeaponRpc(playerNum, item.itemIndex);
         Debug.Log("Changed player " + playerNum + " weapon to " + item.itemName);
     }
 
