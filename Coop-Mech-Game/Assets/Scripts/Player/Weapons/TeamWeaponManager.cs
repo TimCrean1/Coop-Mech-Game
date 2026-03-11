@@ -143,6 +143,11 @@ public class TeamWeaponManager : NetworkBehaviour
         
             
     }
+    [Rpc(SendTo.Server)]
+    private void requestChangeWeaponRpc(int player, ShopItemSO item)
+    {
+        ChangeEquippedWeapon(player, item);
+    }
     [Rpc(SendTo.NotServer)]
     private void addReferencesRpc(int player, ulong netObjId)
     {
@@ -214,7 +219,8 @@ public class TeamWeaponManager : NetworkBehaviour
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
-            ChangeEquippedWeapon(player, item);
+            //ChangeEquippedWeapon(player, item);
+            requestChangeWeaponRpc(player,item);
         }
         else if (player == 1)
         {
@@ -225,7 +231,8 @@ public class TeamWeaponManager : NetworkBehaviour
 
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
-            ChangeEquippedWeapon(player, item);
+            //ChangeEquippedWeapon(player, item);
+            requestChangeWeaponRpc(player, item);
         }
         else
         {
