@@ -115,6 +115,23 @@ public class TeamWeaponManager : NetworkBehaviour
 
             if (IsServer)
             {
+                //Destroy old weapon
+                BaseWeapon oldWeapon = null;
+
+                if (player == 0 && P1WeaponsList.Count > 0)
+                    oldWeapon = P1WeaponsList[_p1EquippedWeapon];
+                else if (player == 1 && P2WeaponsList.Count > 0)
+                    oldWeapon = P2WeaponsList[_p2EquippedWeapon];
+
+                if (oldWeapon != null)
+                {
+                    NetworkObject _netObj = oldWeapon.GetComponent<NetworkObject>();
+
+                    if (_netObj != null && _netObj.IsSpawned)
+                        _netObj.Despawn(true);   // true = destroy object on clients
+                }
+
+                //Spawn new weapon
                 GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
                 
                 NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
@@ -127,7 +144,7 @@ public class TeamWeaponManager : NetworkBehaviour
                 ReplaceWeaponInList(player, newWeapon);
                 ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
                 newWeapon.transform.SetParent(mountPoint, true);
-                BaseWeapon bW = newWeapon.GetComponent<WeaponCannon>();
+                BaseWeapon bW = newWeapon.GetComponent<BaseWeapon>();
                 //Debug.Log(bW.name);
                 bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
                 //Debug.Log(bW.ammoCountScreen.name);
@@ -143,12 +160,19 @@ public class TeamWeaponManager : NetworkBehaviour
         
             
     }
+    [Rpc(SendTo.Server)]
+    private void requestChangeWeaponRpc(int player, int index)
+    {
+        ShopItemSO item = ShopManager.Instance.allItems[index];
+        ChangeEquippedWeapon(player, item);
+        Debug.Log("Client requests item purchase " + item);
+    }
     [Rpc(SendTo.NotServer)]
     private void addReferencesRpc(int player, ulong netObjId)
     {
         Debug.Log("adding ref");
         BaseWeapon weapon = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseWeapon>();
-        BaseWeapon cannon = weapon.GetComponent<WeaponCannon>();
+        BaseWeapon cannon = weapon.GetComponent<BaseWeapon>();
         cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
         cannon.comboManager = comboManager;
     }
@@ -202,30 +226,32 @@ public class TeamWeaponManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void PurchaseWeaponRpc(int player, int index)
     {
-        Debug.Log("start" + ShopManager.Instance.allItems.Count);
-        ShopItemSO item = ShopManager.Instance.allItems[index];
+        Debug.Log("client is buying this index of weapon " + index);
+        //ShopItemSO item = ShopManager.Instance.allItems[index];
         
         if (player == 0)
         {
-            //if (P1WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
-            //}
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
+            // }
             //Debug.Log(item.itemName);
             // AppendWeaponToList(0, item.itemPrefab);
             //AppendWeaponToListRpc(0, item.itemIndex);
-            ChangeEquippedWeapon(player, item);
+            //ChangeEquippedWeapon(player, item);
+            requestChangeWeaponRpc(player,index);
         }
         else if (player == 1)
         {
-            //if (P2WeaponsList.Count > 0)
-            //{
-            //    RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
-            //}
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
+            // }
 
             // AppendWeaponToList(1, item.itemPrefab);
             //AppendWeaponToListRpc(1, item.itemIndex);
-            ChangeEquippedWeapon(player, item);
+            //ChangeEquippedWeapon(player, item);
+            requestChangeWeaponRpc(player, index);
         }
         else
         {
@@ -279,10 +305,22 @@ public class TeamWeaponManager : NetworkBehaviour
         // Debug.Log(weapon.name);
         if (player == 0)
         {
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P1WeaponsList[0]);
+            // }
+
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P2WeaponsList[0]);
+            // }
+
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
@@ -298,14 +336,26 @@ public class TeamWeaponManager : NetworkBehaviour
         
         //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
         //Debug.Log(weapon.name);
+
         GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
         Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
         if (player == 0)
         {
+            // if (P1WeaponsList.Count > 0)
+            // {
+            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P1WeaponsList[0]);
+            // }
+
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
+            // if (P2WeaponsList.Count > 0)
+            // {
+            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
+            //     Destroy(P2WeaponsList[0]);
+            // }
             // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }

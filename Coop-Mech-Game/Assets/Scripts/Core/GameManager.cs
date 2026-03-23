@@ -39,6 +39,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private MechScreen t1HealthScreen;
     [SerializeField] private MechScreen t2HealthScreen;
 
+    [SerializeField] private UI_Manager t1UIMgr;
+    [SerializeField] private UI_Manager t2UIMgr;
+
     #endregion
 
 
@@ -67,6 +70,8 @@ public class GameManager : NetworkBehaviour
 
     public UnityEvent OnStartupSequence;
     public UnityEvent OnRoundEnd;
+    public UnityEvent OnBuyRoundStart;
+    
 
     #endregion
 
@@ -184,6 +189,8 @@ public class GameManager : NetworkBehaviour
         // DisablePlayerMovement();
         ResetPlayerPositionRpc();
         InitTeamHealthRpc();
+
+        OnBuyRoundStart.Invoke();
 
         roundOver = false;
     }
@@ -436,12 +443,14 @@ public class GameManager : NetworkBehaviour
     private void Changet1HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         t1HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
+        if (t1UIMgr) { t1UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
 
     [ClientRpc]
     private void Changet2HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
+        if (t2UIMgr) { t2UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
 
     #endregion

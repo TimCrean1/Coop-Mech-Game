@@ -260,19 +260,22 @@ public static class VectorExtensions
         {
             if (Physics.Raycast(start, dir, out hitInfo, maxDistance))
             {
-                raycastHitList.Add(hitInfo);
+                if (hitInfo.collider != null)
+                {
+                    raycastHitList.Add(hitInfo);
 
-                reflectVec = Vector3.Reflect((hitInfo.point - start).normalized, hitInfo.normal);
+                    reflectVec = Vector3.Reflect((hitInfo.point - start).normalized, hitInfo.normal);
 
-                newVecl = isRandom ?
-                    reflectVec.GetRandomVectorInPyramid(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, 5f, -5f)
-                    : reflectVec.GetVectorBetweenVectorByFactor(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, factor01);
+                    newVecl = isRandom ?
+                        reflectVec.GetRandomVectorInPyramid(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, 5f, -5f)
+                        : reflectVec.GetVectorBetweenVectorByFactor(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, factor01);
 
-                if (isDebug) Debug.DrawLine(start, hitInfo.point, Color.red);
+                    if (isDebug) Debug.DrawLine(start, hitInfo.point, Color.red);
 
-                maxDistance *= bounceDistanceMultiplier;
-                start = hitInfo.point;
-                dir = newVecl;
+                    maxDistance *= bounceDistanceMultiplier;
+                    start = hitInfo.point;
+                    dir = newVecl;
+                }
             }
         }
 
@@ -302,7 +305,11 @@ public static class VectorExtensions
         {
             Vector3 dir = GetRandomVectorInCone(forward, up, deviationHalfAngle);
             Physics.Raycast(start, dir, out hit, maxRange);
-            hits.Add(hit);
+            // hits.Add(hit);
+            if (hit.collider != null)
+            {
+                hits.Add(hit);
+            }
 
             if (isDebug) Debug.DrawLine(start, hit.point, Color.chartreuse);
         }

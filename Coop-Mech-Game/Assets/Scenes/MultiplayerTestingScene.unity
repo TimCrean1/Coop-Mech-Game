@@ -3103,6 +3103,9 @@ MonoBehaviour:
   playerController: {fileID: 737891637}
   playerCamera: {fileID: 0}
   weaponMgr: {fileID: 0}
+  mechInterior: {fileID: 0}
+  healthMaterial: {fileID: 0}
+  comboMaterial: {fileID: 0}
   mouse1Pos: {x: 0, y: 0}
   mouse2Pos: {x: 0, y: 0}
   averagePos: {x: 0, y: 0}
@@ -3137,7 +3140,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponCannon
   ShowTopMostFoldoutHeaderGroup: 1
-  teamProjectilePool: {fileID: 737891650}
   muzzle: {fileID: 1271045809}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
@@ -3155,6 +3157,8 @@ MonoBehaviour:
   currentKnockback: 0
   ammoCount:
     m_InternalValue: 0
+  minFireRate: 0.1
+  maxFireRate: 1
 --- !u!114 &737891650
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ public abstract class BaseUtility : NetworkBehaviour
     [SerializeField] protected bool canActivateUtility = true;
     [SerializeField] protected float utilityCooldownTime = 5f;
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.Server)]
     public virtual void ActivateUtilityRpc() { }
     protected virtual void DeactivateUtility() { }
     protected virtual IEnumerator UtilityCooldown(float cooldownTime)

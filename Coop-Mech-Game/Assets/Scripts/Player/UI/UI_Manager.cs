@@ -13,17 +13,49 @@ public class UI_Manager : MonoBehaviour
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TeamWeaponManager weaponMgr;
+
+    [Header("Bar Material References")]
+    [SerializeField] private GameObject mechInterior; //the mesh of the interior with the materials on it
+    [SerializeField] private Material healthMaterial;
+    [SerializeField] private Material comboMaterial;
     
+    private Renderer _mechInteriorRenderer;
+    private MaterialPropertyBlock _block;
+    private int _healthIdx = -1;
+    private int _comboIdx = -1;
+
     [Header("Positioning")]
     [SerializeField] private Vector2 mouse1Pos;
     [SerializeField] private Vector2 mouse2Pos;
     [SerializeField] private Vector2 averagePos;
-    
+
+    private void Awake()
+    {
+        _mechInteriorRenderer = mechInterior.GetComponent<Renderer>();
+        _block = new MaterialPropertyBlock();
+
+        var mats = _mechInteriorRenderer.sharedMaterials;
+
+        for (int i = 0; i < mats.Length; i++)
+        {
+            if (mats[i] == healthMaterial)
+            {
+                _healthIdx = i;
+            }
+
+            if (mats[i] == comboMaterial)
+            {
+                _comboIdx = i;
+            }
+        }
+    }
+
     void Start()
     {
         playerController = GetComponent<PlayerController>();
         weaponMgr = GetComponent<TeamWeaponManager>();
-        
+
+        //Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
     }
 
     // Update is called once per frame
@@ -64,5 +96,24 @@ public class UI_Manager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
         weaponMgr.SetScreenRay(ray);
         
+    }
+
+    public void SetHealthBarPercent(float MechMaxHealth, float MechCurrHealth)
+    {
+        return;
+        float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 0f, 1f);
+        _mechInteriorRenderer.GetPropertyBlock(_block, _healthIdx);
+        //Debug.Log("Setting health bar _BarPercent to: " + h);
+        _block.SetFloat("_BarPercent", h);
+        _mechInteriorRenderer.SetPropertyBlock(_block, _healthIdx);
+    }
+
+    public void SetComboBarPercent(float factor01)
+    {
+        return;
+        _mechInteriorRenderer.GetPropertyBlock(_block, _comboIdx);
+        //Debug.Log("Setting combo bar _BarPercent to: " + factor01);
+        _block.SetFloat("_BarPercent", factor01);
+        _mechInteriorRenderer.SetPropertyBlock(_block, _comboIdx);
     }
 }

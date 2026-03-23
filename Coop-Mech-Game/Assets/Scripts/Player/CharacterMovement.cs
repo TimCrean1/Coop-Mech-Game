@@ -1,12 +1,14 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CharacterMovement : BaseMovement
 {
     #region Variables
     [Header("Walking")]
     [SerializeField] private bool canMove = true;
+    public bool isStartingUp;
     [SerializeField] private float accelerationRate = 60f;
     [SerializeField] private float decelerationRate = 30f;
     [SerializeField] private float maxWalkSpeed = 4f;
@@ -76,6 +78,9 @@ public class CharacterMovement : BaseMovement
         rigidbody.angularDamping = 8f;
         // StartupAnimation script sets this to true when start up animation is complete
         canMove = false;
+
+        GameManager.Instance.OnRoundEnd.AddListener(SetCanMoveFalse);
+        ShopManager.Instance.OnShopEnd.AddListener(SetCanMoveTrue);
     }
 
     private void FixedUpdate()
@@ -450,6 +455,8 @@ public class CharacterMovement : BaseMovement
     public float GetDeadZoneSize(){return deadZoneSize;}
     public bool GetCanMove(){return canMove;}
     public void SetCanMove(bool In){canMove = In;}
+    private void SetCanMoveFalse(){SetCanMove(false);}
+    private void SetCanMoveTrue(){SetCanMove(true);}
 
     #endregion
 

@@ -178,14 +178,14 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
         }
 
-        canFire = false;
+        
         BuildCooldown();
     }
     protected virtual void BuildCooldown()
     {
         SetAmmoRpc(-1);
         //ammoCount.Value = ammoCount.Value - 1;
-        
+        canFire = false;
         //Debug.Log("Ammo: " + ammoCount);
         if (ammoCount.Value <= 0)
         {

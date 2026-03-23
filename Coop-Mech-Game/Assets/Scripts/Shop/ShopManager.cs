@@ -10,6 +10,7 @@ using TMPro;
 // Enum representing the current buy round type in the shop
 public enum CurrentBuyRound
 {
+    Closed,
     Weapons,
     Utilities
 }
@@ -35,6 +36,7 @@ public class ShopManager : NetworkBehaviour
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
 
     public UnityEvent OnChangeRound;
+    public UnityEvent OnShopEnd;
     #endregion
     #region Singleton
 
@@ -56,6 +58,8 @@ public class ShopManager : NetworkBehaviour
         }
 
         _instance = this;
+
+        currentBuyRound = CurrentBuyRound.Closed;
     }
     void Start()
     {
@@ -69,17 +73,15 @@ public class ShopManager : NetworkBehaviour
         allItems.AddRange(Resources.LoadAll<ShopItemSO>("Shop Items"));
         displayedItems = new List<ShopItemSO>();
         displayedItemObjects = new List<GameObject>();
-        OnChangeRound.AddListener(ChangeRound);
-
-
+        OnChangeRound.AddListener(ChangeRound);     
     }
 
     public override void OnNetworkSpawn()
     {
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
 
-        if (IsOwner) GameManager.Instance.OnRoundEnd.AddListener(OpenShop);
-        GameManager.Instance.OnRoundEnd.AddListener(OpenShopClientRpc);
+        if (IsOwner) GameManager.Instance.OnBuyRoundStart.AddListener(OpenShop);
+        GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
     }
     #endregion
 
@@ -113,6 +115,7 @@ public class ShopManager : NetworkBehaviour
         // Debug.Log("Opening For Client");
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
+        currentBuyRound = CurrentBuyRound.Weapons;
         InitializeBuyRound(currentBuyRound); 
     }
 
@@ -131,6 +134,7 @@ public class ShopManager : NetworkBehaviour
         // Debug.Log("Opening For Host");
         // GameManager.Instance.DisablePlayerMovement();
         shopCanvas.enabled = true;
+        currentBuyRound = CurrentBuyRound.Weapons;
         InitializeBuyRound(currentBuyRound);
     }
 
@@ -139,6 +143,8 @@ public class ShopManager : NetworkBehaviour
     {
         // GameManager.Instance.EnablePlayerMovement();
         shopCanvas.enabled = false;
+        currentBuyRound = CurrentBuyRound.Closed;
+        OnShopEnd.Invoke();
     }
     #endregion
 
@@ -158,6 +164,8 @@ public class ShopManager : NetworkBehaviour
     /// <param name="round">The current buy round.</param>
     private void InitializeBuyRound(CurrentBuyRound round)
     {
+        Tuple<int, PlayerController> playerData = GrabPlayerFunction();
+
         readyPlayersText.text = "0/4 Players Ready";
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -168,7 +176,7 @@ public class ShopManager : NetworkBehaviour
         {
             foreach (ShopItemSO item in allItems)
             {
-                if (item.itemType == ItemType.Weapon)
+                if (item.itemType == ItemType.Weapon && item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
                 }
@@ -178,7 +186,7 @@ public class ShopManager : NetworkBehaviour
         {
             foreach (ShopItemSO item in allItems)
             {
-                if (item.itemType == ItemType.Utility)
+                if (item.itemType == ItemType.Utility && item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
                 }
@@ -261,6 +269,10 @@ public class ShopManager : NetworkBehaviour
 
     private void ChangeRound()
     {
+        if (currentBuyRound == CurrentBuyRound.Closed)
+        {
+            currentBuyRound = CurrentBuyRound.Weapons;
+        }
         if (currentBuyRound == CurrentBuyRound.Weapons)
         {
             currentBuyRound = CurrentBuyRound.Utilities;
