@@ -360,6 +360,7 @@ public class LobbyManager : MonoBehaviour {
 
         return count;
     }
+
     public async void UpdatePlayerTeam(PlayerTeam newTeam)
     {
         if (joinedLobby == null) return;
@@ -372,8 +373,30 @@ public class LobbyManager : MonoBehaviour {
             return; 
         }
 
-        PlayerNumber numberToAssign = teamCount == 0 ? PlayerNumber.One : PlayerNumber.Two;
+        bool slotOneTaken = false;
+        bool slotTwoTaken = false;
 
+        foreach (Player player in joinedLobby.Players)
+        {
+            if (player.Data.TryGetValue(KEY_PLAYER_TEAM, out var teamData) &&
+                teamData.Value == newTeam.ToString())
+            {
+                if (player.Data.TryGetValue(KEY_PLAYER_NUMBER, out var numberData))
+                {
+                    if (numberData.Value == PlayerNumber.One.ToString())
+                        slotOneTaken = true;
+                    else if (numberData.Value == PlayerNumber.Two.ToString())
+                        slotTwoTaken = true;
+                }
+            }
+        }
+
+        PlayerNumber numberToAssign;
+
+        if (!slotOneTaken)
+            numberToAssign = PlayerNumber.One;
+        else
+            numberToAssign = PlayerNumber.Two;
         try
         {
             UpdatePlayerOptions options = new UpdatePlayerOptions
