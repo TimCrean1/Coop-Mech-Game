@@ -447,66 +447,7 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     
-    public async void UpdatePlayerNumber(string num)
-    {
-        if (joinedLobby != null)
-        {
-            try
-            {
-                UpdatePlayerOptions options = new UpdatePlayerOptions();
-
-                options.Data = new Dictionary<string, PlayerDataObject>() {
-                    {
-                        KEY_PLAYER_NUMBER, new PlayerDataObject(
-                            visibility: PlayerDataObject.VisibilityOptions.Public,
-                            value: num.ToString())
-                    }
-                };
-
-                string playerId = AuthenticationService.Instance.PlayerId;
-
-                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
-                joinedLobby = lobby;
-
-                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.Log("When trying to update players number: " + e);
-            }
-        }
-    }
-
-    public async void UpdatePlayerNumber(PlayerNumber newNumber)
-    {
-        if (joinedLobby != null)
-        {
-            try
-            {
-                UpdatePlayerOptions options = new UpdatePlayerOptions();
-
-                options.Data = new Dictionary<string, PlayerDataObject>() {
-                    {
-                        KEY_PLAYER_NUMBER, new PlayerDataObject(
-                    visibility: PlayerDataObject.VisibilityOptions.Public,
-                    value: newNumber.ToString())
-                    }
-                };
-
-
-                string playerId = AuthenticationService.Instance.PlayerId;
-
-                Lobby lobby = await LobbyService.Instance.UpdatePlayerAsync(joinedLobby.Id, playerId, options);
-                joinedLobby = lobby;
-
-                OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-            }
-            catch (LobbyServiceException e)
-            {
-                Debug.Log("When trying to update players number: " + e);
-            }
-        }
-    }
+    
     public async void QuickJoinLobby() {
         try {
             QuickJoinLobbyOptions options = new QuickJoinLobbyOptions();
