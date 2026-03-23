@@ -28,8 +28,6 @@ public class LobbyManager : MonoBehaviour {
     public const string KEY_PLAYER_CHARACTER = "Character";
     public const string KEY_PLAYER_TEAM = "Red";
     public const string KEY_PLAYER_NUMBER = "One";
-    public const string KEY_LOBBY_RED_TEAM = "Red";
-    public const string KEY_LOBBY_BLUE_TEAM = "Blue";
     public const string KEY_GAME_MODE = "GameMode";
     public const string KEY_START_GAME = "StartGame";
     public const string KEY_RELAY_JOIN_CODE = "RelayJoinCode";
@@ -101,16 +99,7 @@ public class LobbyManager : MonoBehaviour {
         HandleLobbyHeartbeat();
         HandleLobbyPolling();
     }
-    private string[] SplitString(string str)
-    {
-        // split the string by the comma 
-        return str.Split(",");
-    }
-
-    private string CombineString(string[] str)
-    {
-        return str[0] + "," + str[1];
-    }
+   
     
    
     public async void Authenticate(string playerName) {
@@ -273,8 +262,7 @@ public class LobbyManager : MonoBehaviour {
             Data = new Dictionary<string, DataObject> {
                 { KEY_GAME_MODE, new DataObject(DataObject.VisibilityOptions.Public, gameMode.ToString()) },
                 { KEY_RELAY_JOIN_CODE, new DataObject(DataObject.VisibilityOptions.Member, "") },
-                { KEY_LOBBY_RED_TEAM, new DataObject(DataObject.VisibilityOptions.Member, "_,_") },
-                { KEY_LOBBY_BLUE_TEAM, new DataObject(DataObject.VisibilityOptions.Member, "_,_") }
+               
             }
         };
 
@@ -573,51 +561,7 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
-    public async void UpdateLobbyRedTeam(string newString)
-    {
-        //currently only actually updates when the host runs the code
-        try
-        {
-            Debug.Log("UpdateLobbyRedTeam " + newString);
-
-            Lobby lobby = await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
-            {
-                Data = new Dictionary<string, DataObject> {
-                    { KEY_LOBBY_RED_TEAM, new DataObject(DataObject.VisibilityOptions.Member, newString) }
-                }
-            });
-
-            joinedLobby = lobby;
-
-            OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.Log(e);
-        }
-    }
-    public async void UpdateLobbyBlueTeam(string newString)
-    {
-        try
-        {
-            Debug.Log("UpdateLobbyRedTeam " + newString);
-
-            Lobby lobby = await LobbyService.Instance.UpdateLobbyAsync(joinedLobby.Id, new UpdateLobbyOptions
-            {
-                Data = new Dictionary<string, DataObject> {
-                    { KEY_LOBBY_BLUE_TEAM, new DataObject(DataObject.VisibilityOptions.Member, newString) }
-                }
-            });
-
-            joinedLobby = lobby;
-
-            OnLobbyGameModeChanged?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
-        }
-        catch (LobbyServiceException e)
-        {
-            Debug.Log(e);
-        }
-    }
+    
     public void LoadScene(int sceneId)
     {
         StartCoroutine(LoadSceneAsync(sceneId));
