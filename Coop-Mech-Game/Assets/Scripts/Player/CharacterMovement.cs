@@ -278,7 +278,10 @@ public class CharacterMovement : BaseMovement
         {
             // Smoothly rotate character horizontally towards target point
             Quaternion targetYaw = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
+
+            //make intermediate cursor that the camera tries to look at, intermediate cursor slerps towards target rotation
+            rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime));
 
             // Calculate pitch for camera and smoothly apply it
             Vector3 lookDir = targetPoint - playerCamera.transform.position;
