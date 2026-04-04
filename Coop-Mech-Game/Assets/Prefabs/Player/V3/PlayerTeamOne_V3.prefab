@@ -260,11 +260,13 @@ MonoBehaviour:
   dashRecharge: 2
   dashLength: 0.2
   maxDashes: 2
-  horizontalRotationRate: 3
-  verticalRotationRate: 3
+  horizontalRotationRate: 2.5
+  verticalRotationRate: 2.5
   lookClampMin: 0.15
   lookClampMax: 0.85
   deadZoneSize: 0.05
+  stiffness: 7
+  damping: 5
   groundCheckDistance: 0.1
   environmentLayerMask:
     serializedVersion: 2
@@ -660,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2823005069
+  GlobalObjectIdHash: 4104339570
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -772,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 242300924
+  GlobalObjectIdHash: 776929612
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -967,12 +969,12 @@ PrefabInstance:
     - target: {fileID: 1509548444272338256, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 522678644
+      value: 2416897203
       objectReference: {fileID: 0}
     - target: {fileID: 2535768407550478619, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1501079071
+      value: 2684821489
       objectReference: {fileID: 0}
     - target: {fileID: 5720977568306344388, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
