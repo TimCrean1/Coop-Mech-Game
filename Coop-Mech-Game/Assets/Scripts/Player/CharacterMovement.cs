@@ -41,7 +41,9 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
+    [Tooltip("how aggresively the intermediate (applied) rotation will follow the target rotation")]
     [SerializeField] private float stiffness = 7f;
+    [Tooltip("how much resistance will be applied to the intermediate (applied) rotation when trying to follow target rotation")]
     [SerializeField] private float damping = 5f;
     private Vector3 angularVelocity;
 
@@ -305,8 +307,8 @@ public class CharacterMovement : BaseMovement
             if (angle > 180f) angle -= 360f;
 
             //declare spring and damper components separately for clarity
-            Vector3 spring = axis * angle * stiffness;      //how quickly the intermediate rotation will start following target rotation
-            Vector3 damper = -angularVelocity * damping;    //how much the intermediate will overshoot the target
+            Vector3 spring = axis * angle * stiffness;      //rotational pull towards target
+            Vector3 damper = -angularVelocity * damping;    //resists rotational pull, higher reduces overshoot
 
             //add components to form torque and mult. by dt as it's applied over time
             Vector3 torque = spring + damper;
