@@ -124,7 +124,7 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
@@ -219,7 +219,7 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         ammoCountScreen.ChangeText("-..", false);
 
-        yield return new WaitForSeconds(cooldownTime*0.25f);
+        yield return new WaitForSeconds(cooldownTime * 0.25f);
 
         ammoCountScreen.ChangeText("--.", false);
 

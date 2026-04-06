@@ -148,6 +148,8 @@ public class GameManager : NetworkBehaviour
     #endregion
 
 
+   
+
     #region Round Management
 
     void OnRoundEndTriggered()
@@ -156,13 +158,15 @@ public class GameManager : NetworkBehaviour
 
         if (currRound.Value >= maxRounds)
         {
-            StartCoroutine(EndTimeDelay());
+            
 
-            OnGameEndRpc();
+            
 
             if (IsServer)
             {
-                NetworkManager.Singleton.Shutdown(true);
+                // Server tells clients to return back to the menu
+                OnGameEndRpc();
+                
             }
 
             return;
@@ -211,6 +215,11 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(3f);
 
         SceneManager.LoadScene(0);
+
+        if (IsServer)
+        {
+            NetworkManager.Singleton.Shutdown(true);
+        }
     }
 
     [Rpc(SendTo.Server)]
