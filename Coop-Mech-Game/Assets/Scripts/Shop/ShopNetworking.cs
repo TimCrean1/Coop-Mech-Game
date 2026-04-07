@@ -13,6 +13,25 @@ public class ShopNetworking : NetworkBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (!IsServer)
+        {
+            GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
+        }
+        else { Debug.LogError("idk... client"); }
+
+        if (IsServer)
+        {
+            GameManager.Instance.OnBuyRoundStart.AddListener(() =>
+            {
+                ShopManager.Instance.OpenShop();
+                //OpenShopClientRpc();
+            });
+        }
+        else { Debug.LogError("idk... server"); }
+    }
+
     #region RPCs
 
     [Rpc(SendTo.Server)]
@@ -37,13 +56,13 @@ public class ShopNetworking : NetworkBehaviour
         ShopManager.Instance.TriggerRoundChange();
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     public void OpenShopClientRpc()
     {
         ShopManager.Instance.OpenShopClient();
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     public void CloseShopClientRpc()
     {
         ShopManager.Instance.CloseShopClient();
