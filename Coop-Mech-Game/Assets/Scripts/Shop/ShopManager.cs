@@ -68,13 +68,13 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
 
-        if (NetworkManager.Singleton.IsClient)
+        if (ShopNetworking.Instance.IsServer == false)
         {
             GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClient);
         }
         else {Debug.LogError("idk... client");}
 
-        if (NetworkManager.Singleton.IsHost)
+        if (ShopNetworking.Instance.IsServer == true)
         {
             GameManager.Instance.OnBuyRoundStart.AddListener(() =>
             {
