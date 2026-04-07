@@ -260,11 +260,13 @@ MonoBehaviour:
   dashRecharge: 2
   dashLength: 0.2
   maxDashes: 2
-  horizontalRotationRate: 3
-  verticalRotationRate: 3
+  horizontalRotationRate: 2.5
+  verticalRotationRate: 2.5
   lookClampMin: 0.15
   lookClampMax: 0.85
   deadZoneSize: 0.05
+  stiffness: 7
+  damping: 5
   groundCheckDistance: 0.1
   environmentLayerMask:
     serializedVersion: 2
@@ -495,7 +497,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -540,7 +542,7 @@ MonoBehaviour:
     DissipationMode: 2
     DissipationDistance: 100
     PropagationSpeed: 343
-  DefaultVelocity: {x: 0, y: -0.035, z: 0}
+  DefaultVelocity: {x: 0, y: -0.35, z: 0}
 --- !u!114 &1041313949405104054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,7 +550,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1110307106174362958}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
   m_Name: 
@@ -593,7 +595,7 @@ MonoBehaviour:
     DissipationMode: 2
     DissipationDistance: 100
     PropagationSpeed: 343
-  DefaultVelocity: {x: 0, y: 0, z: -0.005}
+  DefaultVelocity: {x: 0, y: 0, z: -0.1}
 --- !u!114 &2883541409271160028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1452096019
+  GlobalObjectIdHash: 4104339570
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -772,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1391406710
+  GlobalObjectIdHash: 776929612
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -967,12 +969,12 @@ PrefabInstance:
     - target: {fileID: 1509548444272338256, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 522678644
+      value: 2416897203
       objectReference: {fileID: 0}
     - target: {fileID: 2535768407550478619, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1501079071
+      value: 2684821489
       objectReference: {fileID: 0}
     - target: {fileID: 5720977568306344388, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
@@ -1050,11 +1052,7 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7350136729302563965}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5395843173900238270, guid: 3c728b398e1a86b498fda85be374eeee,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1034871495481101852}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c728b398e1a86b498fda85be374eeee, type: 3}
 --- !u!114 &306418658866597069 stripped
 MonoBehaviour:
@@ -1080,34 +1078,6 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 7145522890603109050}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3010689279888729860 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5395843173900238270, guid: 3c728b398e1a86b498fda85be374eeee,
-    type: 3}
-  m_PrefabInstance: {fileID: 7145522890603109050}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1034871495481101852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3010689279888729860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c11265b855408d42af33d62691f5194, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineExternalImpulseListener
-  ChannelMask: 14
-  Gain: 0.25
-  Use2DDistance: 0
-  UseLocalSpace: 1
-  ReactionSettings:
-    m_SecondaryNoise: {fileID: 0}
-    AmplitudeGain: 1
-    FrequencyGain: 1
-    Duration: 1
-    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!114 &4102746420249187386 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6613005075023875712, guid: 3c728b398e1a86b498fda85be374eeee,

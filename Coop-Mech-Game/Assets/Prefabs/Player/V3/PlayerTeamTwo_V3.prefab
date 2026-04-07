@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 204609666
+  GlobalObjectIdHash: 62302024
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -260,11 +260,13 @@ MonoBehaviour:
   dashRecharge: 2
   dashLength: 0.2
   maxDashes: 2
-  horizontalRotationRate: 3
-  verticalRotationRate: 3
+  horizontalRotationRate: 2.5
+  verticalRotationRate: 2.5
   lookClampMin: 0.15
   lookClampMax: 0.85
   deadZoneSize: 0.05
+  stiffness: 7
+  damping: 5
   groundCheckDistance: 0.1
   environmentLayerMask:
     serializedVersion: 2
