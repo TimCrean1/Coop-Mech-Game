@@ -26,7 +26,7 @@ public class ShopNetworking : NetworkBehaviour
             GameManager.Instance.OnBuyRoundStart.AddListener(() =>
             {
                 ShopManager.Instance.OpenShop();
-                //OpenShopClientRpc();
+                OpenShopClientRpc();
             });
         }
         else { Debug.LogError("idk... server"); }

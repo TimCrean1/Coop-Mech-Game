@@ -358,7 +358,7 @@ public class GameManager : NetworkBehaviour
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
 
-            Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
+            // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
             if (t1HealthScreen != null)
             {
@@ -369,7 +369,7 @@ public class GameManager : NetworkBehaviour
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
 
-            Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
+            // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
             if (t2HealthScreen != null)
             {
