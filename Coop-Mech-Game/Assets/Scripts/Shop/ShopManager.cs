@@ -72,6 +72,7 @@ public class ShopManager : MonoBehaviour
         {
             GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClient);
         }
+        else {Debug.LogError("idk... client");}
 
         if (NetworkManager.Singleton.IsHost)
         {
@@ -81,6 +82,7 @@ public class ShopManager : MonoBehaviour
                 ShopNetworking.Instance.OpenShopClientRpc();
             });
         }
+        else {Debug.LogError("idk... server");}
 
         OnChangeRound.AddListener(ChangeRound);
 
@@ -107,6 +109,7 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShopClient()
     {
+        Debug.Log("Opening shop remotely");
         shopCanvas.enabled = true;
         currentBuyRound = CurrentBuyRound.Weapons;
         InitializeBuyRound(currentBuyRound);
@@ -123,6 +126,7 @@ public class ShopManager : MonoBehaviour
 
     public void OpenShop()
     {
+        Debug.Log("Opening shop locally");
         shopCanvas.enabled = true;
         currentBuyRound = CurrentBuyRound.Weapons;
         InitializeBuyRound(currentBuyRound);
