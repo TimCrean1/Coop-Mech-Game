@@ -13,7 +13,7 @@ public class ShopNetworking : NetworkBehaviour
         Instance = this;
     }
 
-    private void Start()
+    public override void OnNetworkSpawn()
     {
         if (!IsServer)
         {
@@ -26,7 +26,7 @@ public class ShopNetworking : NetworkBehaviour
             GameManager.Instance.OnBuyRoundStart.AddListener(() =>
             {
                 ShopManager.Instance.OpenShop();
-                OpenShopClientRpc();
+                //OpenShopClientRpc();
             });
         }
         else { Debug.LogError("idk... server"); }
