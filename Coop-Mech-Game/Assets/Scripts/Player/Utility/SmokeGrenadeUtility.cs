@@ -13,7 +13,7 @@ public class SmokeGrenadeUtility : BaseUtility
     //[SerializeField] private GameObject smokeGrenadePrefab;
     [SerializeField] private VisualEffect visualEffect;
     [SerializeField] private float smokeCooldown = 20f;
-    [SerializeField] private float castDistance = 20f;
+    [SerializeField] private float castDistance = 0;
 
     private RaycastHit hit;
     private CharacterMovement _owningCharacter;
@@ -32,6 +32,7 @@ public class SmokeGrenadeUtility : BaseUtility
     
     public override void ActivateUtilityRpc()
     {
+        _owningCharacter = utilityManager.GetCharacterMovement();
         if (UtilityConditionsMet())
         {
             //set the position of this object. it will either be the hit point of a raycast (to avoid it entering another object), or at a point infront of the mech
@@ -41,7 +42,7 @@ public class SmokeGrenadeUtility : BaseUtility
 
             //GameObject smokeGrenade = Instantiate(smokeGrenadePrefab, smokePos, Quaternion.identity);
             //Destroy(smokeGrenade, smokeCooldown);
-            StartCoroutine(UtilityCooldown(utilityCooldownTime));
+            // StartCoroutine(UtilityCooldown(utilityCooldownTime));
         }
     }
 

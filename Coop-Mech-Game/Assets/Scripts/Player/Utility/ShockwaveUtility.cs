@@ -42,7 +42,7 @@ public class ShockwaveUtility : BaseUtility
                     }
                 }
             }
-            StartCoroutine(UtilityCooldown(utilityCooldownTime));
+            // StartCoroutine(UtilityCooldown(utilityCooldownTime));
         }
     }
 

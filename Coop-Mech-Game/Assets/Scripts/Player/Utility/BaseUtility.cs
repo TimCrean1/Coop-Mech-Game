@@ -13,11 +13,11 @@ public abstract class BaseUtility : NetworkBehaviour
     [Rpc(SendTo.Server)]
     public virtual void ActivateUtilityRpc() { }
     protected virtual void DeactivateUtility() { }
-    protected virtual IEnumerator UtilityCooldown(float cooldownTime)
-    {
-        canActivateUtility = false;
-        yield return new WaitForSeconds(cooldownTime);
-        canActivateUtility = true;
-    }
+    // protected virtual IEnumerator UtilityCooldown(float cooldownTime)
+    // {
+    //     canActivateUtility = false;
+    //     yield return new WaitForSeconds(cooldownTime);
+    //     canActivateUtility = true;
+    // }
     protected abstract bool UtilityConditionsMet();
 }

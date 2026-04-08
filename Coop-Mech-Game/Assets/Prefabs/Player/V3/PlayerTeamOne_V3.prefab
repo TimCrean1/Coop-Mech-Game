@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 5790533618384368019}
   - component: {fileID: 1041313949405104054}
   - component: {fileID: 2883541409271160028}
+  - component: {fileID: 8344997588642178835}
   m_Layer: 8
   m_Name: PlayerTeamOne_V3
   m_TagString: TeamOne
@@ -301,7 +302,7 @@ MonoBehaviour:
   overlayCamera: {fileID: 8711772424875116099}
   uiCanvas: {fileID: 2245150896999167826}
   teamWeaponManager: {fileID: 4675740159691710397}
-  utilityManager: {fileID: 0}
+  utilityManager: {fileID: 8344997588642178835}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -618,6 +619,27 @@ MonoBehaviour:
   decayTimer: 0
   comboMeter: {fileID: 7009274754490265920}
   _uiManager: {fileID: 1310812323474829952}
+--- !u!114 &8344997588642178835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9f0fa6730f74a44a7627aadd795865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UtilityManagerScript
+  p1Utility: {fileID: 7922013310181034628, guid: 840b463825f005f4b8158800e9de720d,
+    type: 3}
+  p2Utility: {fileID: 7922013310181034628, guid: 840b463825f005f4b8158800e9de720d,
+    type: 3}
+  characterMovement: {fileID: 6930851332102331895}
+  p1UtilReady: 1
+  p2UtilReady: 1
+  p1UtilCooldownTime: 5
+  p2UtilCooldownTime: 5
 --- !u!1 &2237337471181941608
 GameObject:
   m_ObjectHideFlags: 0
