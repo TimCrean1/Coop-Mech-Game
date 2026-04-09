@@ -482,6 +482,15 @@ public class TeamWeaponManager : NetworkBehaviour
 
     #endregion
 
+    public void P1Reload()
+    {
+        P1WeaponsList[_p1EquippedWeapon].Reload();
+    }
+    public void P2Reload()
+    {
+        P2WeaponsList[_p2EquippedWeapon].Reload();
+    }
+
 
     #region Experimental / Old Code
 

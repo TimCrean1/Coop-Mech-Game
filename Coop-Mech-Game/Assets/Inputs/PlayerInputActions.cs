@@ -208,6 +208,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""da45cb30-440f-419c-b02e-8b1647326873"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""95d073a3-2afc-496a-96eb-f111d0bc4089"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -485,6 +503,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RoundEnd"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ad5106c-742b-4ba2-95be-72c68b9178d0"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b78ec9e4-74a5-47bc-9838-06eec5525891"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -534,6 +574,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_P1Utility = m_Player.FindAction("P1Utility", throwIfNotFound: true);
         m_Player_P2Utility = m_Player.FindAction("P2Utility", throwIfNotFound: true);
         m_Player_RoundEnd = m_Player.FindAction("RoundEnd", throwIfNotFound: true);
+        m_Player_P1Reload = m_Player.FindAction("P1Reload", throwIfNotFound: true);
+        m_Player_P2Reload = m_Player.FindAction("P2Reload", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -631,6 +673,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_P1Utility;
     private readonly InputAction m_Player_P2Utility;
     private readonly InputAction m_Player_RoundEnd;
+    private readonly InputAction m_Player_P1Reload;
+    private readonly InputAction m_Player_P2Reload;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -694,6 +738,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/RoundEnd".
         /// </summary>
         public InputAction @RoundEnd => m_Wrapper.m_Player_RoundEnd;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P1Reload".
+        /// </summary>
+        public InputAction @P1Reload => m_Wrapper.m_Player_P1Reload;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Reload".
+        /// </summary>
+        public InputAction @P2Reload => m_Wrapper.m_Player_P2Reload;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -759,6 +811,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RoundEnd.started += instance.OnRoundEnd;
             @RoundEnd.performed += instance.OnRoundEnd;
             @RoundEnd.canceled += instance.OnRoundEnd;
+            @P1Reload.started += instance.OnP1Reload;
+            @P1Reload.performed += instance.OnP1Reload;
+            @P1Reload.canceled += instance.OnP1Reload;
+            @P2Reload.started += instance.OnP2Reload;
+            @P2Reload.performed += instance.OnP2Reload;
+            @P2Reload.canceled += instance.OnP2Reload;
         }
 
         /// <summary>
@@ -809,6 +867,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @RoundEnd.started -= instance.OnRoundEnd;
             @RoundEnd.performed -= instance.OnRoundEnd;
             @RoundEnd.canceled -= instance.OnRoundEnd;
+            @P1Reload.started -= instance.OnP1Reload;
+            @P1Reload.performed -= instance.OnP1Reload;
+            @P1Reload.canceled -= instance.OnP1Reload;
+            @P2Reload.started -= instance.OnP2Reload;
+            @P2Reload.performed -= instance.OnP2Reload;
+            @P2Reload.canceled -= instance.OnP2Reload;
         }
 
         /// <summary>
@@ -1036,6 +1100,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnRoundEnd(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Reload(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Reload" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Reload(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

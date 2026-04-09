@@ -212,6 +212,12 @@ public abstract class BaseWeapon : NetworkBehaviour
         canFire = true;
     }
 
+    public void Reload()
+    {
+        canFire = false;
+        ActivateCooldown();
+    }
+
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
         //Debug.Log("cooldown start");

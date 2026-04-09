@@ -308,6 +308,18 @@ public class PlayerController : NetworkBehaviour
         utilityManager.P2Utility();
     }
 
+    [Rpc(SendTo.Server)]
+    public void P1ReloadInputServerRpc(float P1ReloadInput)
+    {
+        teamWeaponManager.P1Reload();
+    }
+    [Rpc(SendTo.Server)]
+    public void P2ReloadInputServerRpc(float P2ReloadInput)
+    {
+        teamWeaponManager.P2Reload();
+    }
+
+
     #endregion
 
     #region Callbacks
