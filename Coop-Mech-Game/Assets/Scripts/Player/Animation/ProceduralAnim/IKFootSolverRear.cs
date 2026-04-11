@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class IKFootSolver : MonoBehaviour
+public class IKFootSolverRear : MonoBehaviour
 {
     [SerializeField] LayerMask terrainLayer = default;
     [SerializeField] Transform body = default;
-    [SerializeField] IKFootSolver otherFoot = default;
+    [SerializeField] IKFootSolverRear otherFoot = default;
     [SerializeField] float speed = 1;
     [SerializeField] float stepDistance = 4;
     [SerializeField] float stepLength = 4;
@@ -40,7 +38,7 @@ public class IKFootSolver : MonoBehaviour
             {
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
-                newPosition = info.point + (body.forward * stepLength * direction) + footOffset;
+                newPosition = info.point + (-body.forward * stepLength * direction) + (-footOffset);
                 newNormal = info.normal;
             }
         }
@@ -74,7 +72,5 @@ public class IKFootSolver : MonoBehaviour
     {
         return lerp < 1;
     }
-
-
 
 }
