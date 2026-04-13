@@ -207,7 +207,7 @@ MonoBehaviour:
     m_TargetRotationWeight: 1
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
-    m_MaintainTargetRotationOffset: 0
+    m_MaintainTargetRotationOffset: 1
 --- !u!1 &265586531
 GameObject:
   m_ObjectHideFlags: 0
@@ -379,7 +379,7 @@ MonoBehaviour:
     m_TargetRotationWeight: 1
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
-    m_MaintainTargetRotationOffset: 0
+    m_MaintainTargetRotationOffset: 1
 --- !u!1 &526436091
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +437,7 @@ MonoBehaviour:
     m_TargetRotationWeight: 1
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
-    m_MaintainTargetRotationOffset: 0
+    m_MaintainTargetRotationOffset: 1
 --- !u!1 &614116436
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +518,7 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6496454855008728694}
   otherFoot: {fileID: 2124516276}
+  footHint: {fileID: 889391379}
   speed: 4
   stepDistance: 1
   stepLength: 1
@@ -692,7 +693,7 @@ MonoBehaviour:
     m_TargetRotationWeight: 1
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
-    m_MaintainTargetRotationOffset: 0
+    m_MaintainTargetRotationOffset: 1
 --- !u!1 &889391378
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,6 +1389,7 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6513647760250524879}
   otherFoot: {fileID: 2134659525}
+  footHint: {fileID: 1279453168}
   speed: 3
   stepDistance: 1
   stepLength: 1
@@ -1443,6 +1445,7 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6496454855008728694}
   otherFoot: {fileID: 682419258}
+  footHint: {fileID: 614116437}
   speed: 4
   stepDistance: 1
   stepLength: 1
@@ -1497,6 +1500,7 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6496454855008728694}
   otherFoot: {fileID: 2033482425}
+  footHint: {fileID: 4813825}
   speed: 3
   stepDistance: 1
   stepLength: 1
