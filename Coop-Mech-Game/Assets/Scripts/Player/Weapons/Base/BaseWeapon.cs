@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using Unity.VisualScripting;
@@ -129,6 +130,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
     }
+    
+
     protected virtual void ChangeAmmoText()
     {
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
