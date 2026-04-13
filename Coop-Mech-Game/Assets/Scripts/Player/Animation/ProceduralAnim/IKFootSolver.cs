@@ -7,6 +7,7 @@ public class IKFootSolver : MonoBehaviour
     [SerializeField] LayerMask terrainLayer = default;
     [SerializeField] Transform body = default;
     [SerializeField] IKFootSolver otherFoot = default;
+    [SerializeField] Transform footHint;
     [SerializeField] float speed = 1;
     [SerializeField] float stepDistance = 4;
     [SerializeField] float stepLength = 4;
@@ -16,6 +17,7 @@ public class IKFootSolver : MonoBehaviour
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
+    Ray ray;
 
     private void Start()
     {
@@ -31,8 +33,8 @@ public class IKFootSolver : MonoBehaviour
     {
         transform.position = currentPosition;
         transform.up = currentNormal;
-
-        Ray ray = new Ray(body.position + (body.right * footSpacing), Vector3.down);
+        footHint.position = new Vector3(transform.position.x, footHint.position.y, footHint.position.z);
+        ray = new Ray((body.position + body.forward * 5) + (body.right * footSpacing), Vector3.down);
 
         if (Physics.Raycast(ray, out RaycastHit info, 10, terrainLayer.value))
         {
@@ -66,6 +68,7 @@ public class IKFootSolver : MonoBehaviour
 
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(newPosition, 0.5f);
+        Gizmos.DrawRay(ray);
     }
 
 

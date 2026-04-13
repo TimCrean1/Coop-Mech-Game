@@ -520,9 +520,9 @@ MonoBehaviour:
   otherFoot: {fileID: 2124516276}
   speed: 4
   stepDistance: 1
-  stepLength: 3
+  stepLength: 1
   stepHeight: 3
-  footOffset: {x: 0, y: 0, z: 6}
+  footOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &851602698
 GameObject:
   m_ObjectHideFlags: 0
@@ -1392,7 +1392,8 @@ MonoBehaviour:
   stepDistance: 1
   stepLength: 1
   stepHeight: 1
-  footOffset: {x: 0, y: -1, z: 6}
+  footOffset: {x: 0, y: 0, z: 0}
+  rayPosition: 7.65
 --- !u!1 &2124516274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1444,9 +1445,9 @@ MonoBehaviour:
   otherFoot: {fileID: 682419258}
   speed: 4
   stepDistance: 1
-  stepLength: 3
+  stepLength: 1
   stepHeight: 3
-  footOffset: {x: 0, y: 0, z: 6}
+  footOffset: {x: 0, y: 0, z: 0}
 --- !u!1 &2134659523
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,7 +1501,8 @@ MonoBehaviour:
   stepDistance: 1
   stepLength: 1
   stepHeight: 1
-  footOffset: {x: 0, y: -1, z: 6}
+  footOffset: {x: 0, y: 0, z: 0}
+  rayPosition: 7.65
 --- !u!137 &77264566292202769
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
