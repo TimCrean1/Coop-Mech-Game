@@ -208,74 +208,6 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
---- !u!1001 &184162574
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 155533656450361825, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_Name
-      value: MechRig
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.75997
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 16.88586
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -94.54599
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7072302
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7069834
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -89.98
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1674724265715291633, guid: 2379cc7f7965b814b8905ca171329f5c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 2379cc7f7965b814b8905ca171329f5c, type: 3}
 --- !u!1 &265586531
 GameObject:
   m_ObjectHideFlags: 0
@@ -586,10 +518,10 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6496454855008728694}
   otherFoot: {fileID: 2124516276}
-  speed: 3
+  speed: 4
   stepDistance: 1
-  stepLength: 1
-  stepHeight: 1
+  stepLength: 3
+  stepHeight: 3
   footOffset: {x: 0, y: 0, z: 6}
 --- !u!1 &851602698
 GameObject:
@@ -1460,7 +1392,7 @@ MonoBehaviour:
   stepDistance: 1
   stepLength: 1
   stepHeight: 1
-  footOffset: {x: 0, y: 0, z: 0}
+  footOffset: {x: 0, y: -1, z: 6}
 --- !u!1 &2124516274
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,10 +1442,10 @@ MonoBehaviour:
     m_Bits: 8
   body: {fileID: 6496454855008728694}
   otherFoot: {fileID: 682419258}
-  speed: 3
+  speed: 4
   stepDistance: 1
-  stepLength: 1
-  stepHeight: 1
+  stepLength: 3
+  stepHeight: 3
   footOffset: {x: 0, y: 0, z: 6}
 --- !u!1 &2134659523
 GameObject:
@@ -1568,7 +1500,7 @@ MonoBehaviour:
   stepDistance: 1
   stepLength: 1
   stepHeight: 1
-  footOffset: {x: 0, y: 0, z: 0}
+  footOffset: {x: 0, y: -1, z: 6}
 --- !u!137 &77264566292202769
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -6237,6 +6169,9 @@ GameObject:
   - component: {fileID: 6513647760250524879}
   - component: {fileID: 6513647760250524881}
   - component: {fileID: 6513647760250524880}
+  - component: {fileID: 6513647760250524884}
+  - component: {fileID: 6513647760250524883}
+  - component: {fileID: 6513647760250524882}
   m_Layer: 0
   m_Name: MechRigWeightV2
   m_TagString: Untagged
@@ -6979,7 +6914,7 @@ Animator:
   m_GameObject: {fileID: 5849877450480160373}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 53feb67c77a5e5946871d667eff08334, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -6991,6 +6926,70 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!65 &6513647760250524882
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849877450480160373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 8.061392, z: 1}
+  m_Center: {x: 0, y: 4.008054, z: 0}
+--- !u!54 &6513647760250524883
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849877450480160373}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
+--- !u!114 &6513647760250524884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849877450480160373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c21f1f87a2ea2a449cc7d337f871d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::simpleController
+  controller: {fileID: 6513647760250524883}
+  cam: {fileID: 924981852}
+  speed: 1000
+  turnSmoothTime: 0.1
 --- !u!1 &6537081195374849018
 GameObject:
   m_ObjectHideFlags: 0
@@ -9017,5 +9016,4 @@ SceneRoots:
   - {fileID: 1799858883}
   - {fileID: 851602702}
   - {fileID: 924981852}
-  - {fileID: 184162574}
   - {fileID: 6513647760250524879}
