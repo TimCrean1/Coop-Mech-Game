@@ -20,8 +20,11 @@ public class IKFootSolver : MonoBehaviour
     float lerp;
     Ray ray;
     Rigidbody rb;
+    Vector3 localOffset;
+    
     private void Start()
     {
+        localOffset = body.transform.InverseTransformPoint(transform.position);
         rb = body.GetComponentInParent<Rigidbody>();
         footSpacing = transform.localPosition.x;
         currentPosition = newPosition = oldPosition = transform.position;
