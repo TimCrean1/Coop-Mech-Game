@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  currentMaxSpeed: 12
+  currentMaxSpeed: 16
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
@@ -256,10 +256,10 @@ MonoBehaviour:
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
   canDash: 1
-  dashSpeed: 100
+  dashSpeed: 75
   dashCooldown: 2
   dashRecharge: 2
-  dashLength: 0.2
+  dashLength: 0.1
   maxDashes: 2
   horizontalRotationRate: 2.5
   verticalRotationRate: 2.5

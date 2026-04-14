@@ -14,6 +14,7 @@ public class SmokeGrenadeUtility : BaseUtility
     [SerializeField] private VisualEffect visualEffect;
     [SerializeField] private float smokeCooldown = 20f;
     [SerializeField] private float castDistance = 0;
+    [SerializeField] private float NandoChance = 0.05f;
 
     private RaycastHit hit;
     private CharacterMovement _owningCharacter;
@@ -38,7 +39,15 @@ public class SmokeGrenadeUtility : BaseUtility
             //set the position of this object. it will either be the hit point of a raycast (to avoid it entering another object), or at a point infront of the mech
             transform.position = Physics.Raycast(_owningCharacter.transform.position, _owningCharacter.transform.forward, out hit, castDistance) ? hit.point : _owningCharacter.transform.position + (_owningCharacter.transform.forward * castDistance);
 
-            visualEffect.SendEvent("OnFire");
+            float rand = Random.Range(0f, 1f);
+            if (rand <= NandoChance)
+            {
+                visualEffect.SendEvent("OnNando");
+            }
+            else 
+            {
+                visualEffect.SendEvent("OnFire");
+            }
 
             //GameObject smokeGrenade = Instantiate(smokeGrenadePrefab, smokePos, Quaternion.identity);
             //Destroy(smokeGrenade, smokeCooldown);

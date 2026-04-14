@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 62302024
+  GlobalObjectIdHash: 204609666
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  currentMaxSpeed: 12
+  currentMaxSpeed: 16
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
@@ -255,10 +255,10 @@ MonoBehaviour:
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
   canDash: 1
-  dashSpeed: 100
+  dashSpeed: 75
   dashCooldown: 2
   dashRecharge: 2
-  dashLength: 0.2
+  dashLength: 0.1
   maxDashes: 2
   horizontalRotationRate: 2.5
   verticalRotationRate: 2.5
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1034265231
+  GlobalObjectIdHash: 3065053489
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1013563508
+  GlobalObjectIdHash: 527748684
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -818,12 +818,12 @@ PrefabInstance:
     - target: {fileID: 1509548444272338256, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4082095590
+      value: 251265461
       objectReference: {fileID: 0}
     - target: {fileID: 2535768407550478619, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2474168739
+      value: 3930717698
       objectReference: {fileID: 0}
     - target: {fileID: 2569203156457744218, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}
