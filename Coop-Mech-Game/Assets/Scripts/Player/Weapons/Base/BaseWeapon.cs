@@ -74,6 +74,8 @@ public abstract class BaseWeapon : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(ResetGunAttributes);
         currentDamage = damage;
         currentFireRate = baseFireRate;
+
+        if(hits == null) { hits = new List<RaycastHit>(); }
     }
     public override void OnNetworkSpawn()
     {

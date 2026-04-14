@@ -35,7 +35,9 @@ public class WeaponShotgun : BaseWeapon
     public override void Fire(float mouseDistance)
     {
         //hits is protected list declared in base class
+        Debug.Log(Muzzle == null ? "Muzzle is NULL" : "Muzzle OK");
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+        Debug.Log(hits == null ? "Hits is NULL" : $"Hits count: {hits.Count}");
 
         base.Fire(mouseDistance);
     }
