@@ -133,6 +133,11 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
+
+    //this needs further testing to see if overriding this in a child class will result in overflow
+    //right now what happens is all equipped shotguns adds data to hits, and the only reason hits is in the base
+    //class is because when the function was tagged with [ClientRpc] and overridden a packet overflow error would occur
+    //also it seems that when tagged with SendTo.NotServer, it doesn't run on the host
     [Rpc(SendTo.NotServer)]
     protected virtual void FireEventMethodClientRpc()
     {
