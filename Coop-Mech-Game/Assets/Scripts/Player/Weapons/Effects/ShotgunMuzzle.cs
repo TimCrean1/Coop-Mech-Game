@@ -6,7 +6,7 @@ using static Unity.Cinemachine.IInputAxisOwner.AxisDescriptor;
 public class ShotgunMuzzle : WeaponMuzzle
 {
     private GraphicsBuffer _gBuffer;
-    private List<Vector3> _hitPos;
+    private List<Vector3> _hitPos = new List<Vector3>();
 
     public override void SendFireEvent(RaycastHit hit)
     {
