@@ -34,6 +34,7 @@ public class WeaponShotgun : BaseWeapon
 
     public override void Fire(float mouseDistance)
     {
+        //hits is protected list declared in base class
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
 
         base.Fire(mouseDistance);
