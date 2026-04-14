@@ -18,6 +18,7 @@ public class IKFootSolverRear : MonoBehaviour
     float lerp;
     Ray ray;
     
+    
 
     private void Start()
     {
@@ -31,6 +32,7 @@ public class IKFootSolverRear : MonoBehaviour
 
     void Update()
     {
+        
         transform.position = currentPosition;
         transform.up = currentNormal;
         footHint.position = new Vector3(transform.position.x,footHint.position.y,footHint.position.z);
@@ -43,7 +45,7 @@ public class IKFootSolverRear : MonoBehaviour
             {
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
-                newPosition = info.point + (-body.forward * stepLength * direction) + (-footOffset);
+                newPosition = info.point + (-body.forward * stepLength * direction) + (footOffset);
                 newNormal = info.normal;
             }
         }
