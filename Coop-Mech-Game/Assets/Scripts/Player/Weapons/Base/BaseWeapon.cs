@@ -33,6 +33,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private WeaponType weaponType;
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 30;
+    [SerializeField] private bool isMultiShot = false;
     [SerializeField] protected float baseFireRate = 1f;
     [SerializeField] protected float cooldownTime = 1.0f;
     [SerializeField] protected float damage = 50;
@@ -56,11 +57,13 @@ public abstract class BaseWeapon : NetworkBehaviour
     private bool isCooldownOn = false;
     protected RaycastHit hit;
     private WeaponMuzzle muzzleComp;
+    protected List<RaycastHit> hits = new List<RaycastHit>();
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
     public float AmmoCount {  get { return ammoCount.Value; } }
     public bool CanWeaponFire { get { return canFire; } }
+    public bool IsMultiShotWeapon {  get { return isMultiShot; } }
 
    
     private void Start()
@@ -91,6 +94,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         StartCoroutine(CooldownRotuine());
         
     }
+
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
     {
@@ -98,6 +102,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         //ammoCount.Value = 0;
         ammoCount.Value = ammoCount.Value + ammo;
     }
+
     [Rpc(SendTo.Server)]
     private void ResetAmmoRpc()
     {
@@ -125,10 +130,11 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
+        if (muzzleComp && IsMultiShotWeapon == false) { muzzleComp.SendFireEvent(hit); }
+        else if(muzzleComp && IsMultiShotWeapon == true) { muzzleComp.SendFireEventList(hits); }
     }
     
 

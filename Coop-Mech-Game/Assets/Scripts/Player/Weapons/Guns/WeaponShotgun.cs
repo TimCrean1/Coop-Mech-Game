@@ -7,16 +7,13 @@ public class WeaponShotgun : BaseWeapon
     [Header("Shotgun Variables")]
     [SerializeField] private int numPellets = 8;
     [SerializeField] private float spreadHalfAngle = 30f;
-    private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
         float t1dmg = 0f;
         float t2dmg = 0f;
 
-        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
-
-        foreach(var hit in hits)
+        foreach(var hit in hits) //hits is a protected list in the base class
         {
             // Debug.Log(hit);
             if (hit.collider.gameObject.CompareTag("TeamOne"))
@@ -37,6 +34,8 @@ public class WeaponShotgun : BaseWeapon
 
     public override void Fire(float mouseDistance)
     {
+        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+
         base.Fire(mouseDistance);
     }
     
