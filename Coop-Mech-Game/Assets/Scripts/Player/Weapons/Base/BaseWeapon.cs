@@ -143,7 +143,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp && IsMultiShotWeapon == false) { muzzleComp.SendFireEvent(hit); }
-        else if(muzzleComp && IsMultiShotWeapon == true) { muzzleComp.SendFireEventList(hitsList); }
+        else if(muzzleComp && IsMultiShotWeapon == true) { Debug.Log("client rpc fire event BaseWeapon");  muzzleComp.SendFireEventList(hitsList); }
     }
     
     protected virtual void GetHitDataList(List<RaycastHit> hits)
