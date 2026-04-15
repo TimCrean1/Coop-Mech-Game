@@ -19,7 +19,7 @@ public class ShopNetworking : NetworkBehaviour
         {
             GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
         }
-        else { Debug.LogError("idk... client"); }
+        // else { Debug.LogError("idk... client"); }
 
         if (IsServer)
         {
@@ -29,7 +29,7 @@ public class ShopNetworking : NetworkBehaviour
                 OpenShopClientRpc();
             });
         }
-        else { Debug.LogError("idk... server"); }
+        // else { Debug.LogError("idk... server"); }
     }
 
     #region RPCs

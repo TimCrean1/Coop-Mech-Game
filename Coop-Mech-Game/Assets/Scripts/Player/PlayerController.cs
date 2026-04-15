@@ -158,7 +158,10 @@ public class PlayerController : NetworkBehaviour
 
     public void ChangeUtility(ShopItemSO item, int playerNum)
     {
+        teamWeaponManager.PurchaseUtility(playerNum, item);
+        teamWeaponManager.PurchaseUtilityRpc(playerNum, item.itemIndex);
         Debug.Log("Changed player " + playerNum + " utility to " + item.itemName);
+
     }
 
     #endregion

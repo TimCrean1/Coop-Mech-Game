@@ -17,6 +17,9 @@ public class TeamWeaponManager : NetworkBehaviour
     [SerializeField] public MechScreen ammoCountScreenL;
     [SerializeField] public MechScreen ammoCountScreenR;
     [SerializeField] public SingleComboScript comboManager;
+    [SerializeField] private List<BaseUtility> P1UtilitiesList = new List<BaseUtility>();
+    [SerializeField] private List<BaseUtility> P2UtilitiesList = new List<BaseUtility>();
+
 
     //[SerializeField] private bool _enableStaggeredFire = true;
     //[SerializeField] private float staggeredFireTime = 0.25f;
@@ -99,72 +102,130 @@ public class TeamWeaponManager : NetworkBehaviour
     }
 
     /// <summary>
-    /// Changes the equipped weapon for the specified player and updates the weapon's position and rotation to match the player's weapon transform.
+    /// Changes the equipped weapon for the specified player by destroying the old weapon,
+    /// instantiating and spawning the new weapon, updating weapon lists, and setting references.
     /// </summary>
-    /// <param name="player"></param>
-    /// <param name="item"></param>
-
+    /// <param name="player">Player index (0 or 1)</param>
+    /// <param name="item">The ShopItemSO representing the new weapon</param>
     private void ChangeEquippedWeapon(int player, ShopItemSO item)
     {
-        
-            Transform mountPoint = (player == 0) ? weaponTranformOne : weaponTranformTwo;
+        // Select the correct weapon mount point based on player
+        Transform mountPoint = (player == 0) ? weaponTranformOne : weaponTranformTwo;
 
-            // Instantiate WITHOUT parent
-            
+        // Only the server should handle spawning and replacing weapons
+        if (IsServer)
+        {
+            // Destroy the old weapon if it exists
+            BaseWeapon oldWeapon = null;
+            if (player == 0 && P1WeaponsList.Count > 0)
+                oldWeapon = P1WeaponsList[_p1EquippedWeapon];
+            else if (player == 1 && P2WeaponsList.Count > 0)
+                oldWeapon = P2WeaponsList[_p2EquippedWeapon];
 
-
-            if (IsServer)
+            if (oldWeapon != null)
             {
-                //Destroy old weapon
-                BaseWeapon oldWeapon = null;
-
-                if (player == 0 && P1WeaponsList.Count > 0)
-                    oldWeapon = P1WeaponsList[_p1EquippedWeapon];
-                else if (player == 1 && P2WeaponsList.Count > 0)
-                    oldWeapon = P2WeaponsList[_p2EquippedWeapon];
-
-                if (oldWeapon != null)
-                {
-                    NetworkObject _netObj = oldWeapon.GetComponent<NetworkObject>();
-
-                    if (_netObj != null && _netObj.IsSpawned)
-                        _netObj.Despawn(true);   // true = destroy object on clients
-                }
-
-                //Spawn new weapon
-                GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
-                
-                NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
-                netObj.Spawn(true);
-                if (isStart)
-                {
-                    AppendWeaponToList(player, newWeapon);
-                    AppendWeaponToListRpc(player, netObj.NetworkObjectId);
-                }
-                ReplaceWeaponInList(player, newWeapon);
-                ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
-                newWeapon.transform.SetParent(mountPoint, true);
-                BaseWeapon bW = newWeapon.GetComponent<BaseWeapon>();
-                //Debug.Log(bW.name);
-                bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
-                //Debug.Log(bW.ammoCountScreen.name);
-                bW.comboManager = comboManager;
-                addReferencesRpc(player, netObj.NetworkObjectId);
-            
+                NetworkObject _netObj = oldWeapon.GetComponent<NetworkObject>();
+                if (_netObj != null && _netObj.IsSpawned)
+                    _netObj.Despawn(true); // Despawn and destroy on clients
             }
 
-            // Parent after spawn
-            
+            // Instantiate the new weapon at the mount point's position and rotation
+            GameObject newWeapon = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
 
-            
-        
-            
+            // Spawn the new weapon as a networked object
+            NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
+            netObj.Spawn(true);
+
+            // If this is the initial startup, append to the weapon list
+            if (isStart)
+            {
+                AppendWeaponToList(player, newWeapon);
+                AppendWeaponToListRpc(player, netObj.NetworkObjectId);
+            }
+
+            // Replace the weapon in the list for this player
+            ReplaceWeaponInList(player, newWeapon);
+            ReplaceWeaponInListRpc(player, netObj.NetworkObjectId);
+
+            // Parent the new weapon to the mount point
+            newWeapon.transform.SetParent(mountPoint, true);
+
+            // Set references for ammo screen and combo manager
+            BaseWeapon bW = newWeapon.GetComponent<BaseWeapon>();
+            bW.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
+            bW.comboManager = comboManager;
+
+            // Notify clients to update references
+            addReferencesRpc(player, netObj.NetworkObjectId);
+        }
     }
+
+    /// <summary>
+    /// Changes the equipped utility for the specified player by destroying the old utility,
+    /// instantiating and spawning the new utility, updating utility lists, and setting references.
+    /// </summary>
+    /// <param name="player">Player index (0 or 1)</param>
+    /// <param name="item">The ShopItemSO representing the new utility</param>
+    private void ChangeEquippedUtility(int player, ShopItemSO item)
+    {
+        // Use the TeamWeaponManager's transform as the mount point for utilities
+        Transform mountPoint = gameObject.transform;
+
+        // Only the server should handle spawning and replacing utilities
+        if (IsServer)
+        {
+            // Destroy the old utility if it exists
+            BaseUtility oldUtility = null;
+            if (player == 0 && P1UtilitiesList.Count > 0)
+                oldUtility = P1UtilitiesList[_p1EquippedWeapon];
+            else if (player == 1 && P2UtilitiesList.Count > 0)
+                oldUtility = P2UtilitiesList[_p2EquippedWeapon];
+
+            if (oldUtility != null)
+            {
+                NetworkObject _netObj = oldUtility.GetComponent<NetworkObject>();
+                if (_netObj != null && _netObj.IsSpawned)
+                    _netObj.Despawn(true); // Despawn and destroy on clients
+            }
+
+            // Instantiate the new utility at the mount point's position and rotation
+            GameObject newUtility = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+
+            // Spawn the new utility as a networked object
+            NetworkObject netObj = newUtility.GetComponent<NetworkObject>();
+            netObj.Spawn(true);
+
+            // If this is the initial startup, append to the utility list
+            if (isStart)
+            {
+                AppendUtilityToList(player, newUtility);
+                AppendUtilityToListRpc(player, netObj.NetworkObjectId);
+            }
+
+            // Replace the utility in the list for this player
+            ReplaceUtilityInList(player, newUtility);
+            ReplaceUtilityInListRpc(player, netObj.NetworkObjectId);
+
+            // Parent the new utility to the mount point
+            newUtility.transform.SetParent(mountPoint, true);
+
+            // Notify clients to update references
+            addReferencesRpc(player, netObj.NetworkObjectId);
+        }
+    }
+
     [Rpc(SendTo.Server)]
     private void requestChangeWeaponRpc(int player, int index)
     {
         ShopItemSO item = ShopManager.Instance.allItems[index];
         ChangeEquippedWeapon(player, item);
+        Debug.Log("Client requests item purchase " + item);
+    }
+    [Rpc(SendTo.Server)]
+    private void requestChangeUtilityRpc(int player, int index)
+    {
+        ShopItemSO item = ShopManager.Instance.allItems[index];
+        ChangeEquippedUtility(player, item);
         Debug.Log("Client requests item purchase " + item);
     }
     [Rpc(SendTo.NotServer)]
@@ -191,30 +252,12 @@ public class TeamWeaponManager : NetworkBehaviour
     }
     public void PurchaseWeapon(int player, ShopItemSO item)
     {
-        //Debug.Log($"[{gameObject.name}] Buying {item?.name}");
-        //Debug.LogError($"[{gameObject.name}] ITEM IS NULL");
-
-        //Debug.Log($"Buying {item.name} with prefab {item.itemPrefab.name}");
         if (player == 0)
         {
-            // if (P1WeaponsList.Count > 0)
-            // {
-            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
-            // }
-            //Debug.Log(item.itemName);
-            // AppendWeaponToList(0, item.itemPrefab);
-            //AppendWeaponToListRpc(0, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else if (player == 1)
         {
-            // if (P2WeaponsList.Count > 0)
-            // {
-            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
-            //     // P2WeaponsList[0] = item.itemPrefab.GetComponent<BaseWeapon>();
-            // }
-            // AppendWeaponToList(1, item.itemPrefab);
-            //AppendWeaponToListRpc(1, item.itemIndex);
             ChangeEquippedWeapon(player, item);
         }
         else
@@ -231,26 +274,10 @@ public class TeamWeaponManager : NetworkBehaviour
         
         if (player == 0)
         {
-            // if (P1WeaponsList.Count > 0)
-            // {
-            //     RemoveWeaponFromList(0, P1WeaponsList[0].gameObject);
-            // }
-            //Debug.Log(item.itemName);
-            // AppendWeaponToList(0, item.itemPrefab);
-            //AppendWeaponToListRpc(0, item.itemIndex);
-            //ChangeEquippedWeapon(player, item);
             requestChangeWeaponRpc(player,index);
         }
         else if (player == 1)
         {
-            // if (P2WeaponsList.Count > 0)
-            // {
-            //     RemoveWeaponFromList(1, P2WeaponsList[0].gameObject);
-            // }
-
-            // AppendWeaponToList(1, item.itemPrefab);
-            //AppendWeaponToListRpc(1, item.itemIndex);
-            //ChangeEquippedWeapon(player, item);
             requestChangeWeaponRpc(player, index);
         }
         else
@@ -280,10 +307,6 @@ public class TeamWeaponManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void AppendWeaponToListRpc(int player, ulong networkObjId)
     {
-
-        
-        //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
-        //Debug.Log(weapon.name);
         GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
         Debug.Log("Appending Weapon to player" + player + weapon);
         if (player == 0)
@@ -305,22 +328,10 @@ public class TeamWeaponManager : NetworkBehaviour
         // Debug.Log(weapon.name);
         if (player == 0)
         {
-            // if (P1WeaponsList.Count > 0)
-            // {
-            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            //     Destroy(P1WeaponsList[0]);
-            // }
-
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            // if (P2WeaponsList.Count > 0)
-            // {
-            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            //     Destroy(P2WeaponsList[0]);
-            // }
-
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
@@ -332,31 +343,14 @@ public class TeamWeaponManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void ReplaceWeaponInListRpc(int player, ulong networkObjId)
     {
-
-        
-        //GameObject weapon = NetworkManager.NetworkConfig.Prefabs.NetworkPrefabsLists[0].PrefabList[index].Prefab.gameObject;
-        //Debug.Log(weapon.name);
-
         GameObject weapon = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
         Debug.Log("Replacing Weapon for player " + player + " with " + weapon);
         if (player == 0)
         {
-            // if (P1WeaponsList.Count > 0)
-            // {
-            //     P1WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            //     Destroy(P1WeaponsList[0]);
-            // }
-
             P1WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else if (player == 1)
         {
-            // if (P2WeaponsList.Count > 0)
-            // {
-            //     P2WeaponsList[0].GetComponent<NetworkObject>().Spawn(false);
-            //     Destroy(P2WeaponsList[0]);
-            // }
-            // P2WeaponsList.Add(weapon.GetComponent<BaseWeapon>());
             P2WeaponsList[0] = weapon.GetComponent<BaseWeapon>();
         }
         else
@@ -365,35 +359,19 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    public void RemoveWeaponFromList(int player, GameObject weapon)
-    {
-        BaseWeapon baseWeapon = weapon.GetComponent<BaseWeapon>();
+    #endregion
 
+    #region Utility Purchasing
+
+    public void PurchaseUtility(int player, ShopItemSO item) //TODO: Implement utility purchasing logic
+    {
         if (player == 0)
         {
-            if (P1WeaponsList.Count > 0)
-            {
-                P1WeaponsList.Remove(baseWeapon);
-                baseWeapon.enabled = false;
-            }
-            else
-            {
-                return;
-            }
-            // Destroy(weapon);
+            ChangeEquippedUtility(player, item);
         }
         else if (player == 1)
         {
-            if (P2WeaponsList.Count > 0)
-            {
-                P2WeaponsList.Remove(baseWeapon);
-                baseWeapon.enabled = false;
-            }
-            else
-            {
-                return;
-            }
-            // Destroy(weapon);
+            ChangeEquippedUtility(player, item);
         }
         else
         {
@@ -401,25 +379,91 @@ public class TeamWeaponManager : NetworkBehaviour
         }
     }
 
-    #endregion
-
-    #region IMPLEMENT THIS!!!!!!!!
-
-
-
-
-    #region IMPLEMENT THIS!!!!!!!!
-    #endregion
-
-    public void PurchaseUtility(int player, ShopItemSO item) //TODO: Implement utility purchasing logic
+    [Rpc(SendTo.NotServer)]
+    public void PurchaseUtilityRpc(int player, int index)
     {
+        Debug.Log("client is buying this index of utility " + index);
+        //ShopItemSO item = ShopManager.Instance.allItems[index];
+        
         if (player == 0)
         {
-            
+            requestChangeUtilityRpc(player,index);
         }
         else if (player == 1)
         {
-            
+            requestChangeUtilityRpc(player, index);
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+        Debug.Log("end" + ShopManager.Instance.allItems.Count);
+    }
+
+    public void ReplaceUtilityInList(int player, GameObject utility)
+    {
+        // Debug.Log(utility.name);
+        if (player == 0)
+        {
+            P1UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+        }
+        else if (player == 1)
+        {
+            P2UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    [Rpc(SendTo.NotServer)]
+    public void ReplaceUtilityInListRpc(int player, ulong networkObjId)
+    {
+        GameObject utility = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
+        Debug.Log("Replacing Utility for player " + player + " with " + utility);
+        if (player == 0)
+        {
+            P1UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+        }
+        else if (player == 1)
+        {
+            P2UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    public void AppendUtilityToList(int player, GameObject utility)
+    {
+        // Debug.Log(utility.name);
+        if (player == 0)
+        {
+            P1UtilitiesList.Add(utility.GetComponent<BaseUtility>());
+        }
+        else if (player == 1)
+        {
+            P2UtilitiesList.Add(utility.GetComponent<BaseUtility>());
+        }
+        else
+        {
+            Debug.LogError("Player " + player + " does not exist!");
+        }
+    }
+
+    public void AppendUtilityToListRpc(int player, ulong networkObjId)
+    {
+        GameObject utility = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
+        Debug.Log("Appending Utility to player" + player + utility);
+        if (player == 0)
+        {
+            P1UtilitiesList.Add(utility.GetComponent<BaseUtility>());
+        }
+        else if (player == 1)
+        {
+            P2UtilitiesList.Add(utility.GetComponent<BaseUtility>());
         }
         else
         {
