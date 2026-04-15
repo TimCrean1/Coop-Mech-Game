@@ -43,7 +43,9 @@ public class IKFootSolverRear : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit info, 10, terrainLayer.value))
         {
-            if (Vector3.Distance(newPosition, info.point) > stepDistance && !otherFoot.IsMoving() && lerp >= 1)
+            Vector3 horizontalNew = new Vector3(newPosition.x, 0, newPosition.z);
+            Vector3 horizontalHit = new Vector3(info.point.x, 0, info.point.z);
+            if (Vector3.Distance(horizontalNew, horizontalHit) > stepDistance && !otherFoot.IsMoving() && lerp >= 1)
             {
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
@@ -74,7 +76,7 @@ public class IKFootSolverRear : MonoBehaviour
         // converts velocity into local space
         Vector3 localVel = body.transform.InverseTransformDirection(velocity);
         //Debug.Log("Velocity =" + localVel);
-        if (localVel.z == 0 && localVel.z == 0)
+        if (localVel.z == 0 && localVel.x == 0)
         {
             // We're moving forward tier 1
             Debug.Log("Idle - rear");
