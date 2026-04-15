@@ -49,12 +49,12 @@ MonoBehaviour:
   NetworkConfig:
     ProtocolVersion: 0
     NetworkTransport: {fileID: 4859256936336187513}
-    PlayerPrefab: {fileID: 8168222149250041022, guid: 1e7bd0513139e4f4bbe5e4e01872cebc,
+    PlayerPrefab: {fileID: 5057854842950863871, guid: 75b5133dc68b5e945a2c549a7a8626f9,
       type: 3}
     Prefabs:
       NetworkPrefabsLists:
       - {fileID: 11400000, guid: 9d2c8bbcf081a9844b66ffebadedae7f, type: 2}
-    TickRate: 30
+    TickRate: 48
     ClientConnectionBufferTimeout: 10
     ConnectionApproval: 0
     ConnectionData: 
@@ -90,9 +90,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Transports.UTP.UnityTransport
   m_ProtocolType: 0
-  m_UseWebSockets: 0
+  m_UseWebSockets: 1
   m_UseEncryption: 0
-  m_MaxPacketQueueSize: 128
+  m_MaxPacketQueueSize: 64
   m_MaxPayloadSize: 6144
   m_HeartbeatTimeoutMS: 500
   m_ConnectTimeoutMS: 1000
