@@ -15,6 +15,8 @@ public class StartupAnimation : MonoBehaviour
     [SerializeField] private bool randomizeOrder = false;
     [SerializeField] private List<string> refStrings = new List<string>();
 
+    private CharacterMovement charMovement;
+
     void Start()
     {
         for(int i = 0; i< refStrings.Count; i++)
@@ -30,8 +32,9 @@ public class StartupAnimation : MonoBehaviour
         //eventually subscribe to an event when loading screen fades out
 
         GameManager.Instance.OnStartupSequence.AddListener(StartFunction);
+        GameManager.Instance.OnRoundEnd.AddListener(StartShutdownRoutine);
 
-        //StartFunction(); //remove when the above event is implemented in the GameManager
+        charMovement = GetComponent<CharacterMovement>();
     }
 
     private void StartFunction()
@@ -60,12 +63,12 @@ public class StartupAnimation : MonoBehaviour
 
         yield return new WaitForSeconds(startDelay);
         float count = 0f;
-        float interval = 0.02f;
-        float brightness = 0.1f;
+        float interval = 0.02f; //relative speed of turning on
+        float brightness = 0.1f; //start value on x-axis
 
         while(count <= startTime)
         {
-            count += interval;
+            count += interval; //count acts as minimum value of what can be picked on the x-axis of SlerpValue function
             //Debug.Log(count);
 
             brightness = Random.Range(SlerpValue(count/startTime), 1f) > chance ? 1f : SlerpValue(count / startTime) * 0.85f + 0.05f;
@@ -74,8 +77,29 @@ public class StartupAnimation : MonoBehaviour
 
             yield return new WaitForSeconds(interval);
         }
-        GetComponent<CharacterMovement>().SetCanMove(true);
+        //GetComponent<CharacterMovement>().SetCanMove(true);
+        charMovement.SetCanMove(true);
         yield return null;
+    }
+
+    private void StartShutdownRoutine()
+    {
+        Debug.Log("Shutdown routine placeholder");
+        
+    }
+
+    private IEnumerator ShutdownRoutine(string target)
+    {
+        float count = startTime;
+        float interval = 0.02f;
+        float brightness = 1f;
+
+        while(count >= 0f)
+        {
+            count -= interval;
+            brightness = Random.Range(0f, SlerpValue(count / startTime));
+            yield return null;
+        }
     }
 
     private float SlerpValue(float toSmooth)
