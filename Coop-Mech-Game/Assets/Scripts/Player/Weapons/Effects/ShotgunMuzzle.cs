@@ -21,6 +21,8 @@ public class ShotgunMuzzle : WeaponMuzzle
     {
         if (bulletEffect)
         {
+            Debug.Log("Received fire event list in shotgun muzzle, hit count: " +  hitList.Count);
+
             foreach (RaycastHit hit in hitList)
             {
                 _hitPos.Add(hit.point);

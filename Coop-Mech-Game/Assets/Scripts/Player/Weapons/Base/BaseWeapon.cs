@@ -58,7 +58,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     private bool isCooldownOn = false;
     protected RaycastHit hit;
     private WeaponMuzzle muzzleComp;
-    protected List<RaycastHit> hits = new List<RaycastHit>();
+    private List<RaycastHit> hitsList = new List<RaycastHit>();
+
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
@@ -75,7 +76,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         currentDamage = damage;
         currentFireRate = baseFireRate;
 
-        if(hits == null) { hits = new List<RaycastHit>(); }
+        if(hitsList == null) { hitsList = new List<RaycastHit>(); }
     }
     public override void OnNetworkSpawn()
     {
@@ -142,9 +143,15 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp && IsMultiShotWeapon == false) { muzzleComp.SendFireEvent(hit); }
-        else if(muzzleComp && IsMultiShotWeapon == true) { muzzleComp.SendFireEventList(hits); }
+        else if(muzzleComp && IsMultiShotWeapon == true) { muzzleComp.SendFireEventList(hitsList); }
     }
     
+    protected virtual void GetHitDataList(List<RaycastHit> hits)
+    {
+        Debug.Log("setting hits list in base, count: " + hits.Count);
+        hitsList = hits;
+    }
+
 
     protected virtual void ChangeAmmoText()
     {
