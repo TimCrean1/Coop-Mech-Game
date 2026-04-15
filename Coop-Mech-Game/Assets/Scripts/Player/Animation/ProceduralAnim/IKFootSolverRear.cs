@@ -11,17 +11,18 @@ public class IKFootSolverRear : MonoBehaviour
     [SerializeField] float stepLength = 4;
     [SerializeField] float stepHeight = 1;
     [SerializeField] Vector3 footOffset = default;
-    [SerializeField] float rayPosition = 8;
+    [SerializeField] Vector3 rayPosition = default;
     float footSpacing;
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
     Ray ray;
-    
-    
+    Rigidbody rb;
+
 
     private void Start()
     {
+        rb = body.GetComponentInParent<Rigidbody>();
         footSpacing = transform.localPosition.x;
         currentPosition = newPosition = oldPosition = transform.position;
         currentNormal = newNormal = oldNormal = transform.up;
@@ -32,12 +33,13 @@ public class IKFootSolverRear : MonoBehaviour
 
     void Update()
     {
+        VelocityBasedTarget();
         
         transform.position = currentPosition;
         transform.up = currentNormal;
         footHint.position = new Vector3(transform.position.x,footHint.position.y,footHint.position.z);
 
-        ray = new Ray((body.position - body.forward * rayPosition) + (body.right * footSpacing), Vector3.down);
+        ray = new Ray((body.position - body.transform.forward * rayPosition.x) + (body.right * footSpacing * rayPosition.z), Vector3.down);
 
         if (Physics.Raycast(ray, out RaycastHit info, 10, terrainLayer.value))
         {
@@ -45,7 +47,7 @@ public class IKFootSolverRear : MonoBehaviour
             {
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
-                newPosition = info.point + (-body.forward * stepLength * direction) + (footOffset);
+                newPosition = info.point + (-body.transform.forward * stepLength * direction) + (footOffset);
                 newNormal = info.normal;
             }
         }
@@ -65,7 +67,50 @@ public class IKFootSolverRear : MonoBehaviour
             oldNormal = newNormal;
         }
     }
+    private void VelocityBasedTarget()
+    {
+        Vector3 velocity = rb.linearVelocity;
 
+        // converts velocity into local space
+        Vector3 localVel = body.transform.InverseTransformDirection(velocity);
+        //Debug.Log("Velocity =" + localVel);
+        if (localVel.z == 0 && localVel.z == 0)
+        {
+            // We're moving forward tier 1
+            Debug.Log("Idle - rear");
+            rayPosition = new Vector3(7f, 0, 0.8f);
+        }
+        if (localVel.z > 0.1f && localVel.z < 5f)
+        {
+            // We're moving forward tier 1
+            Debug.Log("Forward - rear");
+            rayPosition = new Vector3(2f, 0, 0.8f);
+        }
+        if (localVel.x < 0 && localVel.z < -3)
+        {
+            //backward
+            Debug.Log("Backward");
+            rayPosition = new Vector3(13f, 0, 0.8f);
+        }
+        //if (localVel.z >= 5f)
+        //{
+        //    // We're moving forward tier 2
+        //    Debug.Log("Faster");
+        //    rayPosition = new Vector3(7f, 0, 0.6f);
+        //}
+        //if (localVel.x < -3 && localVel.z < 0)
+        //{
+        //    Debug.Log("Left");
+        //    rayPosition = new Vector3(4f, 0, 0.4f);
+        //}
+        //if (localVel.x > 3 && localVel.z < 0)
+        //{
+        //    Debug.Log("Right");
+        //    rayPosition = new Vector3(4f, 0, 0.4f);
+        //}
+
+
+    }
     private void OnDrawGizmos()
     {
 

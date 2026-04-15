@@ -20,11 +20,11 @@ public class IKFootSolver : MonoBehaviour
     float lerp;
     Ray ray;
     Rigidbody rb;
-    Vector3 localOffset;
+   
     
     private void Start()
     {
-        localOffset = body.transform.InverseTransformPoint(transform.position);
+        
         rb = body.GetComponentInParent<Rigidbody>();
         footSpacing = transform.localPosition.x;
         currentPosition = newPosition = oldPosition = transform.position;
@@ -79,11 +79,17 @@ public class IKFootSolver : MonoBehaviour
         // converts velocity into local space
         Vector3 localVel = body.transform.InverseTransformDirection(velocity);
         //Debug.Log("Velocity =" + localVel);
-        if (localVel.z > -0.1f && localVel.z < 5f)
+        if (localVel.z == 0 && localVel.z == 0)
+        {
+            // We're moving forward tier 1
+            Debug.Log("Idle");
+            rayPosition = new Vector3(5f, 0, 0.9f);
+        }
+        if (localVel.z > 0.1f && localVel.z < 5f)
         {
             // We're moving forward tier 1
             Debug.Log("Forward");
-            rayPosition = new Vector3(5f,0,0.6f);
+            rayPosition = new Vector3(6f,0,0.6f);
         }
         if (localVel.x < 0 && localVel.z < -3)
         {
@@ -99,12 +105,12 @@ public class IKFootSolver : MonoBehaviour
         }
         if(localVel.x < -3 && localVel.z < 0){
             Debug.Log("Left");
-            rayPosition = new Vector3(4f, 0, 0.4f);
+            rayPosition = new Vector3(3f, 0, 0.6f);
         }
         if (localVel.x > 3 && localVel.z < 0)
         {
             Debug.Log("Right");
-            rayPosition = new Vector3(4f, 0, 0.4f);
+            rayPosition = new Vector3(3f, 0, 0.6f);
         }
         
 
