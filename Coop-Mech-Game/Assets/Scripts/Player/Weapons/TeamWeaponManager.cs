@@ -207,7 +207,7 @@ public class TeamWeaponManager : NetworkBehaviour
             ReplaceUtilityInListRpc(player, netObj.NetworkObjectId);
 
             // Parent the new utility to the mount point
-            newUtility.transform.SetParent(mountPoint, true);
+            // newUtility.transform.SetParent(mountPoint, true);
 
             // Notify clients to update references
             addReferencesRpc(player, netObj.NetworkObjectId);
