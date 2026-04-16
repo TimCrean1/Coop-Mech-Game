@@ -92,7 +92,7 @@ public class IKFootSolverRear : MonoBehaviour
         {
             //backward
             Debug.Log("Backward");
-            rayPosition = new Vector3(13f, 0, 0.8f);
+            rayPosition = new Vector3(11f, 0, 0.8f);
         }
         //if (localVel.z >= 5f)
         //{
