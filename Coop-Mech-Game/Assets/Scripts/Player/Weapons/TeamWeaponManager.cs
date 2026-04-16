@@ -156,7 +156,7 @@ public class TeamWeaponManager : NetworkBehaviour
             bW.comboManager = comboManager;
 
             // Notify clients to update references
-            addReferencesRpc(player, netObj.NetworkObjectId);
+            addWeaponReferencesRpc(player, netObj.NetworkObjectId);
         }
     }
 
@@ -210,7 +210,7 @@ public class TeamWeaponManager : NetworkBehaviour
             // newUtility.transform.SetParent(mountPoint, true);
 
             // Notify clients to update references
-            addReferencesRpc(player, netObj.NetworkObjectId);
+            addUtilityReferencesRpc(player, netObj.NetworkObjectId);
         }
     }
 
@@ -229,7 +229,7 @@ public class TeamWeaponManager : NetworkBehaviour
         Debug.Log("Client requests item purchase " + item);
     }
     [Rpc(SendTo.NotServer)]
-    private void addReferencesRpc(int player, ulong netObjId)
+    private void addWeaponReferencesRpc(int player, ulong netObjId)
     {
         Debug.Log("adding ref");
         BaseWeapon weapon = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseWeapon>();
@@ -237,6 +237,18 @@ public class TeamWeaponManager : NetworkBehaviour
         cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
         cannon.comboManager = comboManager;
     }
+    [Rpc(SendTo.NotServer)]
+    private void addUtilityReferencesRpc(int player, ulong netObjId)
+    {
+        Debug.Log("adding utility ref");
+        BaseUtility utility = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseUtility>();
+        BaseUtility u = utility.GetComponent<BaseUtility>();
+        if (u is SmokeGrenadeUtility smokeGrenade)
+        {
+            smokeGrenade.SetOwningCharacter(GetComponent<CharacterMovement>());
+        }
+    }
+
 
     #endregion
 

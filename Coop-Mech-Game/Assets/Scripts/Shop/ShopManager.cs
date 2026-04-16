@@ -28,6 +28,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons;
     [SerializeField] private bool limitToOneRound = false;
+    [SerializeField][Range(0,3)] private float itemsPerRound = 1;
     [SerializeField] public List<ShopItemSO> allItems;
 
     private List<ShopItemSO> displayedItems;
@@ -58,6 +59,12 @@ public class ShopManager : MonoBehaviour
 
         _instance = this;
         currentBuyRound = CurrentBuyRound.Closed;
+
+        if (itemsPerRound < 1 || itemsPerRound > 3)
+        {
+            Debug.LogError("itemsPerRound is out of the valid range (1-3). Clamping to 1.");
+            itemsPerRound = 1;
+        }
     }
 
     void Start()
@@ -173,22 +180,39 @@ public class ShopManager : MonoBehaviour
         if (!limitToOneRound){
             if (round == CurrentBuyRound.Weapons)
             {
-                foreach (ShopItemSO item in allItems)
+                // foreach (ShopItemSO item in allItems)
+                // {
+                //     if (item.itemType == ItemType.Weapon && item.playerID == playerData.Item1)
+                //     {
+                //         displayedItems.Add(item);
+                //     }
+                // }
+
+                // Randomly choose a Weapon item from allItems
+                var weaponItems = allItems.FindAll(i => i.itemType == ItemType.Weapon && i.playerID == playerData.Item1);
+                for (int i = 0; i < Mathf.Min(itemsPerRound, weaponItems.Count); i++)
                 {
-                    if (item.itemType == ItemType.Weapon && item.playerID == playerData.Item1)
-                    {
-                        displayedItems.Add(item);
-                    }
+                    var randomWeapon = weaponItems[UnityEngine.Random.Range(0, weaponItems.Count)];
+                    displayedItems.Add(randomWeapon);
+                    weaponItems.Remove(randomWeapon);
                 }
             }
             else if (round == CurrentBuyRound.Utilities)
             {
-                foreach (ShopItemSO item in allItems)
+                // foreach (ShopItemSO item in allItems)
+                // {
+                //     if (item.itemType == ItemType.Utility && item.playerID == playerData.Item1)
+                //     {
+                //         displayedItems.Add(item);
+                //     }
+                // }
+                
+                var utilityItems = allItems.FindAll(i => i.itemType == ItemType.Utility && i.playerID == playerData.Item1);
+                for (int i = 0; i < Mathf.Min(itemsPerRound, utilityItems.Count); i++)
                 {
-                    if (item.itemType == ItemType.Utility && item.playerID == playerData.Item1)
-                    {
-                        displayedItems.Add(item);
-                    }
+                    var randomUtility = utilityItems[UnityEngine.Random.Range(0, utilityItems.Count)];
+                    displayedItems.Add(randomUtility);
+                    utilityItems.Remove(randomUtility);
                 }
             }
         }

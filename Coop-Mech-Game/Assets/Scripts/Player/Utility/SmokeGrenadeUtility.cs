@@ -17,7 +17,7 @@ public class SmokeGrenadeUtility : BaseUtility
     [SerializeField] private float NandoChance = 0.05f;
 
     private RaycastHit hit;
-    private CharacterMovement _owningCharacter;
+    [SerializeField] private CharacterMovement _owningCharacter;
 
     void Start()
     {
@@ -60,5 +60,8 @@ public class SmokeGrenadeUtility : BaseUtility
         return canActivateUtility;
     }
 
-    
+    public void SetOwningCharacter(CharacterMovement character)
+    {
+        _owningCharacter = character;
+    }
 }
