@@ -80,7 +80,7 @@ public class IKFootSolverRear : MonoBehaviour
         {
             // We're moving forward tier 1
             Debug.Log("Idle - rear");
-            rayPosition = new Vector3(7f, 0, 0.8f);
+            rayPosition = new Vector3(7f, 0, 1f);
         }
         if (localVel.z > 0.1f && localVel.z < 5f)
         {

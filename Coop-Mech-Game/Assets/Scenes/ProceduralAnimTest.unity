@@ -2054,7 +2054,7 @@ MonoBehaviour:
   stepDistance: 1
   stepLength: 1
   stepHeight: 1
-  footOffset: {x: 0, y: 0, z: 0}
+  footOffset: {x: 0, y: 1, z: 0}
   rayPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2033482426
 MonoBehaviour:
@@ -4384,6 +4384,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3339766813615551276}
+  - component: {fileID: 3339766813615551277}
   m_Layer: 0
   m_Name: Leg_rear_foot_01.L
   m_TagString: Untagged
@@ -4997,6 +4998,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8938153087613946938}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3339766813615551277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507055317597863898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 195b936610e089a40a6b86c7429e1f4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechFootCorrection
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  leg: {fileID: 8938153087613946938}
+  rotationOffsetEuler: {x: -100, y: 0, z: 0}
 --- !u!1 &3345561851860711691
 GameObject:
   m_ObjectHideFlags: 0
@@ -8199,6 +8217,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 195b936610e089a40a6b86c7429e1f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechFootCorrection
+  terrainLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  leg: {fileID: 945392317329045571}
+  rotationOffsetEuler: {x: -100, y: 0, z: 0}
 --- !u!137 &7326083746406900826
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
