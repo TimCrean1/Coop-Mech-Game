@@ -37,7 +37,7 @@ public class IKFootSolverRear : MonoBehaviour
         
         transform.position = currentPosition;
         transform.up = currentNormal;
-        footHint.position = new Vector3(transform.position.x,footHint.position.y,footHint.position.z);
+        //footHint.position = new Vector3(transform.position.x,footHint.position.y,footHint.position.z);
 
         ray = new Ray((body.position - body.transform.forward * rayPosition.x) + (body.right * footSpacing * rayPosition.z), Vector3.down);
 

@@ -14,6 +14,7 @@ public class IKFootSolver : MonoBehaviour
     [SerializeField] float stepHeight = 1;
     [SerializeField] Vector3 rayPosition = default;
     [SerializeField] Vector3 footOffset = default;
+    public bool sidewaysControl = false;
     float footSpacing;
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
@@ -101,7 +102,7 @@ public class IKFootSolver : MonoBehaviour
         {
             // We're moving forward tier 2
             Debug.Log("Faster");
-            rayPosition = new Vector3(7f, 0, 0.6f);
+            rayPosition = new Vector3(8f, 0, 0.6f);
         }
         if(localVel.x < -3 && localVel.z < 0){
             Debug.Log("Left");
