@@ -87,8 +87,8 @@ public abstract class BaseWeapon : NetworkBehaviour
         // reset everything to do with weapons in this function
         if(!IsServer) { return; }
         ResetAmmoRpc();
-        StartCoroutine(CooldownRotuine());
-        
+        PlayCooldownClientRpc();
+
     }
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
@@ -199,17 +199,34 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected virtual void ActivateCooldown()
     {
-        if(isCooldownOn == false)
-        {
-            isCooldownOn = true;
-            StartCoroutine(CooldownRotuine());
-        }
-    }
+        // properly either calls the visuals only (if client), or calls cooldown logic (if host/server)
+        if (!IsServer || isCooldownOn) return;
 
+        isCooldownOn = true;
+
+        PlayCooldownClientRpc(); // visuals
+        StartCoroutine(ServerCooldownLogic());
+    }
+    private IEnumerator ServerCooldownLogic()
+    {
+
+        // just for gun logic, NOT visuals
+        yield return new WaitForSeconds(cooldownTime);
+
+        SetAmmoRpc(ammo);
+        canFire = true;
+        isCooldownOn = false;
+    }
     protected virtual IEnumerator FireRateRoutine(float fireRate)
     {
         yield return new WaitForSeconds(fireRate);
         canFire = true;
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void PlayCooldownClientRpc()
+    {
+        StartCoroutine(CooldownRotuine());
     }
 
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
@@ -229,13 +246,13 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         yield return new WaitForSeconds(cooldownTime * 0.25f);
 
-        if (IsServer)
-        {
-            SetAmmoRpc(ammo);
-        }
+        //if (IsServer)
+        //{
+        //    SetAmmoRpc(ammo);
+        //}
         //ammoCount.Value = ammo;
-        canFire = true;
-        isCooldownOn = false;
+        //canFire = true;
+        //isCooldownOn = false;
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
         //Debug.Log("cooldown end");
     }

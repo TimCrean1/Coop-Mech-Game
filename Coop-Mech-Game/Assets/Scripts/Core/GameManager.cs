@@ -50,6 +50,9 @@ public class GameManager : NetworkBehaviour
     public NetworkVariable<float> _teamOneHealth = new NetworkVariable<float>();
     public NetworkVariable<float> _teamTwoHealth = new NetworkVariable<float>();
 
+    public NetworkVariable<float> _teamOneWins = new NetworkVariable<float>();
+    public NetworkVariable<float> _teamTwoWins = new NetworkVariable<float>();
+
     NetworkVariable<int> currRound = new NetworkVariable<int>();
 
     #endregion
@@ -156,7 +159,7 @@ public class GameManager : NetworkBehaviour
     {
         roundOver = true;
 
-        if (currRound.Value >= maxRounds)
+        if (_teamTwoWins.Value >= 2 || _teamOneWins.Value >= 2)
         {
             
 
@@ -204,7 +207,7 @@ public class GameManager : NetworkBehaviour
 
     #region Game End
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.Server)]
     private void OnGameEndRpc()
     {
         StartCoroutine(EndTimeDelay());
@@ -214,14 +217,11 @@ public class GameManager : NetworkBehaviour
     {
         yield return new WaitForSeconds(3f);
 
-        SceneManager.LoadScene(0);
+        NetworkManager.Singleton.SceneManager.LoadScene("MultiplayerTestingScene", LoadSceneMode.Single);
 
-        if (IsServer)
-        {
-            NetworkManager.Singleton.Shutdown(true);
-        }
+      
     }
-
+    
     [Rpc(SendTo.Server)]
     private void MatchOverRpc()
     {
@@ -388,10 +388,14 @@ public class GameManager : NetworkBehaviour
 
         if (_teamOneHealth.Value <= 0f && roundOver == false)
         {
+            //add win here
+            if (IsServer) { _teamTwoWins.Value += 1; }
+            
             OnRoundEnd?.Invoke();
         }
         else if (_teamTwoHealth.Value <= 0f && roundOver == false)
         {
+            if (IsServer) { _teamOneWins.Value += 1; }
             OnRoundEnd?.Invoke();
         }
     }
