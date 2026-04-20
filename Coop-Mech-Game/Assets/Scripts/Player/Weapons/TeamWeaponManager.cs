@@ -538,14 +538,41 @@ public class TeamWeaponManager : NetworkBehaviour
 
     #endregion
 
+    #region Reloading
+
+    // public void P1Reload()
+    // {
+    //     P1WeaponsList[_p1EquippedWeapon].Reload();
+    // }
+    // public void P2Reload()
+    // {
+    //     P2WeaponsList[_p2EquippedWeapon].Reload();
+    // }
+
+    [Rpc(SendTo.Server)]
+    private void RequestReloadRpc(int player)
+    {
+        if (player == 0)
+        {
+            P1WeaponsList[_p1EquippedWeapon].Reload();
+        }
+        else if (player == 1)
+        {
+            P2WeaponsList[_p2EquippedWeapon].Reload();
+        }
+    }
+
     public void P1Reload()
     {
-        P1WeaponsList[_p1EquippedWeapon].Reload();
+        RequestReloadRpc(0);
     }
+
     public void P2Reload()
     {
-        P2WeaponsList[_p2EquippedWeapon].Reload();
+        RequestReloadRpc(1);
     }
+
+    #endregion
 
 
     #region Experimental / Old Code
