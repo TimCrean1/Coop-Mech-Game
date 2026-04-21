@@ -40,6 +40,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject uiCanvas;
     [SerializeField] private TeamWeaponManager teamWeaponManager;
     [SerializeField] private UtilityManagerScript utilityManager;
+    [SerializeField] private UI_Manager uiManager;
 
     [Header("Mouse Positions")]
     //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
@@ -322,6 +323,17 @@ public class PlayerController : NetworkBehaviour
         teamWeaponManager.P2Reload();
     }
 
+    [Rpc(SendTo.Server)]
+    public void P1CountdownInputServerRpc()
+    {
+        uiManager.SetCountdownRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void P2CountdownInputServerRpc()
+    {
+        uiManager.SetCountdownRpc();
+    }
 
     #endregion
 
