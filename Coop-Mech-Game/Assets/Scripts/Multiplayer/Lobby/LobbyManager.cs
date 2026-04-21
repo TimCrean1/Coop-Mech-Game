@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
@@ -511,7 +512,7 @@ public class LobbyManager : MonoBehaviour {
     {
 
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
-
+        
         LoadingScreen.SetActive(true);
 
         while (!operation.isDone)
@@ -543,9 +544,11 @@ public class LobbyManager : MonoBehaviour {
             //SceneManager.LoadScene(1);
             if (lobby.Data[KEY_GAME_MODE].Value == "Practice")
             {
+                
                 LoadScene(1);
             }else if(lobby.Data[KEY_GAME_MODE].Value == "Duel")
             {
+                
                 LoadScene(3);
             }
            

@@ -159,7 +159,7 @@ public class GameManager : NetworkBehaviour
     {
         roundOver = true;
 
-        if (_teamTwoWins.Value >= 2 || _teamOneWins.Value >= 2)
+        if (_teamTwoWins.Value >= 1 || _teamOneWins.Value >= 1)
         {
             
 
@@ -168,8 +168,9 @@ public class GameManager : NetworkBehaviour
             if (IsServer)
             {
                 // Server tells clients to return back to the menu
-                OnGameEndRpc();
-                
+                OnGameEndClientRpc();
+                OnGameEndServerRpc();
+
             }
 
             return;
@@ -207,19 +208,25 @@ public class GameManager : NetworkBehaviour
 
     #region Game End
 
-    [Rpc(SendTo.Server)]
-    private void OnGameEndRpc()
+    [Rpc(SendTo.NotServer)]
+    private void OnGameEndClientRpc()
     {
         StartCoroutine(EndTimeDelay());
     }
-
+    [Rpc(SendTo.Server)]
+    private void OnGameEndServerRpc()
+    {
+        StartCoroutine(EndTimeDelay());
+    }
     private IEnumerator EndTimeDelay()
     {
         yield return new WaitForSeconds(3f);
-
-        NetworkManager.Singleton.SceneManager.LoadScene("MultiplayerTestingScene", LoadSceneMode.Single);
-
-      
+        NetworkManager.Singleton.Shutdown();
+        SceneManager.LoadScene("MultiplayerTestingScene");
+        //if (NetworkManager.Singleton.IsServer)
+        //{
+        //    NetworkManager.Singleton.SceneManager.LoadScene("MultiplayerTestingScene", LoadSceneMode.Single);
+        //}
     }
     
     [Rpc(SendTo.Server)]
