@@ -20,4 +20,9 @@ public abstract class BaseUtility : NetworkBehaviour
     //     canActivateUtility = true;
     // }
     protected abstract bool UtilityConditionsMet();
+
+    public void SetUtilityManager(UtilityManagerScript manager)
+    {
+        utilityManager = manager;
+    }
 }

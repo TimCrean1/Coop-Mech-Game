@@ -24,6 +24,7 @@ public class TeamWeaponManager : NetworkBehaviour
     //[SerializeField] private bool _enableStaggeredFire = true;
     //[SerializeField] private float staggeredFireTime = 0.25f;
     [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
+    [SerializeField] private UtilityManagerScript utilityManager;
 
     #endregion
 
@@ -194,6 +195,9 @@ public class TeamWeaponManager : NetworkBehaviour
             // Spawn the new utility as a networked object
             NetworkObject netObj = newUtility.GetComponent<NetworkObject>();
             netObj.Spawn(true);
+
+            BaseUtility utility = newUtility.GetComponent<BaseUtility>();
+            utility.SetUtilityManager(utilityManager);
 
             // If this is the initial startup, append to the utility list
             if (isStart)
