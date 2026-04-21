@@ -122,6 +122,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "P1Reload",
+                    "type": "Button",
+                    "id": "da45cb30-440f-419c-b02e-8b1647326873",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2Reload",
+                    "type": "Button",
+                    "id": "95d073a3-2afc-496a-96eb-f111d0bc4089",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -391,12 +409,23 @@
                 },
                 {
                     "name": "",
-                    "id": "2d19efb1-630b-444f-ae82-743931bab854",
-                    "path": "<Keyboard>/l",
+                    "id": "8ad5106c-742b-4ba2-95be-72c68b9178d0",
+                    "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RoundEnd",
+                    "action": "P1Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b78ec9e4-74a5-47bc-9838-06eec5525891",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2Reload",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

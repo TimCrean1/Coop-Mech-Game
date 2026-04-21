@@ -4423,6 +4423,11 @@ PrefabInstance:
       objectReference: {fileID: 542768235}
     - target: {fileID: 5456280292121330361, guid: 4588e6eb3aff24481b0d86d1bb1cf920,
         type: 3}
+      propertyPath: limitToOneRound
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5456280292121330361, guid: 4588e6eb3aff24481b0d86d1bb1cf920,
+        type: 3}
       propertyPath: nextRoundButton
       value: 
       objectReference: {fileID: 542768238}
@@ -6688,7 +6693,7 @@ PrefabInstance:
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -75.19932
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
@@ -6713,12 +6718,12 @@ PrefabInstance:
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -9.32607
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
@@ -6744,6 +6749,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ShopCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 6285329319869947032, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7116828122192551581, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}

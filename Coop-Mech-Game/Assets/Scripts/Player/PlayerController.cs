@@ -158,7 +158,10 @@ public class PlayerController : NetworkBehaviour
 
     public void ChangeUtility(ShopItemSO item, int playerNum)
     {
+        teamWeaponManager.PurchaseUtility(playerNum, item);
+        teamWeaponManager.PurchaseUtilityRpc(playerNum, item.itemIndex);
         Debug.Log("Changed player " + playerNum + " utility to " + item.itemName);
+
     }
 
     #endregion
@@ -307,6 +310,18 @@ public class PlayerController : NetworkBehaviour
     {
         utilityManager.P2Utility();
     }
+
+    [Rpc(SendTo.Server)]
+    public void P1ReloadInputServerRpc(float P1ReloadInput)
+    {
+        teamWeaponManager.P1Reload();
+    }
+    [Rpc(SendTo.Server)]
+    public void P2ReloadInputServerRpc(float P2ReloadInput)
+    {
+        teamWeaponManager.P2Reload();
+    }
+
 
     #endregion
 

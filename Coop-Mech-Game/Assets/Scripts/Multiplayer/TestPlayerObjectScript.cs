@@ -171,6 +171,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Utility.performed += P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled += P1UtilityAction;
 
+            playerInputActions.Player.P1Reload.started += P1ReloadAction;
+            playerInputActions.Player.P1Reload.performed += P1ReloadAction;
+            playerInputActions.Player.P1Reload.canceled += P1ReloadAction;
+
             playerInputActions.Player.RoundEnd.started += EndRound;
             playerInputActions.Player.RoundEnd.performed += EndRound;
             playerInputActions.Player.RoundEnd.canceled += EndRound;
@@ -203,6 +207,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Utility.started += P2UtilityAction;
             playerInputActions.Player.P2Utility.performed += P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled += P2UtilityAction;
+
+            playerInputActions.Player.P2Reload.started += P2ReloadAction;
+            playerInputActions.Player.P2Reload.performed += P2ReloadAction;
+            playerInputActions.Player.P2Reload.canceled += P2ReloadAction;
         }
     }
 
@@ -235,9 +243,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Utility.performed -= P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled -= P1UtilityAction;
 
-            playerInputActions.Player.P2Utility.started -= P2UtilityAction;
-            playerInputActions.Player.P2Utility.performed -= P2UtilityAction;
-            playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
+            playerInputActions.Player.P1Reload.started -= P1ReloadAction;
+            playerInputActions.Player.P1Reload.performed -= P1ReloadAction;
+            playerInputActions.Player.P1Reload.canceled -= P1ReloadAction;
         }
         else if (playerNumber == "Two")
         {
@@ -264,6 +272,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Utility.started -= P2UtilityAction;
             playerInputActions.Player.P2Utility.performed -= P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
+
+            playerInputActions.Player.P2Reload.started -= P2ReloadAction;
+            playerInputActions.Player.P2Reload.performed -= P2ReloadAction;
+            playerInputActions.Player.P2Reload.canceled -= P2ReloadAction;
         }
     }
 #endregion
@@ -387,6 +399,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         float isUsingUtility = context.ReadValue<float>();
         playerController.P2UtilityInputServerRpc(isUsingUtility);
+    }
+
+    private void P1ReloadAction(InputAction.CallbackContext context)
+    {
+        float isReloading = context.ReadValue<float>();
+        playerController.P1ReloadInputServerRpc(isReloading);
+    }
+
+    private void P2ReloadAction(InputAction.CallbackContext context)
+    {
+        float isReloading = context.ReadValue<float>();
+        playerController.P2ReloadInputServerRpc(isReloading);
     }
 
     private void EndRound(InputAction.CallbackContext context)

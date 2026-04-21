@@ -38,6 +38,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] protected float baseKnockbackForce = 1;
     [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
+    private bool isReloading = false;
 
     [Header("Current Weapon Stats")]
     [SerializeField] protected float currentDamage;
@@ -94,7 +95,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     private void SetAmmoRpc(int ammo)
     {
         if (!IsServer) { return; }
-        //ammoCount.Value = 0;
+        // ammoCount.Value = 0;
         ammoCount.Value = ammoCount.Value + ammo;
     }
     [Rpc(SendTo.Server)]
@@ -103,6 +104,12 @@ public abstract class BaseWeapon : NetworkBehaviour
         if (!IsServer) { return; }
         //ammoCount.Value = 0;
         ammoCount.Value = 0;
+    }
+    [Rpc(SendTo.Server)]
+    private void ReloadRpc()
+    {
+        if (!IsServer) { return; }
+        ammoCount.Value = ammo;
     }
 
     public virtual void Fire(float mouseDistance) //public because this will be called by weapon manager
@@ -228,6 +235,12 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         StartCoroutine(CooldownRotuine());
     }
+    public void Reload()
+    {
+        canFire = false;
+        ActivateCooldown();
+        isReloading = true;
+    }
 
     protected virtual IEnumerator CooldownRotuine() //this is used for reloading but maybe also from damage effects
     {
@@ -250,6 +263,18 @@ public abstract class BaseWeapon : NetworkBehaviour
         //{
         //    SetAmmoRpc(ammo);
         //}
+        if (IsServer)
+        {
+            if (isReloading)
+            {
+                isReloading = false;
+                ReloadRpc();
+            }
+            else
+            {
+                SetAmmoRpc(ammo);
+            }
+        }
         //ammoCount.Value = ammo;
         //canFire = true;
         //isCooldownOn = false;

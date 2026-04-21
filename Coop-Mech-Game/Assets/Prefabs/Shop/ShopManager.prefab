@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6638419593742901245}
   - component: {fileID: 801373690129052686}
   - component: {fileID: 5456280292121330361}
+  - component: {fileID: 6050208113279540879}
   m_Layer: 0
   m_Name: ShopManager
   m_TagString: Untagged
@@ -45,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4205676953
+  GlobalObjectIdHash: 1390052740
   InScenePlacedSourceGlobalObjectIdHash: 4205676953
   DeferredDespawnTick: 0
   Ownership: 1
@@ -70,13 +71,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa3ae0c36dd174c11a28f92bfe841d3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShopManager
-  ShowTopMostFoldoutHeaderGroup: 1
   shopCanvas: {fileID: 0}
   itemDisplayParent: {fileID: 0}
   itemPrefab: {fileID: 7949488877905775886, guid: a456e23e9459e4864a9abc6e62825d92,
     type: 3}
   nextRoundButton: {fileID: 0}
+  readyPlayersText: {fileID: 0}
   currentBuyRound: 0
   allItems: []
+  OnChangeRound:
+    m_PersistentCalls:
+      m_Calls: []
+  OnShopEnd:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &6050208113279540879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899479349623671881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c7bc849fcb7b4ffb840af09c358994d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShopNetworking
+  ShowTopMostFoldoutHeaderGroup: 1
   readyPlayerCount:
     m_InternalValue: 0

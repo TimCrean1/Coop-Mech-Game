@@ -41,6 +41,12 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0,1)] private float lookClampMin = 0.25f;
     [SerializeField][Range(0,1)] private float lookClampMax = 0.75f;
     [SerializeField][Range(0,0.5f)] private float deadZoneSize = 0.02f;
+    [Tooltip("how aggresively the intermediate (applied) rotation will follow the target rotation")]
+    [SerializeField] private float stiffness = 7f;
+    [Tooltip("how much resistance will be applied to the intermediate (applied) rotation when trying to follow target rotation")]
+    [SerializeField] private float damping = 5f;
+    private Vector3 angularVelocity;
+
 
     [Header("Ground Check")]
     [SerializeField] private float groundCheckDistance = 0.1f;
@@ -110,7 +116,7 @@ public class CharacterMovement : BaseMovement
             impulseTimer += Time.deltaTime;
             if (impulseTimer >= impulseRate)
             {
-                //movementImpulseSource.GenerateImpulse();
+                movementImpulseSource.GenerateImpulse();
                 impulseTimer = 0f;
                 // movementSFXManager.PlayFootstepSound();
             }
@@ -276,12 +282,45 @@ public class CharacterMovement : BaseMovement
 
         if (direction.sqrMagnitude > 0.1f)
         {
+            #region OLD ROTATION CODE
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
+
             // Smoothly rotate character horizontally towards target point
+
+            //Vector3 blendedDir = Vector3.Slerp(transform.forward, direction.normalized, 30f * Time.deltaTime);
+
+            //Quaternion inter = Quaternion.LookRotation(blendedDir);
+
+            //rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, inter, newHRotRate * Time.deltaTime));
+            #endregion
+
+            //get target rotation
             Quaternion targetYaw = Quaternion.LookRotation(direction);
             //transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
 
             //make intermediate cursor that the camera tries to look at, intermediate cursor slerps towards target rotation
             rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime));
+
+            //get difference between our target and current rotations
+            Quaternion delta = targetYaw * Quaternion.Inverse(transform.rotation);
+
+            //separate quaternion components
+            delta.ToAngleAxis(out float angle, out Vector3 axis);
+
+            //clamp to avoid long-ways rotations
+            if (angle > 180f) angle -= 360f;
+
+            //declare spring and damper components separately for clarity
+            Vector3 spring = axis * angle * stiffness;      //rotational pull towards target
+            Vector3 damper = -angularVelocity * damping;    //resists rotational pull, higher reduces overshoot
+
+            //add components to form torque and mult. by dt as it's applied over time
+            Vector3 torque = spring + damper;
+            angularVelocity += torque * Time.deltaTime;
+
+            //convert Vector3 to rotation and apply to rb, rotating the forward vector by the step deltaRot
+            Quaternion deltaRot = Quaternion.Euler(angularVelocity * newHRotRate * Time.deltaTime);
+            rigidbody.MoveRotation(deltaRot * transform.rotation);
 
             // Calculate pitch for camera and smoothly apply it
             Vector3 lookDir = targetPoint - playerCamera.transform.position;
