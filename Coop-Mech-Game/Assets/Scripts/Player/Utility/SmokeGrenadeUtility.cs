@@ -27,11 +27,11 @@ public class SmokeGrenadeUtility : BaseUtility
 
     private void TryInitialize()
     {
-        if (utilityManager == null)
-        {
-            Debug.LogWarning($"[{name}] UtilityManager not set yet. Waiting for injection.");
-            return;
-        }
+        // if (utilityManager == null)
+        // {
+        //     Debug.LogWarning($"[{name}] UtilityManager not set yet. Waiting for injection.");
+        //     return;
+        // }
 
         owningCharacter = utilityManager.GetCharacterMovement();
         isInitialized = owningCharacter != null;
