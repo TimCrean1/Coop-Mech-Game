@@ -245,6 +245,7 @@ public class TeamWeaponManager : NetworkBehaviour
         }
 
         BaseUtility utility = netObj.GetComponent<BaseUtility>();
+        utility.SetUtilityManager(utilityManager);
 
         if (utility is SmokeGrenadeUtility smokeGrenade)
         {
