@@ -241,14 +241,28 @@ public class TeamWeaponManager : NetworkBehaviour
     private void addUtilityReferencesRpc(int player, ulong netObjId)
     {
         Debug.Log("adding utility ref");
-        BaseUtility utility = NetworkManager.SpawnManager.SpawnedObjects[netObjId].gameObject.GetComponent<BaseUtility>();
-        BaseUtility u = utility.GetComponent<BaseUtility>();
-        if (u is SmokeGrenadeUtility smokeGrenade)
+
+        if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(netObjId, out var netObj))
         {
-            smokeGrenade.SetOwningCharacter(GetComponent<CharacterMovement>());
+            Debug.LogWarning($"Utility netObj {netObjId} not spawned yet on client");
+            return;
+        }
+
+        BaseUtility utility = netObj.GetComponent<BaseUtility>();
+
+        if (utility is SmokeGrenadeUtility smokeGrenade)
+        {
+            var character = GetComponent<CharacterMovement>();
+
+            if (character == null)
+            {
+                Debug.LogWarning("CharacterMovement not found on this object");
+                return;
+            }
+
+            smokeGrenade.SetOwningCharacter(character);
         }
     }
-
 
     #endregion
 
