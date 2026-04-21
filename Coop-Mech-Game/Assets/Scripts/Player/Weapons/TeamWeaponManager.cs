@@ -169,53 +169,45 @@ public class TeamWeaponManager : NetworkBehaviour
     /// <param name="item">The ShopItemSO representing the new utility</param>
     private void ChangeEquippedUtility(int player, ShopItemSO item)
     {
-        // Use the TeamWeaponManager's transform as the mount point for utilities
         Transform mountPoint = gameObject.transform;
 
-        // Only the server should handle spawning and replacing utilities
-        if (IsServer)
+        if (!IsServer) return;
+
+        List<BaseUtility> list = (player == 0) ? P1UtilitiesList : P2UtilitiesList;
+
+        // Ensure list is safe to index
+        if (list.Count == 0)
         {
-            // Destroy the old utility if it exists
-            BaseUtility oldUtility = null;
-            if (player == 0 && P1UtilitiesList.Count > 0)
-                oldUtility = P1UtilitiesList[_p1EquippedWeapon];
-            else if (player == 1 && P2UtilitiesList.Count > 0)
-                oldUtility = P2UtilitiesList[_p2EquippedWeapon];
-
-            if (oldUtility != null)
-            {
-                NetworkObject _netObj = oldUtility.GetComponent<NetworkObject>();
-                if (_netObj != null && _netObj.IsSpawned)
-                    _netObj.Despawn(true); // Despawn and destroy on clients
-            }
-
-            // Instantiate the new utility at the mount point's position and rotation
-            GameObject newUtility = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
-
-            // Spawn the new utility as a networked object
-            NetworkObject netObj = newUtility.GetComponent<NetworkObject>();
-            netObj.Spawn(true);
-
-            BaseUtility utility = newUtility.GetComponent<BaseUtility>();
-            utility.SetUtilityManager(utilityManager);
-
-            // If this is the initial startup, append to the utility list
-            if (isStart)
-            {
-                AppendUtilityToList(player, newUtility);
-                AppendUtilityToListRpc(player, netObj.NetworkObjectId);
-            }
-
-            // Replace the utility in the list for this player
-            ReplaceUtilityInList(player, newUtility);
-            ReplaceUtilityInListRpc(player, netObj.NetworkObjectId);
-
-            // Parent the new utility to the mount point
-            // newUtility.transform.SetParent(mountPoint, true);
-
-            // Notify clients to update references
-            addUtilityReferencesRpc(player, netObj.NetworkObjectId);
+            list.Add(null);
         }
+
+        // Destroy old utility safely
+        BaseUtility oldUtility = list[0];
+
+        if (oldUtility != null)
+        {
+            NetworkObject netObj = oldUtility.GetComponent<NetworkObject>();
+            if (netObj != null && netObj.IsSpawned)
+                netObj.Despawn(true);
+        }
+
+        // Spawn new utility
+        GameObject newUtility = Instantiate(item.itemPrefab, mountPoint.position, mountPoint.rotation);
+        NetworkObject newNetObj = newUtility.GetComponent<NetworkObject>();
+        newNetObj.Spawn(true);
+
+        BaseUtility utility = newUtility.GetComponent<BaseUtility>();
+        utility.SetUtilityManager(utilityManager);
+
+        // Replace locally (server)
+        list[0] = utility;
+
+        // Parent (optional)
+        // newUtility.transform.SetParent(mountPoint, true);
+
+        // Sync clients
+        ReplaceUtilityInListRpc(player, newNetObj.NetworkObjectId);
+        addUtilityReferencesRpc(player, newNetObj.NetworkObjectId);
     }
 
     [Rpc(SendTo.Server)]
@@ -450,55 +442,47 @@ public class TeamWeaponManager : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     public void ReplaceUtilityInListRpc(int player, ulong networkObjId)
     {
-        GameObject utility = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
-        Debug.Log("Replacing Utility for player " + player + " with " + utility);
-        if (player == 0)
+        if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(networkObjId, out var netObj))
         {
-            P1UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+            Debug.LogWarning($"Utility {networkObjId} not spawned yet on client");
+            return;
         }
-        else if (player == 1)
-        {
-            P2UtilitiesList[0] = utility.GetComponent<BaseUtility>();
-        }
-        else
-        {
-            Debug.LogError("Player " + player + " does not exist!");
-        }
+
+        BaseUtility utility = netObj.GetComponent<BaseUtility>();
+
+        List<BaseUtility> list = (player == 0) ? P1UtilitiesList : P2UtilitiesList;
+
+        if (list.Count == 0)
+            list.Add(null);
+
+        list[0] = utility;
     }
 
     public void AppendUtilityToList(int player, GameObject utility)
     {
-        // Debug.Log(utility.name);
-        if (player == 0)
-        {
-            P1UtilitiesList.Add(utility.GetComponent<BaseUtility>());
-        }
-        else if (player == 1)
-        {
-            P2UtilitiesList.Add(utility.GetComponent<BaseUtility>());
-        }
-        else
-        {
-            Debug.LogError("Player " + player + " does not exist!");
-        }
+        List<BaseUtility> list = (player == 0) ? P1UtilitiesList : P2UtilitiesList;
+
+        list.Add(utility.GetComponent<BaseUtility>());
     }
 
+    [Rpc(SendTo.NotServer)]
     public void AppendUtilityToListRpc(int player, ulong networkObjId)
     {
-        GameObject utility = NetworkManager.SpawnManager.SpawnedObjects[networkObjId].gameObject;
-        Debug.Log("Appending Utility to player" + player + utility);
-        if (player == 0)
+        if (!NetworkManager.SpawnManager.SpawnedObjects.TryGetValue(networkObjId, out var netObj))
         {
-            P1UtilitiesList.Add(utility.GetComponent<BaseUtility>());
+            Debug.LogWarning($"Utility {networkObjId} not spawned yet");
+            return;
         }
-        else if (player == 1)
-        {
-            P2UtilitiesList.Add(utility.GetComponent<BaseUtility>());
-        }
-        else
-        {
-            Debug.LogError("Player " + player + " does not exist!");
-        }
+
+        GameObject utilityObj = netObj.gameObject;
+        BaseUtility utility = utilityObj.GetComponent<BaseUtility>();
+
+        List<BaseUtility> list = (player == 0) ? P1UtilitiesList : P2UtilitiesList;
+
+        if (list.Count == 0)
+            list.Add(null);
+
+        list[0] = utility;
     }
 
     #endregion
