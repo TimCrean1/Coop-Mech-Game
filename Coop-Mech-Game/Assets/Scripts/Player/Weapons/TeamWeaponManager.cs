@@ -199,6 +199,8 @@ public class TeamWeaponManager : NetworkBehaviour
         BaseUtility utility = newUtility.GetComponent<BaseUtility>();
         utility.SetUtilityManager(utilityManager);
 
+        utilityManager.SetPlayerUtility(player, utility);
+
         // Replace locally (server)
         list[0] = utility;
 
@@ -245,20 +247,16 @@ public class TeamWeaponManager : NetworkBehaviour
         }
 
         BaseUtility utility = netObj.GetComponent<BaseUtility>();
-        utility.SetUtilityManager(utilityManager);
 
-        if (utility is SmokeGrenadeUtility smokeGrenade)
+        if (utility == null)
         {
-            var character = GetComponent<CharacterMovement>();
-
-            if (character == null)
-            {
-                Debug.LogWarning("CharacterMovement not found on this object");
-                return;
-            }
-
-            smokeGrenade.SetOwningCharacter(character);
+            Debug.LogWarning("Utility component missing");
+            return;
         }
+
+        // ✅ ONLY set this
+        utility.SetUtilityManager(utilityManager);
+        utilityManager.SetPlayerUtility(player, utility);
     }
 
     #endregion
@@ -429,10 +427,12 @@ public class TeamWeaponManager : NetworkBehaviour
         if (player == 0)
         {
             P1UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+            utilityManager.SetPlayerUtility(player, utility.GetComponent<BaseUtility>());
         }
         else if (player == 1)
         {
             P2UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+            utilityManager.SetPlayerUtility(player, utility.GetComponent<BaseUtility>());
         }
         else
         {
@@ -457,6 +457,7 @@ public class TeamWeaponManager : NetworkBehaviour
             list.Add(null);
 
         list[0] = utility;
+        utilityManager.SetPlayerUtility(player, utility);
     }
 
     public void AppendUtilityToList(int player, GameObject utility)
@@ -484,6 +485,7 @@ public class TeamWeaponManager : NetworkBehaviour
             list.Add(null);
 
         list[0] = utility;
+        utilityManager.SetPlayerUtility(player, utility);
     }
 
     #endregion
