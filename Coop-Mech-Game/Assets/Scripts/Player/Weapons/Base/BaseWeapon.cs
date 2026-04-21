@@ -57,8 +57,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     private bool canFire = true;
     private bool isCooldownOn = false;
     protected RaycastHit hit;
-    private WeaponMuzzle muzzleComp;
-    private List<RaycastHit> hitsList = new List<RaycastHit>();
+    protected List<RaycastHit> hits = new List<RaycastHit>();
+    protected WeaponMuzzle muzzleComp;
 
 
     public float FireRate { get { return baseFireRate; } }
@@ -75,8 +75,6 @@ public abstract class BaseWeapon : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.AddListener(ResetGunAttributes);
         currentDamage = damage;
         currentFireRate = baseFireRate;
-
-        if(hitsList == null) { hitsList = new List<RaycastHit>(); }
     }
     public override void OnNetworkSpawn()
     {
@@ -124,7 +122,6 @@ public abstract class BaseWeapon : NetworkBehaviour
             AdjustDistanceBasedStats(mouseDistance);
             FireRpc();
             FireEventMethodClientRpc();
-
         }
 
         ChangeAmmoText();
@@ -142,16 +139,9 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.NotServer)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && IsMultiShotWeapon == false) { muzzleComp.SendFireEvent(hit); }
-        else if(muzzleComp && IsMultiShotWeapon == true) { Debug.Log("client rpc fire event BaseWeapon");  muzzleComp.SendFireEventList(hitsList); }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
+        else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
-    
-    protected virtual void GetHitDataList(List<RaycastHit> hits)
-    {
-        Debug.Log("setting hits list in base, count: " + hits.Count);
-        hitsList = hits;
-    }
-
 
     protected virtual void ChangeAmmoText()
     {

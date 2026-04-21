@@ -7,21 +7,14 @@ public class WeaponShotgun : BaseWeapon
     [Header("Shotgun Variables")]
     [SerializeField] private int numPellets = 8;
     [SerializeField] private float spreadHalfAngle = 30f;
-    private List<RaycastHit> hits = new List<RaycastHit>();
+    //private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
-        hits.Clear();
-        Debug.Log(Muzzle == null ? "Muzzle is NULL" : "Muzzle is not null");
-        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
-        Debug.Log(hits == null ? "Hits is null weapon shotgun" : $"Hits is not null, hit count: {hits.Count}");
-
-        GetHitDataList(hits);
-
         float t1dmg = 0f;
         float t2dmg = 0f;
 
-        foreach(var hit in hits) //hits is a protected list in the base class
+        foreach(var hit in hits)
         {
 
             // Debug.Log(hit);
@@ -35,8 +28,8 @@ public class WeaponShotgun : BaseWeapon
             }
         }
 
-        GameManager.Instance.DamageTeamRpc(1, t1dmg);
-        GameManager.Instance.DamageTeamRpc(2, t2dmg);
+        if(t1dmg > 0f) { GameManager.Instance.DamageTeamRpc(1, t1dmg); }
+        if(t2dmg > 0f) { GameManager.Instance.DamageTeamRpc(2, t2dmg); }
 
         BuildCooldown();
     }
@@ -48,19 +41,30 @@ public class WeaponShotgun : BaseWeapon
             if (!CanWeaponFire) return;
             Debug.Log("Fire() in weapon shotgun");
 
+            hits.Clear();
+            hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+            Debug.Log(hits == null ? "Hits is null weapon shotgun" : $"Hits is not null, hit count: {hits.Count}");
+
+            for(int i = 0; i<hits.Count; i++)
+            {
+                Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
+            }
+
             AdjustDistanceBasedStats(mouseDistance);
+
             FireRpc();
+            //SendFireEventList();
             FireEventMethodClientRpc();
         }
 
         ChangeAmmoText();
     }
 
-    protected override void GetHitDataList(List<RaycastHit> hits)
+    private void SendFireEventList()
     {
-        Debug.Log("calling GetHitDataList in weapon shotgun");
-        base.GetHitDataList(hits);
+        muzzleComp.SendFireEventList(hits);
     }
+
 
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {

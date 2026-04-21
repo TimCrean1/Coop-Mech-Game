@@ -75,10 +75,11 @@ public static class VectorExtensions
     /// <returns> a random normalised vector between two others</returns>
     public static Vector3 GetRandomVectorBetweenVectors(this Vector3 a, Vector3 b, float minFactor = 0f, float maxFactor = 1f)
     {
-        Unity.Mathematics.Random r = new Unity.Mathematics.Random(42); //42 is seed
         //return Vector3.Slerp(a, b, Random.Range(minFactor, maxFactor)).normalized;
-        //return Vector3.Lerp(a, b, Random.Range(minFactor, maxFactor)).normalized;
-        return Vector3.Lerp(a, b, r.NextFloat(minFactor, maxFactor)).normalized;
+        return Vector3.Lerp(a, b, Random.Range(minFactor, maxFactor)).normalized;
+
+        //Unity.Mathematics.Random r = new Unity.Mathematics.Random(42); //42 is seed
+        //return Vector3.Lerp(a, b, r.NextFloat(minFactor, maxFactor)).normalized;
     }
 
 
@@ -93,13 +94,13 @@ public static class VectorExtensions
     /// <returns> a normalised vector within the cone </returns>
     public static Vector3 GetRandomVectorInCone(this Vector3 center, Vector3 up, float halfAngle)
     {
-        Unity.Mathematics.Random r = new Unity.Mathematics.Random(42); //seed is 42
+        //Unity.Mathematics.Random r = new Unity.Mathematics.Random(42); //seed is 42
 
         center = center.normalized;
         up = up.normalized;
 
-        up = Quaternion.AngleAxis(r.NextFloat(0f, 360f), center) * up; //rotate up vector by a random amount between 0 and 360 about the center axis
-        center = Quaternion.AngleAxis(r.NextFloat(-halfAngle, halfAngle), up) * center; //rotate center vector around rotated up vector by a random value between -halfAngle and +halfAngle
+        up = Quaternion.AngleAxis(Random.Range(0f, 360f), center) * up; //rotate up vector by a random amount between 0 and 360 about the center axis
+        center = Quaternion.AngleAxis(Random.Range(-halfAngle, halfAngle), up) * center; //rotate center vector around rotated up vector by a random value between -halfAngle and +halfAngle
 
         return center.normalized; //return vector in symmetrical cone
 

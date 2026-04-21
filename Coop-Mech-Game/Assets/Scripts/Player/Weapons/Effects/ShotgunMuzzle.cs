@@ -22,16 +22,19 @@ public class ShotgunMuzzle : WeaponMuzzle
         if (bulletEffect)
         {
             Debug.Log("Received fire event list in shotgun muzzle, hit count: " +  hitList.Count);
+            _hitPos.Clear();
 
             foreach (RaycastHit hit in hitList)
             {
                 _hitPos.Add(hit.point);
+                Debug.Log("adding hit pos: " + hit.point);
             }
             
             bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
             for (int i = _hitPos.Count; i < 8; i++)
             {
                 _hitPos.Add(Vector3.zero);
+                Debug.Log("adding zero vector: " + _hitPos[i]);
             }
             _gBuffer.SetData(_hitPos);
             bulletEffect.SetVector3("StartPosition", transform.position);
@@ -39,6 +42,7 @@ public class ShotgunMuzzle : WeaponMuzzle
             bulletEffect.SendEvent("OnFire");
         }
     }
+
     private void OnDestroy()
     {
         _gBuffer?.Release();
