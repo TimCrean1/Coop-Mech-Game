@@ -30,7 +30,10 @@ public class ShotgunMuzzle : WeaponMuzzle
                 Debug.Log("adding hit pos: " + hit.point);
             }
             
+            Debug.Log("end positions count (should be same as hit count): "+_hitPos.Count);
             bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
+
+
             for (int i = _hitPos.Count; i < 8; i++)
             {
                 _hitPos.Add(Vector3.zero);
