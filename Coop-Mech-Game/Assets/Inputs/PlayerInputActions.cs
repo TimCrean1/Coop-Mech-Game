@@ -495,17 +495,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2d19efb1-630b-444f-ae82-743931bab854"",
-                    ""path"": ""<Keyboard>/l"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RoundEnd"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8ad5106c-742b-4ba2-95be-72c68b9178d0"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
