@@ -52,7 +52,8 @@ public class IKFootSolver : MonoBehaviour
             {
                 lerp = 0;
                 int direction = body.transform.InverseTransformPoint(info.point).z > body.transform.InverseTransformPoint(newPosition).z ? 1 : -1;
-                newPosition = info.point + (body.transform.forward * stepLength * direction) + footOffset;
+                Vector3 sideOffset = body.transform.right * footSpacing;
+                newPosition = info.point + (body.transform.forward * stepLength * direction) + footOffset + sideOffset;
                 newNormal = info.normal;
             }
         }
@@ -106,12 +107,12 @@ public class IKFootSolver : MonoBehaviour
         }
         if(localVel.x < -3 && localVel.z < 0){
             Debug.Log("Left");
-            rayPosition = new Vector3(3f, 0, 0.6f);
+            rayPosition = new Vector3(3f, 0, 0f);
         }
         if (localVel.x > 3 && localVel.z < 0)
         {
             Debug.Log("Right");
-            rayPosition = new Vector3(3f, 0, 0.6f);
+            rayPosition = new Vector3(3f, 0, 0f);
         }
         
 

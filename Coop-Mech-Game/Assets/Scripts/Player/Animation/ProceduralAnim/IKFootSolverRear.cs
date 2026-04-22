@@ -75,7 +75,7 @@ public class IKFootSolverRear : MonoBehaviour
 
         // converts velocity into local space
         Vector3 localVel = body.transform.InverseTransformDirection(velocity);
-        //Debug.Log("Velocity =" + localVel);
+        Debug.Log("Rear Velocity =" + localVel);
         if (localVel.z == 0 && localVel.x == 0)
         {
             // We're moving forward tier 1
