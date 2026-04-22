@@ -52,8 +52,7 @@ public class IKFootSolver : MonoBehaviour
             {
                 lerp = 0;
                 int direction = body.transform.InverseTransformPoint(info.point).z > body.transform.InverseTransformPoint(newPosition).z ? 1 : -1;
-                Vector3 sideOffset = body.transform.right * footSpacing;
-                newPosition = info.point + (body.transform.forward * stepLength * direction) + footOffset + sideOffset;
+                newPosition = info.point + (body.transform.forward * stepLength * direction) + footOffset;
                 newNormal = info.normal;
             }
         }
@@ -81,7 +80,7 @@ public class IKFootSolver : MonoBehaviour
         // converts velocity into local space
         Vector3 localVel = body.transform.InverseTransformDirection(velocity);
         //Debug.Log("Velocity =" + localVel);
-        if (localVel.z == 0 && localVel.z == 0)
+        if (localVel.x == 0 && localVel.z == 0)
         {
             // We're moving forward tier 1
             Debug.Log("Idle");
