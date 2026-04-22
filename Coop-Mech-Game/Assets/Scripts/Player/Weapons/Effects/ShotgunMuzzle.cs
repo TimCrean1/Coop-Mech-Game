@@ -16,6 +16,10 @@ public class ShotgunMuzzle : WeaponMuzzle
     {
         _gBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 8, Marshal.SizeOf<Vector3>());
         bulletEffect.SetGraphicsBuffer("EndPositions", _gBuffer);
+
+        Debug.LogWarning("does shotgun flash have graphics buffer property?: " +bulletEffect.HasGraphicsBuffer("EndPositions"));
+        Debug.LogWarning("does shotgun flash have end pos count property?: " + bulletEffect.HasInt("EndPositionsCount"));
+        Debug.LogWarning("does shotgun flash have start position property?: " + bulletEffect.HasVector3("StartPosition"));
     }
     public override void SendFireEventList(List<RaycastHit> hitList)
     {
