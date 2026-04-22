@@ -136,11 +136,24 @@ public abstract class BaseWeapon : NetworkBehaviour
     //right now what happens is all equipped shotguns adds data to hits, and the only reason hits is in the base
     //class is because when the function was tagged with [ClientRpc] and overridden a packet overflow error would occur
     //also it seems that when tagged with SendTo.NotServer, it doesn't run on the host
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    protected virtual void RaycastInConeClientRpc(int numPellets, float spreadHalfAngle)
+    {
+        hits.Clear();
+        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+        Debug.Log(hits == null ? "Hits is null base weapon raycast cone client rpc" : $"Hits is not null, hit count: {hits.Count}");
+
+        for (int i = 0; i < hits.Count; i++)
+        {
+            Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
+        }
     }
 
     protected virtual void ChangeAmmoText()

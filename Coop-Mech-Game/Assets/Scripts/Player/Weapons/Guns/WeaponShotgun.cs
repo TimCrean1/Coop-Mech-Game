@@ -41,28 +41,14 @@ public class WeaponShotgun : BaseWeapon
             if (!CanWeaponFire) return;
             Debug.Log("Fire() in weapon shotgun");
 
-            hits.Clear();
-            hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
-            Debug.Log(hits == null ? "Hits is null weapon shotgun" : $"Hits is not null, hit count: {hits.Count}");
-
-            for(int i = 0; i<hits.Count; i++)
-            {
-                Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
-            }
-
             AdjustDistanceBasedStats(mouseDistance);
 
+            RaycastInConeClientRpc(numPellets, spreadHalfAngle);
             FireRpc();
-            //SendFireEventList();
             FireEventMethodClientRpc();
         }
 
         ChangeAmmoText();
-    }
-
-    private void SendFireEventList()
-    {
-        muzzleComp.SendFireEventList(hits);
     }
 
 
