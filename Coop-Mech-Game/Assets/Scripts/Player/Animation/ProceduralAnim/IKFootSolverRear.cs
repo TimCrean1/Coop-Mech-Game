@@ -12,6 +12,7 @@ public class IKFootSolverRear : MonoBehaviour
     [SerializeField] float stepHeight = 1;
     [SerializeField] Vector3 footOffset = default;
     [SerializeField] Vector3 rayPosition = default;
+    [SerializeField] bool rightFoot = false;
     float footSpacing;
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
@@ -79,38 +80,49 @@ public class IKFootSolverRear : MonoBehaviour
         if (localVel.z == 0 && localVel.x == 0)
         {
             // We're moving forward tier 1
-            Debug.Log("Idle - rear");
+            //Debug.Log("Idle - rear");
             rayPosition = new Vector3(7f, 0, 1f);
         }
         if (localVel.z > 0.1f && localVel.z < 5f)
         {
             // We're moving forward tier 1
-            Debug.Log("Forward - rear");
+            //Debug.Log("Forward - rear");
             rayPosition = new Vector3(2f, 0, 0.8f);
         }
         if (localVel.x < 0 && localVel.z < -3)
         {
             //backward
-            Debug.Log("Backward");
+            //Debug.Log("Backward");
             rayPosition = new Vector3(11f, 0, 0.8f);
         }
-        //if (localVel.z >= 5f)
-        //{
-        //    // We're moving forward tier 2
-        //    Debug.Log("Faster");
-        //    rayPosition = new Vector3(7f, 0, 0.6f);
-        //}
-        //if (localVel.x < -3 && localVel.z < 0)
-        //{
-        //    Debug.Log("Left");
-        //    rayPosition = new Vector3(4f, 0, 0.4f);
-        //}
-        //if (localVel.x > 3 && localVel.z < 0)
-        //{
-        //    Debug.Log("Right");
-        //    rayPosition = new Vector3(4f, 0, 0.4f);
-        //}
-
+        if (localVel.x < -3 && localVel.z > 0)
+        {
+            // moving left
+            if (rightFoot == false)
+            {
+                Debug.Log("Left (lf)");
+                rayPosition = new Vector3(6.3f, 0, 1.3f);
+            }
+            if (rightFoot == true)
+            {
+                Debug.Log("Left (rf)");
+                rayPosition = new Vector3(6.3f, 0, 0f);
+            }
+        }
+        if (localVel.x > 3 && localVel.z > 0)
+        {
+            //moving right
+            if (rightFoot == false)
+            {
+                Debug.Log("Right");
+                rayPosition = new Vector3(6.3f, 0, 0f);
+            }
+            if (rightFoot == true)
+            {
+                Debug.Log("Right");
+                rayPosition = new Vector3(6.3f, 0, 1.3f);
+            }
+        }
 
     }
     private void OnDrawGizmos()

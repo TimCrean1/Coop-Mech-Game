@@ -893,10 +893,13 @@ MonoBehaviour:
   speed: 4
   stepDistance: 1
   stepLength: 1
-  stepHeight: 3
+  stepHeight: 2
   rayPosition: {x: 0, y: 0, z: 0}
   footOffset: {x: 0, y: 0, z: 0}
-  sidewaysControl: 0
+  rightFoot: 1
+  oldPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  newPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &682419259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2057,6 +2060,7 @@ MonoBehaviour:
   stepHeight: 1
   footOffset: {x: 0, y: 1, z: 0}
   rayPosition: {x: 0, y: 0, z: 0}
+  rightFoot: 0
 --- !u!114 &2033482426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2090,9 +2094,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -2183,10 +2187,13 @@ MonoBehaviour:
   speed: 4
   stepDistance: 1
   stepLength: 1
-  stepHeight: 3
+  stepHeight: 2
   rayPosition: {x: 0, y: 0, z: 0}
   footOffset: {x: 0, y: 0, z: 0}
-  sidewaysControl: 0
+  rightFoot: 0
+  oldPosition: {x: 0, y: 0, z: 0}
+  currentPosition: {x: 0, y: 0, z: 0}
+  newPosition: {x: 0, y: 0, z: 0}
 --- !u!114 &2124516277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2316,6 +2323,7 @@ MonoBehaviour:
   stepHeight: 1
   footOffset: {x: 0, y: 1, z: 0}
   rayPosition: {x: 0, y: 0, z: 0}
+  rightFoot: 1
 --- !u!114 &2134659526
 MonoBehaviour:
   m_ObjectHideFlags: 0

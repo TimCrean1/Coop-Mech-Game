@@ -14,9 +14,9 @@ public class IKFootSolver : MonoBehaviour
     [SerializeField] float stepHeight = 1;
     [SerializeField] Vector3 rayPosition = default;
     [SerializeField] Vector3 footOffset = default;
-    public bool sidewaysControl = false;
+    [SerializeField] bool rightFoot = false;
     float footSpacing;
-    Vector3 oldPosition, currentPosition, newPosition;
+    public Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
     float lerp;
     Ray ray;
@@ -104,14 +104,30 @@ public class IKFootSolver : MonoBehaviour
             Debug.Log("Faster");
             rayPosition = new Vector3(8f, 0, 0.6f);
         }
-        if(localVel.x < -3 && localVel.z < 0){
-            Debug.Log("Left");
-            rayPosition = new Vector3(3f, 0, 0f);
+        if(localVel.x < -3 && localVel.z > 0){
+            if(rightFoot == false)
+            {
+                Debug.Log("Left (lf)");
+                rayPosition = new Vector3(6f, 0, 1f);
+            }
+            if(rightFoot == true)
+            {
+                Debug.Log("Left (rf)");
+                rayPosition = new Vector3(6f, 0, 0f);
+            }
         }
-        if (localVel.x > 3 && localVel.z < 0)
+        if (localVel.x > 3 && localVel.z > 0)
         {
-            Debug.Log("Right");
-            rayPosition = new Vector3(3f, 0, 0f);
+            if (rightFoot == false)
+            {
+                Debug.Log("Right");
+                rayPosition = new Vector3(6f, 0, 0f);
+            }
+            if(rightFoot == true)
+            {
+                Debug.Log("Right");
+                rayPosition = new Vector3(6f, 0, 1f);
+            }
         }
         
 
