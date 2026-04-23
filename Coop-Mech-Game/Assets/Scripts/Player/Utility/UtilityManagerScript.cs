@@ -5,6 +5,7 @@ public class UtilityManagerScript : MonoBehaviour
 {
     [SerializeField] private BaseUtility p1Utility;
     [SerializeField] private BaseUtility p2Utility;
+    [SerializeField] private bool utilityActivationSynced = true; // Set to false if utilities should activate immediately without waiting for network sync
     [SerializeField] private CharacterMovement characterMovement;
     [SerializeField] private bool p1UtilReady = true;
     [SerializeField] private bool p2UtilReady = true;
@@ -63,5 +64,15 @@ public class UtilityManagerScript : MonoBehaviour
     {
         yield return new WaitForSeconds(p2UtilCooldownTime);
         p2UtilReady = true;
+    }
+
+    public void SetUtilActivationSynced(bool synced)
+    {
+        utilityActivationSynced = synced;
+    }
+
+    public bool IsUtilityActivationSynced()
+    {
+        return utilityActivationSynced;
     }
 }

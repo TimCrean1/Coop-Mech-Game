@@ -115,6 +115,15 @@ public class PlayerController : NetworkBehaviour
             {
                 baseMovement.Dash(syncedDashOutput);
             }
+
+            if (playerCoroutineManager.TryGetSyncedUtility(out float syncedUtilityInput))
+            {
+                utilityManager.SetUtilActivationSynced(true);
+            }
+            else
+            {
+                utilityManager.SetUtilActivationSynced(false);
+            }
         }
     }
 
@@ -228,11 +237,13 @@ public class PlayerController : NetworkBehaviour
     public void P1UtilityInputServerRpc(float P1UtilityInput)
     {
         utilityManager.P1Utility();
+        playerCoroutineManager.SetP1Utility(P1UtilityInput);
     }
     [Rpc(SendTo.Server)]
     public void P2UtilityInputServerRpc(float P2UtilityInput)
     {
         utilityManager.P2Utility();
+        playerCoroutineManager.SetP2Utility(P2UtilityInput);
     }
 
     [Rpc(SendTo.Server)]
@@ -281,6 +292,15 @@ public class PlayerController : NetworkBehaviour
     public CharacterMovement GetCharacterMovement()
     {
         return gameObject.GetComponent<CharacterMovement>();
+    }
+
+    public void SetScramble(bool value)
+    {
+        isScrambled = value;
+    }
+    public bool GetIsScrambled()
+    {
+        return isScrambled;
     }
 
     #endregion
