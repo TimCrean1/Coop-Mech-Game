@@ -153,6 +153,17 @@ public abstract class BaseWeapon : NetworkBehaviour
         }
     }
 
+    [Rpc(SendTo.ClientsAndHost)]
+    protected virtual void SequentialRaycastClientRpc(int maxBounceCount, float maxCastDistance, float castBounceMult)
+    {
+        hits = VectorExtensions.SequentialRaycast(Muzzle.transform.position, Muzzle.transform.forward, maxCastDistance, maxBounceCount, castBounceMult);
+        //hit = hits[0];
+        for(int i = 0; i < hits.Count; i++)
+        {
+            Debug.Log("WeaponSniper: hit point " + i + " is: " + hits[i].point);
+        }
+    }
+
     protected virtual void ChangeAmmoText()
     {
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);

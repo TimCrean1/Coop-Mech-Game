@@ -8,33 +8,49 @@ public class WeaponSniper : BaseWeapon
     [SerializeField] private int maxBounceCount = 2;
     [SerializeField] private float maxCastDistance = 300f;
     [SerializeField] private float castBounceMult = 0.5f;
-    private List<RaycastHit> weaponHits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
-        weaponHits = VectorExtensions.SequentialRaycast(Muzzle.transform.position, Muzzle.transform.forward, maxCastDistance, maxBounceCount, castBounceMult);
-        hit = weaponHits[0];
+        float t1dmg = 0f;
+        float t2dmg = 0f;
 
-        foreach (var hit in weaponHits)
+        foreach (var hit in hits)
         {
+
+            // Debug.Log(hit);
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
-                GameManager.Instance.DamageTeamRpc(1, currentDamage);
+                t1dmg += currentDamage;
             }
             else if (hit.collider.gameObject.CompareTag("TeamTwo"))
             {
-                GameManager.Instance.DamageTeamRpc(2, currentDamage);
+                t2dmg += currentDamage;
             }
         }
 
-        Debug.Log("FireRpc in WeaponSniper");
-        
+        if (t1dmg > 0f) { GameManager.Instance.DamageTeamRpc(1, t1dmg); }
+        if (t2dmg > 0f) { GameManager.Instance.DamageTeamRpc(2, t2dmg); }
+
         BuildCooldown();
     }
 
     public override void Fire(float mouseDistance)
     {
-        base.Fire(mouseDistance);
+        //base.Fire(mouseDistance);
+
+        if (IsOwner)
+        {
+            if (!CanWeaponFire) return;
+            Debug.Log("Fire() in weapon sniper");
+
+            AdjustDistanceBasedStats(mouseDistance);
+
+            SequentialRaycastClientRpc(maxBounceCount, maxCastDistance, castBounceMult);
+            FireRpc();
+            FireEventMethodClientRpc();
+        }
+
+        ChangeAmmoText();
     }
     
     protected override void AdjustDistanceBasedStats(float mouseDistance)
