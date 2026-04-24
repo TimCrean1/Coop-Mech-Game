@@ -5,6 +5,7 @@ using UnityEngine.Events;
 public class ShopNetworking : NetworkBehaviour
 {
     public static ShopNetworking Instance;
+    [SerializeField] private int maxPlayers = 4;
 
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
     public bool isTestScene;
@@ -64,9 +65,9 @@ public class ShopNetworking : NetworkBehaviour
     {
         readyPlayerCount.Value += addNum;
 
-        Debug.Log(readyPlayerCount.Value + "/4 players ready");
+        Debug.Log(readyPlayerCount.Value + "/" + maxPlayers + " players ready");
 
-        if (readyPlayerCount.Value >= 4)
+        if (readyPlayerCount.Value >= maxPlayers)
         {
             ClientRoundEventRpc();
             readyPlayerCount.Value = 0;
