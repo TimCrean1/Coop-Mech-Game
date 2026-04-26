@@ -41,7 +41,7 @@ public class WeaponSniper : BaseWeapon
         if (IsOwner)
         {
             if (!CanWeaponFire) return;
-            Debug.Log("Fire() in weapon sniper");
+            //Debug.Log("Fire() in weapon sniper");
 
             AdjustDistanceBasedStats(mouseDistance);
 

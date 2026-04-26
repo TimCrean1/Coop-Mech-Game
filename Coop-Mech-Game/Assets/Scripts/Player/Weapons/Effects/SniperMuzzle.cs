@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class SniperMuzzle : WeaponMuzzle
 {
-    private GraphicsBuffer _gBuffer;
+    private GraphicsBuffer _hitsBuffer;
+    private GraphicsBuffer _normsBuffer;
     private List<Vector3> _hitPos = new List<Vector3>();
 
     public override void SendFireEvent(RaycastHit hit)
@@ -18,31 +19,31 @@ public class SniperMuzzle : WeaponMuzzle
 
     private void Start()
     {
-        _gBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 8, Marshal.SizeOf<Vector3>());
-        bulletEffect.SetGraphicsBuffer("EndPositions", _gBuffer);
+        _hitsBuffer = new GraphicsBuffer(GraphicsBuffer.Target.Structured, 8, Marshal.SizeOf<Vector3>());
+        bulletEffect.SetGraphicsBuffer("EndPositions", _hitsBuffer);
 
-        Debug.LogWarning("does sniper flash have graphics buffer property?: " + bulletEffect.HasGraphicsBuffer("EndPositions"));
-        Debug.LogWarning("does sniper flash have end pos count property?: " + bulletEffect.HasInt("EndPositionsCount"));
-        Debug.LogWarning("does sniper flash have start position property?: " + bulletEffect.HasVector3("StartPosition"));
+        //Debug.LogWarning("does sniper flash have graphics buffer property?: " + bulletEffect.HasGraphicsBuffer("EndPositions"));
+        //Debug.LogWarning("does sniper flash have end pos count property?: " + bulletEffect.HasInt("EndPositionsCount"));
+        //Debug.LogWarning("does sniper flash have start position property?: " + bulletEffect.HasVector3("StartPosition"));
     }
 
     public override void SendFireEventList(List<RaycastHit> inputHits)
     {
         if (bulletEffect)
         {
-            Debug.Log("Received fire event list in sniper muzzle, hit count: " + inputHits.Count);
+            //Debug.Log("Received fire event list in sniper muzzle, hit count: " + inputHits.Count);
             _hitPos.Clear();
 
             _hitPos.Add(transform.position);
-            Debug.Log("adding start pos: " + _hitPos[0]);
+            //Debug.Log("adding start pos: " + _hitPos[0]);
 
             foreach (RaycastHit hit in inputHits)
             {
                 _hitPos.Add(hit.point);
-                Debug.Log("adding hit pos: " + hit.point);
+                //Debug.Log("adding hit pos: " + hit.point);
             }
 
-            Debug.Log("sniper end positions count (should be same as hit count): " + _hitPos.Count);
+            //Debug.Log("sniper end positions count (should be same as hit count): " + _hitPos.Count);
             bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
 
             for(int i = 0;  i < _hitPos.Count-1; i++)
@@ -55,7 +56,7 @@ public class SniperMuzzle : WeaponMuzzle
             //    _hitPos.Add(Vector3.zero);
             //    Debug.Log("adding zero vector: " + _hitPos[i]);
             //}
-            _gBuffer.SetData(_hitPos);
+            _hitsBuffer.SetData(_hitPos);
             //bulletEffect.SetVector3("StartPosition", transform.position);
 
             bulletEffect.SendEvent("OnFire");
@@ -64,6 +65,6 @@ public class SniperMuzzle : WeaponMuzzle
 
     private void OnDestroy()
     {
-        _gBuffer?.Release();
+        _hitsBuffer?.Release();
     }
 }

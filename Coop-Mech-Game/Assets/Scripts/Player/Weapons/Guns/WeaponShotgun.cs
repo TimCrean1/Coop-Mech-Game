@@ -40,7 +40,7 @@ public class WeaponShotgun : BaseWeapon
         if (IsOwner)
         {
             if (!CanWeaponFire) return;
-            Debug.Log("Fire() in weapon shotgun");
+            //Debug.Log("Fire() in weapon shotgun");
 
             AdjustDistanceBasedStats(mouseDistance);
 
