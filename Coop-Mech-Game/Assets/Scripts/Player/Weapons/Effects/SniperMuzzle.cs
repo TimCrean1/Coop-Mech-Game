@@ -34,6 +34,7 @@ public class SniperMuzzle : WeaponMuzzle
             _hitPos.Clear();
 
             _hitPos.Add(transform.position);
+            Debug.Log("adding start pos: " + _hitPos[0]);
 
             foreach (RaycastHit hit in inputHits)
             {
@@ -41,19 +42,28 @@ public class SniperMuzzle : WeaponMuzzle
                 Debug.Log("adding hit pos: " + hit.point);
             }
 
-            Debug.Log("end positions count (should be same as hit count): " + _hitPos.Count);
-            bulletEffect.SetInt("PositionsCount", _hitPos.Count);
+            Debug.Log("sniper end positions count (should be same as hit count): " + _hitPos.Count);
+            bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
 
-
-            for (int i = _hitPos.Count; i < 4; i++)
+            for(int i = 0;  i < _hitPos.Count-1; i++)
             {
-                _hitPos.Add(Vector3.zero);
-                Debug.Log("adding zero vector: " + _hitPos[i]);
+                Debug.DrawLine(_hitPos[i], _hitPos[i + 1], Color.chartreuse, 10f);
             }
+
+            //for (int i = _hitPos.Count; i < 4; i++)
+            //{
+            //    _hitPos.Add(Vector3.zero);
+            //    Debug.Log("adding zero vector: " + _hitPos[i]);
+            //}
             _gBuffer.SetData(_hitPos);
             //bulletEffect.SetVector3("StartPosition", transform.position);
 
             bulletEffect.SendEvent("OnFire");
         }
+    }
+
+    private void OnDestroy()
+    {
+        _gBuffer?.Release();
     }
 }

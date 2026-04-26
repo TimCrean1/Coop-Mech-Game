@@ -37,17 +37,10 @@ public class ShotgunMuzzle : WeaponMuzzle
             Debug.Log("end positions count (should be same as hit count): "+_hitPos.Count);
             bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
 
-
-            //for (int i = _hitPos.Count; i < 8; i++)
+            //for(int i = 0;  i < _hitPos.Count; i++)
             //{
-            //    _hitPos.Add(Vector3.zero);
-            //    Debug.Log("adding zero vector: " + _hitPos[i]);
+            //    Debug.DrawLine(transform.position, _hitPos[i], Color.chartreuse, 15f);
             //}
-
-            for(int i = 0;  i < _hitPos.Count; i++)
-            {
-                Debug.DrawLine(transform.position, _hitPos[i], Color.chartreuse, 15f);
-            }
 
             _gBuffer.SetData(_hitPos);
             bulletEffect.SetVector3("StartPosition", transform.position);

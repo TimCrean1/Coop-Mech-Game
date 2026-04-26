@@ -6,7 +6,8 @@ public class WeaponShotgun : BaseWeapon
 {
     [Header("Shotgun Variables")]
     [SerializeField] private int numPellets = 8;
-    [SerializeField] private float spreadHalfAngle = 30f;
+    [SerializeField] private float spreadHalfAngle = 18f;
+    [SerializeField] private float maxRange = 70f;
     //private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
@@ -43,7 +44,7 @@ public class WeaponShotgun : BaseWeapon
 
             AdjustDistanceBasedStats(mouseDistance);
 
-            RaycastInConeClientRpc(numPellets, spreadHalfAngle);
+            RaycastInConeClientRpc(numPellets, maxRange, spreadHalfAngle);
             FireRpc();
             FireEventMethodClientRpc();
         }

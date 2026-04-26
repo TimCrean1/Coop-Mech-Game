@@ -141,10 +141,10 @@ public abstract class BaseWeapon : NetworkBehaviour
     }
 
     [Rpc(SendTo.ClientsAndHost)]
-    protected virtual void RaycastInConeClientRpc(int numPellets, float spreadHalfAngle)
+    protected virtual void RaycastInConeClientRpc(int numPellets, float maxRange, float spreadHalfAngle)
     {
         hits.Clear();
-        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
+        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, maxRange, spreadHalfAngle);
         Debug.Log(hits == null ? "Hits is null base weapon raycast cone client rpc" : $"Hits is not null, hit count: {hits.Count}");
 
         for (int i = 0; i < hits.Count; i++)
