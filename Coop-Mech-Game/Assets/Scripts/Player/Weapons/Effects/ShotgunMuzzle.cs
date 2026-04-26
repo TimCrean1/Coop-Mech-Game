@@ -21,14 +21,14 @@ public class ShotgunMuzzle : WeaponMuzzle
         Debug.LogWarning("does shotgun flash have end pos count property?: " + bulletEffect.HasInt("EndPositionsCount"));
         Debug.LogWarning("does shotgun flash have start position property?: " + bulletEffect.HasVector3("StartPosition"));
     }
-    public override void SendFireEventList(List<RaycastHit> hitList)
+    public override void SendFireEventList(List<RaycastHit> inputHits)
     {
         if (bulletEffect)
         {
-            Debug.Log("Received fire event list in shotgun muzzle, hit count: " +  hitList.Count);
+            Debug.Log("Received fire event list in shotgun muzzle, hit count: " +  inputHits.Count);
             _hitPos.Clear();
 
-            foreach (RaycastHit hit in hitList)
+            foreach (RaycastHit hit in inputHits)
             {
                 _hitPos.Add(hit.point);
                 Debug.Log("adding hit pos: " + hit.point);
@@ -38,11 +38,17 @@ public class ShotgunMuzzle : WeaponMuzzle
             bulletEffect.SetInt("EndPositionsCount", _hitPos.Count);
 
 
-            for (int i = _hitPos.Count; i < 8; i++)
+            //for (int i = _hitPos.Count; i < 8; i++)
+            //{
+            //    _hitPos.Add(Vector3.zero);
+            //    Debug.Log("adding zero vector: " + _hitPos[i]);
+            //}
+
+            for(int i = 0;  i < _hitPos.Count; i++)
             {
-                _hitPos.Add(Vector3.zero);
-                Debug.Log("adding zero vector: " + _hitPos[i]);
+                Debug.DrawLine(transform.position, _hitPos[i], Color.chartreuse, 15f);
             }
+
             _gBuffer.SetData(_hitPos);
             bulletEffect.SetVector3("StartPosition", transform.position);
 

@@ -26,16 +26,16 @@ public class SniperMuzzle : WeaponMuzzle
         Debug.LogWarning("does sniper flash have start position property?: " + bulletEffect.HasVector3("StartPosition"));
     }
 
-    public override void SendFireEventList(List<RaycastHit> hitList)
+    public override void SendFireEventList(List<RaycastHit> inputHits)
     {
         if (bulletEffect)
         {
-            Debug.Log("Received fire event list in sniper muzzle, hit count: " + hitList.Count);
+            Debug.Log("Received fire event list in sniper muzzle, hit count: " + inputHits.Count);
             _hitPos.Clear();
 
             _hitPos.Add(transform.position);
 
-            foreach (RaycastHit hit in hitList)
+            foreach (RaycastHit hit in inputHits)
             {
                 _hitPos.Add(hit.point);
                 Debug.Log("adding hit pos: " + hit.point);
