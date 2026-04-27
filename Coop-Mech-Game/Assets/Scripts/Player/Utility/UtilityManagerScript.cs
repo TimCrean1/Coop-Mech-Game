@@ -39,13 +39,17 @@ public class UtilityManagerScript : MonoBehaviour
     //TODO: Setup accessing cooldown time from object
     public void SetPlayerUtility(int playerNum, BaseUtility newUtility)
     {
-        if (playerNum == 1)
+        if (playerNum == 0)
         {
             p1Utility = newUtility;
         }
-        else
+        else if (playerNum == 1)
         {
             p2Utility = newUtility;
+        }
+        else
+        {
+            Debug.LogError("Invalid player index");
         }
     }
 

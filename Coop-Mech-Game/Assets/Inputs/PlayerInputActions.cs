@@ -226,6 +226,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P1Countdown"",
+                    ""type"": ""Button"",
+                    ""id"": ""a517d4dd-bd3b-4f78-aced-a757ef6cc746"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""P2Countdown"",
+                    ""type"": ""Button"",
+                    ""id"": ""78c16806-0718-4629-b499-878d2a257e0c"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -495,17 +513,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""2d19efb1-630b-444f-ae82-743931bab854"",
-                    ""path"": ""<Keyboard>/l"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""RoundEnd"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""8ad5106c-742b-4ba2-95be-72c68b9178d0"",
                     ""path"": ""<Keyboard>/r"",
                     ""interactions"": """",
@@ -523,6 +530,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""P2Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c51c6be-e319-44b8-b405-c5a4625f1f29"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P1Countdown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""36105b81-ba2c-4b0f-9238-c711a7967da2"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""P2Countdown"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -576,6 +605,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_RoundEnd = m_Player.FindAction("RoundEnd", throwIfNotFound: true);
         m_Player_P1Reload = m_Player.FindAction("P1Reload", throwIfNotFound: true);
         m_Player_P2Reload = m_Player.FindAction("P2Reload", throwIfNotFound: true);
+        m_Player_P1Countdown = m_Player.FindAction("P1Countdown", throwIfNotFound: true);
+        m_Player_P2Countdown = m_Player.FindAction("P2Countdown", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Newaction = m_UI.FindAction("New action", throwIfNotFound: true);
@@ -675,6 +706,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_RoundEnd;
     private readonly InputAction m_Player_P1Reload;
     private readonly InputAction m_Player_P2Reload;
+    private readonly InputAction m_Player_P1Countdown;
+    private readonly InputAction m_Player_P2Countdown;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -747,6 +780,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @P2Reload => m_Wrapper.m_Player_P2Reload;
         /// <summary>
+        /// Provides access to the underlying input action "Player/P1Countdown".
+        /// </summary>
+        public InputAction @P1Countdown => m_Wrapper.m_Player_P1Countdown;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/P2Countdown".
+        /// </summary>
+        public InputAction @P2Countdown => m_Wrapper.m_Player_P2Countdown;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -817,6 +858,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Reload.started += instance.OnP2Reload;
             @P2Reload.performed += instance.OnP2Reload;
             @P2Reload.canceled += instance.OnP2Reload;
+            @P1Countdown.started += instance.OnP1Countdown;
+            @P1Countdown.performed += instance.OnP1Countdown;
+            @P1Countdown.canceled += instance.OnP1Countdown;
+            @P2Countdown.started += instance.OnP2Countdown;
+            @P2Countdown.performed += instance.OnP2Countdown;
+            @P2Countdown.canceled += instance.OnP2Countdown;
         }
 
         /// <summary>
@@ -873,6 +920,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @P2Reload.started -= instance.OnP2Reload;
             @P2Reload.performed -= instance.OnP2Reload;
             @P2Reload.canceled -= instance.OnP2Reload;
+            @P1Countdown.started -= instance.OnP1Countdown;
+            @P1Countdown.performed -= instance.OnP1Countdown;
+            @P1Countdown.canceled -= instance.OnP1Countdown;
+            @P2Countdown.started -= instance.OnP2Countdown;
+            @P2Countdown.performed -= instance.OnP2Countdown;
+            @P2Countdown.canceled -= instance.OnP2Countdown;
         }
 
         /// <summary>
@@ -1114,6 +1167,20 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnP2Reload(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P1Countdown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP1Countdown(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "P2Countdown" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnP2Countdown(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

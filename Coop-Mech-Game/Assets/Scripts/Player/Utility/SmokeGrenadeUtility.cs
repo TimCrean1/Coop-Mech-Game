@@ -1,55 +1,83 @@
 using Unity.Netcode;
-using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 using UnityEngine.VFX;
 
 public class SmokeGrenadeUtility : BaseUtility
 {
-    /// <summary>
-    /// This class is meant to be placed on an empty game object with the smoke VFX asset. <br/>
-    /// It should also be at least a sibling object of the GameObject the UtilityManager is on, if position needs to be inherited, this should be a child object
-    /// </summary>
-
-    //[SerializeField] private GameObject smokeGrenadePrefab;
+    [Header("Smoke Settings")]
     [SerializeField] private VisualEffect visualEffect;
-    [SerializeField] private float smokeCooldown = 20f;
-    [SerializeField] private float castDistance = 0;
+    [SerializeField] private float castDistance = 10f;
+    [Range(0f, 1f)]
+    [SerializeField] private float nandoChance = 0.05f;
 
+    private CharacterMovement owningCharacter;
     private RaycastHit hit;
-    private CharacterMovement _owningCharacter;
 
-    void Start()
+    public override void OnNetworkSpawn()
     {
-        if (utilityManager == null)
+        base.OnNetworkSpawn();
+        TryInitialize();
+    }
+
+    private void TryInitialize()
+    {
+        // Try UtilityManager first (preferred)
+        if (utilityManager != null)
         {
-            Debug.LogError("UtilityManager reference is not set in the inspector.");
+            owningCharacter = utilityManager.GetCharacterMovement();
         }
-        else
+
+        // Fallback (VERY important for safety)
+        if (owningCharacter == null)
         {
-            _owningCharacter = utilityManager.GetCharacterMovement();
+            owningCharacter = GetComponentInParent<CharacterMovement>();
         }
     }
-    
+
+    [Rpc(SendTo.ClientsAndHost)]
     public override void ActivateUtilityRpc()
     {
-        _owningCharacter = utilityManager.GetCharacterMovement();
-        if (UtilityConditionsMet())
+        TryInitialize();
+
+        if (owningCharacter == null)
         {
-            //set the position of this object. it will either be the hit point of a raycast (to avoid it entering another object), or at a point infront of the mech
-            transform.position = Physics.Raycast(_owningCharacter.transform.position, _owningCharacter.transform.forward, out hit, castDistance) ? hit.point : _owningCharacter.transform.position + (_owningCharacter.transform.forward * castDistance);
-
-            visualEffect.SendEvent("OnFire");
-
-            //GameObject smokeGrenade = Instantiate(smokeGrenadePrefab, smokePos, Quaternion.identity);
-            //Destroy(smokeGrenade, smokeCooldown);
-            // StartCoroutine(UtilityCooldown(utilityCooldownTime));
+            Debug.LogError("SmokeGrenadeUtility: owningCharacter is NULL.");
+            return;
         }
+
+        if (!UtilityConditionsMet())
+            return;
+
+        Vector3 origin = owningCharacter.transform.position;
+        Vector3 forward = owningCharacter.transform.forward;
+
+        Vector3 targetPos = Physics.Raycast(origin, forward, out hit, castDistance)
+            ? hit.point
+            : origin + forward * castDistance;
+
+        transform.position = targetPos;
+
+        PlayVFX();
+    }
+
+    private void PlayVFX()
+    {
+        if (visualEffect == null)
+        {
+            Debug.LogWarning("VisualEffect missing on SmokeGrenadeUtility.");
+            return;
+        }
+
+        float rand = Random.value;
+
+        if (rand <= nandoChance)
+            visualEffect.SendEvent("OnNando");
+        else
+            visualEffect.SendEvent("OnFire");
     }
 
     protected override bool UtilityConditionsMet()
     {
         return canActivateUtility;
     }
-
-    
 }

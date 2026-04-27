@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 5790533618384368019}
   - component: {fileID: 1041313949405104054}
   - component: {fileID: 2883541409271160028}
+  - component: {fileID: 3245661209610564633}
   m_Layer: 8
   m_Name: PlayerTeamTwo_V3
   m_TagString: TeamTwo
@@ -209,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 62302024
+  GlobalObjectIdHash: 204609666
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -235,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  currentMaxSpeed: 12
+  currentMaxSpeed: 16
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
@@ -255,10 +256,10 @@ MonoBehaviour:
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
   canDash: 1
-  dashSpeed: 100
+  dashSpeed: 75
   dashCooldown: 2
   dashRecharge: 2
-  dashLength: 0.2
+  dashLength: 0.1
   maxDashes: 2
   horizontalRotationRate: 2.5
   verticalRotationRate: 2.5
@@ -301,7 +302,7 @@ MonoBehaviour:
   overlayCamera: {fileID: 842187838176503648}
   uiCanvas: {fileID: 7518429115651990092}
   teamWeaponManager: {fileID: 4675740159691710397}
-  utilityManager: {fileID: 0}
+  utilityManager: {fileID: 3245661209610564633}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -460,7 +461,10 @@ MonoBehaviour:
   ammoCountScreenL: {fileID: 8581324973276671470}
   ammoCountScreenR: {fileID: 4074992625292378904}
   comboManager: {fileID: 2883541409271160028}
+  P1UtilitiesList: []
+  P2UtilitiesList: []
   shootingImpulseSource: {fileID: 1041313949405104054}
+  utilityManager: {fileID: 3245661209610564633}
   weaponTranformOne: {fileID: 1529742402341660464}
   weaponTranformTwo: {fileID: 7350136729302563965}
   playerOneStartGun: {fileID: 11400000, guid: 929d0cd8fe32b42b3bc6ecef517a0804, type: 2}
@@ -618,6 +622,25 @@ MonoBehaviour:
   decayTimer: 0
   comboMeter: {fileID: 1302545236787122275}
   _uiManager: {fileID: 1310812323474829952}
+--- !u!114 &3245661209610564633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d9f0fa6730f74a44a7627aadd795865, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UtilityManagerScript
+  p1Utility: {fileID: 0}
+  p2Utility: {fileID: 0}
+  characterMovement: {fileID: 6930851332102331895}
+  p1UtilReady: 1
+  p2UtilReady: 1
+  p1UtilCooldownTime: 5
+  p2UtilCooldownTime: 5
 --- !u!1 &2237337471181941608
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1034265231
+  GlobalObjectIdHash: 3065053489
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -774,7 +797,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1013563508
+  GlobalObjectIdHash: 527748684
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -818,12 +841,12 @@ PrefabInstance:
     - target: {fileID: 1509548444272338256, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4082095590
+      value: 251265461
       objectReference: {fileID: 0}
     - target: {fileID: 2535768407550478619, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2474168739
+      value: 3930717698
       objectReference: {fileID: 0}
     - target: {fileID: 2569203156457744218, guid: 91ea36d9231a4f54784d7d475fbf2a8d,
         type: 3}

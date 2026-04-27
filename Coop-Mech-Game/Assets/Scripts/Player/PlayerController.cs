@@ -17,17 +17,10 @@ public class PlayerController : NetworkBehaviour
 
     [Header("Player State")]
     public EPlayerState currentState = EPlayerState.Moving;
+    [SerializeField] private bool isScrambled = false;
 
     [Header("Player Input")]
     private PlayerInputActions playerInputActions; 
-    //[SerializeField] private Vector2 P1MovementInput;
-    //[SerializeField] private Vector2 P2MovementInput;
-    // public NetworkVariable<Vector2> P1MovementInput = new NetworkVariable<Vector2>();
-    // public NetworkVariable<Vector2> P2MovementInput = new NetworkVariable<Vector2>();
-    //[SerializeField] private float P1ShootInput;
-    //[SerializeField] private float P2ShootInput;
-
-
 
     [Header("Component / Object References")]
     [SerializeField] private BaseMovement baseMovement;
@@ -40,12 +33,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public GameObject uiCanvas;
     [SerializeField] private TeamWeaponManager teamWeaponManager;
     [SerializeField] private UtilityManagerScript utilityManager;
+    [SerializeField] private UI_Manager uiManager;
 
-    [Header("Mouse Positions")]
-    //[SerializeField] public Vector2 mouse1Pos; //Screen space pos
-    //[SerializeField] public Vector2 mouse2Pos;
-
-    // may not need these to use network variables due to them being used in rpc
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
 
@@ -126,16 +115,6 @@ public class PlayerController : NetworkBehaviour
             {
                 baseMovement.Dash(syncedDashOutput);
             }
-            
-            // if (leftIndicator != null && rightIndicator != null)
-            // {
-            //     // leftIndicator.SetMoveInput(P1MovementInput.Value);
-            //     // rightIndicator.SetMoveInput(P2MovementInput.Value);
-            // }
-            // else
-            // {
-            //     Debug.LogError("Left and right movement indicator references are not set in the Player Controller!");
-            // }
         }
     }
 
@@ -158,124 +137,72 @@ public class PlayerController : NetworkBehaviour
 
     public void ChangeUtility(ShopItemSO item, int playerNum)
     {
+        teamWeaponManager.PurchaseUtility(playerNum, item);
+        teamWeaponManager.PurchaseUtilityRpc(playerNum, item.itemIndex);
         Debug.Log("Changed player " + playerNum + " utility to " + item.itemName);
+
     }
 
     #endregion
 
-    // #region Input Handling
-
-    // private void SubscribeInputActions()
-    // {
-    //     playerInputActions.Player.P1Move.started += P1MoveAction;
-    //     playerInputActions.Player.P1Move.canceled += P1MoveAction;
-
-    //     playerInputActions.Player.P2Move.started += P2MoveAction;
-    //     playerInputActions.Player.P2Move.canceled += P2MoveAction;
-
-    //     playerInputActions.Player.P1Shoot.started += P1ShootAction;
-    //     playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
-
-    //     playerInputActions.Player.P2Shoot.started += P2ShootAction;
-    // }
-
-    // private void UnsubscribeInputActions()
-    // {
-    //     playerInputActions.Player.P1Move.started -= P1MoveAction;
-    //     playerInputActions.Player.P1Move.canceled -= P1MoveAction;
-
-    //     playerInputActions.Player.P2Move.started -= P2MoveAction;
-    //     playerInputActions.Player.P2Move.canceled -= P2MoveAction;
-
-    //     playerInputActions.Player.P1Shoot.started -= P1ShootAction;
-    //     playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
-
-    //     playerInputActions.Player.P2Shoot.started -= P2ShootAction;
-    // }
-
-    // private void SwitchActionMap(EPlayerState state)
-    // {
-    //     playerInputActions.Player.Disable();
-    //     playerInputActions.UI.Disable();
-
-    //     switch (state)
-    //     {
-    //         case EPlayerState.Moving:
-    //             playerInputActions.Player.Enable();
-    //             break;
-
-    //         case EPlayerState.Paused:
-    //             playerInputActions.UI.Enable();
-    //             // Cursor.visible = true;
-    //             // Cursor.lockState = CursorLockMode.None;
-    //             break;
-
-    //         default:
-    //             // Cursor.visible = true;
-    //             // Cursor.lockState = CursorLockMode.None;
-    //             break;
-    //     }
-    // }
-
-    // #endregion
-
     #region Input Actions
-
-    // public void P1MoveAction(InputAction.CallbackContext context)
-    // {
-    //     // Debug.Log("yes");
-    //     P1MovementInput = context.ReadValue<Vector2>();
-    //     playerCoroutineManager.SetP1Input(P1MovementInput);
-    // }
     [Rpc(SendTo.Server)]
     public void P1MoveActionServerRpc(Vector2 P1MovementInput)
     {
+        if (isScrambled)
+        {
+            P1MovementInput = new Vector2(-P1MovementInput.x, -P1MovementInput.y); // If scrambled, invert the movement input for player 1
+        }
         playerCoroutineManager.SetP1Input(P1MovementInput);
         leftIndicator.SetMoveInput(P1MovementInput);
     }
-
-    // public void P2MoveAction(InputAction.CallbackContext context)
-    // {
-    //     P2MovementInput = context.ReadValue<Vector2>();
-    //     playerCoroutineManager.SetP2Input(P2MovementInput);
-    // }
     [Rpc(SendTo.Server)]
     public void P2MoveActionServerRpc(Vector2 P2MovementInput)
     {
+        if (isScrambled)
+        {
+            P2MovementInput = new Vector2(-P2MovementInput.x, -P2MovementInput.y); // If scrambled, invert the movement input for player 2
+        }
         playerCoroutineManager.SetP2Input(P2MovementInput);
         rightIndicator.SetMoveInput(P2MovementInput);
     }
 
-    // public void P1ShootAction(InputAction.CallbackContext context)
-    // {
-    //     P1ShootInput = context.ReadValue<float>();
-    //     playerCoroutineManager.SetP1Shoot(P1ShootInput);
-    // }
     [Rpc(SendTo.Server)]
     public void P1ShootActionServerRpc(float P1ShootInput)
     {
-        playerCoroutineManager.SetP1Shoot(P1ShootInput);
+        if (!isScrambled)
+        {
+            playerCoroutineManager.SetP1Shoot(P1ShootInput);
+        }
+        else
+        {
+            playerCoroutineManager.SetP2Shoot(P1ShootInput);
+        }
     }
 
-    // public void P2ShootAction(InputAction.CallbackContext context)
-    // {
-    //     P2ShootInput = context.ReadValue<float>();
-    //     playerCoroutineManager.SetP2Shoot(P2ShootInput);
-    // }
     [Rpc(SendTo.Server)]
     public void P2ShootActionServerRpc(float P2ShootInput)
     {
-        playerCoroutineManager.SetP2Shoot(P2ShootInput);
+        if (!isScrambled)
+        {
+            playerCoroutineManager.SetP2Shoot(P2ShootInput);
+        }
+        else
+        {
+            playerCoroutineManager.SetP1Shoot(P2ShootInput);
+        }
     }
     [Rpc(SendTo.Server)]
     public void ProcessMouse1InputServerRpc(Vector2 mousePos)
     {
-        mouse1Pos.Value = mousePos;
+        if (!isScrambled) mouse1Pos.Value = mousePos;
+        else {mouse1Pos.Value = new Vector2(1 - mousePos.x, 1 - mousePos.y);} // If scrambled, invert the mouse position for player 1
     }
     [Rpc(SendTo.Server)]
     public void ProcessMouse2InputServerRpc(Vector2 mousePos)
     {
-        mouse2Pos.Value = mousePos;
+        if (!isScrambled) mouse2Pos.Value = mousePos;
+        else {mouse2Pos.Value = new Vector2(1 - mousePos.x, 1 - mousePos.y);} // If scrambled, invert the mouse position for player 2
     }
     [Rpc(SendTo.Server)]
     public void P1JumpInputServerRpc(float P1JumpInput)
@@ -319,6 +246,17 @@ public class PlayerController : NetworkBehaviour
         teamWeaponManager.P2Reload();
     }
 
+    [Rpc(SendTo.Server)]
+    public void P1CountdownInputServerRpc()
+    {
+        uiManager.SetCountdownRpc();
+    }
+
+    [Rpc(SendTo.Server)]
+    public void P2CountdownInputServerRpc()
+    {
+        uiManager.SetCountdownRpc();
+    }
 
     #endregion
 

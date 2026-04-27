@@ -7,29 +7,54 @@ public class ShopNetworking : NetworkBehaviour
     public static ShopNetworking Instance;
 
     public NetworkVariable<int> readyPlayerCount = new NetworkVariable<int>();
+    public bool isTestScene;
 
     private void Awake()
     {
         Instance = this;
     }
 
+    private void Start()
+    {
+        if (isTestScene && !NetworkManager.Singleton.IsListening)
+        {
+            NetworkManager.Singleton.StartHost();
+        }
+    }
+
     public override void OnNetworkSpawn()
     {
-        if (!IsServer)
+        if (!isTestScene)
         {
-            GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
-        }
-        else { Debug.LogError("idk... client"); }
+            if (!IsServer)
+            {
+                GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClientRpc);
+            }
+            // else { Debug.LogError("idk... client"); }
 
-        if (IsServer)
+            if (IsServer)
+            {
+                GameManager.Instance.OnBuyRoundStart.AddListener(() =>
+                {
+                    ShopManager.Instance.OpenShop();
+                    OpenShopClientRpc();
+                });
+            }
+        }
+        else if (isTestScene)
         {
-            GameManager.Instance.OnBuyRoundStart.AddListener(() =>
+            if (!IsServer)
+            {
+                OpenShopClientRpc();
+            }
+            if (IsServer)
             {
                 ShopManager.Instance.OpenShop();
                 OpenShopClientRpc();
-            });
+            }
+
         }
-        else { Debug.LogError("idk... server"); }
+        // else { Debug.LogError("idk... server"); }
     }
 
     #region RPCs
@@ -47,7 +72,8 @@ public class ShopNetworking : NetworkBehaviour
             readyPlayerCount.Value = 0;
         }
 
-        ShopManager.Instance.UpdateReadyText(readyPlayerCount.Value);
+        // ShopManager.Instance.UpdateReadyText(readyPlayerCount.Value);
+        UpdateReadyTextClientRpc(readyPlayerCount.Value);
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -66,6 +92,12 @@ public class ShopNetworking : NetworkBehaviour
     public void CloseShopClientRpc()
     {
         ShopManager.Instance.CloseShopClient();
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void UpdateReadyTextClientRpc(int count)
+    {
+        ShopManager.Instance.UpdateReadyText(count);
     }
 
     #endregion

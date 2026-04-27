@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
-  currentMaxSpeed: 12
+  currentMaxSpeed: 16
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
@@ -256,10 +256,10 @@ MonoBehaviour:
   jumpCoolDown: 0.25
   airControlMultiplier: 0.4
   canDash: 1
-  dashSpeed: 100
+  dashSpeed: 75
   dashCooldown: 2
   dashRecharge: 2
-  dashLength: 0.2
+  dashLength: 0.1
   maxDashes: 2
   horizontalRotationRate: 2.5
   verticalRotationRate: 2.5
@@ -461,7 +461,10 @@ MonoBehaviour:
   ammoCountScreenL: {fileID: 306418658866597069}
   ammoCountScreenR: {fileID: 5466010464463888955}
   comboManager: {fileID: 2883541409271160028}
+  P1UtilitiesList: []
+  P2UtilitiesList: []
   shootingImpulseSource: {fileID: 1041313949405104054}
+  utilityManager: {fileID: 8344997588642178835}
   weaponTranformOne: {fileID: 1529742402341660464}
   weaponTranformTwo: {fileID: 7350136729302563965}
   playerOneStartGun: {fileID: 11400000, guid: 929d0cd8fe32b42b3bc6ecef517a0804, type: 2}

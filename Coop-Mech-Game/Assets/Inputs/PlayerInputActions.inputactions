@@ -140,6 +140,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "P1Countdown",
+                    "type": "Button",
+                    "id": "a517d4dd-bd3b-4f78-aced-a757ef6cc746",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "P2Countdown",
+                    "type": "Button",
+                    "id": "78c16806-0718-4629-b499-878d2a257e0c",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -409,17 +427,6 @@
                 },
                 {
                     "name": "",
-                    "id": "2d19efb1-630b-444f-ae82-743931bab854",
-                    "path": "<Keyboard>/l",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "RoundEnd",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8ad5106c-742b-4ba2-95be-72c68b9178d0",
                     "path": "<Keyboard>/r",
                     "interactions": "",
@@ -437,6 +444,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "P2Reload",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2c51c6be-e319-44b8-b405-c5a4625f1f29",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P1Countdown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36105b81-ba2c-4b0f-9238-c711a7967da2",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "P2Countdown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
