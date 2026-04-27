@@ -143,14 +143,16 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void RaycastInConeClientRpc(int numPellets, float maxRange, float spreadHalfAngle)
     {
+        ///this should be the same between all clients, unfortunately is is also the same between shots
         hits.Clear();
         hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, maxRange, spreadHalfAngle);
-        Debug.Log(hits == null ? "Hits is null base weapon raycast cone client rpc" : $"Hits is not null, hit count: {hits.Count}");
 
-        for (int i = 0; i < hits.Count; i++)
-        {
-            Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
-        }
+        //Debug.Log(hits == null ? "Hits is null base weapon raycast cone client rpc" : $"Hits is not null, hit count: {hits.Count}");
+
+        //for (int i = 0; i < hits.Count; i++)
+        //{
+        //    Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
+        //}
     }
 
     [Rpc(SendTo.ClientsAndHost)]
@@ -158,10 +160,10 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         hits = VectorExtensions.SequentialRaycast(Muzzle.transform.position, Muzzle.transform.forward, maxCastDistance, maxBounceCount, castBounceMult);
         //hit = hits[0];
-        for(int i = 0; i < hits.Count; i++)
-        {
-            Debug.Log("WeaponSniper: hit point " + i + " is: " + hits[i].point);
-        }
+        //for(int i = 0; i < hits.Count; i++)
+        //{
+        //    Debug.Log("WeaponSniper: hit point " + i + " is: " + hits[i].point);
+        //}
     }
 
     protected virtual void ChangeAmmoText()

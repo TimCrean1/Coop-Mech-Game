@@ -92,15 +92,13 @@ public static class VectorExtensions
     /// <param name="up"></param>
     /// <param name="halfAngle"></param>
     /// <returns> a normalised vector within the cone </returns>
-    public static Vector3 GetRandomVectorInCone(this Vector3 center, Vector3 up, float halfAngle)
+    public static Vector3 GetRandomVectorInCone(this Vector3 center, Vector3 up, float halfAngle, ref Unity.Mathematics.Random seed)
     {
-        //Unity.Mathematics.Random r = new Unity.Mathematics.Random(42); //seed is 42
-
         center = center.normalized;
         up = up.normalized;
 
-        up = Quaternion.AngleAxis(Random.Range(0f, 360f), center) * up; //rotate up vector by a random amount between 0 and 360 about the center axis
-        center = Quaternion.AngleAxis(Random.Range(-halfAngle, halfAngle), up) * center; //rotate center vector around rotated up vector by a random value between -halfAngle and +halfAngle
+        up = Quaternion.AngleAxis(seed.NextFloat(0f, 360f), center) * up; //rotate up vector by a random amount between 0 and 360 about the center axis
+        center = Quaternion.AngleAxis(seed.NextFloat(-halfAngle, halfAngle), up) * center; //rotate center vector around rotated up vector by a random value between -halfAngle and +halfAngle
 
         return center.normalized; //return vector in symmetrical cone
 
@@ -281,6 +279,7 @@ public static class VectorExtensions
 
                     reflectVec = Vector3.Reflect((hitInfo.point - start).normalized, hitInfo.normal);
 
+                    //note that the GetRandomVectorInPyramid sequence does not use a seeded random
                     newVecl = isRandom ?
                         reflectVec.GetRandomVectorInPyramid(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, 5f, -5f)
                         : reflectVec.GetVectorBetweenVectorByFactor(Vector3.ProjectOnPlane(reflectVec, hitInfo.normal).normalized, factor01);
@@ -298,7 +297,7 @@ public static class VectorExtensions
     }
 
     /// <summary>
-    /// Casts numCasts number of raycasts in a circular cone, defined by a forward, up, and deviationHalfAngle. The raycasts can be sequential, meaning they will bounce off of surfaces they hit.
+    /// Casts numCasts number of raycasts in a circular cone, defined by a forward, up, and deviationHalfAngle. Seeded random with default seed 42 is used.
     /// <br/><br/>
     /// <paramref name="forward"/>: the center line going down the cone<br/>
     /// <paramref name="up"/>: a vector about which forward is rotated, ideally orthogonal but not required
@@ -310,15 +309,16 @@ public static class VectorExtensions
     /// <param name="maxRange"></param>
     /// <param name="deviationHalfAngle"></param>
     /// <param name="isDebug"></param>
-    /// <returns> a list of raycast hit locations, in the case of sequential raycasts, only the last hit locations are returned</returns>
-    public static List<RaycastHit> MultipleRaycastInCone(Vector3 start, Vector3 forward, Vector3 up, int numCasts, float maxRange, float deviationHalfAngle = 30f, bool isDebug = false)
+    /// <returns> a list of type RaycastHit</returns>
+    public static List<RaycastHit> MultipleRaycastInCone(Vector3 start, Vector3 forward, Vector3 up, int numCasts, float maxRange, float deviationHalfAngle = 30f, uint seed = 42, bool isDebug = false)
     {
         RaycastHit hit;
         List<RaycastHit> hits = new List<RaycastHit>();
+        Unity.Mathematics.Random r = new Unity.Mathematics.Random(seed); //seed is 42
 
         for (int i = 0; i < numCasts; ++i)
         {
-            Vector3 dir = GetRandomVectorInCone(forward, up, deviationHalfAngle);
+            Vector3 dir = GetRandomVectorInCone(forward, up, deviationHalfAngle, ref r);
             Physics.Raycast(start, dir, out hit, maxRange);
             // hits.Add(hit);
             if (hit.collider != null)
