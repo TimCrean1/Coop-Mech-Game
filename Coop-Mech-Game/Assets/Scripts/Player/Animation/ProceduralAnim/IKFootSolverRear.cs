@@ -73,58 +73,127 @@ public class IKFootSolverRear : MonoBehaviour
     private void VelocityBasedTarget()
     {
         Vector3 velocity = rb.linearVelocity;
-
-        // converts velocity into local space
         Vector3 localVel = body.transform.InverseTransformDirection(velocity);
-        Debug.Log("Rear Velocity =" + localVel);
-        if (localVel.z == 0 && localVel.x == 0)
+
+        Vector2 planar = new Vector2(localVel.x, localVel.z);
+
+        // Idle
+        if (planar.magnitude < 0.1f)
         {
-            // We're moving forward tier 1
-            //Debug.Log("Idle - rear");
             rayPosition = new Vector3(7f, 0, 1f);
+            return;
         }
-        if (localVel.z > 0.1f && localVel.z < 5f)
+
+        float angle = Mathf.Atan2(planar.x, planar.y) * Mathf.Rad2Deg;
+        if (angle < 0) angle += 360f;
+
+        float speed = planar.magnitude;
+
+        // 8-direction split (rear-tuned values)
+        if (angle >= 337.5f || angle < 22.5f)
         {
-            // We're moving forward tier 1
-            //Debug.Log("Forward - rear");
+            // Forward (rear legs compress inward)
             rayPosition = new Vector3(2f, 0, 0.8f);
         }
-        if (localVel.x < 0 && localVel.z < -3)
+        else if (angle < 67.5f)
         {
-            //backward
-            //Debug.Log("Backward");
+            // Forward Right
+            rayPosition = rightFoot
+                ? new Vector3(4f, 0, 1.3f)
+                : new Vector3(4f, 0, 0f);
+        }
+        else if (angle < 112.5f)
+        {
+            // Right
+            rayPosition = rightFoot
+                ? new Vector3(6.3f, 0, 1.3f)
+                : new Vector3(6.3f, 0, 0f);
+        }
+        else if (angle < 157.5f)
+        {
+            // Back Right
+            rayPosition = new Vector3(9f, 0, rightFoot ? 1.3f : 0f);
+        }
+        else if (angle < 202.5f)
+        {
+            // Backward (rear legs extend far back)
             rayPosition = new Vector3(11f, 0, 0.8f);
         }
-        if (localVel.x < -3 && localVel.z > 0)
+        else if (angle < 247.5f)
         {
-            // moving left
-            if (rightFoot == false)
-            {
-                Debug.Log("Left (lf)");
-                rayPosition = new Vector3(6.3f, 0, 1.3f);
-            }
-            if (rightFoot == true)
-            {
-                Debug.Log("Left (rf)");
-                rayPosition = new Vector3(6.3f, 0, 0f);
-            }
+            // Back Left
+            rayPosition = new Vector3(9f, 0, rightFoot ? 0f : 1.3f);
         }
-        if (localVel.x > 3 && localVel.z > 0)
+        else if (angle < 292.5f)
         {
-            //moving right
-            if (rightFoot == false)
-            {
-                Debug.Log("Right");
-                rayPosition = new Vector3(6.3f, 0, 0f);
-            }
-            if (rightFoot == true)
-            {
-                Debug.Log("Right");
-                rayPosition = new Vector3(6.3f, 0, 1.3f);
-            }
+            // Left
+            rayPosition = rightFoot
+                ? new Vector3(6.3f, 0, 0f)
+                : new Vector3(6.3f, 0, 1.3f);
         }
-
+        else
+        {
+            // Forward Left
+            rayPosition = rightFoot
+                ? new Vector3(4f, 0, 0f)
+                : new Vector3(4f, 0, 1.3f);
+        }
     }
+    //private void VelocityBasedTarget()
+    //{
+    //    Vector3 velocity = rb.linearVelocity;
+
+    //    // converts velocity into local space
+    //    Vector3 localVel = body.transform.InverseTransformDirection(velocity);
+    //    Debug.Log("Rear Velocity =" + localVel);
+    //    if (localVel.z == 0 && localVel.x == 0)
+    //    {
+    //        // We're moving forward tier 1
+    //        //Debug.Log("Idle - rear");
+    //        rayPosition = new Vector3(7f, 0, 1f);
+    //    }
+    //    if (localVel.z > 0.1f && localVel.z < 5f)
+    //    {
+    //        // We're moving forward tier 1
+    //        //Debug.Log("Forward - rear");
+    //        rayPosition = new Vector3(2f, 0, 0.8f);
+    //    }
+    //    if (localVel.x < 0 && localVel.z < -3)
+    //    {
+    //        //backward
+    //        //Debug.Log("Backward");
+    //        rayPosition = new Vector3(11f, 0, 0.8f);
+    //    }
+    //    if (localVel.x < -3 && localVel.z > 0)
+    //    {
+    //        // moving left
+    //        if (rightFoot == false)
+    //        {
+    //            Debug.Log("Left (lf)");
+    //            rayPosition = new Vector3(6.3f, 0, 1.3f);
+    //        }
+    //        if (rightFoot == true)
+    //        {
+    //            Debug.Log("Left (rf)");
+    //            rayPosition = new Vector3(6.3f, 0, 0f);
+    //        }
+    //    }
+    //    if (localVel.x > 3 && localVel.z > 0)
+    //    {
+    //        //moving right
+    //        if (rightFoot == false)
+    //        {
+    //            Debug.Log("Right");
+    //            rayPosition = new Vector3(6.3f, 0, 0f);
+    //        }
+    //        if (rightFoot == true)
+    //        {
+    //            Debug.Log("Right");
+    //            rayPosition = new Vector3(6.3f, 0, 1.3f);
+    //        }
+    //    }
+
+    //}
     private void OnDrawGizmos()
     {
 
