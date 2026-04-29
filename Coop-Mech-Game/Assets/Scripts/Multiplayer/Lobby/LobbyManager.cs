@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.Cinemachine;
 using Unity.Netcode;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
@@ -20,6 +21,7 @@ public class LobbyManager : MonoBehaviour {
 
     [SerializeField] private GameObject LoadingScreen;
     [SerializeField] private Image LoadingBarFill;
+   
     public static bool IsHost { get; private set; }
     public static string RelayJoinCode { get; private set; }
 
@@ -596,6 +598,8 @@ public class LobbyManager : MonoBehaviour {
             Debug.Log(e);
         }
     }
+
+   
     #region TeamMethods
     private async void CheckTeamForPlayer(List<string> players)
     {

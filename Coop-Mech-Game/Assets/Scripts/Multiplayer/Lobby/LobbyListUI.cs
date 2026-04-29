@@ -16,6 +16,7 @@ public class LobbyListUI : MonoBehaviour {
     [SerializeField] private Transform container;
     [SerializeField] private Button refreshButton;
     [SerializeField] private Button createLobbyButton;
+    [SerializeField] private Button backButton;
 
 
     private void Awake() {
@@ -25,6 +26,11 @@ public class LobbyListUI : MonoBehaviour {
 
         refreshButton.onClick.AddListener(RefreshButtonClick);
         createLobbyButton.onClick.AddListener(CreateLobbyButtonClick);
+        backButton.onClick.AddListener(() =>
+        {
+            MainMenuUI.Instance.giveCameraOnePriority();
+            MainMenuUI.Instance.Show();
+        });
     }
 
     private void Start() {
