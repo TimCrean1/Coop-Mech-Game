@@ -1801,6 +1801,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LobbyMechSway
   speed: 0.5
   height: 0.1
+  head: {fileID: 2120508736}
+  lookPoints:
+  - {fileID: 949813573}
+  lookInterval: 15
 --- !u!1 &353065008
 GameObject:
   m_ObjectHideFlags: 0
@@ -7547,7 +7551,7 @@ GameObject:
   - component: {fileID: 1563148456}
   - component: {fileID: 1563148455}
   - component: {fileID: 1563148454}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9904,7 +9908,6 @@ GameObject:
   - component: {fileID: 2010094838}
   - component: {fileID: 2010094841}
   - component: {fileID: 2010094842}
-  - component: {fileID: 2010094843}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10054,7 +10057,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 2
+    Time: 1
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -10062,20 +10065,6 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
---- !u!114 &2010094843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2010094837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6f5ab477781bb748bba03458afa81ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::LobbyCameraSwitcher
-  _camera: {fileID: 0}
-  _camera2: {fileID: 0}
 --- !u!1 &2010404605
 GameObject:
   m_ObjectHideFlags: 0
@@ -10446,6 +10435,12 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1 &2120508736 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 850150354684553936, guid: d3aeab272a8622b4992618179ae2d868,
+    type: 3}
+  m_PrefabInstance: {fileID: 589127908}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &892644390548065764
 PrefabInstance:
   m_ObjectHideFlags: 0
