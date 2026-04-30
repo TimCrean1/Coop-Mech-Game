@@ -8,7 +8,8 @@ public class LobbyMechSway : MonoBehaviour
     [SerializeField] private float speed = 2.0f;    // How fast it moves
     [SerializeField] private float height = 0.5f;   // How far it moves up and down
     [SerializeField] private GameObject head;
-    [SerializeField] private List<Transform> lookPoints;
+    [Range(0f, 1f)]
+    [SerializeField] private float lerpStep = 0.25f;
 
     private Quaternion targetRotation;
     private bool isRotating = false;
@@ -30,15 +31,15 @@ public class LobbyMechSway : MonoBehaviour
 
         if (count > lookInterval && !isRotating)
         {
-            targetRotation = Quaternion.Euler(0, Random.Range(140f, 170f), 0);
+            targetRotation = Quaternion.Euler(90, Random.Range(140f, 170f), 0);
             isRotating = true;
         }
 
         if (isRotating)
         {
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, 0.05f);
+            head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, 0.05f);
 
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.5f)
+            if (Quaternion.Angle(head.transform.rotation, targetRotation) < 0.5f)
             {
                 isRotating = false;
             }
