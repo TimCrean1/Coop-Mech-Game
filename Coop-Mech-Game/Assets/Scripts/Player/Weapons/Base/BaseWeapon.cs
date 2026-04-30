@@ -27,6 +27,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] public MechScreen ammoCountScreen;
     [SerializeField] public SingleComboScript comboManager;
+    public AudioClip weaponAudioClip;
 
     [Header("Weapon Stats")]
     [SerializeField] private WeaponType weaponType;

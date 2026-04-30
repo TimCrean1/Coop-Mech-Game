@@ -26,6 +26,7 @@ GameObject:
   - component: {fileID: 1041313949405104054}
   - component: {fileID: 2883541409271160028}
   - component: {fileID: 8344997588642178835}
+  - component: {fileID: 454488228189125500}
   m_Layer: 8
   m_Name: PlayerTeamOne_V3
   m_TagString: TeamOne
@@ -210,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1152639330
+  GlobalObjectIdHash: 1885254779
   InScenePlacedSourceGlobalObjectIdHash: 3046565951
   DeferredDespawnTick: 0
   Ownership: 1
@@ -293,6 +294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowTopMostFoldoutHeaderGroup: 1
   currentState: 0
+  isScrambled: 0
   baseMovement: {fileID: 6930851332102331895}
   playerCoroutineManager: {fileID: 2446774336366214823}
   mainCamera: {fileID: 6548054913427544755}
@@ -303,6 +305,7 @@ MonoBehaviour:
   uiCanvas: {fileID: 2245150896999167826}
   teamWeaponManager: {fileID: 4675740159691710397}
   utilityManager: {fileID: 8344997588642178835}
+  uiManager: {fileID: 0}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -327,6 +330,7 @@ MonoBehaviour:
   unsyncedMoveMultiplier: 0.1
   syncedMoveMultiplier: 1
   jumpSyncWindow: 0.5
+  utilitySyncWindow: 0.5
   comboManager: {fileID: 2883541409271160028}
   syncedMoveScore: 0.1
   syncedShootScore: 0.15
@@ -368,9 +372,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c30d0dbb8e4c42e283a4785eedaf222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UI_Manager
+  ShowTopMostFoldoutHeaderGroup: 1
   p1Cursor: {fileID: 2256097039573853412}
   p2Cursor: {fileID: 8914175657229791365}
   averageCursor: {fileID: 1204498686580264150}
+  countdownText: {fileID: 0}
   playerController: {fileID: 3435869324062353507}
   playerCamera: {fileID: 2892194582567537801}
   weaponMgr: {fileID: 4675740159691710397}
@@ -638,11 +644,24 @@ MonoBehaviour:
     type: 3}
   p2Utility: {fileID: 7922013310181034628, guid: 840b463825f005f4b8158800e9de720d,
     type: 3}
+  utilityActivationSynced: 1
   characterMovement: {fileID: 6930851332102331895}
   p1UtilReady: 1
   p2UtilReady: 1
   p1UtilCooldownTime: 5
   p2UtilCooldownTime: 5
+--- !u!114 &454488228189125500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110307106174362958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79d99c67ab20c4b73b230cc5aa31fbd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &2237337471181941608
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,7 +706,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 4104339570
+  GlobalObjectIdHash: 1452096019
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -799,7 +818,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 776929612
+  GlobalObjectIdHash: 1391406710
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -994,12 +1013,12 @@ PrefabInstance:
     - target: {fileID: 1509548444272338256, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2416897203
+      value: 522678644
       objectReference: {fileID: 0}
     - target: {fileID: 2535768407550478619, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2684821489
+      value: 1501079071
       objectReference: {fileID: 0}
     - target: {fileID: 5720977568306344388, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}

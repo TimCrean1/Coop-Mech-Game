@@ -25,6 +25,7 @@ public class TeamWeaponManager : NetworkBehaviour
     //[SerializeField] private float staggeredFireTime = 0.25f;
     [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
     [SerializeField] private UtilityManagerScript utilityManager;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     #endregion
 
@@ -234,6 +235,15 @@ public class TeamWeaponManager : NetworkBehaviour
         BaseWeapon cannon = weapon.GetComponent<BaseWeapon>();
         cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
         cannon.comboManager = comboManager;
+
+        if (player == 0)
+        {
+            audioManager.SetP1GunClip(cannon.weaponAudioClip);
+        }
+        else
+        {
+            audioManager.SetP2GunClip(cannon.weaponAudioClip);
+        }
     }
     [Rpc(SendTo.NotServer)]
     private void addUtilityReferencesRpc(int player, ulong netObjId)
@@ -254,9 +264,17 @@ public class TeamWeaponManager : NetworkBehaviour
             return;
         }
 
-        // ✅ ONLY set this
         utility.SetUtilityManager(utilityManager);
         utilityManager.SetPlayerUtility(player, utility);
+
+        if (player == 0)
+        {
+            audioManager.SetP1UtilityClip(utility.utilityAudioClip);
+        }
+        else
+        {
+            audioManager.SetP2UtilityClip(utility.utilityAudioClip);
+        }
     }
 
     #endregion

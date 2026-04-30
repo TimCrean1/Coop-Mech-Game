@@ -5,6 +5,7 @@ public abstract class BaseUtility : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] protected UtilityManagerScript utilityManager;
+    public AudioClip utilityAudioClip;
 
     [Header("Stats")]
     [SerializeField] protected bool canActivateUtility = true;
