@@ -18,6 +18,13 @@ public class PlayerAudioManager : MonoBehaviour
     [SerializeField] private AudioSource engineSource;
     public AudioSource turningSource;
 
+    void Start()
+    {
+        turningSource.loop = true;
+        turningSource.Play();
+        turningSource.volume = 0f;
+    }
+
     #region Movement Audio
 
     public void PlayJumpSound()

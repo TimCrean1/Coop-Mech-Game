@@ -67,6 +67,7 @@ public class CharacterMovement : BaseMovement
 
     [Header("Misc")]
     private bool isBeingKnockedBack = false;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     #endregion
 
@@ -253,6 +254,13 @@ public class CharacterMovement : BaseMovement
     /// </summary>
     private void CharacterLook()
     {
+        #region Turning SFX
+        // Value from 0 to 1 based on lookInput distance from center (0.5, 0.5)
+        float lookInputMagnitude = Mathf.Clamp01(Vector2.Distance(lookInput, new Vector2(0.5f, 0.5f)) / 0.7071f); // 0.7071 is max distance in [0,1] range
+        audioManager.turningSource.volume = lookInputMagnitude;
+        audioManager.turningSource.pitch = 0.75f + lookInputMagnitude * 0.5f;
+        #endregion
+
         // Clamp look input to defined min/max values
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
