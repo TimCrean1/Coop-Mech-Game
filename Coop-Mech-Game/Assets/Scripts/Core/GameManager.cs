@@ -42,6 +42,9 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private UI_Manager t1UIMgr;
     [SerializeField] private UI_Manager t2UIMgr;
 
+    [SerializeField] private HitIndicatorScript t1HitIndicator;
+    [SerializeField] private HitIndicatorScript t2HitIndicator;
+
     #endregion
 
 
@@ -368,12 +371,12 @@ public class GameManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    public void DamageTeamRpc(int teamNumToDamage, float damage)
+    public void DamageTeamRpc(int teamNumToDamage, float damage, Vector3 damageDirection)
     {
         if (teamNumToDamage == 1)
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
-
+            Showt1DamageIndicator(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
             if (t1HealthScreen != null)
@@ -384,7 +387,7 @@ public class GameManager : NetworkBehaviour
         else if (teamNumToDamage == 2)
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
-
+            Showt2DamageIndicator(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
             if (t2HealthScreen != null)
@@ -459,18 +462,37 @@ public class GameManager : NetworkBehaviour
 
     #region UI Updates
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     private void Changet1HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         t1HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
         if (t1UIMgr) { t1UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
 
-    [ClientRpc]
+    [Rpc(SendTo.NotServer)]
     private void Changet2HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
         if (t2UIMgr) { t2UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
+    }
+
+    private void Showt1DamageIndicator(Vector3 damageDirection)
+    {
+        t1HitIndicator.DamageLocation = damageDirection;
+        GameObject indicator = Instantiate(t1HitIndicator.gameObject,
+                                           t1HitIndicator.transform.position,
+                                           t1HitIndicator.transform.rotation,
+                                           t1HitIndicator.transform.parent);
+        indicator.SetActive(true);
+    }
+    private void Showt2DamageIndicator(Vector3 damageDirection) 
+    {
+        t2HitIndicator.DamageLocation = damageDirection;
+        GameObject indicator = Instantiate(t2HitIndicator.gameObject,
+                                           t2HitIndicator.transform.position,
+                                           t2HitIndicator.transform.rotation,
+                                           t2HitIndicator.transform.parent);
+        indicator.SetActive(true);
     }
 
     #endregion
