@@ -38,6 +38,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] public Camera baseCamera;
     [SerializeField] public Camera overlayCamera;
     [SerializeField] public GameObject uiCanvas;
+    [SerializeField] public GameObject indicatorCanvas;
     [SerializeField] private TeamWeaponManager teamWeaponManager;
     [SerializeField] private UtilityManagerScript utilityManager;
 

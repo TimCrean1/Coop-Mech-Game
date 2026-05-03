@@ -29,8 +29,8 @@ public class WeaponShotgun : BaseWeapon
             }
         }
 
-        GameManager.Instance.DamageTeamRpc(1, t1dmg);
-        GameManager.Instance.DamageTeamRpc(2, t2dmg);
+        GameManager.Instance.DamageTeamRpc(1, t1dmg, transform.position);
+        GameManager.Instance.DamageTeamRpc(2, t2dmg, transform.position);
 
         BuildCooldown();
     }

@@ -19,11 +19,11 @@ public class WeaponSniper : BaseWeapon
         {
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
-                GameManager.Instance.DamageTeamRpc(1, currentDamage);
+                GameManager.Instance.DamageTeamRpc(1, currentDamage, transform.position);
             }
             else if (hit.collider.gameObject.CompareTag("TeamTwo"))
             {
-                GameManager.Instance.DamageTeamRpc(2, currentDamage);
+                GameManager.Instance.DamageTeamRpc(2, currentDamage,transform.position);
             }
         }
 

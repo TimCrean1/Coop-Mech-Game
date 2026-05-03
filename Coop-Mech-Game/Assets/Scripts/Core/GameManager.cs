@@ -376,7 +376,7 @@ public class GameManager : NetworkBehaviour
         if (teamNumToDamage == 1)
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
-            Showt1DamageIndicator(damageDirection);
+            Showt1DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
             if (t1HealthScreen != null)
@@ -387,7 +387,7 @@ public class GameManager : NetworkBehaviour
         else if (teamNumToDamage == 2)
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
-            Showt2DamageIndicator(damageDirection);
+            Showt2DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
             if (t2HealthScreen != null)
@@ -475,24 +475,17 @@ public class GameManager : NetworkBehaviour
         t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
         if (t2UIMgr) { t2UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
-
-    private void Showt1DamageIndicator(Vector3 damageDirection)
+    [Rpc(SendTo.NotServer)]
+    private void Showt1DamageIndicatorRpc(Vector3 damageDirection)
     {
         t1HitIndicator.DamageLocation = damageDirection;
-        GameObject indicator = Instantiate(t1HitIndicator.gameObject,
-                                           t1HitIndicator.transform.position,
-                                           t1HitIndicator.transform.rotation,
-                                           t1HitIndicator.transform.parent);
-        indicator.SetActive(true);
+        t1HitIndicator.CreateIndicator();
     }
-    private void Showt2DamageIndicator(Vector3 damageDirection) 
+    [Rpc(SendTo.NotServer)]
+    private void Showt2DamageIndicatorRpc(Vector3 damageDirection) 
     {
         t2HitIndicator.DamageLocation = damageDirection;
-        GameObject indicator = Instantiate(t2HitIndicator.gameObject,
-                                           t2HitIndicator.transform.position,
-                                           t2HitIndicator.transform.rotation,
-                                           t2HitIndicator.transform.parent);
-        indicator.SetActive(true);
+        t2HitIndicator.CreateIndicator();
     }
 
     #endregion

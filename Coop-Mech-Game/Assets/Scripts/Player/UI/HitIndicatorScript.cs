@@ -43,4 +43,13 @@ public class HitIndicatorScript : MonoBehaviour
 
         DamageImagePivot.transform.localEulerAngles = new Vector3(0, 0, angle);
     }
+
+    public void CreateIndicator()
+    {
+        GameObject indicator = Instantiate(gameObject,
+                                           transform.position,
+                                           transform.rotation,
+                                           transform.parent);
+        indicator.SetActive(true);
+    }
 }
