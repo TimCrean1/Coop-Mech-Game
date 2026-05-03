@@ -163,11 +163,11 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         if (other.CompareTag("TeamOne"))
         {
-            GameManager.Instance.DamageTeamRpc(1, currentDamage, transform.position);
+            GameManager.Instance.DamageTeamRpc(1, currentDamage, hit.transform.position);
         }
         else if (other.CompareTag("TeamTwo"))
         {
-            GameManager.Instance.DamageTeamRpc(2, currentDamage, transform.position);
+            GameManager.Instance.DamageTeamRpc(2, currentDamage, hit.transform.position);
         }
         else if (other.CompareTag("Target"))
         {

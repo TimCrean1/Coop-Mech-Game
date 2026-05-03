@@ -480,22 +480,24 @@ public class GameManager : NetworkBehaviour
     {
         t1HitIndicator.DamageLocation = damageDirection;
         Debug.Log("Hit from direction!" + damageDirection);
-        GameObject indicator = Instantiate(t1HitIndicator.gameObject,
-                                           t1HitIndicator.transform.position,
-                                           t1HitIndicator.transform.rotation,
-                                           t1HitIndicator.transform.parent);
-        indicator.SetActive(true);
+        t1HitIndicator.CreateIndicator();
+        //GameObject indicator = Instantiate(t1HitIndicator.gameObject,
+        //                                   t1HitIndicator.transform.position,
+        //                                   t1HitIndicator.transform.rotation,
+        //                                   t1HitIndicator.transform.parent);
+        //indicator.SetActive(true);
     }
     [Rpc(SendTo.ClientsAndHost)]
     private void Showt2DamageIndicatorRpc(Vector3 damageDirection) 
     {
         t2HitIndicator.DamageLocation = damageDirection;
         Debug.Log("Hit from direction!" + damageDirection);
-        GameObject indicator = Instantiate(t2HitIndicator.gameObject,
-                                          t2HitIndicator.transform.position,
-                                          t2HitIndicator.transform.rotation,
-                                          t2HitIndicator.transform.parent);
-        indicator.SetActive(true);
+        t2HitIndicator.CreateIndicator();
+        //GameObject indicator = Instantiate(t2HitIndicator.gameObject,
+        //                                  t2HitIndicator.transform.position,
+        //                                  t2HitIndicator.transform.rotation,
+        //                                  t2HitIndicator.transform.parent);
+        //indicator.SetActive(true);
     }
 
     #endregion
