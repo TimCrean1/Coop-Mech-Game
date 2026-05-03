@@ -57,6 +57,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[0].baseCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[0].overlayCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[0].uiCanvas.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[0].indicatorCanvas.gameObject.SetActive(true);
 
         } else if (playerTeam == "Blue")
         {
@@ -64,6 +65,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[1].baseCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[1].overlayCamera.gameObject.SetActive(true);
             GameManager.Instance._playerControllers[1].uiCanvas.gameObject.SetActive(true);
+            GameManager.Instance._playerControllers[1].indicatorCanvas.gameObject.SetActive(true);
         }
 
         

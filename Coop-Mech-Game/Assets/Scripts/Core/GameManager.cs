@@ -475,17 +475,27 @@ public class GameManager : NetworkBehaviour
         t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
         if (t2UIMgr) { t2UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     private void Showt1DamageIndicatorRpc(Vector3 damageDirection)
     {
         t1HitIndicator.DamageLocation = damageDirection;
-        t1HitIndicator.CreateIndicator();
+        Debug.Log("Hit from direction!" + damageDirection);
+        GameObject indicator = Instantiate(t1HitIndicator.gameObject,
+                                           t1HitIndicator.transform.position,
+                                           t1HitIndicator.transform.rotation,
+                                           t1HitIndicator.transform.parent);
+        indicator.SetActive(true);
     }
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     private void Showt2DamageIndicatorRpc(Vector3 damageDirection) 
     {
         t2HitIndicator.DamageLocation = damageDirection;
-        t2HitIndicator.CreateIndicator();
+        Debug.Log("Hit from direction!" + damageDirection);
+        GameObject indicator = Instantiate(t2HitIndicator.gameObject,
+                                          t2HitIndicator.transform.position,
+                                          t2HitIndicator.transform.rotation,
+                                          t2HitIndicator.transform.parent);
+        indicator.SetActive(true);
     }
 
     #endregion
