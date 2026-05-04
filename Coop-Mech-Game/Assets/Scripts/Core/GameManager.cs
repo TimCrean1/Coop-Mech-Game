@@ -364,6 +364,10 @@ public class GameManager : NetworkBehaviour
             {
                 Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
             }
+            if (_playerControllers.Count > 0)
+            {
+                _playerControllers[0].GetAudioManager().PlayDamageClip();
+            }
         }
         else if (teamNumToDamage == 2)
         {
@@ -374,6 +378,10 @@ public class GameManager : NetworkBehaviour
             if (t2HealthScreen != null)
             {
                 Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+            }
+            if (_playerControllers.Count > 1)
+            {
+                _playerControllers[1].GetAudioManager().PlayDamageClip();
             }
         }
 

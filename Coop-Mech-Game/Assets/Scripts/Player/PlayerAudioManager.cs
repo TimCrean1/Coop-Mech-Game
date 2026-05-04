@@ -9,7 +9,9 @@ public class PlayerAudioManager : MonoBehaviour
     [SerializeField] private AudioClip landSound;
     [SerializeField] private AudioClip walkSound;
     [SerializeField] private AudioClip dashSound;
-    // [Header("Combat Audio")]
+    [Header("Combat Audio")]
+    [SerializeField] private AudioSource damageSource;
+    [SerializeField] private AudioClip damageClip;
     // [SerializeField] public AudioSource p1GunSource;
     // [SerializeField] private AudioClip p1GunClip;
     // [SerializeField] public AudioSource p2GunSource;
@@ -64,6 +66,11 @@ public class PlayerAudioManager : MonoBehaviour
 
     #endregion
     #region Combat Audio
+
+    public void PlayDamageClip()
+    {
+        damageSource.PlayOneShot(damageClip);
+    }
 
     // public void SetP1GunClip(AudioClip clip)
     // {

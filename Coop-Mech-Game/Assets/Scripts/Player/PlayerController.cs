@@ -34,6 +34,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private TeamWeaponManager teamWeaponManager;
     [SerializeField] private UtilityManagerScript utilityManager;
     [SerializeField] private UI_Manager uiManager;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
@@ -301,6 +302,11 @@ public class PlayerController : NetworkBehaviour
     public bool GetIsScrambled()
     {
         return isScrambled;
+    }
+
+    public PlayerAudioManager GetAudioManager()
+    {
+        return audioManager;
     }
 
     #endregion
