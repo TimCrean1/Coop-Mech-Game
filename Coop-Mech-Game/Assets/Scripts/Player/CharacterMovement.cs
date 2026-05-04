@@ -17,6 +17,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0.01f, 1)] private float limitVelocityStrength = 0.1f;
 
     [Header("Jumping")]
+    [SerializeField] private bool canHover = false;
     [SerializeField] private float maxVerticalSpeed = 25f;
     [SerializeField] private int maxJumps = 1;
     private int currentJumps = 0;
@@ -360,12 +361,35 @@ public class CharacterMovement : BaseMovement
 
         currentJumps++;
 
-        float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-        adjustedJumpForce *= jumpInput;
+        if (canHover)
+        {
+            // OLD (hover-style) logic
+            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+            adjustedJumpForce *= jumpInput;
 
-        rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+        }
+        else
+        {
+            // NEW (normal jump) logic
+
+            // Reset downward velocity so jumps feel consistent
+            if (rigidbody.linearVelocity.y < 0f)
+            {
+                rigidbody.linearVelocity = new Vector3(
+                    rigidbody.linearVelocity.x,
+                    0f,
+                    rigidbody.linearVelocity.z
+                );
+            }
+
+            // Apply a clean upward impulse
+            float adjustedJumpForce = jumpForce * jumpInput;
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.Impulse);
+        }
 
         canJump = false;
+        // audioManager.PlayJumpSound();
         StartCoroutine(JumpCooldownCoroutine());
     }
 
@@ -425,6 +449,7 @@ public class CharacterMovement : BaseMovement
     private IEnumerator DashCooldownCoroutine()
     {
         Debug.Log("Dash Cooling Down!");
+        audioManager.PlayDashSound();
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }

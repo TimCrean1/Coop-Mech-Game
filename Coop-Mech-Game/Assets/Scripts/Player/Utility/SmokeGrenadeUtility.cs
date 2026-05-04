@@ -58,6 +58,7 @@ public class SmokeGrenadeUtility : BaseUtility
         transform.position = targetPos;
 
         PlayVFX();
+        PlayUtilitySound();
     }
 
     private void PlayVFX()

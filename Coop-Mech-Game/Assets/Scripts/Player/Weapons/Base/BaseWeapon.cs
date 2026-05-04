@@ -27,6 +27,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] public MechScreen ammoCountScreen;
     [SerializeField] public SingleComboScript comboManager;
+    public AudioSource audioSource;
     public AudioClip weaponAudioClip;
 
     [Header("Weapon Stats")]
@@ -115,19 +116,23 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     public virtual void Fire(float mouseDistance) //public because this will be called by weapon manager
     {
-        
-       
-        if (IsOwner) {
+        if (IsOwner)
+        {
             if (!canFire) return;
+
             AdjustDistanceBasedStats(mouseDistance);
+
+            // 🔊 PLAY SOUND HERE (locally, instantly)
+            if (audioSource != null && weaponAudioClip != null)
+            {
+                audioSource.PlayOneShot(weaponAudioClip);
+            }
+
             FireRpc();
             FireEventMethodClientRpc();
-
         }
 
         ChangeAmmoText();
-
-
     }
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);

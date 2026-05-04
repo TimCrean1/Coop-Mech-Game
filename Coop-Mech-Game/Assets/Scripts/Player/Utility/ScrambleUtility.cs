@@ -47,6 +47,8 @@ public class ScrambleUtility : BaseUtility
         {
             Debug.LogWarning("ScrambleUtility: _owningCharacter is null, cannot shoot raycast.");
         }
+
+        PlayUtilitySound();
     }
 
     protected override bool UtilityConditionsMet()
