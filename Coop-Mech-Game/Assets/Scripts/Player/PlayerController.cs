@@ -34,6 +34,7 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private TeamWeaponManager teamWeaponManager;
     [SerializeField] private UtilityManagerScript utilityManager;
     [SerializeField] private UI_Manager uiManager;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
@@ -114,6 +115,15 @@ public class PlayerController : NetworkBehaviour
             if (playerCoroutineManager.TryGetSyncedDash(out Vector2 syncedDashOutput))
             {
                 baseMovement.Dash(syncedDashOutput);
+            }
+
+            if (playerCoroutineManager.TryGetSyncedUtility(out float syncedUtilityInput))
+            {
+                utilityManager.SetUtilActivationSynced(true);
+            }
+            else
+            {
+                utilityManager.SetUtilActivationSynced(false);
             }
         }
     }
@@ -228,11 +238,13 @@ public class PlayerController : NetworkBehaviour
     public void P1UtilityInputServerRpc(float P1UtilityInput)
     {
         utilityManager.P1Utility();
+        playerCoroutineManager.SetP1Utility(P1UtilityInput);
     }
     [Rpc(SendTo.Server)]
     public void P2UtilityInputServerRpc(float P2UtilityInput)
     {
         utilityManager.P2Utility();
+        playerCoroutineManager.SetP2Utility(P2UtilityInput);
     }
 
     [Rpc(SendTo.Server)]
@@ -281,6 +293,20 @@ public class PlayerController : NetworkBehaviour
     public CharacterMovement GetCharacterMovement()
     {
         return gameObject.GetComponent<CharacterMovement>();
+    }
+
+    public void SetScramble(bool value)
+    {
+        isScrambled = value;
+    }
+    public bool GetIsScrambled()
+    {
+        return isScrambled;
+    }
+
+    public PlayerAudioManager GetAudioManager()
+    {
+        return audioManager;
     }
 
     #endregion

@@ -5,6 +5,8 @@ public abstract class BaseUtility : NetworkBehaviour
 {
     [Header("References")]
     [SerializeField] protected UtilityManagerScript utilityManager;
+    public AudioClip utilityAudioClip;
+    public AudioSource audioSource;
 
     [Header("Stats")]
     [SerializeField] protected bool canActivateUtility = true;
@@ -18,5 +20,13 @@ public abstract class BaseUtility : NetworkBehaviour
     public void SetUtilityManager(UtilityManagerScript manager)
     {
         utilityManager = manager;
+    }
+
+    public virtual void PlayUtilitySound()
+    {
+        if (audioSource != null && utilityAudioClip != null)
+        {
+            audioSource.PlayOneShot(utilityAudioClip);
+        }
     }
 }
