@@ -44,6 +44,7 @@ public class ShockwaveUtility : BaseUtility
             }
             // StartCoroutine(UtilityCooldown(utilityCooldownTime));
         }
+        PlayUtilitySound();
     }
 
     protected override bool UtilityConditionsMet()

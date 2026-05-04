@@ -6,58 +6,43 @@ public class SmokeGrenadeUtility : BaseUtility
 {
     [Header("Smoke Settings")]
     [SerializeField] private VisualEffect visualEffect;
-    [SerializeField] private float smokeCooldown = 20f;
     [SerializeField] private float castDistance = 10f;
     [Range(0f, 1f)]
     [SerializeField] private float nandoChance = 0.05f;
 
-    private RaycastHit hit;
-
     private CharacterMovement owningCharacter;
-    private bool isInitialized;
-
-    #region Initialization
+    private RaycastHit hit;
 
     public override void OnNetworkSpawn()
     {
         base.OnNetworkSpawn();
-
         TryInitialize();
     }
 
     private void TryInitialize()
     {
-        // if (utilityManager == null)
-        // {
-        //     Debug.LogWarning($"[{name}] UtilityManager not set yet. Waiting for injection.");
-        //     return;
-        // }
+        // Try UtilityManager first (preferred)
+        if (utilityManager != null)
+        {
+            owningCharacter = utilityManager.GetCharacterMovement();
+        }
 
-        owningCharacter = utilityManager.GetCharacterMovement();
-        isInitialized = owningCharacter != null;
+        // Fallback (VERY important for safety)
+        if (owningCharacter == null)
+        {
+            owningCharacter = GetComponentInParent<CharacterMovement>();
+        }
     }
 
-    public void SetOwningCharacter(CharacterMovement character)
-    {
-        owningCharacter = character;
-        isInitialized = character != null;
-    }
-
-    #endregion
-
-    #region Activation
-
+    [Rpc(SendTo.ClientsAndHost)]
     public override void ActivateUtilityRpc()
     {
-        if (!isInitialized)
-        {
-            TryInitialize();
+        TryInitialize();
 
-            if (!isInitialized)
-            {
-                Debug.LogWarning($"[{name}] SmokeGrenade not initialized properly.");
-                return;
-            }
+        if (owningCharacter == null)
+        {
+            Debug.LogError("SmokeGrenadeUtility: owningCharacter is NULL.");
+            return;
         }
 
         if (!UtilityConditionsMet())
@@ -73,36 +58,27 @@ public class SmokeGrenadeUtility : BaseUtility
         transform.position = targetPos;
 
         PlayVFX();
+        PlayUtilitySound();
     }
 
     private void PlayVFX()
     {
-        float rand = Random.value;
-
         if (visualEffect == null)
         {
             Debug.LogWarning("VisualEffect missing on SmokeGrenadeUtility.");
             return;
         }
 
+        float rand = Random.value;
+
         if (rand <= nandoChance)
-        {
             visualEffect.SendEvent("OnNando");
-        }
         else
-        {
             visualEffect.SendEvent("OnFire");
-        }
     }
-
-    #endregion
-
-    #region Conditions
 
     protected override bool UtilityConditionsMet()
     {
-        return canActivateUtility && owningCharacter != null;
+        return canActivateUtility;
     }
-
-    #endregion
 }

@@ -25,8 +25,9 @@ public class KillhouseEndScript : MonoBehaviour
 
     public void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Player")){
+        if (collision.gameObject.CompareTag("TeamOne")){
             killhouseManager.CompleteTrial();
+            GameManager.Instance.OnRoundEnd.Invoke();
         }
     }
 }

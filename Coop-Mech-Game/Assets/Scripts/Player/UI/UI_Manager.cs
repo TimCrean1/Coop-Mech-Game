@@ -1,15 +1,20 @@
 using System;
+using TMPro;
+using Unity.Netcode;
 using Unity.Services.Lobbies.Models;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Manager : MonoBehaviour
+public class UI_Manager : NetworkBehaviour
 {
     [Header("Object References")]
     [SerializeField] private Image p1Cursor;
     [SerializeField] private Image p2Cursor;
     [SerializeField] private Image averageCursor;
+    [SerializeField] private TextMeshProUGUI countdownText;
+    private bool isCountdownActive = false;
+    private float countdownTime = 3f;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private TeamWeaponManager weaponMgr;
@@ -54,6 +59,7 @@ public class UI_Manager : MonoBehaviour
     {
         playerController = GetComponent<PlayerController>();
         weaponMgr = GetComponent<TeamWeaponManager>();
+        HideCountdown();
 
         //Debug.Log("health index: " + _healthIdx + ", combo index: " + _comboIdx);
     }
@@ -96,6 +102,41 @@ public class UI_Manager : MonoBehaviour
         Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
         weaponMgr.SetScreenRay(ray);
         
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    public void SetCountdownRpc()
+    {
+        if (isCountdownActive) return;
+
+        isCountdownActive = true;
+        countdownTime = 3f;
+        // countdownText.gameObject.SetActive(true);
+        countdownText.text = countdownTime.ToString("F0");
+        InvokeRepeating(nameof(UpdateCountdown), 1f, 1f);
+    }
+
+    private void UpdateCountdown()
+    {
+        if (!isCountdownActive) return;
+
+        countdownTime -= 1f;
+        if (countdownTime <= 0f)
+        {
+            countdownText.text = "";
+            CancelInvoke(nameof(UpdateCountdown));
+            Invoke(nameof(HideCountdown), 1f);
+        }
+        else
+        {
+            countdownText.text = countdownTime.ToString("F0");
+        }
+    }
+
+    private void HideCountdown()
+    {
+        countdownText.text = "";
+        isCountdownActive = false;
     }
 
     public void SetHealthBarPercent(float MechMaxHealth, float MechCurrHealth)

@@ -177,6 +177,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Reload.performed += P1ReloadAction;
             playerInputActions.Player.P1Reload.canceled += P1ReloadAction;
 
+            playerInputActions.Player.P1Countdown.started += P1CountdownAction;
+            playerInputActions.Player.P1Countdown.performed += P1CountdownAction;
+            playerInputActions.Player.P1Countdown.canceled += P1CountdownAction;
+
             playerInputActions.Player.RoundEnd.started += EndRound;
             playerInputActions.Player.RoundEnd.performed += EndRound;
             playerInputActions.Player.RoundEnd.canceled += EndRound;
@@ -209,6 +213,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Utility.started += P2UtilityAction;
             playerInputActions.Player.P2Utility.performed += P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled += P2UtilityAction;
+
+            playerInputActions.Player.P2Countdown.started += P2CountdownAction;
+            playerInputActions.Player.P2Countdown.performed += P2CountdownAction;
+            playerInputActions.Player.P2Countdown.canceled += P2CountdownAction;
 
             playerInputActions.Player.P2Reload.started += P2ReloadAction;
             playerInputActions.Player.P2Reload.performed += P2ReloadAction;
@@ -248,6 +256,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P1Reload.started -= P1ReloadAction;
             playerInputActions.Player.P1Reload.performed -= P1ReloadAction;
             playerInputActions.Player.P1Reload.canceled -= P1ReloadAction;
+
+            playerInputActions.Player.P1Countdown.started -= P1CountdownAction;
+            playerInputActions.Player.P1Countdown.performed -= P1CountdownAction;
+            playerInputActions.Player.P1Countdown.canceled -= P1CountdownAction;
         }
         else if (playerNumber == "Two")
         {
@@ -278,6 +290,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Reload.started -= P2ReloadAction;
             playerInputActions.Player.P2Reload.performed -= P2ReloadAction;
             playerInputActions.Player.P2Reload.canceled -= P2ReloadAction;
+
+            playerInputActions.Player.P2Countdown.started -= P2CountdownAction;
+            playerInputActions.Player.P2Countdown.performed -= P2CountdownAction;
+            playerInputActions.Player.P2Countdown.canceled -= P2CountdownAction;
         }
     }
 #endregion
@@ -413,6 +429,18 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         float isReloading = context.ReadValue<float>();
         playerController.P2ReloadInputServerRpc(isReloading);
+    }
+
+    private void P1CountdownAction(InputAction.CallbackContext context)
+    {
+        // float isStartingCountdown = context.ReadValue<float>();
+        playerController.P1CountdownInputServerRpc();
+    }
+
+    private void P2CountdownAction(InputAction.CallbackContext context)
+    {
+        // float isStartingCountdown = context.ReadValue<float>();
+        playerController.P2CountdownInputServerRpc();
     }
 
     private void EndRound(InputAction.CallbackContext context)

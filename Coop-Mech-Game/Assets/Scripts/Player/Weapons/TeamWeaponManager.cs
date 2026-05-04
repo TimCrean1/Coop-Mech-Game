@@ -25,6 +25,7 @@ public class TeamWeaponManager : NetworkBehaviour
     //[SerializeField] private float staggeredFireTime = 0.25f;
     [SerializeField] private CinemachineImpulseSource shootingImpulseSource;
     [SerializeField] private UtilityManagerScript utilityManager;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     #endregion
 
@@ -199,6 +200,8 @@ public class TeamWeaponManager : NetworkBehaviour
         BaseUtility utility = newUtility.GetComponent<BaseUtility>();
         utility.SetUtilityManager(utilityManager);
 
+        utilityManager.SetPlayerUtility(player, utility);
+
         // Replace locally (server)
         list[0] = utility;
 
@@ -232,6 +235,17 @@ public class TeamWeaponManager : NetworkBehaviour
         BaseWeapon cannon = weapon.GetComponent<BaseWeapon>();
         cannon.ammoCountScreen = (player == 0) ? ammoCountScreenL : ammoCountScreenR;
         cannon.comboManager = comboManager;
+
+        // if (player == 0)
+        // {
+        //     audioManager.SetP1GunClip(cannon.weaponAudioClip);
+        //     audioManager.p1GunSource = cannon.audioSource;
+        // }
+        // else
+        // {
+        //     audioManager.SetP2GunClip(cannon.weaponAudioClip);
+        //     audioManager.p2GunSource = cannon.audioSource;
+        // }
     }
     [Rpc(SendTo.NotServer)]
     private void addUtilityReferencesRpc(int player, ulong netObjId)
@@ -245,20 +259,26 @@ public class TeamWeaponManager : NetworkBehaviour
         }
 
         BaseUtility utility = netObj.GetComponent<BaseUtility>();
-        utility.SetUtilityManager(utilityManager);
 
-        if (utility is SmokeGrenadeUtility smokeGrenade)
+        if (utility == null)
         {
-            var character = GetComponent<CharacterMovement>();
-
-            if (character == null)
-            {
-                Debug.LogWarning("CharacterMovement not found on this object");
-                return;
-            }
-
-            smokeGrenade.SetOwningCharacter(character);
+            Debug.LogWarning("Utility component missing");
+            return;
         }
+
+        utility.SetUtilityManager(utilityManager);
+        utilityManager.SetPlayerUtility(player, utility);
+
+        // if (player == 0)
+        // {
+        //     audioManager.SetP1UtilityClip(utility.utilityAudioClip);
+        //     audioManager.p1UtilitySource = utility.audioSource;
+        // }
+        // else
+        // {
+        //     audioManager.SetP2UtilityClip(utility.utilityAudioClip);
+        //     audioManager.p2UtilitySource = utility.audioSource;
+        // }
     }
 
     #endregion
@@ -429,10 +449,12 @@ public class TeamWeaponManager : NetworkBehaviour
         if (player == 0)
         {
             P1UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+            utilityManager.SetPlayerUtility(player, utility.GetComponent<BaseUtility>());
         }
         else if (player == 1)
         {
             P2UtilitiesList[0] = utility.GetComponent<BaseUtility>();
+            utilityManager.SetPlayerUtility(player, utility.GetComponent<BaseUtility>());
         }
         else
         {
@@ -457,6 +479,7 @@ public class TeamWeaponManager : NetworkBehaviour
             list.Add(null);
 
         list[0] = utility;
+        utilityManager.SetPlayerUtility(player, utility);
     }
 
     public void AppendUtilityToList(int player, GameObject utility)
@@ -484,6 +507,7 @@ public class TeamWeaponManager : NetworkBehaviour
             list.Add(null);
 
         list[0] = utility;
+        utilityManager.SetPlayerUtility(player, utility);
     }
 
     #endregion
@@ -521,11 +545,13 @@ public class TeamWeaponManager : NetworkBehaviour
         {
             P1WeaponsList[_p1EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
+            // audioManager.PlayP1GunSound();
         }
         else if (input == 0.75f) //P2 fire
         {
             P2WeaponsList[_p2EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
+            // audioManager.PlayP2GunSound();
         }
         else if (input == 1f) //Both P1 & P2 fire
         {
@@ -534,6 +560,9 @@ public class TeamWeaponManager : NetworkBehaviour
 
             P2WeaponsList[_p2EquippedWeapon].Fire(mouseDistance);
             shootingImpulseSource.GenerateImpulse();
+
+            // audioManager.PlayP1GunSound();
+            // audioManager.PlayP2GunSound();
         }
 
         shootingImpulseSource.GenerateImpulse();

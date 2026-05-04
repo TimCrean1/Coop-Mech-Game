@@ -12,6 +12,7 @@ public class PlayerCoroutineManager : NetworkBehaviour
     [SerializeField][Range(0.001f, 5)] private float unsyncedMoveMultiplier = 0.15f;
     [SerializeField][Range(0.001f, 2)] private float syncedMoveMultiplier = 1;
     [SerializeField][Range(0.001f, 2)] private float jumpSyncWindow = 0.5f;
+    [SerializeField][Range(0.001f, 2)] private float utilitySyncWindow = 0.5f;
 
     [Header("Time Counters")]
     private float p1MoveTime;
@@ -22,6 +23,8 @@ public class PlayerCoroutineManager : NetworkBehaviour
     private float p2JumpTime;
     private float p1DashTime;
     private float p2DashTime;
+    private float p1UtilityTime;
+    private float p2UtilityTime;
 
     [Header("Input Storage")]
     private Vector2 p1MoveInput;
@@ -34,6 +37,8 @@ public class PlayerCoroutineManager : NetworkBehaviour
     private float p2JumpInput;
     private float p1DashInput;
     private float p2DashInput;
+    private float p1UtilityInput;
+    private float p2UtilityInput;
 
     [Header("Combo Variables")]
     [SerializeField] private SingleComboScript comboManager;
@@ -85,7 +90,16 @@ public class PlayerCoroutineManager : NetworkBehaviour
         p2DashInput = DashInput;
         p2DashTime = Time.time;
     }
-
+    public void SetP1Utility(float UtilityInput)
+    {
+        p1UtilityInput = UtilityInput;
+        p1UtilityTime = Time.time;
+    }
+    public void SetP2Utility(float UtilityInput)
+    {        
+        p2UtilityInput = UtilityInput;
+        p2UtilityTime = Time.time;
+    }
     #endregion
 
     #region Input Retrieval
@@ -294,6 +308,58 @@ public class PlayerCoroutineManager : NetworkBehaviour
 
         return false;
     }
+    #endregion
+
+    #region Utility Activation
+
+    public bool TryGetSyncedUtility(out float syncedUtilityInput)
+    {
+        syncedUtilityInput = 0;
+
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1UtilityTime - p2UtilityTime) <= utilitySyncWindow && Mathf.Approximately(p1UtilityInput, p2UtilityInput))
+        {
+            // Inputs are synced
+            syncedUtilityInput = (p1UtilityInput + p2UtilityInput) * 0.5f;
+
+            if (syncedUtilityInput != 0) comboManager.AddPointsRpc(syncedUtilityScore);
+
+            // Reset times so it only triggers once
+            p1UtilityTime = -1;
+            p2UtilityTime = -1;
+
+            return true;
+        }
+        else if (p1UtilityInput > 0 && p2UtilityInput <= 0)
+        {
+            syncedUtilityInput = 0.5f;
+
+            p1UtilityTime = -1;
+            p2UtilityTime = -1;
+            return true;
+        }
+        else if (p1UtilityInput <= 0 && p2UtilityInput > 0)
+        {
+            syncedUtilityInput = 0.5f;
+
+            p1UtilityTime = -1;
+            p2UtilityTime = -1;
+            return true;
+        }
+        else if (Mathf.Abs(p1UtilityTime - p2UtilityTime) >= utilitySyncWindow && p1UtilityInput == 1 && p2UtilityInput == 1)
+        {
+            // Inputs are synced
+            syncedUtilityInput = (p1UtilityInput + p2UtilityInput) * 0.5f;
+
+            // Reset times so it only triggers once
+            p1UtilityTime = -1;
+            p2UtilityTime = -1;
+            return true;
+        }
+
+        return false;
+    }
+
     #endregion
     #endregion
 }

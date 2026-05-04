@@ -17,6 +17,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField][Range(0.01f, 1)] private float limitVelocityStrength = 0.1f;
 
     [Header("Jumping")]
+    [SerializeField] private bool canHover = false;
     [SerializeField] private float maxVerticalSpeed = 25f;
     [SerializeField] private int maxJumps = 1;
     private int currentJumps = 0;
@@ -67,6 +68,7 @@ public class CharacterMovement : BaseMovement
 
     [Header("Misc")]
     private bool isBeingKnockedBack = false;
+    [SerializeField] private PlayerAudioManager audioManager;
 
     #endregion
 
@@ -253,6 +255,13 @@ public class CharacterMovement : BaseMovement
     /// </summary>
     private void CharacterLook()
     {
+        #region Turning SFX
+        // Value from 0 to 1 based on lookInput distance from center (0.5, 0.5)
+        float lookInputMagnitude = Mathf.Clamp01(Vector2.Distance(lookInput, new Vector2(0.5f, 0.5f)) / 0.7071f); // 0.7071 is max distance in [0,1] range
+        audioManager.turningSource.volume = lookInputMagnitude;
+        audioManager.turningSource.pitch = 0.75f + lookInputMagnitude * 0.5f;
+        #endregion
+
         // Clamp look input to defined min/max values
         lookInput.x = Mathf.Clamp(lookInput.x, lookClampMin, lookClampMax);
         lookInput.y = Mathf.Clamp(lookInput.y, lookClampMin, lookClampMax);
@@ -356,12 +365,35 @@ public class CharacterMovement : BaseMovement
 
         currentJumps++;
 
-        float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
-        adjustedJumpForce *= jumpInput;
+        if (canHover)
+        {
+            // OLD (hover-style) logic
+            float adjustedJumpForce = jumpForce - rigidbody.linearVelocity.y;
+            adjustedJumpForce *= jumpInput;
 
-        rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.VelocityChange);
+        }
+        else
+        {
+            // NEW (normal jump) logic
+
+            // Reset downward velocity so jumps feel consistent
+            if (rigidbody.linearVelocity.y < 0f)
+            {
+                rigidbody.linearVelocity = new Vector3(
+                    rigidbody.linearVelocity.x,
+                    0f,
+                    rigidbody.linearVelocity.z
+                );
+            }
+
+            // Apply a clean upward impulse
+            float adjustedJumpForce = jumpForce * jumpInput;
+            rigidbody.AddForce(Vector3.up * adjustedJumpForce, ForceMode.Impulse);
+        }
 
         canJump = false;
+        // audioManager.PlayJumpSound();
         StartCoroutine(JumpCooldownCoroutine());
     }
 
@@ -421,6 +453,7 @@ public class CharacterMovement : BaseMovement
     private IEnumerator DashCooldownCoroutine()
     {
         Debug.Log("Dash Cooling Down!");
+        audioManager.PlayDashSound();
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
