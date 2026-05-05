@@ -122,7 +122,6 @@ public abstract class BaseWeapon : NetworkBehaviour
 
             AdjustDistanceBasedStats(mouseDistance);
 
-            // 🔊 PLAY SOUND HERE (locally, instantly)
             if (audioSource != null && weaponAudioClip != null)
             {
                 audioSource.PlayOneShot(weaponAudioClip);
@@ -191,7 +190,9 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
         }
 
-        
+        if (audioSource != null && weaponAudioClip != null)        {
+            audioSource.PlayOneShot(weaponAudioClip);
+        }
         BuildCooldown();
     }
     protected virtual void BuildCooldown()
