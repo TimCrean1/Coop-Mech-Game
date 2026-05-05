@@ -140,6 +140,9 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
+        if (audioSource != null && weaponAudioClip != null){
+            audioSource.PlayOneShot(weaponAudioClip);
+        }
     }
     protected virtual void ChangeAmmoText()
     {
@@ -190,9 +193,6 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
         }
 
-        if (audioSource != null && weaponAudioClip != null)        {
-            audioSource.PlayOneShot(weaponAudioClip);
-        }
         BuildCooldown();
     }
     protected virtual void BuildCooldown()
