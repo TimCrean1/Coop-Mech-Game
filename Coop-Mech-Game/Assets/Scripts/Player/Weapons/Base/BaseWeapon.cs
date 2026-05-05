@@ -96,8 +96,8 @@ public abstract class BaseWeapon : NetworkBehaviour
         // reset everything to do with weapons in this function
         if(!IsServer) { return; }
         ResetAmmoRpc();
-        StartCoroutine(CooldownRotuine());
-        
+        PlayCooldownClientRpc();
+
     }
 
     [Rpc(SendTo.Server)]
@@ -207,11 +207,11 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         if (other.CompareTag("TeamOne"))
         {
-            GameManager.Instance.DamageTeamRpc(1, currentDamage);
+            GameManager.Instance.DamageTeamRpc(1, currentDamage, hit.transform.position);
         }
         else if (other.CompareTag("TeamTwo"))
         {
-            GameManager.Instance.DamageTeamRpc(2, currentDamage);
+            GameManager.Instance.DamageTeamRpc(2, currentDamage, hit.transform.position);
         }
         else if (other.CompareTag("Target"))
         {
@@ -251,19 +251,35 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected virtual void ActivateCooldown()
     {
-        if(isCooldownOn == false)
-        {
-            isCooldownOn = true;
-            StartCoroutine(CooldownRotuine());
-        }
-    }
+        // properly either calls the visuals only (if client), or calls cooldown logic (if host/server)
+        if (!IsServer || isCooldownOn) return;
 
+        isCooldownOn = true;
+
+        PlayCooldownClientRpc(); // visuals
+        StartCoroutine(ServerCooldownLogic());
+    }
+    private IEnumerator ServerCooldownLogic()
+    {
+
+        // just for gun logic, NOT visuals
+        yield return new WaitForSeconds(cooldownTime);
+
+        SetAmmoRpc(ammo);
+        canFire = true;
+        isCooldownOn = false;
+    }
     protected virtual IEnumerator FireRateRoutine(float fireRate)
     {
         yield return new WaitForSeconds(fireRate);
         canFire = true;
     }
 
+    [Rpc(SendTo.ClientsAndHost)]
+    private void PlayCooldownClientRpc()
+    {
+        StartCoroutine(CooldownRotuine());
+    }
     public void Reload()
     {
         canFire = false;
@@ -278,7 +294,7 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         ammoCountScreen.ChangeText("-..", false);
 
-        yield return new WaitForSeconds(cooldownTime*0.25f);
+        yield return new WaitForSeconds(cooldownTime * 0.25f);
 
         ammoCountScreen.ChangeText("--.", false);
 
@@ -288,6 +304,10 @@ public abstract class BaseWeapon : NetworkBehaviour
 
         yield return new WaitForSeconds(cooldownTime * 0.25f);
 
+        //if (IsServer)
+        //{
+        //    SetAmmoRpc(ammo);
+        //}
         if (IsServer)
         {
             if (isReloading)
@@ -301,8 +321,8 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
         }
         //ammoCount.Value = ammo;
-        canFire = true;
-        isCooldownOn = false;
+        //canFire = true;
+        //isCooldownOn = false;
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
         //Debug.Log("cooldown end");
     }

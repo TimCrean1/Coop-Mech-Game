@@ -27,9 +27,24 @@ public class AuthenticateUI : MonoBehaviour {
         //    Debug.LogWarning("AuthenticationService not yet initialized, most likely just started game");
         //}
     }
+    private async void Start()
+    {
+        await UnityServices.InitializeAsync();
 
+        if (AuthenticationService.Instance.IsSignedIn)
+        {
+            Hide();
+        }
+        else
+        {
+            Show();
+        }
+    }
     private void Hide() {
         gameObject.SetActive(false);
     }
-
+    private void Show()
+{
+    gameObject.SetActive(true);
+}
 }

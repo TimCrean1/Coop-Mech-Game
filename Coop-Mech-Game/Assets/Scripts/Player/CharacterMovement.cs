@@ -305,6 +305,10 @@ public class CharacterMovement : BaseMovement
 
             //get target rotation
             Quaternion targetYaw = Quaternion.LookRotation(direction);
+            //transform.rotation = Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime);
+
+            //make intermediate cursor that the camera tries to look at, intermediate cursor slerps towards target rotation
+            rigidbody.MoveRotation(Quaternion.Slerp(transform.rotation, targetYaw, newHRotRate * Time.deltaTime));
 
             //get difference between our target and current rotations
             Quaternion delta = targetYaw * Quaternion.Inverse(transform.rotation);
