@@ -477,6 +477,7 @@ public class CharacterMovement : BaseMovement
     #region Knockback
     public void ApplyKnockback(Vector3 forceVec, float knockbackForce, float duration = 1)
     {
+        Debug.Log("Applying Knockback with force: " + forceVec * knockbackForce);
         forceVec.Normalize();
         rigidbody.AddForce(forceVec * knockbackForce, ForceMode.Impulse);
         StartCoroutine(KnockbackCoroutine(duration));

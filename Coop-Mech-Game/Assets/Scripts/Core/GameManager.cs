@@ -58,6 +58,11 @@ public class GameManager : NetworkBehaviour
 
     NetworkVariable<int> currRound = new NetworkVariable<int>();
 
+    public int GetCurrentRound()
+    {
+        return currRound.Value;
+    }
+
     #endregion
 
 
@@ -65,6 +70,7 @@ public class GameManager : NetworkBehaviour
 
     private bool roundOver = false;
     private int maxRounds = 3;
+    public int getMaxRounds() { return maxRounds; }
     private int lobbyMaxPlayers;
 
     public int playerScore = 0;

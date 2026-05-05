@@ -177,7 +177,15 @@ public class ShopManager : MonoBehaviour
         displayedItemObjects.Clear();
 
         nextRoundButton.enabled = true;
-        if (!limitToOneRound){
+        if (GameManager.Instance.GetCurrentRound() >= GameManager.Instance.getMaxRounds())
+        {
+            var specialItems = allItems.FindAll(i => i.itemType == ItemType.Special && i.playerID == playerData.Item1);
+            foreach (ShopItemSO item in specialItems)
+            {
+                displayedItems.Add(item);
+            }
+        }
+        else if (!limitToOneRound){
             if (round == CurrentBuyRound.Weapons)
             {
                 // foreach (ShopItemSO item in allItems)
