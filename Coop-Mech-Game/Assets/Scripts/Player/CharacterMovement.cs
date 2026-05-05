@@ -453,7 +453,7 @@ public class CharacterMovement : BaseMovement
     private IEnumerator DashCooldownCoroutine()
     {
         Debug.Log("Dash Cooling Down!");
-        audioManager.PlayDashSound();
+        audioManager.PlayDashSoundClientRpc();
         yield return new WaitForSeconds(dashCooldown);
         canDash = true;
     }
