@@ -53,7 +53,8 @@ public class PlayerAudioManager : NetworkBehaviour
         Debug.Log("Playing Land Sound");
     }
 
-    public void PlayWalkSound()
+    [Rpc(SendTo.ClientsAndHost)]
+    public void PlayWalkSoundClientRpc()
     {
         moveSource.PlayOneShot(walkSound);
         Debug.Log("Playing Walk Sound");

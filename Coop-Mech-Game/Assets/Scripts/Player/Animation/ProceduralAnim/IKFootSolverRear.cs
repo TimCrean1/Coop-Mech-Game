@@ -19,6 +19,7 @@ public class IKFootSolverRear : MonoBehaviour
     float lerp;
     Ray ray;
     Rigidbody rb;
+    public PlayerAudioManager audioManager;
 
 
     private void Start()
@@ -51,6 +52,14 @@ public class IKFootSolverRear : MonoBehaviour
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
                 newPosition = info.point + (-body.transform.forward * stepLength * direction) + (footOffset);
+                if (audioManager != null)
+                {
+                    audioManager.PlayWalkSoundClientRpc();
+                }
+                else
+                {
+                    Debug.Log("Stomp");
+                }
                 newNormal = info.normal;
             }
         }
