@@ -7848,6 +7848,11 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 4078205311
       objectReference: {fileID: 0}
+    - target: {fileID: 777945624748393649, guid: d4e294d188adc4543ab78306e42bb004,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1110307106174362958, guid: d4e294d188adc4543ab78306e42bb004,
         type: 3}
       propertyPath: m_Name
@@ -8013,7 +8018,9 @@ PrefabInstance:
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 4078205311
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 777945624748393649, guid: d4e294d188adc4543ab78306e42bb004, type: 3}
+    - {fileID: 4489848960643085023, guid: d4e294d188adc4543ab78306e42bb004, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
