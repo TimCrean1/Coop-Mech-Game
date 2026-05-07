@@ -28,8 +28,8 @@ public class WeaponSniper : BaseWeapon
             }
         }
 
-        if (t1dmg > 0f) { GameManager.Instance.DamageTeamRpc(1, t1dmg); }
-        if (t2dmg > 0f) { GameManager.Instance.DamageTeamRpc(2, t2dmg); }
+        if (t1dmg > 0f) { GameManager.Instance.DamageTeamRpc(1, t1dmg, transform.position); }
+        if (t2dmg > 0f) { GameManager.Instance.DamageTeamRpc(2, t2dmg, transform.position); }
 
         BuildCooldown();
     }
