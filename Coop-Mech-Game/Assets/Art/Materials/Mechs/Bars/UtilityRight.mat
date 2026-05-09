@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: AmmoBar
+  m_Name: UtilityRight
   m_Shader: {fileID: -6465566751694194690, guid: be9263926e1a477468718d4f97884a43,
     type: 3}
   m_Parent: {fileID: 0}
@@ -118,7 +118,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _IsHorizontal: 0
+    - _IsHorizontal: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
@@ -136,7 +136,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BarEmptyColor: {r: 0, g: 0, b: 0, a: 1}
-    - _BarFullColor: {r: 0.96981126, g: 0.5223972, b: 0.14455667, a: 1}
+    - _BarFullColor: {r: 1, g: 0.3651321, b: 0.13333333, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
