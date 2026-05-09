@@ -320,11 +320,21 @@ public class ShopManager : MonoBehaviour
         }
         else if (currentBuyRound == CurrentBuyRound.Weapons)
         {
+            // If only one round is allowed, close immediately
+            if (limitToOneRound)
+            {
+                currentBuyRound = CurrentBuyRound.Closed;
+
+                CloseShop();
+                ShopNetworking.Instance.CloseShopClientRpc();
+                return;
+            }
+
             currentBuyRound = CurrentBuyRound.Utilities;
         }
         else
         {
-            currentBuyRound = CurrentBuyRound.Weapons;
+            currentBuyRound = CurrentBuyRound.Closed;
 
             CloseShop();
             ShopNetworking.Instance.CloseShopClientRpc();
