@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class ShockwaveUtility : BaseUtility
@@ -10,13 +11,40 @@ public class ShockwaveUtility : BaseUtility
     [SerializeField] private float minDistanceFromGround = 3f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        if (utilityManager == null)
-        {
-            Debug.LogError("UtilityManager reference is not set in the inspector.");
-        }
-    }
+    // void Start()
+    // {
+    //     if (utilityManager == null)
+    //     {
+    //         Debug.LogError("UtilityManager reference is not set in the inspector.");
+    //     }
+    // }
+
+    // public override void OnNetworkSpawn()
+    // {
+    //     base.OnNetworkSpawn();
+    //     // TryInitialize();
+    //     StartCoroutine(DelayedInitialize());
+    // }
+
+    // private IEnumerator DelayedInitialize()
+    // {
+    //     yield return null;
+    //     TryInitialize();
+    // }
+
+    // private void TryInitialize()
+    // {
+    //     // Try UtilityManager first (preferred)
+    //     if (utilityManager != null)
+    //     {
+    //         _owningCharacter = utilityManager.GetCharacterMovement();
+    //     }
+
+    //     if (_owningCharacter == null)
+    //     {
+    //         Debug.LogError("ShockwaveUtility: _owningCharacter is NULL after trying UtilityManager.");
+    //     }
+    // }
 
     public override void ActivateUtilityRpc()
     {
