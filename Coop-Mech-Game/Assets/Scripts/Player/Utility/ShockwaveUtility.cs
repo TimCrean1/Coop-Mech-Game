@@ -83,6 +83,7 @@ public class ShockwaveUtility : BaseUtility
                     transform.position,
                     shockwaveKnockbackForce
                 );
+                Debug.Log($"ShockwaveUtility: Applied knockback to {hitCollider.gameObject.name}.");
             }
             else
             {

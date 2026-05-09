@@ -415,16 +415,48 @@ public class CharacterMovement : BaseMovement
         }
     }
 
-    /// <summary>
-    /// Applies a downward force to the character to quickly return them to the ground. 
-    /// Used by utilities that require the player to be grounded.
-    /// </summary>
+    private bool returningToGround = false;
+    private Coroutine returnToGroundCoroutine;
+
     public void ReturnToGround()
     {
-        if (!isGrounded)
+        if (returningToGround || isGrounded)
+            return;
+
+        returnToGroundCoroutine = StartCoroutine(ReturnToGroundCoroutine());
+    }
+
+    private IEnumerator ReturnToGroundCoroutine()
+    {
+        returningToGround = true;
+
+        while (!isGrounded)
         {
-            rigidbody.AddForce(Vector3.down * 10f, ForceMode.VelocityChange);
+            // Remove upward momentum
+            if (rigidbody.linearVelocity.y > 0f)
+            {
+                rigidbody.linearVelocity = new Vector3(
+                    rigidbody.linearVelocity.x,
+                    0f,
+                    rigidbody.linearVelocity.z
+                );
+            }
+
+            // Push player downward
+            rigidbody.AddForce(Vector3.down * 40f, ForceMode.Acceleration);
+
+            yield return new WaitForFixedUpdate();
         }
+
+        // Stop vertical velocity once grounded
+        rigidbody.linearVelocity = new Vector3(
+            rigidbody.linearVelocity.x,
+            0f,
+            rigidbody.linearVelocity.z
+        );
+
+        returningToGround = false;
+        returnToGroundCoroutine = null;
     }
 
     #endregion
