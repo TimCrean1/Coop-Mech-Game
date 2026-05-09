@@ -17,6 +17,7 @@ public class ShockwaveUtility : BaseUtility
 
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayerMask; // LayerMask for ground detection
+    [SerializeField] private CharacterMovement owningCharacter; // Reference to the owning character's movement component
 
     /// <summary>
     /// Activates the shockwave utility, applying knockback to enemies in range if conditions are met.
@@ -24,6 +25,8 @@ public class ShockwaveUtility : BaseUtility
     [Rpc(SendTo.ClientsAndHost)]
     public override void ActivateUtilityRpc()
     {
+        owningCharacter = utilityManager.GetCharacterMovement();
+
         // Check if the utility can be activated
         if (!canActivateUtility)
         {
@@ -38,9 +41,6 @@ public class ShockwaveUtility : BaseUtility
             return;
         }
 
-        // Get the owning character's movement component
-        CharacterMovement owningCharacter = utilityManager.GetCharacterMovement();
-
         if (owningCharacter == null)
         {
             Debug.LogError("ShockwaveUtility: Owning character is NULL.");
@@ -52,7 +52,7 @@ public class ShockwaveUtility : BaseUtility
 
         // Find all colliders within the shockwave radius on the PlayerExterior layer
         Collider[] hitColliders = Physics.OverlapSphere(
-            transform.position,
+            owningCharacter.transform.position,
             shockwaveRadius,
             LayerMask.GetMask("PlayerExterior")
         );
@@ -61,13 +61,13 @@ public class ShockwaveUtility : BaseUtility
         foreach (Collider hitCollider in hitColliders)
         {
             // Ignore self
-            if (hitCollider.gameObject == gameObject)
+            if (hitCollider.gameObject == owningCharacter.gameObject)
                 continue;
 
             // Determine if the hit object is an enemy based on team tags
             bool isEnemy =
-                (CompareTag("TeamOne") && hitCollider.CompareTag("TeamTwo")) ||
-                (CompareTag("TeamTwo") && hitCollider.CompareTag("TeamOne"));
+                (owningCharacter.CompareTag("TeamOne") && hitCollider.CompareTag("TeamTwo")) ||
+                (owningCharacter.CompareTag("TeamTwo") && hitCollider.CompareTag("TeamOne"));
 
             if (!isEnemy)
                 continue;
@@ -80,7 +80,7 @@ public class ShockwaveUtility : BaseUtility
             {
                 // Apply knockback to the enemy
                 targetMovement.ApplyKnockback(
-                    transform.position,
+                    owningCharacter.transform.position,
                     shockwaveKnockbackForce
                 );
                 Debug.Log($"ShockwaveUtility: Applied knockback to {hitCollider.gameObject.name}.");
@@ -105,8 +105,13 @@ public class ShockwaveUtility : BaseUtility
     protected override bool UtilityConditionsMet()
     {
         // Raycast down to check if the player is near the ground
+        if (owningCharacter == null)
+        {
+            return false;
+        }
+
         bool nearGround = Physics.Raycast(
-            transform.position,
+            owningCharacter.transform.position,
             Vector3.down,
             minDistanceFromGround,
             groundLayerMask
@@ -126,7 +131,10 @@ public class ShockwaveUtility : BaseUtility
     /// </summary>
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawWireSphere(transform.position, shockwaveRadius);
+        if (owningCharacter != null)
+        {
+            Gizmos.color = Color.cyan;
+            Gizmos.DrawWireSphere(owningCharacter.transform.position, shockwaveRadius);
+        }
     }
 }
