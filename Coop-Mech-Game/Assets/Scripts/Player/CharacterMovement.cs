@@ -418,6 +418,8 @@ public class CharacterMovement : BaseMovement
     private bool returningToGround = false;
     private Coroutine returnToGroundCoroutine;
 
+    [SerializeField] private float returnToGroundSpeed = 20f;
+
     public void ReturnToGround()
     {
         if (returningToGround || isGrounded)
@@ -432,28 +434,13 @@ public class CharacterMovement : BaseMovement
 
         while (!isGrounded)
         {
-            // Remove upward momentum
-            if (rigidbody.linearVelocity.y > 0f)
-            {
-                rigidbody.linearVelocity = new Vector3(
-                    rigidbody.linearVelocity.x,
-                    0f,
-                    rigidbody.linearVelocity.z
-                );
-            }
+            Vector3 newPosition =
+                rigidbody.position + Vector3.down * returnToGroundSpeed * Time.fixedDeltaTime;
 
-            // Push player downward
-            rigidbody.AddForce(Vector3.down * 40f, ForceMode.Acceleration);
+            rigidbody.MovePosition(newPosition);
 
             yield return new WaitForFixedUpdate();
         }
-
-        // Stop vertical velocity once grounded
-        rigidbody.linearVelocity = new Vector3(
-            rigidbody.linearVelocity.x,
-            0f,
-            rigidbody.linearVelocity.z
-        );
 
         returningToGround = false;
         returnToGroundCoroutine = null;
