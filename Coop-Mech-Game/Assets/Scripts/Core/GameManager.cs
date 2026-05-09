@@ -69,7 +69,7 @@ public class GameManager : NetworkBehaviour
     #region Private Runtime State
 
     private bool roundOver = false;
-    private int maxRounds = 3;
+    [SerializeField] private int maxRounds = 3;
     public int getMaxRounds() { return maxRounds; }
     private int lobbyMaxPlayers;
 
@@ -168,7 +168,7 @@ public class GameManager : NetworkBehaviour
     {
         roundOver = true;
 
-        if (_teamTwoWins.Value >= 1 || _teamOneWins.Value >= 1)
+        if (_teamTwoWins.Value >= maxRounds || _teamOneWins.Value >= maxRounds)
         {
             
 

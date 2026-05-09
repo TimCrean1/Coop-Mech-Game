@@ -136,7 +136,7 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
         if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
