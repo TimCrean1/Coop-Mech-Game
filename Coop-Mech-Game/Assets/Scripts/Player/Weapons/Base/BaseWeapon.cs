@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using Unity.VisualScripting;
@@ -34,6 +35,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private WeaponType weaponType;
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 30;
+    [Tooltip("Tick this true if the raycast method used for the weapon returns an array of hit points")]
+    [SerializeField] private bool isMultiShot = false;
     [SerializeField] protected float baseFireRate = 1f;
     [SerializeField] protected float cooldownTime = 1.0f;
     [SerializeField] protected float damage = 50;
@@ -57,12 +60,15 @@ public abstract class BaseWeapon : NetworkBehaviour
     private bool canFire = true;
     private bool isCooldownOn = false;
     protected RaycastHit hit;
-    private WeaponMuzzle muzzleComp;
+    protected List<RaycastHit> hits = new List<RaycastHit>();
+    protected WeaponMuzzle muzzleComp;
+
 
     public float FireRate { get { return baseFireRate; } }
     public Transform Muzzle { get { return muzzle; } }
     public float AmmoCount {  get { return ammoCount.Value; } }
     public bool CanWeaponFire { get { return canFire; } }
+    public bool IsMultiShotWeapon {  get { return isMultiShot; } }
 
    
     private void Start()
@@ -93,6 +99,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         PlayCooldownClientRpc();
 
     }
+
     [Rpc(SendTo.Server)]
     private void SetAmmoRpc(int ammo)
     {
@@ -100,6 +107,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         // ammoCount.Value = 0;
         ammoCount.Value = ammoCount.Value + ammo;
     }
+
     [Rpc(SendTo.Server)]
     private void ResetAmmoRpc()
     {
@@ -137,11 +145,41 @@ public abstract class BaseWeapon : NetworkBehaviour
 
     protected abstract void AdjustDistanceBasedStats(float mouseDistance);
 
-    [Rpc(SendTo.NotServer)]
+
+
+    [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp) { muzzleComp.SendFireEvent(hit); }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
+        else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    protected virtual void RaycastInConeClientRpc(int numPellets, float maxRange, float spreadHalfAngle)
+    {
+        ///this should be the same between all clients, unfortunately is is also the same between shots
+        hits.Clear();
+        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, maxRange, spreadHalfAngle);
+
+        //Debug.Log(hits == null ? "Hits is null base weapon raycast cone client rpc" : $"Hits is not null, hit count: {hits.Count}");
+
+        //for (int i = 0; i < hits.Count; i++)
+        //{
+        //    Debug.Log("WeaponShotgun: hit point " + i + " is: " + hits[i].point);
+        //}
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    protected virtual void SequentialRaycastClientRpc(int maxBounceCount, float maxCastDistance, float castBounceMult)
+    {
+        hits = VectorExtensions.SequentialRaycast(Muzzle.transform.position, Muzzle.transform.forward, maxCastDistance, maxBounceCount, castBounceMult);
+        //hit = hits[0];
+        //for(int i = 0; i < hits.Count; i++)
+        //{
+        //    Debug.Log("WeaponSniper: hit point " + i + " is: " + hits[i].point);
+        //}
+    }
+
     protected virtual void ChangeAmmoText()
     {
         ammoCountScreen.ChangeText(ammoCount.Value.ToString(), false);
@@ -181,15 +219,16 @@ public abstract class BaseWeapon : NetworkBehaviour
             other.GetComponent<KillhouseEnemy>().DeactivateRpc();
         }
 
-        if (weaponType == WeaponType.Shotgun)
-        {
-            CharacterMovement characterMovement = other.GetComponent<CharacterMovement>();
-            if (!characterMovement.GetIsBeingKnockedBack())
-            {
-                Vector3 c = characterMovement.transform.position;
-                characterMovement.ApplyKnockback(c.GetDirectionFromVectors(transform.position), currentKnockback);
-            }
-        }
+        ///this is real bad and should be in WeaponShotgun class anyways
+        //if (weaponType == WeaponType.Shotgun)
+        //{
+        //    CharacterMovement characterMovement = other.GetComponent<CharacterMovement>();
+        //    if (!characterMovement.GetIsBeingKnockedBack())
+        //    {
+        //        Vector3 c = characterMovement.transform.position;
+        //        characterMovement.ApplyKnockback(c.GetDirectionFromVectors(transform.position), currentKnockback);
+        //    }
+        //}
 
         
         BuildCooldown();
