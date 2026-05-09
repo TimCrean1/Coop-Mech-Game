@@ -18,6 +18,15 @@ public class ShockwaveUtility : BaseUtility
     [Header("Ground Check")]
     [SerializeField] private LayerMask groundLayerMask; // LayerMask for ground detection
     [SerializeField] private CharacterMovement owningCharacter; // Reference to the owning character's movement component
+    
+    private void FixedUpdate()
+    {
+        // Only update position if owningCharacter is assigned
+        if (owningCharacter != null)
+        {
+            gameObject.transform.position = owningCharacter.transform.position;
+        }
+    }
 
     /// <summary>
     /// Activates the shockwave utility, applying knockback to enemies in range if conditions are met.
@@ -56,6 +65,15 @@ public class ShockwaveUtility : BaseUtility
             shockwaveRadius,
             LayerMask.GetMask("PlayerExterior")
         );
+
+        if (hitColliders.Length == 0)
+        {
+            Debug.Log("ShockwaveUtility: No players hit by shockwave.");
+        }
+        else
+        {
+            Debug.Log($"ShockwaveUtility: {hitColliders.Length} player(s) hit by shockwave.");
+        }
 
         // Iterate through all hit colliders
         foreach (Collider hitCollider in hitColliders)
