@@ -10,6 +10,33 @@ public class ScrambleUtility : BaseUtility
     [SerializeField] private CharacterMovement _owningCharacter;
     [SerializeField] private PlayerController hitPlayerController;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        // TryInitialize();
+        StartCoroutine(DelayedInitialize());
+    }
+
+    private IEnumerator DelayedInitialize()
+    {
+        yield return null;
+        TryInitialize();
+    }
+
+    private void TryInitialize()
+    {
+        // Try UtilityManager first (preferred)
+        if (utilityManager != null)
+        {
+            _owningCharacter = utilityManager.GetCharacterMovement();
+        }
+
+        if (_owningCharacter == null)
+        {
+            Debug.LogError("ScrambleUtility: _owningCharacter is NULL after trying UtilityManager.");
+        }
+    }
+
     [Rpc(SendTo.ClientsAndHost)]
     public override void ActivateUtilityRpc()
     {

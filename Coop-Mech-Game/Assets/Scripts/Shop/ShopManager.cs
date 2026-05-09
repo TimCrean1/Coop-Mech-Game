@@ -28,7 +28,7 @@ public class ShopManager : MonoBehaviour
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons;
     [SerializeField] private bool limitToOneRound = false;
-    [SerializeField][Range(0,3)] private float itemsPerRound = 1;
+    [SerializeField][Range(0,10)] private int itemsPerRound = 1;
     [SerializeField] public List<ShopItemSO> allItems;
 
     private List<ShopItemSO> displayedItems;
