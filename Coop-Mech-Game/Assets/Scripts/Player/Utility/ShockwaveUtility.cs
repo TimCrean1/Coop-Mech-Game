@@ -9,7 +9,7 @@ using Unity.Netcode;
 public class ShockwaveUtility : BaseUtility
 {
     [Header("Shockwave Utility Stats")]
-    [SerializeField] private float shockwaveRadius = 5f; // The radius of the shockwave effect
+    [SerializeField] private float shockwaveRadius = 25f; // The radius of the shockwave effect
     [SerializeField] private float shockwaveKnockbackForce = 10f; // The force applied to enemies
 
     [Header("Shockwave Conditions")]
