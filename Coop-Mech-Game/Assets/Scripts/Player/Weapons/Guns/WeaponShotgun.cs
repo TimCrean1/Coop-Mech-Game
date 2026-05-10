@@ -6,18 +6,18 @@ public class WeaponShotgun : BaseWeapon
 {
     [Header("Shotgun Variables")]
     [SerializeField] private int numPellets = 8;
-    [SerializeField] private float spreadHalfAngle = 30f;
-    private List<RaycastHit> hits = new List<RaycastHit>();
+    [SerializeField] private float spreadHalfAngle = 18f;
+    [SerializeField] private float maxRange = 70f;
+    //private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
     {
         float t1dmg = 0f;
         float t2dmg = 0f;
 
-        hits = VectorExtensions.MultipleRaycastInCone(Muzzle.position, Muzzle.forward, Muzzle.up, numPellets, spreadHalfAngle);
-
         foreach(var hit in hits)
         {
+
             // Debug.Log(hit);
             if (hit.collider.gameObject.CompareTag("TeamOne"))
             {
@@ -29,17 +29,30 @@ public class WeaponShotgun : BaseWeapon
             }
         }
 
-        GameManager.Instance.DamageTeamRpc(1, t1dmg, transform.position);
-        GameManager.Instance.DamageTeamRpc(2, t2dmg, transform.position);
+        if(t1dmg > 0f) { GameManager.Instance.DamageTeamRpc(1, t1dmg, transform.position); }
+        if(t2dmg > 0f) { GameManager.Instance.DamageTeamRpc(2, t2dmg, transform.position); }
 
         BuildCooldown();
     }
 
     public override void Fire(float mouseDistance)
     {
-        base.Fire(mouseDistance);
+        if (IsOwner)
+        {
+            if (!CanWeaponFire) return;
+            //Debug.Log("Fire() in weapon shotgun");
+
+            AdjustDistanceBasedStats(mouseDistance);
+
+            RaycastInConeClientRpc(numPellets, maxRange, spreadHalfAngle);
+            FireRpc();
+            FireEventMethodClientRpc();
+        }
+
+        ChangeAmmoText();
     }
-    
+
+
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
         currentKnockback = baseKnockbackForce * mouseDistance;
