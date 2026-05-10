@@ -37,7 +37,8 @@ public class LobbyMechSway : MonoBehaviour
 
         if (isRotating)
         {
-            head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, 0.05f);
+            //head.transform.rotation = Quaternion.Lerp(head.transform.rotation, targetRotation, lerpStep);
+            head.transform.rotation = Quaternion.Slerp(head.transform.rotation, targetRotation, lerpStep);
 
             if (Quaternion.Angle(head.transform.rotation, targetRotation) < 0.5f)
             {
