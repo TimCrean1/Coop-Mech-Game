@@ -470,14 +470,14 @@ public class GameManager : NetworkBehaviour
 
     #region UI Updates
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     private void Changet1HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         //t1HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
         if (t1UIMgr) { t1UIMgr.SetHealthBarPercent(MechMaxHealth, MechCurrHealth); }
     }
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.ClientsAndHost)]
     private void Changet2HealthTextClientRpc(float MechMaxHealth, float MechCurrHealth)
     {
         //t2HealthScreen.ChangeText(((MechCurrHealth / MechMaxHealth) * 100f).ToString(), false);
