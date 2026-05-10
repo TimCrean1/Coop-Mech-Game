@@ -1,7 +1,8 @@
 using Unity.VisualScripting;
+using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerAudioManager : MonoBehaviour
+public class PlayerAudioManager : NetworkBehaviour
 {
     [Header("Movement Audio")]
     [SerializeField] private AudioSource moveSource;
@@ -52,13 +53,15 @@ public class PlayerAudioManager : MonoBehaviour
         Debug.Log("Playing Land Sound");
     }
 
-    public void PlayWalkSound()
+    [Rpc(SendTo.ClientsAndHost)]
+    public void PlayWalkSoundClientRpc()
     {
         moveSource.PlayOneShot(walkSound);
         Debug.Log("Playing Walk Sound");
     }
-
-    public void PlayDashSound()
+    
+    [Rpc(SendTo.ClientsAndHost)]
+    public void PlayDashSoundClientRpc()
     {
         moveSource.PlayOneShot(dashSound);
         Debug.Log("Playing Dash Sound");

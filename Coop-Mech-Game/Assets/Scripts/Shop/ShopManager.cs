@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 #region Enums
 public enum CurrentBuyRound
@@ -25,10 +26,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Button nextRoundButton;
     [SerializeField] private TextMeshProUGUI readyPlayersText;
+    [SerializeField] private int maxPlayers;
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons;
     [SerializeField] private bool limitToOneRound = false;
-    [SerializeField][Range(0,3)] private float itemsPerRound = 1;
+    [SerializeField][Range(0,10)] private int itemsPerRound = 1;
     [SerializeField] public List<ShopItemSO> allItems;
 
     private List<ShopItemSO> displayedItems;
@@ -107,7 +109,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateReadyText(int count)
     {
-        readyPlayersText.text = $"{count}/4 Players Ready";
+        readyPlayersText.text = $"{count}/{maxPlayers} Players Ready";
     }
 
     public void TriggerRoundChange()
@@ -170,14 +172,22 @@ public class ShopManager : MonoBehaviour
             playerData = new Tuple<int, PlayerController>(0, null);
         }
 
-        readyPlayersText.text = "0/4 Players Ready";
+        readyPlayersText.text = $"0/{maxPlayers} Players Ready";
 
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
         displayedItemObjects.Clear();
 
         nextRoundButton.enabled = true;
-        if (!limitToOneRound){
+        if (GameManager.Instance.GetCurrentRound() >= GameManager.Instance.getMaxRounds())
+        {
+            var specialItems = allItems.FindAll(i => i.itemType == ItemType.Special && i.playerID == playerData.Item1);
+            foreach (ShopItemSO item in specialItems)
+            {
+                displayedItems.Add(item);
+            }
+        }
+        else if (!limitToOneRound){
             if (round == CurrentBuyRound.Weapons)
             {
                 // foreach (ShopItemSO item in allItems)
@@ -195,6 +205,7 @@ public class ShopManager : MonoBehaviour
                     var randomWeapon = weaponItems[UnityEngine.Random.Range(0, weaponItems.Count)];
                     displayedItems.Add(randomWeapon);
                     weaponItems.Remove(randomWeapon);
+                    Debug.Log($"Name: {randomWeapon.itemName} Prefab: {randomWeapon.itemPrefab.name}. Index: {randomWeapon.itemIndex}");
                 }
             }
             else if (round == CurrentBuyRound.Utilities)
@@ -213,7 +224,9 @@ public class ShopManager : MonoBehaviour
                     var randomUtility = utilityItems[UnityEngine.Random.Range(0, utilityItems.Count)];
                     displayedItems.Add(randomUtility);
                     utilityItems.Remove(randomUtility);
+                    Debug.Log($"Name: {randomUtility.itemName} Prefab: {randomUtility.itemPrefab.name}. Index: {randomUtility.itemIndex}");
                 }
+
             }
         }
         else
@@ -223,6 +236,7 @@ public class ShopManager : MonoBehaviour
                 if (item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
+                    Debug.Log($"Name: {item.itemName} Prefab: {item.itemPrefab.name}. Index: {item.itemIndex}");
                 }
             }
         }
@@ -312,11 +326,21 @@ public class ShopManager : MonoBehaviour
         }
         else if (currentBuyRound == CurrentBuyRound.Weapons)
         {
+            // If only one round is allowed, close immediately
+            if (limitToOneRound)
+            {
+                currentBuyRound = CurrentBuyRound.Closed;
+
+                CloseShop();
+                ShopNetworking.Instance.CloseShopClientRpc();
+                return;
+            }
+
             currentBuyRound = CurrentBuyRound.Utilities;
         }
         else
         {
-            currentBuyRound = CurrentBuyRound.Weapons;
+            currentBuyRound = CurrentBuyRound.Closed;
 
             CloseShop();
             ShopNetworking.Instance.CloseShopClientRpc();
@@ -327,5 +351,16 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
     }
 
+    #endregion
+
+    #region Getters and Setters
+    public int GetMaxPlayers()
+    {
+        return maxPlayers;
+    }
+    public void SetMaxPlayers(int num)
+    {
+        maxPlayers = num;
+    }
     #endregion
 }

@@ -130,7 +130,6 @@ public abstract class BaseWeapon : NetworkBehaviour
 
             AdjustDistanceBasedStats(mouseDistance);
 
-            // 🔊 PLAY SOUND HERE (locally, instantly)
             if (audioSource != null && weaponAudioClip != null)
             {
                 audioSource.PlayOneShot(weaponAudioClip);
@@ -150,6 +149,9 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
+        if (audioSource != null && weaponAudioClip != null){
+            audioSource.PlayOneShot(weaponAudioClip);
+        }
         if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
@@ -219,18 +221,16 @@ public abstract class BaseWeapon : NetworkBehaviour
             other.GetComponent<KillhouseEnemy>().DeactivateRpc();
         }
 
-        ///this is real bad and should be in WeaponShotgun class anyways
-        //if (weaponType == WeaponType.Shotgun)
-        //{
-        //    CharacterMovement characterMovement = other.GetComponent<CharacterMovement>();
-        //    if (!characterMovement.GetIsBeingKnockedBack())
-        //    {
-        //        Vector3 c = characterMovement.transform.position;
-        //        characterMovement.ApplyKnockback(c.GetDirectionFromVectors(transform.position), currentKnockback);
-        //    }
-        //}
+        if (weaponType == WeaponType.Shotgun)
+        {
+            CharacterMovement characterMovement = other.GetComponent<CharacterMovement>();
+            if (!characterMovement.GetIsBeingKnockedBack())
+            {
+                Vector3 c = characterMovement.transform.position;
+                characterMovement.ApplyKnockback(c.GetDirectionFromVectors(transform.position), currentKnockback);
+            }
+        }
 
-        
         BuildCooldown();
     }
     protected virtual void BuildCooldown()

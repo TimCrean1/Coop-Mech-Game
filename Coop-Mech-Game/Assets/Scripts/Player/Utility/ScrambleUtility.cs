@@ -10,6 +10,33 @@ public class ScrambleUtility : BaseUtility
     [SerializeField] private CharacterMovement _owningCharacter;
     [SerializeField] private PlayerController hitPlayerController;
 
+    public override void OnNetworkSpawn()
+    {
+        base.OnNetworkSpawn();
+        // TryInitialize();
+        StartCoroutine(DelayedInitialize());
+    }
+
+    private IEnumerator DelayedInitialize()
+    {
+        yield return null;
+        TryInitialize();
+    }
+
+    private void TryInitialize()
+    {
+        // Try UtilityManager first (preferred)
+        if (utilityManager != null)
+        {
+            _owningCharacter = utilityManager.GetCharacterMovement();
+        }
+
+        if (_owningCharacter == null)
+        {
+            Debug.LogError("ScrambleUtility: _owningCharacter is NULL after trying UtilityManager.");
+        }
+    }
+
     [Rpc(SendTo.ClientsAndHost)]
     public override void ActivateUtilityRpc()
     {
@@ -27,10 +54,22 @@ public class ScrambleUtility : BaseUtility
             RaycastHit hit;
             if (Physics.Raycast(origin, direction, out hit, rayDistance))
             {
-                if (hit.collider.GetComponent<PlayerController>() != null)
+                // if (hit.collider.GetComponent<PlayerController>() != null)
+                // {
+                //     Debug.Log("ScrambleUtility hit a player! Applying scramble effect.");
+                //     hitPlayerController = hit.collider.GetComponent<PlayerController>();
+                //     StartCoroutine(ApplyScrambleEffect());
+                // }
+                if (hit.collider.CompareTag("TeamOne"))
                 {
-                    Debug.Log("ScrambleUtility hit a player! Applying scramble effect.");
-                    hitPlayerController = hit.collider.GetComponent<PlayerController>();
+                    hitPlayerController = GameManager.Instance._playerControllers[0];
+                    hitPlayerController.SetScramble(true);
+                    StartCoroutine(ApplyScrambleEffect());
+                }
+                else if (hit.collider.CompareTag("TeamTwo"))
+                {
+                    hitPlayerController = GameManager.Instance._playerControllers[1];
+                    hitPlayerController.SetScramble(true);
                     StartCoroutine(ApplyScrambleEffect());
                 }
                 else
@@ -58,15 +97,19 @@ public class ScrambleUtility : BaseUtility
             Debug.LogError("ScrambleUtility: utilityManager is NULL.");
             return false;
         }
-        else if (utilityManager.IsUtilityActivationSynced())
-        {
-            Debug.Log("ScrambleUtility: Utility activation is synced. Activating immediately.");
-            return true;
-        }
+        // else if (utilityManager.IsUtilityActivationSynced())
+        // {
+        //     Debug.Log("ScrambleUtility: Utility activation is synced. Activating immediately.");
+        //     return true;
+        // }
+        // else
+        // {
+        //     Debug.Log("ScrambleUtility: Utility activation is not synced. Not activating utility.");
+        //     return false;
+        // }
         else
         {
-            Debug.Log("ScrambleUtility: Utility activation is not synced. Not activating utility.");
-            return false;
+            return true;
         }
     }
 
