@@ -3358,8 +3358,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0, y: -6.01}
-  m_SizeDelta: {x: 0, y: 12.03}
+  m_AnchoredPosition: {x: 0, y: -6.01}
+  m_SizeDelta: {x: 23.3, y: 26.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &595595370
 MonoBehaviour:
@@ -5612,7 +5612,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 302}
-  m_SizeDelta: {x: 355.7624, y: 44.4556}
+  m_SizeDelta: {x: 325.9, y: 44.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1025753721
 MonoBehaviour:
@@ -6377,9 +6377,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3275604381656473942, guid: 8a2917d3ce187824fad93ad7e3795753,
         type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 68d4720b129473e44846e3d025fe166f,
+        type: 2}
+    - target: {fileID: 3275604381656473942, guid: 8a2917d3ce187824fad93ad7e3795753,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 28
       objectReference: {fileID: 0}
+    - target: {fileID: 3275604381656473942, guid: 8a2917d3ce187824fad93ad7e3795753,
+        type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 1475390108747915408, guid: 68d4720b129473e44846e3d025fe166f,
+        type: 2}
     - target: {fileID: 3275604381764842377, guid: 8a2917d3ce187824fad93ad7e3795753,
         type: 3}
       propertyPath: m_fontSize
@@ -6650,6 +6662,12 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3275604382789076918, guid: 8a2917d3ce187824fad93ad7e3795753,
+        type: 3}
+      propertyPath: m_GlobalFontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 68d4720b129473e44846e3d025fe166f,
+        type: 2}
     - target: {fileID: 3275604382789076919, guid: 8a2917d3ce187824fad93ad7e3795753,
         type: 3}
       propertyPath: m_SizeDelta.x
