@@ -494,19 +494,47 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Knockback
-    public void ApplyKnockback(Vector3 forceVec, float knockbackForce, float duration = 1)
+    private Coroutine knockbackCoroutine;
+
+    public void ApplyKnockback(Vector3 sourcePosition, float knockbackForce, float duration = 1f)
     {
-        Debug.Log("Applying Knockback with force: " + forceVec * knockbackForce);
-        forceVec.Normalize();
-        rigidbody.AddForce(forceVec * knockbackForce, ForceMode.Impulse);
-        StartCoroutine(KnockbackCoroutine(duration));
+        // Direction AWAY from source
+        Vector3 knockbackDirection = (transform.position - sourcePosition).normalized;
+
+        if (knockbackCoroutine != null)
+        {
+            StopCoroutine(knockbackCoroutine);
+        }
+
+        knockbackCoroutine = StartCoroutine(
+            KnockbackCoroutine(knockbackDirection, knockbackForce, duration)
+        );
     }
 
-    private IEnumerator KnockbackCoroutine(float duration)
+    private IEnumerator KnockbackCoroutine(
+        Vector3 direction,
+        float force,
+        float duration
+    )
     {
         isBeingKnockedBack = true;
-        yield return new WaitForSeconds(duration);
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            Vector3 movement =
+                direction * force * Time.fixedDeltaTime;
+
+            rigidbody.MovePosition(rigidbody.position + movement);
+
+            elapsed += Time.fixedDeltaTime;
+
+            yield return new WaitForFixedUpdate();
+        }
+
         isBeingKnockedBack = false;
+        knockbackCoroutine = null;
     }
 
     public bool GetIsBeingKnockedBack()

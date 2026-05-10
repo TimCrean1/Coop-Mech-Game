@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
 using Unity.Netcode;
+using Unity.VisualScripting;
 
 #region Enums
 public enum CurrentBuyRound
@@ -25,6 +26,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Button nextRoundButton;
     [SerializeField] private TextMeshProUGUI readyPlayersText;
+    [SerializeField] private int maxPlayers;
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons;
     [SerializeField] private bool limitToOneRound = false;
@@ -107,7 +109,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateReadyText(int count)
     {
-        readyPlayersText.text = $"{count}/4 Players Ready";
+        readyPlayersText.text = $"{count}/{maxPlayers} Players Ready";
     }
 
     public void TriggerRoundChange()
@@ -170,7 +172,7 @@ public class ShopManager : MonoBehaviour
             playerData = new Tuple<int, PlayerController>(0, null);
         }
 
-        readyPlayersText.text = "0/4 Players Ready";
+        readyPlayersText.text = $"0/{maxPlayers} Players Ready";
 
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -345,5 +347,16 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
     }
 
+    #endregion
+
+    #region Getters and Setters
+    public int GetMaxPlayers()
+    {
+        return maxPlayers;
+    }
+    public void SetMaxPlayers(int num)
+    {
+        maxPlayers = num;
+    }
     #endregion
 }
