@@ -101,7 +101,7 @@ public class ShockwaveUtility : BaseUtility
             targetMovement.ApplyKnockback(
                 owningCharacter.transform.position,
                 shockwaveKnockbackForce
-            );
+            ); 
 
             Debug.Log($"ShockwaveUtility: Applied knockback to {targetMovement.gameObject.name}.");
         }
