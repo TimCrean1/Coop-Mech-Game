@@ -4047,6 +4047,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7318092780998912692}
+  - component: {fileID: 1091837618511526773}
   m_Layer: 0
   m_Name: WeaponPointTwo
   m_TagString: TeamOne
@@ -4069,6 +4070,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5410657862263588852}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.185}
+--- !u!114 &1091837618511526773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389565339702629982}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 2378890549
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &3431269366167711820
 GameObject:
   m_ObjectHideFlags: 0
@@ -4589,7 +4615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 359017269
+  GlobalObjectIdHash: 117147381
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -4976,12 +5002,9 @@ GameObject:
   - component: {fileID: 7594674067440219324}
   - component: {fileID: 5896746272729023525}
   - component: {fileID: 6962723691817818162}
-  - component: {fileID: 5029256552023541952}
   - component: {fileID: 9182145967457460236}
   - component: {fileID: 2546134113119178398}
-  - component: {fileID: 8164874992984555182}
   - component: {fileID: 8570350743131225385}
-  - component: {fileID: 6243874841229267554}
   m_Layer: 8
   m_Name: SpiderMech
   m_TagString: TeamOne
@@ -5045,33 +5068,6 @@ MonoBehaviour:
   - m_Rig: {fileID: 2862960853795498755}
     m_Active: 1
   m_Effectors: []
---- !u!54 &5029256552023541952
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117379163095567091}
-  serializedVersion: 5
-  m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!114 &9182145967457460236
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,7 +5080,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2198100926
+  GlobalObjectIdHash: 2397846805
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -5143,23 +5139,6 @@ MonoBehaviour:
   SwitchTransformSpaceWhenParented: 0
   Interpolate: 1
   SlerpPosition: 0
---- !u!114 &8164874992984555182
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117379163095567091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f6c0be61502bb534f922ebb746851216, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkRigidbody
-  ShowTopMostFoldoutHeaderGroup: 1
-  NetworkRigidbodyBaseExpanded: 0
-  UseRigidBodyForMotion: 1
-  AutoUpdateKinematicState: 1
-  AutoSetKinematicOnDespawn: 1
 --- !u!65 &8570350743131225385
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5181,22 +5160,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 8.061392, z: 1}
   m_Center: {x: 0, y: 4.008054, z: 0}
---- !u!114 &6243874841229267554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4117379163095567091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c21f1f87a2ea2a449cc7d337f871d5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::simpleController
-  controller: {fileID: 5029256552023541952}
-  cam: {fileID: 0}
-  speed: 1000
-  turnSmoothTime: 0.1
 --- !u!1 &4144838075173546548
 GameObject:
   m_ObjectHideFlags: 0
@@ -7549,7 +7512,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 241680246
+  GlobalObjectIdHash: 1691716894
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -10042,7 +10005,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2820303382
+  GlobalObjectIdHash: 3134382113
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -10668,6 +10631,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2913363924886142029}
+  - component: {fileID: 2815977085428823921}
   m_Layer: 0
   m_Name: WeaponPointOne
   m_TagString: TeamOne
@@ -10690,6 +10654,31 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5410657862263588852}
   m_LocalEulerAnglesHint: {x: 0.079, y: -0.011, z: 45.88}
+--- !u!114 &2815977085428823921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611329731264210245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
+  GlobalObjectIdHash: 4133631241
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  DeferredDespawnTick: 0
+  Ownership: 1
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+  SyncOwnerTransformWhenParented: 1
+  AllowOwnerToParent: 0
 --- !u!1 &8808795600650523224
 GameObject:
   m_ObjectHideFlags: 0
@@ -10761,7 +10750,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1528068326
+  GlobalObjectIdHash: 2121092769
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -11527,7 +11516,7 @@ PrefabInstance:
     - target: {fileID: 3368943823719920450, guid: 981191dc31157984aa999f51d8d87c54,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3150155118
+      value: 2661399363
       objectReference: {fileID: 0}
     - target: {fileID: 3368943823719920450, guid: 981191dc31157984aa999f51d8d87c54,
         type: 3}
@@ -11597,7 +11586,7 @@ PrefabInstance:
     - target: {fileID: 6022966174362407555, guid: 981191dc31157984aa999f51d8d87c54,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3290832929
+      value: 1462083873
       objectReference: {fileID: 0}
     - target: {fileID: 6022966174362407555, guid: 981191dc31157984aa999f51d8d87c54,
         type: 3}
