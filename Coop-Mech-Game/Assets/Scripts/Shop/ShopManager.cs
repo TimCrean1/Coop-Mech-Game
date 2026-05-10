@@ -185,7 +185,6 @@ public class ShopManager : MonoBehaviour
             foreach (ShopItemSO item in specialItems)
             {
                 displayedItems.Add(item);
-                Debug.Log($"Name: {item.itemName} Prefab: {item.itemPrefab.name}. Index: {item.itemIndex}");
             }
         }
         else if (!limitToOneRound){
@@ -206,6 +205,7 @@ public class ShopManager : MonoBehaviour
                     var randomWeapon = weaponItems[UnityEngine.Random.Range(0, weaponItems.Count)];
                     displayedItems.Add(randomWeapon);
                     weaponItems.Remove(randomWeapon);
+                    Debug.Log($"Name: {randomWeapon.itemName} Prefab: {randomWeapon.itemPrefab.name}. Index: {randomWeapon.itemIndex}");
                 }
             }
             else if (round == CurrentBuyRound.Utilities)
@@ -224,7 +224,9 @@ public class ShopManager : MonoBehaviour
                     var randomUtility = utilityItems[UnityEngine.Random.Range(0, utilityItems.Count)];
                     displayedItems.Add(randomUtility);
                     utilityItems.Remove(randomUtility);
+                    Debug.Log($"Name: {randomUtility.itemName} Prefab: {randomUtility.itemPrefab.name}. Index: {randomUtility.itemIndex}");
                 }
+
             }
         }
         else
@@ -234,6 +236,7 @@ public class ShopManager : MonoBehaviour
                 if (item.playerID == playerData.Item1)
                 {
                     displayedItems.Add(item);
+                    Debug.Log($"Name: {item.itemName} Prefab: {item.itemPrefab.name}. Index: {item.itemIndex}");
                 }
             }
         }
