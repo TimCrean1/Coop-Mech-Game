@@ -28,6 +28,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] public MechScreen ammoCountScreen;
     [SerializeField] public SingleComboScript comboManager;
+    [SerializeField] public Animator animator;
     public AudioSource audioSource;
     public AudioClip weaponAudioClip;
 
@@ -150,7 +151,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); animator.SetBool("isShooting", true); }
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
 

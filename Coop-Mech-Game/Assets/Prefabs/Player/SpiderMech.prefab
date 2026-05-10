@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2510743658545594962}
   - component: {fileID: 3476207688180544021}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondary_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +152,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1255910080299789097}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FLIKC_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7494358533596600594}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -216,9 +216,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2994662126298189678}
   - component: {fileID: 1083034558155628639}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryJoint_FL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -349,6 +349,144 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.017717779, y: -0.0010313778, z: 0.01767707}
     m_Extent: {x: 0.0029561264, y: 0.0019271546, z: 0.0029306822}
   m_DirtyAABB: 0
+--- !u!1 &315791712842690813
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2246581051258034673}
+  - component: {fileID: 2658839067254543282}
+  - component: {fileID: 1321290836376546537}
+  m_Layer: 15
+  m_Name: Ammo Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2246581051258034673
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315791712842690813}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1051790465830903481}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2658839067254543282
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315791712842690813}
+  m_CullTransparentMesh: 1
+--- !u!114 &1321290836376546537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315791712842690813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 10
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 68d4720b129473e44846e3d025fe166f, type: 2}
+  m_sharedMaterial: {fileID: 1475390108747915408, guid: 68d4720b129473e44846e3d025fe166f,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281677109
+  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.89
+  m_fontSizeBase: 0.89
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 4
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: -0.013165534, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &339941409096330157
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,9 +497,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4160209585345810542}
   - component: {fileID: 4904316433399924320}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomCyl_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,7 +639,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3862449987536704736}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -535,7 +673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1576734094519477693}
   - component: {fileID: 4126356551002555197}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -585,9 +723,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5122995345750215538}
   - component: {fileID: 5019484284773995685}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopHyd_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -727,7 +865,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2539495914970611188}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_twist_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -759,7 +897,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6998056242014058269}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RLIKC_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -791,9 +929,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8181458436861490062}
   - component: {fileID: 2587123707349074384}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomCyl_FL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -934,9 +1072,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3723022019275928146}
   - component: {fileID: 3748598875362100503}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBracket_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1076,7 +1214,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8889312068637901951}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1109,7 +1247,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8853828199003588917}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FLIKC_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1142,7 +1280,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4775832780659548361}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1175,9 +1313,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6841659284719292181}
   - component: {fileID: 7070713190419985987}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackRightLeg
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1233,7 +1371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8247753432943363472}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontLeftLeg_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1265,9 +1403,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8497577076442945259}
   - component: {fileID: 6072067503037530878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMainArmor_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1408,9 +1546,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6760156340229008555}
   - component: {fileID: 2592215204020901811}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryJoint_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1550,7 +1688,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6267265254276620228}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FRIKC_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1581,7 +1719,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 182138412834552486}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontRightLeg_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1613,9 +1751,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5149475083383455870}
   - component: {fileID: 1730907124975271878}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopCyl_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1756,9 +1894,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1727611063025808589}
   - component: {fileID: 5547398658606679592}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: MechBody
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1899,9 +2037,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8480296321526535050}
   - component: {fileID: 8508037521287375243}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sensors
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2042,7 +2180,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7053792327388075826}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FRIKC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2075,9 +2213,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4949274172585597434}
   - component: {fileID: 1637799382998775258}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMainArmor_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2218,9 +2356,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7255777557650512453}
   - component: {fileID: 7444063038280586501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopHyd_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2361,9 +2499,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3121232666581543762}
   - component: {fileID: 243645993040678493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBracket_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2504,9 +2642,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5631699488360944923}
   - component: {fileID: 3884781105829008356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryJoint_FR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2646,7 +2784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5144475765210087870}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_lower_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2680,7 +2818,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4838436116317391493}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2711,7 +2849,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6640085415737457841}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2742,7 +2880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1807723648541025967}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2774,7 +2912,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3065868200444628663}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2807,7 +2945,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6867786399697016654}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2838,7 +2976,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7511464767145609432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_lower_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2873,9 +3011,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3961335062830287504}
   - component: {fileID: 8991094400037900332}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryArmor_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3015,7 +3153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4567319271183713483}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3047,7 +3185,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4885021340128810986}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RLIKC_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3081,9 +3219,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7014926879336624232}
   - component: {fileID: 2066023823522151108}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopCyl_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3224,9 +3362,9 @@ GameObject:
   m_Component:
   - component: {fileID: 953814233443519456}
   - component: {fileID: 8499896296688891659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SideTubes
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3367,7 +3505,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5440492692609531105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RLIKC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3399,7 +3537,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7603186915732116557}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3431,7 +3569,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 823874555302907910}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_twist_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3463,7 +3601,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6353665616348487480}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3496,9 +3634,9 @@ GameObject:
   m_Component:
   - component: {fileID: 385563462805205306}
   - component: {fileID: 1796676834380782717}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryJoint_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3638,7 +3776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1643656049272069640}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3669,7 +3807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5163773999217119545}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3700,7 +3838,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2701155186341436572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3734,9 +3872,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7741877638376473539}
   - component: {fileID: 7291791898219972874}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryArmor_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3876,7 +4014,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9147677849101591138}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FRIKC_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3900,6 +4038,37 @@ Transform:
   - {fileID: 6267265254276620228}
   m_Father: {fileID: 7053792327388075826}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3389565339702629982
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7318092780998912692}
+  m_Layer: 0
+  m_Name: WeaponPointTwo
+  m_TagString: TeamOne
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7318092780998912692
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389565339702629982}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0.36799893, w: 0.92982626}
+  m_LocalPosition: {x: 2.371, y: 1.661, z: 0.47999942}
+  m_LocalScale: {x: 1.0526316, y: 1.0526316, z: 1.0526316}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5410657862263588852}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -43.185}
 --- !u!1 &3431269366167711820
 GameObject:
   m_ObjectHideFlags: 0
@@ -3909,7 +4078,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3811437128697448597}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +4111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 124642434999046843}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_foot_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3976,9 +4145,9 @@ GameObject:
   m_Component:
   - component: {fileID: 263727372907505296}
   - component: {fileID: 9118139308519349984}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegFoot_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4118,7 +4287,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8130685691582403571}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4151,9 +4320,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6275124525023036986}
   - component: {fileID: 5140349659873897313}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMainArmor_BR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4293,7 +4462,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2119515347941711279}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_upper_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4327,7 +4496,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5428736617297406105}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4361,7 +4530,7 @@ GameObject:
   - component: {fileID: 1949382280841367569}
   - component: {fileID: 3370495565128322997}
   - component: {fileID: 3151499112843657152}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackLeftLeg_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4420,8 +4589,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 169914821
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 359017269
+  InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -4488,7 +4657,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8024459081789267418}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4520,9 +4689,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7733025670122113384}
   - component: {fileID: 2773635943192169056}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBracket_BR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4663,9 +4832,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4926474828636093561}
   - component: {fileID: 5489496986779199586}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomHyd_BL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4813,9 +4982,9 @@ GameObject:
   - component: {fileID: 8164874992984555182}
   - component: {fileID: 8570350743131225385}
   - component: {fileID: 6243874841229267554}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpiderMech
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4835,6 +5004,7 @@ Transform:
   m_Children:
   - {fileID: 6881043934143353743}
   - {fileID: 3280158906447165232}
+  - {fileID: 5410657862263588852}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5896746272729023525
@@ -4914,8 +5084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 3358355716
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2198100926
+  InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -5036,7 +5206,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3483898703383075827}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5070,9 +5240,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1699555879687650844}
   - component: {fileID: 616527863658905268}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondary_BL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5212,9 +5382,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3555526490357882319}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: main
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5249,7 +5419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5239172974274727049}
   - component: {fileID: 8050555126957793219}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5298,7 +5468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4437327160279563146}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5330,9 +5500,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8726727600447783208}
   - component: {fileID: 385811241793520356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMain_BL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5473,7 +5643,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1920888208167435432}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_twist_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5505,7 +5675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2422503218554812577}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5538,9 +5708,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3340596798770533486}
   - component: {fileID: 6107880547824929516}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondary_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5680,7 +5850,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8966183776848878998}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5714,9 +5884,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6021095064731582138}
   - component: {fileID: 6908682759418707769}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopCyl_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5856,7 +6026,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2375903755565678175}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5887,7 +6057,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3992459041436240168}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackRightLeg_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5919,7 +6089,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3459845189482818909}
   - component: {fileID: 1141431588179577408}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontRightLeg_blend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5974,7 +6144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6446497260815733046}
   - component: {fileID: 3939708995420821837}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontLeftLeg_blend
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6019,6 +6189,144 @@ MonoBehaviour:
     m_RotationWeight: 0.5
     m_MaintainPositionOffsets: 0
     m_MaintainRotationOffsets: 0
+--- !u!1 &5091595354682252920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8593446630009929937}
+  - component: {fileID: 1439884611442761205}
+  - component: {fileID: 4164857096547145494}
+  m_Layer: 15
+  m_Name: Ammo Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8593446630009929937
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091595354682252920}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5718613065326263067}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1439884611442761205
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091595354682252920}
+  m_CullTransparentMesh: 1
+--- !u!114 &4164857096547145494
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5091595354682252920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 10
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 68d4720b129473e44846e3d025fe166f, type: 2}
+  m_sharedMaterial: {fileID: 1475390108747915408, guid: 68d4720b129473e44846e3d025fe166f,
+    type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4281677109
+  m_fontColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 0.89
+  m_fontSizeBase: 0.89
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 4
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_characterHorizontalScale: 1
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_TextWrappingMode: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 0
+  m_ActiveFontFeatures: 6e72656b
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_EmojiFallbackSupport: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: -0.013165534, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5320918627428062022
 GameObject:
   m_ObjectHideFlags: 0
@@ -6028,7 +6336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6479295156249513538}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6052,6 +6360,122 @@ Transform:
   - {fileID: 6258760470114441915}
   m_Father: {fileID: 6326034824089044255}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5457544831239848940
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1051790465830903481}
+  - component: {fileID: 477636498035722630}
+  - component: {fileID: 1068226765363582560}
+  - component: {fileID: 6381614499358907518}
+  - component: {fileID: 8778822586597212525}
+  m_Layer: 15
+  m_Name: AmmoCountCanvas (1)
+  m_TagString: TeamOne
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1051790465830903481
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457544831239848940}
+  m_LocalRotation: {x: 0.33436042, y: 0.19159846, z: -0.06307446, w: 0.92060566}
+  m_LocalPosition: {x: 0, y: 0, z: 0.0070023537}
+  m_LocalScale: {x: 0.31171578, y: 0.31171584, z: 0.31171584}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 2246581051258034673}
+  m_Father: {fileID: 5387782279991708699}
+  m_LocalEulerAnglesHint: {x: 39.777, y: 23.837, z: 0.894}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.0010001659, y: 0.018001199}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &477636498035722630
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457544831239848940}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &1068226765363582560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457544831239848940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!114 &6381614499358907518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457544831239848940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &8778822586597212525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5457544831239848940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechScreen
+  textToChange: {fileID: 1321290836376546537}
 --- !u!1 &5492349670220848130
 GameObject:
   m_ObjectHideFlags: 0
@@ -6062,9 +6486,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1450857257578590872}
   - component: {fileID: 2883121326548382172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackLeftLeg
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6121,9 +6545,9 @@ GameObject:
   m_Component:
   - component: {fileID: 92888773756560970}
   - component: {fileID: 7103464294608754214}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegCenter
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6263,7 +6687,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4438365418905363716}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RRIKC_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6296,7 +6720,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1304185975089051385}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.R_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6327,7 +6751,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6258760470114441915}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6359,9 +6783,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2132999331949250376}
   - component: {fileID: 8016058989441203463}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontLeftLeg
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6418,7 +6842,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 968428767229987193}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_twist_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6451,9 +6875,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4796763320929323800}
   - component: {fileID: 6378889812570097530}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopHyd_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6593,7 +7017,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4058256827736464292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6626,9 +7050,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1109188824040880979}
   - component: {fileID: 9000108808273639932}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: WeaponBracket
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6768,7 +7192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2832794643529062598}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_thigh_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6803,9 +7227,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8508374172932232371}
   - component: {fileID: 4562426178821124494}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegFootJoint_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6945,7 +7369,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6152435968770142292}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_foot_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6978,9 +7402,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6881043934143353743}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Armature
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7063,7 +7487,7 @@ GameObject:
   - component: {fileID: 7594193759761375716}
   - component: {fileID: 6763796303144256128}
   - component: {fileID: 4098585358707822802}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontLeftLeg_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7125,8 +7549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 590768202
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 241680246
+  InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -7194,9 +7618,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2851425081755623202}
   - component: {fileID: 338442989353326093}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomCyl_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7336,7 +7760,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4245491428735738649}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7368,7 +7792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1592484868157470766}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7402,9 +7826,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8630628567628323464}
   - component: {fileID: 3761350501438900699}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomCyl_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7545,9 +7969,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3866150957105555979}
   - component: {fileID: 6920727686459576770}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontRightLeg
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7605,9 +8029,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6552725337550995859}
   - component: {fileID: 6347864265875497301}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomHyd_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7747,7 +8171,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2545254821235033542}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: head
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7779,7 +8203,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 364304795493639631}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_thigh_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7814,9 +8238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 926266011671197463}
   - component: {fileID: 8688644140821572781}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Lenses
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7956,7 +8380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6537448639810460568}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7988,7 +8412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4679505540397464931}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.R_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8022,9 +8446,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7525206766953075441}
   - component: {fileID: 6855575719504701231}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryArmor_FL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8164,7 +8588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 660694054576612131}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_rods_01.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8196,9 +8620,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3280158906447165232}
   - component: {fileID: 2862960853795498755}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Rig 1
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8358,9 +8782,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2882236182713384392}
   - component: {fileID: 3177005269034649584}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegFoot_BR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8501,9 +8925,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5482744153119938054}
   - component: {fileID: 4098547925695564501}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMain_BR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8644,7 +9068,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6008181744859402603}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_casing_01.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8678,9 +9102,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1239240690164189073}
   - component: {fileID: 6055388645884430925}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMain_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8822,9 +9246,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7606325476711950480}
   - component: {fileID: 2206884188856846020}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBracket_BL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8965,9 +9389,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8759350331031151217}
   - component: {fileID: 4777018037418038982}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMain_FL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9108,7 +9532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1909389944658361791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9140,7 +9564,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3775644097718957819}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9172,7 +9596,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6326034824089044255}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_casing.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9204,7 +9628,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 116240971377761083}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_FLIKC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9237,9 +9661,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4171082297341630581}
   - component: {fileID: 8181816985132920980}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopCyl_FL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9379,7 +9803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7919697188603638109}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RRIKC_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9411,9 +9835,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1018030332768891567}
   - component: {fileID: 5642496095982537173}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomHyd_BR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9556,7 +9980,7 @@ GameObject:
   - component: {fileID: 7146601827955257013}
   - component: {fileID: 2857579150957444151}
   - component: {fileID: 1108692723621319415}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FrontRightLeg_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9618,8 +10042,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1692971947
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 2820303382
+  InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -9687,9 +10111,9 @@ GameObject:
   m_Component:
   - component: {fileID: 109878286733204720}
   - component: {fileID: 7161878269799552757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegTopHyd_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9829,7 +10253,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2869912118640721806}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_upper_01.L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9864,9 +10288,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4739441799381178086}
   - component: {fileID: 3206118737039809249}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondary_BR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10006,7 +10430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9136296968622690935}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_foot_01.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10037,7 +10461,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8072276525826784172}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.L_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10070,7 +10494,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7334967703261070853}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackLeftLeg_hint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10102,9 +10526,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4348359749293924123}
   - component: {fileID: 8540748867713242158}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegFootJoint_BL.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10235,6 +10659,37 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.023828665, y: -0.004968946, z: -0.023787957}
     m_Extent: {x: 0.0035016295, y: 0.00247805, z: 0.0035028588}
   m_DirtyAABB: 0
+--- !u!1 &8611329731264210245
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2913363924886142029}
+  m_Layer: 0
+  m_Name: WeaponPointOne
+  m_TagString: TeamOne
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2913363924886142029
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8611329731264210245}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0005994925, y: -0.00035755846, z: 0.38976792, w: 0.9209128}
+  m_LocalPosition: {x: -2.36, y: 1.647, z: 0.32}
+  m_LocalScale: {x: 1.0526316, y: 1.0526316, z: 1.0526316}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5410657862263588852}
+  m_LocalEulerAnglesHint: {x: 0.079, y: -0.011, z: 45.88}
 --- !u!1 &8808795600650523224
 GameObject:
   m_ObjectHideFlags: 0
@@ -10247,7 +10702,7 @@ GameObject:
   - component: {fileID: 7161120623322642914}
   - component: {fileID: 1521511219856952440}
   - component: {fileID: 5592128090596543270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: BackRightLeg_target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10306,8 +10761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2248205220
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 1528068326
+  InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
   AlwaysReplicateAsRoot: 0
@@ -10375,9 +10830,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8952734622030126876}
   - component: {fileID: 8867894177647037136}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegMainArmor_BL
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10517,7 +10972,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 977266448717632750}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_front_hydraulic_control_01.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10548,7 +11003,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2576786416772240952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydralics_control.R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10581,9 +11036,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5020281890202513346}
   - component: {fileID: 4367607195399230787}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegSecondaryArmor_FR.001
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10714,6 +11169,122 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.01861141, y: -0.000062512234, z: 0.01853447}
     m_Extent: {x: 0.0057743504, y: 0.00852555, z: 0.005776976}
   m_DirtyAABB: 0
+--- !u!1 &8967143867533428127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5718613065326263067}
+  - component: {fileID: 4549510946258353567}
+  - component: {fileID: 5102480110688921665}
+  - component: {fileID: 4647701002744723706}
+  - component: {fileID: 4724904547400780341}
+  m_Layer: 15
+  m_Name: AmmoCountCanvas
+  m_TagString: TeamOne
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5718613065326263067
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967143867533428127}
+  m_LocalRotation: {x: -0.3390551, y: 0.18028098, z: -0.07508108, w: -0.9202735}
+  m_LocalPosition: {x: 0, y: 0, z: -0.01}
+  m_LocalScale: {x: 0.31171584, y: 0.31171587, z: 0.31171578}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 8593446630009929937}
+  m_Father: {fileID: 3625095689456165165}
+  m_LocalEulerAnglesHint: {x: 40.626, y: 338.278, z: 1.203}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -0.007, y: 0.013}
+  m_SizeDelta: {x: 1, y: 1}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!223 &4549510946258353567
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967143867533428127}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
+  m_AdditionalShaderChannelsFlag: 25
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!114 &5102480110688921665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967143867533428127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 1
+--- !u!114 &4647701002744723706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967143867533428127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &4724904547400780341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8967143867533428127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4220d366e71c52b43a15a5f8f9e94ee0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MechScreen
+  textToChange: {fileID: 4164857096547145494}
 --- !u!1 &8974221291464880620
 GameObject:
   m_ObjectHideFlags: 0
@@ -10724,9 +11295,9 @@ GameObject:
   m_Component:
   - component: {fileID: 875009782689123610}
   - component: {fileID: 4807594555358025196}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LegBottomHyd_FR
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10866,7 +11437,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1923280707675521138}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_RRIKC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10898,7 +11469,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6116140078295085558}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Leg_rear_hydraulic_rods.L_end_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10920,3 +11491,275 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3775644097718957819}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &4375320307070796346
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7594674067440219324}
+    m_Modifications:
+    - target: {fileID: 716787865549758999, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 716787865549758999, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887707724052286810, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887707724052286810, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 3354557385521779942, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368943823719920450, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3150155118
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368943823719920450, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3368943823719920450, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2752707343
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002026577505931725, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4002026577505931725, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283483237898788774, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4283483237898788774, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285780656634051994, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Name
+      value: MechCockpit_T1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285780656634051994, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4285780656634051994, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310466328874476036, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4310466328874476036, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442889437910500623, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 5442889437910500623, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022966174362407555, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 3290832929
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022966174362407555, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: SceneMigrationSynchronization
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6022966174362407555, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: InScenePlacedSourceGlobalObjectIdHash
+      value: 2752707343
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345615437341349520, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345615437341349520, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851665678171602031, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 6851665678171602031, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 6915371347035393605, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7170979170159322300, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730464084081323998, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7730464084081323998, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 7814843309433311209, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386023483694341426, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8386023483694341426, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.081
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 5.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.9059995
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693375478891170639, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_Layer
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 8693375478891170639, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2913363924886142029}
+    - targetCorrespondingSourceObject: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7318092780998912692}
+    - targetCorrespondingSourceObject: {fileID: 1078242614305071895, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5718613065326263067}
+    - targetCorrespondingSourceObject: {fileID: 8538118815224876577, guid: 981191dc31157984aa999f51d8d87c54,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1051790465830903481}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 981191dc31157984aa999f51d8d87c54, type: 3}
+--- !u!4 &3625095689456165165 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1078242614305071895, guid: 981191dc31157984aa999f51d8d87c54,
+    type: 3}
+  m_PrefabInstance: {fileID: 4375320307070796346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5387782279991708699 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8538118815224876577, guid: 981191dc31157984aa999f51d8d87c54,
+    type: 3}
+  m_PrefabInstance: {fileID: 4375320307070796346}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5410657862263588852 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8624048090781271502, guid: 981191dc31157984aa999f51d8d87c54,
+    type: 3}
+  m_PrefabInstance: {fileID: 4375320307070796346}
+  m_PrefabAsset: {fileID: 0}
