@@ -20,15 +20,10 @@ public class UI_Manager : NetworkBehaviour
     [SerializeField] private TeamWeaponManager weaponMgr;
 
     [Header("Bar Material References")]
-    [SerializeField] private GameObject mechInterior; //the mesh of the interior with the materials on it
-    [SerializeField] private Material healthMaterial;
-    [SerializeField] private Material comboMaterial;
+    //[SerializeField] private GameObject mechInterior; //the mesh of the interior with the materials on it
+    [SerializeField] private MechBarScreen healthBarObject;
+    [SerializeField] private MechBarScreen comboBarObject;
     
-    private Renderer _mechInteriorRenderer;
-    private MaterialPropertyBlock _block;
-    private int _healthIdx = -1;
-    private int _comboIdx = -1;
-
     [Header("Positioning")]
     [SerializeField] private Vector2 mouse1Pos;
     [SerializeField] private Vector2 mouse2Pos;
@@ -36,23 +31,8 @@ public class UI_Manager : NetworkBehaviour
 
     private void Awake()
     {
-        _mechInteriorRenderer = mechInterior.GetComponent<Renderer>();
-        _block = new MaterialPropertyBlock();
 
-        var mats = _mechInteriorRenderer.sharedMaterials;
 
-        for (int i = 0; i < mats.Length; i++)
-        {
-            if (mats[i] == healthMaterial)
-            {
-                _healthIdx = i;
-            }
-
-            if (mats[i] == comboMaterial)
-            {
-                _comboIdx = i;
-            }
-        }
     }
 
     void Start()
@@ -141,20 +121,33 @@ public class UI_Manager : NetworkBehaviour
 
     public void SetHealthBarPercent(float MechMaxHealth, float MechCurrHealth)
     {
-        
         float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 1f, 0f);
-        _mechInteriorRenderer.GetPropertyBlock(_block, _healthIdx);
-        Debug.Log("Setting health bar _BarPercent to: " + h);
-        _block.SetFloat("_BarPercent", h);
-        _mechInteriorRenderer.SetPropertyBlock(_block, _healthIdx);
+        healthBarObject.SetGradientFactor(h);
+
+        return;
+
+        #region Archive
+        //float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 1f, 0f);
+        //_healthRenderer.GetPropertyBlock(_block, _healthIdx);
+        //Debug.Log("Setting health bar _BarPercent to: " + h);
+        //_block.SetFloat("_BarPercent", h);
+        //_healthRenderer.SetPropertyBlock(_block, _healthIdx);
+        #endregion
     }
 
     public void SetComboBarPercent(float factor01)
     {
         float h = factor01.MapRange(0f, 1f, 1f, 0f);
-        _mechInteriorRenderer.GetPropertyBlock(_block, _comboIdx);
-        Debug.Log("Setting combo bar _BarPercent to: " + factor01);
-        _block.SetFloat("_BarPercent", h);
-        _mechInteriorRenderer.SetPropertyBlock(_block, _comboIdx);
+        comboBarObject.SetGradientFactor(h);
+
+        return;
+
+        #region Archive
+        //float h = factor01.MapRange(0f, 1f, 1f, 0f);
+        //_comboRenderer.GetPropertyBlock(_block, _comboIdx);
+        //Debug.Log("Setting combo bar _BarPercent to: " + factor01);
+        //_block.SetFloat("_BarPercent", h);
+        //_comboRenderer.SetPropertyBlock(_block, _comboIdx);
+        #endregion
     }
 }

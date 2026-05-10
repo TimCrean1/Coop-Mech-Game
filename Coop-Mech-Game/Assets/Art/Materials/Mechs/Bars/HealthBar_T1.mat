@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ComboBar
+  m_Name: HealthBar_T1
   m_Shader: {fileID: -6465566751694194690, guid: be9263926e1a477468718d4f97884a43,
     type: 3}
   m_Parent: {fileID: 0}
@@ -102,7 +102,7 @@ Material:
     - _BarPercent: 0
     - _Blend: 0
     - _BlendModePreserveSpecular: 1
-    - _BrighterAsDecrease: 0
+    - _BrighterAsDecrease: 1
     - _BumpScale: 1
     - _ClearCoatMask: 0
     - _ClearCoatSmoothness: 0
@@ -136,7 +136,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BarEmptyColor: {r: 0, g: 0, b: 0, a: 1}
-    - _BarFullColor: {r: 1, g: 0.3651321, b: 0.13333333, a: 1}
+    - _BarFullColor: {r: 0.89433956, g: 0.21430397, b: 0.25725368, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
