@@ -59,6 +59,7 @@ public class CharacterMovement : BaseMovement
     [SerializeField] private TeamWeaponManager weaponMgr;
 
     [Header("Camera")]
+    [SerializeField] private GameObject head;
     [SerializeField] private Camera playerCamera;
     [SerializeField] private float cameraPitch = 0f;
     [SerializeField] private Vector3 targetPoint;
@@ -336,7 +337,7 @@ public class CharacterMovement : BaseMovement
             float pitch = Mathf.Atan2(lookDir.y, new Vector2(lookDir.x, lookDir.z).magnitude) * Mathf.Rad2Deg;
             cameraPitch = Mathf.Lerp(cameraPitch, pitch, newVRotRate * Time.deltaTime);
             cameraPitch = Mathf.Clamp(cameraPitch, -10f, 30f);
-            playerCamera.transform.localRotation = Quaternion.Euler(-cameraPitch, 0f, 0f);
+            head.transform.localRotation = Quaternion.Euler((-cameraPitch) + 90f, 0f, 0f);
         }
     }
     #endregion
