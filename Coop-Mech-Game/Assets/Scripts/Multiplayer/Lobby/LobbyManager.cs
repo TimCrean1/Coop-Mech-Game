@@ -108,8 +108,15 @@ public class LobbyManager : MonoBehaviour {
     public async void Authenticate(string playerName) {
         playerName = playerName.Replace(" ", "_");
 
-       
-        this.playerName = playerName;
+        if(playerName == "Enter_Name")
+        {
+            this.playerName = "Pilot";
+        }
+        else
+        {
+            this.playerName = playerName;
+        }
+
         InitializationOptions initializationOptions = new InitializationOptions();
         initializationOptions.SetProfile(playerName);
 
@@ -424,7 +431,16 @@ public class LobbyManager : MonoBehaviour {
         }
     }
     public async void UpdatePlayerName(string playerName) {
-        this.playerName = playerName;
+
+        if(playerName == "Enter_Name")
+        {
+            this.playerName = "Pilot";
+        }
+        else
+        {
+            this.playerName = playerName;
+        }
+            //this.playerName = playerName;
 
         if (joinedLobby != null) {
             try {

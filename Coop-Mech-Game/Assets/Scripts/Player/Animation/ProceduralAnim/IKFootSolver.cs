@@ -83,7 +83,7 @@ public class IKFootSolver : MonoBehaviour
         if (planar.magnitude < 0.1f)
         {
             rayPosition = new Vector3(5f, 0, 0.9f);
-            Debug.Log("Idle");
+            //Debug.Log("Idle");
             return;
         }
 
