@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 607874120
+  GlobalObjectIdHash: 1152639330
   InScenePlacedSourceGlobalObjectIdHash: 1152639330
   DeferredDespawnTick: 0
   Ownership: 1
@@ -188,6 +188,7 @@ MonoBehaviour:
   movementImpulseSource: {fileID: 5790533618384368019}
   impulseRate: 0.7
   audioManager: {fileID: 454488228189125500}
+  returnToGroundSpeed: 20
 --- !u!114 &3435869324062353507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -888,7 +889,7 @@ GameObject:
   - component: {fileID: 7698970599467038421}
   m_Layer: 8
   m_Name: WeaponPointOne
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1001,7 +1002,7 @@ GameObject:
   - component: {fileID: 4500547229453632581}
   m_Layer: 5
   m_Name: CountdownText
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1137,7 +1138,7 @@ GameObject:
   - component: {fileID: 5445930624372738228}
   m_Layer: 8
   m_Name: WeaponPointTwo
-  m_TagString: Untagged
+  m_TagString: TeamOne
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1190,6 +1191,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787830087806188225}
     m_Modifications:
+    - target: {fileID: 123345356397367547, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 424692676264457878, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
     - target: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
         type: 3}
       propertyPath: m_Name
@@ -1199,6 +1210,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 429932549128513862, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
       objectReference: {fileID: 0}
     - target: {fileID: 3913692849707770923, guid: 4dcd5a7456781c74cae6203066bc9357,
         type: 3}
@@ -1300,6 +1316,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6439198136105337681, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
+    - target: {fileID: 8654719725620150614, guid: 4dcd5a7456781c74cae6203066bc9357,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1380,6 +1406,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3953204645434222281, guid: e9e37917f70ebb649ab43803e0c91a66,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
       objectReference: {fileID: 0}
     - target: {fileID: 6062406439275913513, guid: e9e37917f70ebb649ab43803e0c91a66,
         type: 3}
@@ -1535,6 +1566,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InScenePlacedSourceGlobalObjectIdHash
       value: 1152639330
+      objectReference: {fileID: 0}
+    - target: {fileID: 5395843173900238270, guid: 3c728b398e1a86b498fda85be374eeee,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
       objectReference: {fileID: 0}
     - target: {fileID: 5720977568306344388, guid: 3c728b398e1a86b498fda85be374eeee,
         type: 3}

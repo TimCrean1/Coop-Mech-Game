@@ -30,6 +30,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private bool limitToOneRound = false;
     [SerializeField][Range(0,10)] private int itemsPerRound = 1;
     [SerializeField] public List<ShopItemSO> allItems;
+    [SerializeField] private int numPlayers = 4;
 
     private List<ShopItemSO> displayedItems;
     private List<GameObject> displayedItemObjects;
@@ -76,22 +77,6 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
 
-        //if (ShopNetworking.Instance.IsServer == false)
-        //{
-        //    GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClient);
-        //}
-        //else {Debug.LogError("idk... client");}
-
-        //if (ShopNetworking.Instance.IsServer == true)
-        //{
-        //    GameManager.Instance.OnBuyRoundStart.AddListener(() =>
-        //    {
-        //        OpenShop();
-        //        ShopNetworking.Instance.OpenShopClientRpc();
-        //    });
-        //}
-        //else {Debug.LogError("idk... server");}
-
         OnChangeRound.AddListener(ChangeRound);
 
         allItems = new List<ShopItemSO>();
@@ -107,7 +92,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateReadyText(int count)
     {
-        readyPlayersText.text = $"{count}/4 Players Ready";
+        readyPlayersText.text = $"{count}/{numPlayers} Players Ready";
     }
 
     public void TriggerRoundChange()
@@ -170,7 +155,7 @@ public class ShopManager : MonoBehaviour
             playerData = new Tuple<int, PlayerController>(0, null);
         }
 
-        readyPlayersText.text = "0/4 Players Ready";
+        readyPlayersText.text = $"0/{numPlayers} Players Ready";
 
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -188,14 +173,6 @@ public class ShopManager : MonoBehaviour
         else if (!limitToOneRound){
             if (round == CurrentBuyRound.Weapons)
             {
-                // foreach (ShopItemSO item in allItems)
-                // {
-                //     if (item.itemType == ItemType.Weapon && item.playerID == playerData.Item1)
-                //     {
-                //         displayedItems.Add(item);
-                //     }
-                // }
-
                 // Randomly choose a Weapon item from allItems
                 var weaponItems = allItems.FindAll(i => i.itemType == ItemType.Weapon && i.playerID == playerData.Item1);
                 for (int i = 0; i < Mathf.Min(itemsPerRound, weaponItems.Count); i++)
@@ -207,14 +184,6 @@ public class ShopManager : MonoBehaviour
             }
             else if (round == CurrentBuyRound.Utilities)
             {
-                // foreach (ShopItemSO item in allItems)
-                // {
-                //     if (item.itemType == ItemType.Utility && item.playerID == playerData.Item1)
-                //     {
-                //         displayedItems.Add(item);
-                //     }
-                // }
-                
                 var utilityItems = allItems.FindAll(i => i.itemType == ItemType.Utility && i.playerID == playerData.Item1);
                 for (int i = 0; i < Mathf.Min(itemsPerRound, utilityItems.Count); i++)
                 {
@@ -345,5 +314,16 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
     }
 
+    #endregion
+
+    #region Getters and Setters
+    public void SetNumPlayers(int num)
+    {
+        numPlayers = num;
+    }
+    public int GetNumPlayers()
+    {
+        return numPlayers;
+    }
     #endregion
 }

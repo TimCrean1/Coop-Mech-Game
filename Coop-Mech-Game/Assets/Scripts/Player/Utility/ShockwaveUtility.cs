@@ -9,7 +9,7 @@ using Unity.Netcode;
 public class ShockwaveUtility : BaseUtility
 {
     [Header("Shockwave Utility Stats")]
-    [SerializeField] private float shockwaveRadius = 25f; // The radius of the shockwave effect
+    [SerializeField] private float shockwaveRadius = 100f; // The radius of the shockwave effect
     [SerializeField] private float shockwaveKnockbackForce = 10f; // The force applied to enemies
 
     [Header("Shockwave Conditions")]
@@ -78,35 +78,32 @@ public class ShockwaveUtility : BaseUtility
         // Iterate through all hit colliders
         foreach (Collider hitCollider in hitColliders)
         {
+            CharacterMovement targetMovement =
+                hitCollider.GetComponentInParent<CharacterMovement>();
+
             // Ignore self
-            if (hitCollider.gameObject == owningCharacter.gameObject)
+            if (targetMovement == owningCharacter)
+                continue;
+
+            // Skip invalid targets
+            if (targetMovement == null)
                 continue;
 
             // Determine if the hit object is an enemy based on team tags
             bool isEnemy =
-                (owningCharacter.CompareTag("TeamOne") && hitCollider.CompareTag("TeamTwo")) ||
-                (owningCharacter.CompareTag("TeamTwo") && hitCollider.CompareTag("TeamOne"));
+                (owningCharacter.CompareTag("TeamOne") && targetMovement.CompareTag("TeamTwo")) ||
+                (owningCharacter.CompareTag("TeamTwo") && targetMovement.CompareTag("TeamOne"));
 
             if (!isEnemy)
                 continue;
 
-            // Get the CharacterMovement component from the hit object
-            CharacterMovement targetMovement =
-                hitCollider.GetComponentInParent<CharacterMovement>();
+            // Apply knockback to the enemy
+            targetMovement.ApplyKnockback(
+                owningCharacter.transform.position,
+                shockwaveKnockbackForce
+            );
 
-            if (targetMovement != null)
-            {
-                // Apply knockback to the enemy
-                targetMovement.ApplyKnockback(
-                    owningCharacter.transform.position,
-                    shockwaveKnockbackForce
-                );
-                Debug.Log($"ShockwaveUtility: Applied knockback to {hitCollider.gameObject.name}.");
-            }
-            else
-            {
-                Debug.LogWarning($"ShockwaveUtility: No CharacterMovement found on {hitCollider.gameObject.name}.");
-            }
+            Debug.Log($"ShockwaveUtility: Applied knockback to {targetMovement.gameObject.name}.");
         }
 
         // Play the utility sound effect
@@ -151,7 +148,7 @@ public class ShockwaveUtility : BaseUtility
     {
         if (owningCharacter != null)
         {
-            Gizmos.color = Color.cyan;
+            Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(owningCharacter.transform.position, shockwaveRadius);
         }
     }
