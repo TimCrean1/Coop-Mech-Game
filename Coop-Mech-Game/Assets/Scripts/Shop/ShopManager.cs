@@ -25,6 +25,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField] private GameObject itemPrefab;
     [SerializeField] private Button nextRoundButton;
     [SerializeField] private TextMeshProUGUI readyPlayersText;
+    [SerializeField] private int maxPlayers = 4;
 
     [SerializeField] private CurrentBuyRound currentBuyRound = CurrentBuyRound.Weapons;
     [SerializeField] private bool limitToOneRound = false;
@@ -60,11 +61,11 @@ public class ShopManager : MonoBehaviour
         _instance = this;
         currentBuyRound = CurrentBuyRound.Closed;
 
-        if (itemsPerRound < 1 || itemsPerRound > 3)
-        {
-            Debug.LogError("itemsPerRound is out of the valid range (1-3). Clamping to 1.");
-            itemsPerRound = 1;
-        }
+        // if (itemsPerRound < 1 || itemsPerRound > 3)
+        // {
+        //     Debug.LogError("itemsPerRound is out of the valid range (1-3). Clamping to 1.");
+        //     itemsPerRound = 1;
+        // }
     }
 
     void Start()
@@ -75,22 +76,6 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.gameObject.SetActive(true);
         nextRoundButton.enabled = true;
         nextRoundButton.onClick.AddListener(NextRoundButtonClicked);
-
-        //if (ShopNetworking.Instance.IsServer == false)
-        //{
-        //    GameManager.Instance.OnBuyRoundStart.AddListener(OpenShopClient);
-        //}
-        //else {Debug.LogError("idk... client");}
-
-        //if (ShopNetworking.Instance.IsServer == true)
-        //{
-        //    GameManager.Instance.OnBuyRoundStart.AddListener(() =>
-        //    {
-        //        OpenShop();
-        //        ShopNetworking.Instance.OpenShopClientRpc();
-        //    });
-        //}
-        //else {Debug.LogError("idk... server");}
 
         OnChangeRound.AddListener(ChangeRound);
 
@@ -107,7 +92,7 @@ public class ShopManager : MonoBehaviour
 
     public void UpdateReadyText(int count)
     {
-        readyPlayersText.text = $"{count}/4 Players Ready";
+        readyPlayersText.text = $"{count}/{maxPlayers} Players Ready";
     }
 
     public void TriggerRoundChange()
@@ -170,7 +155,7 @@ public class ShopManager : MonoBehaviour
             playerData = new Tuple<int, PlayerController>(0, null);
         }
 
-        readyPlayersText.text = "0/4 Players Ready";
+        readyPlayersText.text = $"0/{maxPlayers} Players Ready";
 
         displayedItems.Clear();
         displayedItemObjects.ForEach(item => Destroy(item));
@@ -345,5 +330,16 @@ public class ShopManager : MonoBehaviour
         nextRoundButton.enabled = true;
     }
 
+    #endregion
+
+    #region Getters and Setters
+    public int GetMaxPlayers()
+    {
+        return maxPlayers;
+    }
+    public void SetMaxPlayers(int newMax)
+    {
+        maxPlayers = newMax;
+    }
     #endregion
 }

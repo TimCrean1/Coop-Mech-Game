@@ -25,6 +25,7 @@ public class ShopNetworking : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        ShopManager.Instance.SetMaxPlayers(maxPlayers);
         if (!isTestScene)
         {
             if (!IsServer)
