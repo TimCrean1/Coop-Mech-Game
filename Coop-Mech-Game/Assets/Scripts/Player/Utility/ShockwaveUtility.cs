@@ -78,15 +78,14 @@ public class ShockwaveUtility : BaseUtility
         // Iterate through all hit colliders
         foreach (Collider hitCollider in hitColliders)
         {
-            CharacterMovement targetMovement =
-                hitCollider.GetComponentInParent<CharacterMovement>();
-
-            // Ignore self
-            if (targetMovement == owningCharacter)
-                continue;
+            CharacterMovement targetMovement = hitCollider.GetComponentInParent<CharacterMovement>();
 
             // Skip invalid targets
             if (targetMovement == null)
+                continue;
+
+            // Ignore self
+            if (targetMovement == owningCharacter)
                 continue;
 
             // Determine if the hit object is an enemy based on team tags
