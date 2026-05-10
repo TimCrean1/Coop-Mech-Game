@@ -10,7 +10,7 @@ public class ShockwaveUtility : BaseUtility
 {
     [Header("Shockwave Utility Stats")]
     [SerializeField] private float shockwaveRadius = 100f; // The radius of the shockwave effect
-    [SerializeField] private float shockwaveKnockbackForce = 10f; // The force applied to enemies
+    [SerializeField] private float shockwaveKnockbackForce = 50f; // The force applied to enemies
 
     [Header("Shockwave Conditions")]
     [SerializeField] private float minDistanceFromGround = 1f; // Minimum distance from ground to activate
@@ -68,11 +68,11 @@ public class ShockwaveUtility : BaseUtility
 
         if (hitColliders.Length == 0)
         {
-            Debug.Log("ShockwaveUtility: No players hit by shockwave.");
+            Debug.Log("ShockwaveUtility: No player related objects hit by shockwave.");
         }
         else
         {
-            Debug.Log($"ShockwaveUtility: {hitColliders.Length} player(s) hit by shockwave.");
+            Debug.Log($"ShockwaveUtility: {hitColliders.Length} player related object(s) hit by shockwave.");
         }
 
         // Iterate through all hit colliders
