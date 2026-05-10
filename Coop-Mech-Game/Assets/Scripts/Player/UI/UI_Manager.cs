@@ -121,9 +121,12 @@ public class UI_Manager : NetworkBehaviour
 
     public void SetHealthBarPercent(float MechMaxHealth, float MechCurrHealth)
     {
-        float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 1f, 0f);
-        healthBarObject.SetGradientFactor(h);
-
+        if (healthBarObject != null)
+        {
+            float h = MechCurrHealth.MapRange(0f, MechMaxHealth, 1f, 0f);
+            Debug.Log("setting health factor to: "+h);
+            healthBarObject.SetGradientFactor(h);
+        }
         return;
 
         #region Archive
@@ -137,9 +140,12 @@ public class UI_Manager : NetworkBehaviour
 
     public void SetComboBarPercent(float factor01)
     {
-        float h = factor01.MapRange(0f, 1f, 1f, 0f);
-        comboBarObject.SetGradientFactor(h);
-
+        if (comboBarObject != null)
+        {
+            float h = factor01.MapRange(0f, 1f, 1f, 0f);
+            Debug.Log("setting combo factor to: " +h);
+            comboBarObject.SetGradientFactor(h);
+        }
         return;
 
         #region Archive

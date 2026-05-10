@@ -10,6 +10,7 @@ public class MechBarScreen : MonoBehaviour
     /// <param name="factor01"></param>
     public void SetGradientFactor(float factor01)
     {
-        _gradientMaterial.SetFloat("BarPercent", factor01);
+        _gradientMaterial.SetFloat("_BarPercent", factor01);
+        Debug.Log(_gradientMaterial + " has bar percent: "+_gradientMaterial.HasFloat("_BarPercent") + ", setting factor to: " + factor01);
     }
 }
