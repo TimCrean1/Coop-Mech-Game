@@ -185,6 +185,7 @@ public class ShopManager : MonoBehaviour
             foreach (ShopItemSO item in specialItems)
             {
                 displayedItems.Add(item);
+                Debug.Log($"Name: {item.itemName} Prefab: {item.itemPrefab.name}. Index: {item.itemIndex}");
             }
         }
         else if (!limitToOneRound){
