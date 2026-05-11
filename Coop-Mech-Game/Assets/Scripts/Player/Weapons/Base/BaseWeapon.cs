@@ -32,6 +32,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     public AudioSource audioSource;
     public AudioClip weaponAudioClip;
 
+
     [Header("Weapon Stats")]
     [SerializeField] private WeaponType weaponType;
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
@@ -63,6 +64,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     protected RaycastHit hit;
     protected List<RaycastHit> hits = new List<RaycastHit>();
     protected WeaponMuzzle muzzleComp;
+    private Coroutine shootingRoutine;
 
 
     public float FireRate { get { return baseFireRate; } }
@@ -151,10 +153,24 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); animator.SetBool("isShooting", true); }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); animator.SetBool("isShooting", true);
+
+            if (shootingRoutine != null)
+            {
+                StopCoroutine(shootingRoutine);
+            }
+
+            shootingRoutine = StartCoroutine(StopShootingRoutine());
+        }
+        animator.SetTrigger("shot");
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
+    private IEnumerator StopShootingRoutine()
+    {
+        yield return new WaitForSeconds(0.1f);
 
+        animator.SetBool("isShooting", false);
+    }
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void RaycastInConeClientRpc(int numPellets, float maxRange, float spreadHalfAngle)
     {
