@@ -154,8 +154,12 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); gunAnimator.SetBool("isShooting", true); ammoAnimator.SetBool("isShooting", false); 
-
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); 
+            if (gunAnimator.GetBool("isShooting") == false) {
+                gunAnimator.SetBool("isShooting", true); }
+            if (ammoAnimator.GetBool("isShooting") == false) {
+                ammoAnimator.SetBool("isShooting", true);
+            }
             if (shootingRoutine != null)
             {
                 StopCoroutine(shootingRoutine);
