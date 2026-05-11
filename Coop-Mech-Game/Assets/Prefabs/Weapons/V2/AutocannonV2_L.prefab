@@ -2241,7 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2438884881
+  GlobalObjectIdHash: 3845028313
   InScenePlacedSourceGlobalObjectIdHash: 3845028313
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2459,7 +2459,8 @@ MonoBehaviour:
   muzzle: {fileID: 8281768211741229026}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
-  animator: {fileID: 5321385979475876794}
+  gunAnimator: {fileID: 5321385979475876794}
+  ammoAnimator: {fileID: 7042852631392599839}
   audioSource: {fileID: 8830559870604139764}
   weaponAudioClip: {fileID: 8300000, guid: a2b437af5b22a4b768d224bc39b23d29, type: 3}
   weaponType: 0
@@ -3053,6 +3054,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856ce6fa1fcf35c448279552060b736a, type: 3}
+--- !u!95 &7042852631392599839 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6634361047417857362, guid: 856ce6fa1fcf35c448279552060b736a,
+    type: 3}
+  m_PrefabInstance: {fileID: 4444139274225523277}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7994566321329615343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6007422201508408226, guid: 856ce6fa1fcf35c448279552060b736a,

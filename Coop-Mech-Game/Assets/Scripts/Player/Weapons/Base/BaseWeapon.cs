@@ -28,7 +28,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] private Transform muzzle;
     [SerializeField] public MechScreen ammoCountScreen;
     [SerializeField] public SingleComboScript comboManager;
-    [SerializeField] public Animator animator;
+    [SerializeField] public Animator gunAnimator;
+    [SerializeField] public Animator ammoAnimator;
     public AudioSource audioSource;
     public AudioClip weaponAudioClip;
 
@@ -153,7 +154,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); animator.SetBool("isShooting", true);
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); gunAnimator.SetBool("isShooting", true); ammoAnimator.SetBool("isShooting", false); 
 
             if (shootingRoutine != null)
             {
@@ -161,7 +162,7 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
 
             shootingRoutine = StartCoroutine(StopShootingRoutine());
-            animator.SetTrigger("shot");
+            
         }
         
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
@@ -170,7 +171,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        animator.SetBool("isShooting", false);
+        gunAnimator.SetBool("isShooting", false);
+        ammoAnimator.SetBool("isShooting", false);
     }
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void RaycastInConeClientRpc(int numPellets, float maxRange, float spreadHalfAngle)
@@ -296,6 +298,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void PlayCooldownClientRpc()
     {
+        ammoAnimator.SetTrigger("Reload");
         StartCoroutine(CooldownRotuine());
     }
     public void Reload()
