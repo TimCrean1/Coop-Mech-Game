@@ -160,7 +160,7 @@ public class ShopManager : MonoBehaviour
 
     private void InitializeBuyRound(CurrentBuyRound round)
     {
-        Tuple<int, PlayerController> playerData;;
+        Tuple<int, PlayerController> playerData;
         if (ShopNetworking.Instance.isTestScene == false)
         {
             playerData = GrabPlayerFunction();
@@ -255,7 +255,7 @@ public class ShopManager : MonoBehaviour
 
     #region Player Logic
 
-    private Tuple<int, PlayerController> GrabPlayerFunction()
+    public Tuple<int, PlayerController> GrabPlayerFunction()
     {
         var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
         var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();

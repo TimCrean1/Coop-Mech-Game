@@ -161,8 +161,9 @@ public abstract class BaseWeapon : NetworkBehaviour
             }
 
             shootingRoutine = StartCoroutine(StopShootingRoutine());
+            animator.SetTrigger("shot");
         }
-        animator.SetTrigger("shot");
+        
         else if(muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
     }
     private IEnumerator StopShootingRoutine()

@@ -137,7 +137,8 @@ public class TeamWeaponManager : NetworkBehaviour
             // Spawn the new weapon as a networked object
             NetworkObject netObj = newWeapon.GetComponent<NetworkObject>();
             netObj.Spawn(true);
-
+            
+            
             // If this is the initial startup, append to the weapon list
             if (isStart)
             {
