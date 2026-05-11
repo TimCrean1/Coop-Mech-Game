@@ -160,7 +160,7 @@ public abstract class BaseWeapon : NetworkBehaviour
             if (ammoAnimator.GetBool("isShooting") == false) {
                 ammoAnimator.SetBool("isShooting", true);
             }
-            gunAnimator.SetInteger("AmmoCount", ammoCount.Value);
+            ammoAnimator.SetInteger("AmmoCount", ammoCount.Value);
             if (shootingRoutine != null)
             {
                 StopCoroutine(shootingRoutine);
