@@ -192,7 +192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2752707343
+  GlobalObjectIdHash: 3804531130
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1700,6 +1700,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 3037360202594300533}
+    - targetCorrespondingSourceObject: {fileID: 6336672991448346084, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7176115767723173373}
     - targetCorrespondingSourceObject: {fileID: 1489407536364506976, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       insertIndex: -1
@@ -1753,6 +1757,28 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 8937003791386793600}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &3167999875790601060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6336672991448346084, guid: f28c5bc8f70f03d46827447274e6a194,
+    type: 3}
+  m_PrefabInstance: {fileID: 8937003791386793600}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7176115767723173373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167999875790601060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f13568c9f7090f4dbb5e86c0eaef7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicator
+  dashMat: {fileID: 2100000, guid: 5393a26061e15e140b1354207d2e7e15, type: 2}
+  jumpMat: {fileID: 2100000, guid: 7af6672da63422241afe4b45d470e103, type: 2}
+  rightUtilMat: {fileID: 0}
+  leftUtilMat: {fileID: 0}
 --- !u!1 &3228299934200732499 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5821927497349877203, guid: f28c5bc8f70f03d46827447274e6a194,
