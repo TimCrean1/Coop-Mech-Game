@@ -701,9 +701,9 @@ MonoBehaviour:
   SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 1
-  SyncScaleX: 1
-  SyncScaleY: 1
-  SyncScaleZ: 1
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
   PositionThreshold: 0.001
   RotAngleThreshold: 0.01
   ScaleThreshold: 0.01
@@ -752,7 +752,8 @@ MonoBehaviour:
   muzzle: {fileID: 1476321396205595639}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
-  animator: {fileID: 428886830000267813}
+  gunAnimator: {fileID: 0}
+  ammoAnimator: {fileID: 0}
   audioSource: {fileID: 4861205450610780568}
   weaponAudioClip: {fileID: 8300000, guid: 55c17f0bb7af44de99e5053e56f22c74, type: 3}
   weaponType: 2

@@ -1,46 +1,67 @@
+using Unity.Netcode;
 using UnityEngine;
 
-public class AbilityIndicator : MonoBehaviour
+public class AbilityIndicator : NetworkBehaviour
 {
-
+    [Header("References")]
     [SerializeField] private Material dashMat;
     [SerializeField] private Material jumpMat;
     [SerializeField] private GameObject rightUtilMat;
     [SerializeField] private GameObject leftUtilMat;
 
-    private Material utilMat1;
-    private Material utilMat2;
+    [Header("Color Params")]
+    [SerializeField] private Color emitColor = Color.orange;
+    [SerializeField] private float emitIntensity = 7f;
+
+    private Material utilMatRight;
+    private Material utilMatLeft;
 
 
     private void Start()
     {
-        utilMat1 = rightUtilMat.GetComponent<Material>();
-        utilMat2 = leftUtilMat.GetComponent<Material>();
+        utilMatRight = rightUtilMat.GetComponent<Material>();
+        utilMatLeft = leftUtilMat.GetComponent<Material>();
     }
-
-    private void SetMaterialActive(string materialToSet, bool setOn)
+    [Rpc(SendTo.ClientsAndHost)]
+    public void SetMaterialActiveRpc(string materialToSet, bool setOn)
     {
         switch (materialToSet)
         {
             case "dash":
-                float emit = setOn ? 1f : 0f;
-                //dashMat.SetEmission(emit);
+                bool emit = setOn ? true : false;
+                ChangeMat(dashMat, emit);
                 break;
 
             case "jump":
-                emit = setOn ? 1f : 0f;
+                emit = setOn ? true : false;
                 //jumpMat.SetEmission(emit);
+                ChangeMat(jumpMat, emit);
                 break;
 
             case "utilityLeft":
-                emit = setOn ? 1f : 0f;
+                emit = setOn ? true : false;
                 //leftUtilMat.SetEmission(emit);
+                ChangeMat(utilMatLeft, emit);
                 break;
 
             case "utilityRight":
-                emit = setOn ? 1f : 0f;
+                emit = setOn ? true : false;
                 //rightUtilMat.SetEmission(emit);
+                ChangeMat(utilMatRight, emit);
                 break;
+        }
+    }
+    private void ChangeMat(Material _mat, bool turnOff)
+    {
+        //Debug.Log("Changing mat: " + _mat + " Turning Off: " + turnOff);
+
+        if (turnOff)
+        {
+            _mat.SetColor("_EmissionColor", emitColor * 0f);
+        }
+        else
+        {
+            _mat.SetColor("_EmissionColor", emitColor * emitIntensity);
         }
     }
 }

@@ -70,6 +70,7 @@ public class CharacterMovement : BaseMovement
     [Header("Misc")]
     private bool isBeingKnockedBack = false;
     [SerializeField] private PlayerAudioManager audioManager;
+    [SerializeField] private AbilityIndicator abilityIndicator;
 
     #endregion
 
@@ -362,7 +363,9 @@ public class CharacterMovement : BaseMovement
             currentJumps = 0;
         }
 
-        if (currentJumps >= maxJumps) return;
+        if (currentJumps >= maxJumps) {
+            abilityIndicator.SetMaterialActiveRpc("jump", false);
+            return; }
 
         currentJumps++;
 
@@ -401,6 +404,7 @@ public class CharacterMovement : BaseMovement
     private IEnumerator JumpCooldownCoroutine()
     {
         yield return new WaitForSeconds(jumpCoolDown);
+        abilityIndicator.SetMaterialActiveRpc("jump", true);
         canJump = true;
     }
 
@@ -444,6 +448,7 @@ public class CharacterMovement : BaseMovement
                 rigidbody.AddForce(adjustedDashForce, ForceMode.VelocityChange);
 
                 canDash = false;
+                abilityIndicator.SetMaterialActiveRpc("dash", false);
                 StartCoroutine(DashCooldownCoroutine());
                 StartCoroutine(DashLengthCoroutine());
             }
@@ -456,6 +461,7 @@ public class CharacterMovement : BaseMovement
         Debug.Log("Dash Cooling Down!");
         audioManager.PlayDashSound();
         yield return new WaitForSeconds(dashCooldown);
+        abilityIndicator.SetMaterialActiveRpc("dash", true);
         canDash = true;
     }
 
