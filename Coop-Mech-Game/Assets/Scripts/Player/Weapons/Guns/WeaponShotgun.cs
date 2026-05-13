@@ -52,7 +52,25 @@ public class WeaponShotgun : BaseWeapon
 
         ChangeAmmoText();
     }
-    
+
+    protected override void FireEventMethodClientRpc()
+    {
+        if (muzzleComp && isMultiShot == false)
+        {
+            Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit);
+            gunAnimator.SetTrigger("shot");
+            ammoAnimator.SetTrigger("shot");
+
+        }
+
+        if (audioSource != null && weaponAudioClip != null)
+        {
+            audioSource.PlayOneShot(weaponAudioClip);
+        }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
+        else if (muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
+    }
+
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
         currentKnockback = baseKnockbackForce * mouseDistance;

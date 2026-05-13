@@ -4044,7 +4044,8 @@ MonoBehaviour:
   muzzle: {fileID: 3898405682887979845}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
-  animator: {fileID: 8250704981617749345}
+  gunAnimator: {fileID: 0}
+  ammoAnimator: {fileID: 0}
   audioSource: {fileID: 620147131731252974}
   weaponAudioClip: {fileID: 8300000, guid: c89dd077a9fdd4c87b869bb031837ec1, type: 3}
   weaponType: 1
@@ -7257,6 +7258,16 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2650139387938314483, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
+    - target: {fileID: 2703452256521166159, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
     - target: {fileID: 2932531281294830727, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -7322,6 +7333,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3806989687659957584, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
     - target: {fileID: 3818673309311655640, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
         type: 3}
       propertyPath: m_Layer
@@ -7332,6 +7348,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 3950827548052115760, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
     - target: {fileID: 4419018045968565084, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
         type: 3}
       propertyPath: m_Name
@@ -7367,6 +7388,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 6250526452730255090, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
     - target: {fileID: 6294858391232996002, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
         type: 3}
       propertyPath: m_Layer
@@ -7392,6 +7418,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 7957478528114274838, guid: 7e1e3877d61b65e41ae8b4a53c49f0d4,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: ebf8b1d1d134d884ba7b967f0720b983, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

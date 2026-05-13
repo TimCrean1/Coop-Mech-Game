@@ -2241,7 +2241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1121046474
+  GlobalObjectIdHash: 3845028313
   InScenePlacedSourceGlobalObjectIdHash: 3845028313
   DeferredDespawnTick: 0
   Ownership: 1
@@ -2974,6 +2974,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 2986790850410697115, guid: 856ce6fa1fcf35c448279552060b736a,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a944d2a12ca1784492dcfafb445b03f, type: 2}
     - target: {fileID: 3243494601600333021, guid: 856ce6fa1fcf35c448279552060b736a,
         type: 3}
       propertyPath: m_Layer
@@ -3044,6 +3049,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -47.416
       objectReference: {fileID: 0}
+    - target: {fileID: 6090377396941818755, guid: 856ce6fa1fcf35c448279552060b736a,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 8a944d2a12ca1784492dcfafb445b03f, type: 2}
     - target: {fileID: 8107113968684347354, guid: 856ce6fa1fcf35c448279552060b736a,
         type: 3}
       propertyPath: m_Layer
