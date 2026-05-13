@@ -5,9 +5,18 @@ public class AbilityIndicator : MonoBehaviour
 
     [SerializeField] private Material dashMat;
     [SerializeField] private Material jumpMat;
-    [SerializeField] private Material rightUtilMat;
-    [SerializeField] private Material leftUtilMat;
+    [SerializeField] private GameObject rightUtilMat;
+    [SerializeField] private GameObject leftUtilMat;
 
+    private Material utilMat1;
+    private Material utilMat2;
+
+
+    private void Start()
+    {
+        utilMat1 = rightUtilMat.GetComponent<Material>();
+        utilMat2 = leftUtilMat.GetComponent<Material>();
+    }
 
     private void SetMaterialActive(string materialToSet, bool setOn)
     {

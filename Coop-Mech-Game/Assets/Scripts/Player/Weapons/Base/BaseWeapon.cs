@@ -290,7 +290,18 @@ public abstract class BaseWeapon : NetworkBehaviour
         // just for gun logic, NOT visuals
         yield return new WaitForSeconds(cooldownTime);
 
-        SetAmmoRpc(ammo);
+        if (IsServer)
+        {
+            if (isReloading)
+            {
+                isReloading = false;
+                ReloadRpc();
+            }
+            else
+            {
+                SetAmmoRpc(ammo);
+            }
+        }
         canFire = true;
         isCooldownOn = false;
     }
@@ -334,18 +345,18 @@ public abstract class BaseWeapon : NetworkBehaviour
         //{
         //    SetAmmoRpc(ammo);
         //}
-        if (IsServer)
-        {
-            if (isReloading)
-            {
-                isReloading = false;
-                ReloadRpc();
-            }
-            else
-            {
-                SetAmmoRpc(ammo);
-            }
-        }
+        //if (IsServer)
+        //{
+        //    if (isReloading)
+        //    {
+        //        isReloading = false;
+        //        ReloadRpc();
+        //    }
+        //    else
+        //    {
+        //        SetAmmoRpc(ammo);
+        //    }
+        //}
         //ammoCount.Value = ammo;
         //canFire = true;
         //isCooldownOn = false;

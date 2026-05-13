@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.Netcode;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -51,8 +52,7 @@ public class WeaponShotgun : BaseWeapon
 
         ChangeAmmoText();
     }
-
-
+    
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
         currentKnockback = baseKnockbackForce * mouseDistance;
