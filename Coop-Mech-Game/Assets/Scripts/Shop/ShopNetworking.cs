@@ -21,6 +21,7 @@ public class ShopNetworking : NetworkBehaviour
         {
             NetworkManager.Singleton.StartHost();
         }
+        ShopManager.Instance.SetMaxPlayers(maxPlayers);
     }
 
     public override void OnNetworkSpawn()

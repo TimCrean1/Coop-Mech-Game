@@ -420,16 +420,35 @@ public class CharacterMovement : BaseMovement
         }
     }
 
-    /// <summary>
-    /// Applies a downward force to the character to quickly return them to the ground. 
-    /// Used by utilities that require the player to be grounded.
-    /// </summary>
+    private bool returningToGround = false;
+    private Coroutine returnToGroundCoroutine;
+
+    [SerializeField] private float returnToGroundSpeed = 20f;
+
     public void ReturnToGround()
     {
-        if (!isGrounded)
+        if (returningToGround || isGrounded)
+            return;
+
+        returnToGroundCoroutine = StartCoroutine(ReturnToGroundCoroutine());
+    }
+
+    private IEnumerator ReturnToGroundCoroutine()
+    {
+        returningToGround = true;
+
+        while (!isGrounded)
         {
-            rigidbody.AddForce(Vector3.down * 10f, ForceMode.VelocityChange);
+            Vector3 newPosition =
+                rigidbody.position + Vector3.down * returnToGroundSpeed * Time.fixedDeltaTime;
+
+            rigidbody.MovePosition(newPosition);
+
+            yield return new WaitForFixedUpdate();
         }
+
+        returningToGround = false;
+        returnToGroundCoroutine = null;
     }
 
     #endregion
@@ -459,7 +478,7 @@ public class CharacterMovement : BaseMovement
     private IEnumerator DashCooldownCoroutine()
     {
         Debug.Log("Dash Cooling Down!");
-        audioManager.PlayDashSound();
+        audioManager.PlayDashSoundClientRpc();
         yield return new WaitForSeconds(dashCooldown);
         abilityIndicator.SetMaterialActiveRpc("dash", true);
         canDash = true;
@@ -482,18 +501,47 @@ public class CharacterMovement : BaseMovement
     #endregion
 
     #region Knockback
-    public void ApplyKnockback(Vector3 forceVec, float knockbackForce, float duration = 1)
+    private Coroutine knockbackCoroutine;
+
+    public void ApplyKnockback(Vector3 sourcePosition, float knockbackForce, float duration = 1f)
     {
-        forceVec.Normalize();
-        rigidbody.AddForce(forceVec * knockbackForce, ForceMode.Impulse);
-        StartCoroutine(KnockbackCoroutine(duration));
+        // Direction AWAY from source
+        Vector3 knockbackDirection = (transform.position - sourcePosition).normalized;
+
+        if (knockbackCoroutine != null)
+        {
+            StopCoroutine(knockbackCoroutine);
+        }
+
+        knockbackCoroutine = StartCoroutine(
+            KnockbackCoroutine(knockbackDirection, knockbackForce, duration)
+        );
     }
 
-    private IEnumerator KnockbackCoroutine(float duration)
+    private IEnumerator KnockbackCoroutine(
+        Vector3 direction,
+        float force,
+        float duration
+    )
     {
         isBeingKnockedBack = true;
-        yield return new WaitForSeconds(duration);
+
+        float elapsed = 0f;
+
+        while (elapsed < duration)
+        {
+            Vector3 movement =
+                direction * force * Time.fixedDeltaTime;
+
+            rigidbody.MovePosition(rigidbody.position + movement);
+
+            elapsed += Time.fixedDeltaTime;
+
+            yield return new WaitForFixedUpdate();
+        }
+
         isBeingKnockedBack = false;
+        knockbackCoroutine = null;
     }
 
     public bool GetIsBeingKnockedBack()

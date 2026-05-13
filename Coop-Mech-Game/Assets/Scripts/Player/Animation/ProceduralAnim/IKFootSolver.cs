@@ -21,6 +21,7 @@ public class IKFootSolver : MonoBehaviour
     float lerp;
     Ray ray;
     Rigidbody rb;
+    public PlayerAudioManager audioManager;
    
     
     private void Start()
@@ -53,6 +54,14 @@ public class IKFootSolver : MonoBehaviour
                 lerp = 0;
                 int direction = body.transform.InverseTransformPoint(info.point).z > body.transform.InverseTransformPoint(newPosition).z ? 1 : -1;
                 newPosition = info.point + (body.transform.forward * stepLength * direction) + footOffset;
+                if (audioManager != null)
+                {
+                    audioManager.PlayWalkSoundClientRpc();
+                }
+                else
+                {
+                    Debug.Log("Stomp");
+                }
                 newNormal = info.normal;
             }
         }
@@ -83,7 +92,7 @@ public class IKFootSolver : MonoBehaviour
         if (planar.magnitude < 0.1f)
         {
             rayPosition = new Vector3(5f, 0, 0.9f);
-            Debug.Log("Idle");
+            //Debug.Log("Idle");
             return;
         }
 
@@ -93,7 +102,7 @@ public class IKFootSolver : MonoBehaviour
         // Optional: speed tiering
         float speed = planar.magnitude;
 
-        // 8 directions (each 45°)
+        // 8 directions (each 45ï¿½)
         if (angle >= 337.5f || angle < 22.5f)
         {
             // Forward
