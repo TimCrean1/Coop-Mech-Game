@@ -32,6 +32,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] public Animator ammoAnimator;
     public AudioSource audioSource;
     public AudioClip weaponAudioClip;
+    public AudioClip reloadAudioClip;
 
 
     [Header("Weapon Stats")]
@@ -302,6 +303,8 @@ public abstract class BaseWeapon : NetworkBehaviour
             {
                 SetAmmoRpc(ammo);
             }
+            if (reloadAudioClip != null) {audioSource.PlayOneShot(reloadAudioClip);}
+            else {Debug.LogError("Reload sound effect reference is not set!");}
         }
         canFire = true;
         isCooldownOn = false;

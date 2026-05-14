@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 1831517361975482758}
   m_Layer: 8
   m_Name: PlayerTeamOne_V4
-  m_TagString: TeamOne
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,7 +126,6 @@ Transform:
   m_Children:
   - {fileID: 3210845880709511743}
   - {fileID: 6221711832851171042}
-  - {fileID: 7107494322323195105}
   - {fileID: 1541126394519020092}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -177,7 +176,7 @@ CapsuleCollider:
   m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1.3061385
-  m_Height: 5.495263
+  m_Height: 2.98
   m_Direction: 1
   m_Center: {x: 0, y: 1.754889, z: 0}
 --- !u!114 &9056003002343389806
@@ -192,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2346905580
+  GlobalObjectIdHash: 1460367372
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -222,7 +221,7 @@ MonoBehaviour:
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
-  capsuleCollider: {fileID: 2519657300501427233}
+  capsuleCollider: {fileID: 0}
   audioSource: {fileID: 3878826384544283473}
   characterModel: {fileID: 1787830087806188225}
   canMove: 1
@@ -955,61 +954,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &2982015928421129102
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7107494322323195105}
-  - component: {fileID: 2519657300501427233}
-  m_Layer: 8
-  m_Name: CapsuleCollider
-  m_TagString: TeamOne
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7107494322323195105
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2982015928421129102}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1787830087806188225}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!136 &2519657300501427233
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2982015928421129102}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 1.3061385
-  m_Height: 5.495263
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.754889, z: 0}
 --- !u!1 &5332969839009546982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,52 +1427,32 @@ PrefabInstance:
     - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1476291538
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 2752707343
+      value: 3620038355
       objectReference: {fileID: 0}
     - target: {fileID: 1330996404785541496, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3140957777
+      value: 3866730002
       objectReference: {fileID: 0}
     - target: {fileID: 1521511219856952440, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2262015523
+      value: 1711776010
       objectReference: {fileID: 0}
     - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3500481949
-      objectReference: {fileID: 0}
-    - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: SceneMigrationSynchronization
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 2752707343
+      value: 3001078447
       objectReference: {fileID: 0}
     - target: {fileID: 2857579150957444151, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2312899440
+      value: 1130143300
       objectReference: {fileID: 0}
     - target: {fileID: 3370495565128322997, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1224211737
+      value: 3076334912
       objectReference: {fileID: 0}
     - target: {fileID: 4117379163095567091, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1538,7 +1462,7 @@ PrefabInstance:
     - target: {fileID: 6763796303144256128, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1603985988
+      value: 430362640
       objectReference: {fileID: 0}
     - target: {fileID: 7594674067440219324, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1593,12 +1517,22 @@ PrefabInstance:
     - target: {fileID: 8011232418076987577, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2506575830
+      value: 3011804410
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 8.017524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 4.0299892
       objectReference: {fileID: 0}
     - target: {fileID: 9182145967457460236, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 844029506
+      value: 2816239169
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
