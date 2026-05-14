@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2558231742
+  GlobalObjectIdHash: 3168849552
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -76,8 +76,11 @@ MonoBehaviour:
   muzzle: {fileID: 430591710476676021}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
+  gunAnimator: {fileID: 0}
+  ammoAnimator: {fileID: 0}
   audioSource: {fileID: 2804747580540833759}
   weaponAudioClip: {fileID: 8300000, guid: 55c17f0bb7af44de99e5053e56f22c74, type: 3}
+  reloadAudioClip: {fileID: 8300000, guid: 5cb340e63d53543a3953b0961398e39d, type: 3}
   weaponType: 2
   owningPlayer: 0
   ammo: 10
