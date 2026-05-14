@@ -2,30 +2,34 @@ using UnityEngine;
 
 public class CameraFollowTarget : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    [Header("Components")]
+    [SerializeField] private Transform target;
     [SerializeField] private Camera _camera;
-    [SerializeField] private AnimationCurve _followCurve;
+    [Tooltip("X is normalised time [0..1], Y is the interpolation weight [0..1]")]
+    [SerializeField] private AnimationCurve approachCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
-    [Header("Stiffness/Damping")]
-    [SerializeField] private float _posStiffness = 100f;
-    [SerializeField] private float _posDamping = 80f;
-    [SerializeField] private float _posMaxSpeed = 80f;
-    [SerializeField] private float _rotStiffness = 100f;
-    [SerializeField] private float _rotDamping = 80f;
-    [SerializeField] private float _rotMaxSpeed = 80f;
+    [Header("Settings")]
+    [SerializeField] private float approachDuration = 2f; //how long approach takes
 
-    private Vector3 _currentVel;
-    private float _rotVel;
+    private float _elapsedTime = 0f;
+    private bool _isApproaching = false;
+    private Vector3 _startPosition;
 
-    private float _posVel;
-    private Vector3 _targetRot;
+    private void Start()
+    {
+        _startPosition = transform.position;
+        _elapsedTime = 0f;
+        _isApproaching = true;
+    }
 
     private void FixedUpdate()
     {
-        HelperExtensions.StepSpringAngle(ref _currentVel.x, _target.transform.position.x, ref _posVel, _posStiffness, _posDamping, _posMaxSpeed);
-        HelperExtensions.StepSpringAngle(ref _currentVel.y, _target.transform.position.y, ref _posVel, _posStiffness, _posDamping, _posMaxSpeed);
-        HelperExtensions.StepSpringAngle(ref _currentVel.z, _target.transform.position.z, ref _posVel, _posStiffness, _posDamping, _posMaxSpeed);
+        if (!_isApproaching || target == null) return;
 
-        _camera.transform.position = _currentVel;
+        _elapsedTime += Time.deltaTime;
+        float t = Mathf.Clamp01(_elapsedTime / approachDuration);
+        float curveValue = approachCurve.Evaluate(t);
+
+        transform.position = Vector3.Lerp(_startPosition, target.position, curveValue);
     }
 }
