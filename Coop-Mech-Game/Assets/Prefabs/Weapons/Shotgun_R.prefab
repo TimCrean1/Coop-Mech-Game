@@ -208,11 +208,15 @@ MonoBehaviour:
   muzzle: {fileID: 6292108309621055733}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
+  gunAnimator: {fileID: 0}
+  ammoAnimator: {fileID: 0}
   audioSource: {fileID: -4503897998585247377}
   weaponAudioClip: {fileID: 8300000, guid: c89dd077a9fdd4c87b869bb031837ec1, type: 3}
+  reloadAudioClip: {fileID: 8300000, guid: 5cb340e63d53543a3953b0961398e39d, type: 3}
   weaponType: 1
   owningPlayer: 0
   ammo: 1
+  isMultiShot: 0
   baseFireRate: 1
   cooldownTime: 3
   damage: 28
@@ -226,6 +230,7 @@ MonoBehaviour:
     m_InternalValue: 0
   numPellets: 8
   spreadHalfAngle: 25
+  maxRange: 70
 --- !u!82 &-4503897998585247377
 AudioSource:
   m_ObjectHideFlags: 0
