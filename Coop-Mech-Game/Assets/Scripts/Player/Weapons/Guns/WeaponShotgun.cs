@@ -9,6 +9,7 @@ public class WeaponShotgun : BaseWeapon
     [SerializeField] private int numPellets = 8;
     [SerializeField] private float spreadHalfAngle = 18f;
     [SerializeField] private float maxRange = 70f;
+   
     //private List<RaycastHit> hits = new List<RaycastHit>();
 
     protected override void FireRpc()
@@ -52,7 +53,7 @@ public class WeaponShotgun : BaseWeapon
 
         ChangeAmmoText();
     }
-
+    [Rpc(SendTo.ClientsAndHost)]
     protected override void FireEventMethodClientRpc()
     {
         if (muzzleComp && isMultiShot == false)

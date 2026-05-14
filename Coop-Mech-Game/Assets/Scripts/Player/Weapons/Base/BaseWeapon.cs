@@ -39,7 +39,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     public float owningPlayer = 0; //Set to 1 for player, Set to 2 for player 2
     [SerializeField] private int ammo = 30;
     [Tooltip("Tick this true if the raycast method used for the weapon returns an array of hit points")]
-    [SerializeField] private bool isMultiShot = false;
+    [SerializeField] protected bool isMultiShot = false;
     [SerializeField] protected float baseFireRate = 1f;
     [SerializeField] protected float cooldownTime = 1.0f;
     [SerializeField] protected float damage = 50;
