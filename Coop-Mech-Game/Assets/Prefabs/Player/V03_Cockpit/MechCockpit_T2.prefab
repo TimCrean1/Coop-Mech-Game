@@ -246,9 +246,10 @@ GameObject:
   - component: {fileID: 7177673649162632663}
   - component: {fileID: 4755197657486402400}
   - component: {fileID: 5287356945279094878}
+  - component: {fileID: 7157370204973587381}
   m_Layer: 16
   m_Name: Overlay Camera T2
-  m_TagString: TeamOne
+  m_TagString: TeamTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -262,7 +263,7 @@ Transform:
   m_GameObject: {fileID: 3354557385521779942}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 6.9969993, z: -1.092}
+  m_LocalPosition: {x: 0, y: 7, z: -1}
   m_LocalScale: {x: 0.6666699, y: 0.6666699, z: 0.6666699}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -401,6 +402,55 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!114 &7157370204973587381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3354557385521779942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5af7f292eebdbdb48b831b53fa693bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CameraFollowTarget
+  target: {fileID: 6821673569848748980}
+  _camera: {fileID: 7683412141382801524}
+  approachCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0.8
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.95
+      value: 1.05
+      inSlope: 0.16067034
+      outSlope: 0.16067034
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxDistance: 0.1
+  followSpeed: 1
 --- !u!1 &4002026577505931725
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,7 +554,7 @@ GameObject:
   - component: {fileID: 1243319404831360698}
   m_Layer: 16
   m_Name: MechCockpit_T2
-  m_TagString: Untagged
+  m_TagString: TeamTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -746,7 +796,7 @@ GameObject:
   - component: {fileID: 3673778730372793785}
   m_Layer: 16
   m_Name: Camera Parent
-  m_TagString: Untagged
+  m_TagString: TeamTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -766,6 +816,7 @@ Transform:
   m_Children:
   - {fileID: 2853045013075933269}
   - {fileID: 2873956381624151884}
+  - {fileID: 6821673569848748980}
   m_Father: {fileID: 8624048090781271502}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6345615437341349520
@@ -1318,7 +1369,7 @@ GameObject:
   - component: {fileID: 6987709778861672821}
   m_Layer: 16
   m_Name: Base Camera
-  m_TagString: TeamOne
+  m_TagString: TeamTwo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1480,6 +1531,37 @@ MonoBehaviour:
     FrequencyGain: 1
     Duration: 1
     m_NoiseOffsets: {x: 0, y: 0, z: 0}
+--- !u!1 &8261099543397962954
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6821673569848748980}
+  m_Layer: 16
+  m_Name: CameraTarget
+  m_TagString: TeamTwo
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6821673569848748980
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8261099543397962954}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 7, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3673778730372793785}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8386023483694341426
 GameObject:
   m_ObjectHideFlags: 0
