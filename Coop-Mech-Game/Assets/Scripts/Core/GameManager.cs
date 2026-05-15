@@ -387,7 +387,8 @@ public class GameManager : NetworkBehaviour
 
             if (t1HealthScreen != null)
             {
-                Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+                //Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+                t1UIMgr.SetHealthBarPercent(teamOneMaxHealth, _teamOneHealth.Value);
             }
             if (_playerControllers.Count > 0)
             {
@@ -402,7 +403,8 @@ public class GameManager : NetworkBehaviour
 
             if (t2HealthScreen != null)
             {
-                Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+                //Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+                t2UIMgr.SetHealthBarPercent(teamTwoMaxHealth, _teamTwoHealth.Value);
             }
             if (_playerControllers.Count > 1)
             {
