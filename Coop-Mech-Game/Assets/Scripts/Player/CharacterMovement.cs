@@ -467,7 +467,7 @@ public class CharacterMovement : BaseMovement
                 rigidbody.AddForce(adjustedDashForce, ForceMode.VelocityChange);
 
                 canDash = false;
-                abilityIndicator.SetMaterialActiveRpc("dash", false);
+                abilityIndicator.SetMaterialActiveRpc("dash", true);
                 StartCoroutine(DashCooldownCoroutine());
                 StartCoroutine(DashLengthCoroutine());
             }
@@ -480,7 +480,7 @@ public class CharacterMovement : BaseMovement
         Debug.Log("Dash Cooling Down!");
         audioManager.PlayDashSoundClientRpc();
         yield return new WaitForSeconds(dashCooldown);
-        abilityIndicator.SetMaterialActiveRpc("dash", true);
+        abilityIndicator.SetMaterialActiveRpc("dash", false);
         canDash = true;
     }
 
