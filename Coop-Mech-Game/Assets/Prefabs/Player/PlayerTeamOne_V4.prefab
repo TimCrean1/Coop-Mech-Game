@@ -173,7 +173,7 @@ CapsuleCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1.3061385
   m_Height: 2.98
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 1460367372
+  GlobalObjectIdHash: 2752707343
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -221,7 +221,7 @@ MonoBehaviour:
   movementDelta: {x: 0, y: 0, z: 0}
   jumpForce: 6
   rigidbody: {fileID: 6701683397916495984}
-  capsuleCollider: {fileID: 0}
+  capsuleCollider: {fileID: 8968820689189305560}
   audioSource: {fileID: 3878826384544283473}
   characterModel: {fileID: 1787830087806188225}
   canMove: 1
@@ -263,7 +263,7 @@ MonoBehaviour:
   movementImpulseSource: {fileID: 5790533618384368019}
   impulseRate: 0.7
   audioManager: {fileID: 454488228189125500}
-  abilityIndicator: {fileID: 0}
+  abilityIndicator: {fileID: 7661802416751583149}
   returnToGroundSpeed: 20
 --- !u!114 &3435869324062353507
 MonoBehaviour:
@@ -1427,32 +1427,32 @@ PrefabInstance:
     - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3620038355
+      value: 2378890549
       objectReference: {fileID: 0}
     - target: {fileID: 1330996404785541496, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3866730002
+      value: 2661399363
       objectReference: {fileID: 0}
     - target: {fileID: 1521511219856952440, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1711776010
+      value: 2121092769
       objectReference: {fileID: 0}
     - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3001078447
+      value: 4133631241
       objectReference: {fileID: 0}
     - target: {fileID: 2857579150957444151, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1130143300
+      value: 3134382113
       objectReference: {fileID: 0}
     - target: {fileID: 3370495565128322997, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3076334912
+      value: 117147381
       objectReference: {fileID: 0}
     - target: {fileID: 4117379163095567091, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1462,7 +1462,7 @@ PrefabInstance:
     - target: {fileID: 6763796303144256128, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 430362640
+      value: 1691716894
       objectReference: {fileID: 0}
     - target: {fileID: 7594674067440219324, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1517,22 +1517,12 @@ PrefabInstance:
     - target: {fileID: 8011232418076987577, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3011804410
-      objectReference: {fileID: 0}
-    - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 8.017524
-      objectReference: {fileID: 0}
-    - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
-        type: 3}
-      propertyPath: m_Center.y
-      value: 4.0299892
+      value: 1462083873
       objectReference: {fileID: 0}
     - target: {fileID: 9182145967457460236, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2816239169
+      value: 2397846805
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1647,6 +1637,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdfbf5ca46583054d90274d690921375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MechBarScreen
+--- !u!114 &7661802416751583149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1608538426386729261, guid: f28c5bc8f70f03d46827447274e6a194,
+    type: 3}
+  m_PrefabInstance: {fileID: 8937003791386793600}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f13568c9f7090f4dbb5e86c0eaef7cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AbilityIndicator
 --- !u!20 &8583287111187664828 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 800351830468614460, guid: f28c5bc8f70f03d46827447274e6a194,
