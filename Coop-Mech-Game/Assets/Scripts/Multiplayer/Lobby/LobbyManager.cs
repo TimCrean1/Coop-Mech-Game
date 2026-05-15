@@ -563,7 +563,7 @@ public class LobbyManager : MonoBehaviour {
             if (lobby.Data[KEY_GAME_MODE].Value == "Practice")
             {
                 
-                LoadScene(0);
+                LoadScene(1);
             }else if(lobby.Data[KEY_GAME_MODE].Value == "Duel")
             {
                 
@@ -589,7 +589,7 @@ public class LobbyManager : MonoBehaviour {
         //SceneManager.LoadScene(1);
         if (joinedLobby.Data[KEY_GAME_MODE].Value == "Practice")
         {
-            LoadScene(0);
+            LoadScene(1);
         }
         else if (joinedLobby.Data[KEY_GAME_MODE].Value == "Duel")
         {
