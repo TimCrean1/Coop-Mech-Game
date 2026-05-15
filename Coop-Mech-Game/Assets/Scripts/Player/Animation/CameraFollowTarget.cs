@@ -9,27 +9,33 @@ public class CameraFollowTarget : MonoBehaviour
     [SerializeField] private AnimationCurve approachCurve = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
 
     [Header("Settings")]
-    [SerializeField] private float approachDuration = 2f; //how long approach takes
+    [SerializeField] private float maxDistance = 0.1f; //distance at which the curve input x is 1
+    [SerializeField] private float followSpeed = 1f;
 
     private float _elapsedTime = 0f;
-    private bool _isApproaching = false;
+    private float _minElapsedTime = 0.15f;
     private Vector3 _startPosition;
+    private Vector3 _lastPos;
 
     private void Start()
     {
         _startPosition = transform.position;
+        _lastPos = target.position;
         _elapsedTime = 0f;
-        _isApproaching = true;
     }
 
     private void FixedUpdate()
     {
-        if (!_isApproaching || target == null) return;
+        if (target == null) Debug.LogError("Camera has no target to follow: " + _camera);
 
-        _elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(_elapsedTime / approachDuration);
+        float distance = Vector3.Distance(transform.position, target.position);
+
+        // Normalise distance into 0..1 to sample the curve
+        float t = Mathf.Clamp01(distance / maxDistance);
+        t.MapRange(0f, 1f, 1f, 0f);
         float curveValue = approachCurve.Evaluate(t);
 
-        transform.position = Vector3.Lerp(_startPosition, target.position, curveValue);
+        transform.position = Vector3.MoveTowards(transform.position, target.position, curveValue * followSpeed * Time.fixedDeltaTime);
+
     }
 }
