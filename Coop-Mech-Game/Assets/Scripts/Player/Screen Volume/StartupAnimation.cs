@@ -32,7 +32,7 @@ public class StartupAnimation : MonoBehaviour
         //eventually subscribe to an event when loading screen fades out
 
         GameManager.Instance.OnStartupSequence.AddListener(StartFunction);
-        GameManager.Instance.OnRoundEnd.AddListener(StartShutdownRoutine);
+        GameManager.Instance.OnRoundEnd.AddListener(ShutdownFunction);
 
         charMovement = GetComponent<CharacterMovement>();
     }
@@ -40,6 +40,11 @@ public class StartupAnimation : MonoBehaviour
     private void StartFunction()
     {
         StartCoroutine(StartStartupRoutine());
+    }
+
+    private void ShutdownFunction()
+    {
+        StartCoroutine(StartShutdownRoutine());
     }
 
     private IEnumerator StartStartupRoutine() //start each screen
@@ -82,10 +87,17 @@ public class StartupAnimation : MonoBehaviour
         yield return null;
     }
 
-    private void StartShutdownRoutine()
+    private IEnumerator StartShutdownRoutine()
     {
-        Debug.Log("Shutdown routine placeholder");
-        
+        for(int i = 0; i < refStrings.Count; i++)
+        {
+            if (i.IsValidIndex(refStrings))
+            {
+                StartCoroutine(ShutdownRoutine(refStrings[i]));
+                yield return new WaitForSeconds(interDelay);
+            }
+            yield return null;
+        }
     }
 
     private IEnumerator ShutdownRoutine(string target)
@@ -100,6 +112,12 @@ public class StartupAnimation : MonoBehaviour
             brightness = Random.Range(0f, SlerpValue(count / startTime));
             yield return null;
         }
+    }
+
+
+    public void SetScreenBrightness(int target, float brightness01) 
+    {
+        _material.SetFloat(refStrings[target], brightness01);
     }
 
     private float SlerpValue(float toSmooth)
