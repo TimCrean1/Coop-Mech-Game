@@ -3916,7 +3916,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2252170914
+  GlobalObjectIdHash: 3773341678
   InScenePlacedSourceGlobalObjectIdHash: 0
   DeferredDespawnTick: 0
   Ownership: 1
@@ -4048,6 +4048,7 @@ MonoBehaviour:
   ammoAnimator: {fileID: 0}
   audioSource: {fileID: 620147131731252974}
   weaponAudioClip: {fileID: 8300000, guid: 1510c6e4e4082480b816ff6a7451bbc9, type: 3}
+  reloadAudioClip: {fileID: 8300000, guid: 5cb340e63d53543a3953b0961398e39d, type: 3}
   weaponType: 1
   owningPlayer: 0
   ammo: 1
@@ -4079,7 +4080,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
