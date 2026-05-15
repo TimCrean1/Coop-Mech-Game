@@ -582,7 +582,7 @@ Transform:
   m_GameObject: {fileID: 2958646419950568664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.44899, y: 20.42721, z: -44.75282}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -752,8 +752,8 @@ MonoBehaviour:
   muzzle: {fileID: 1476321396205595639}
   ammoCountScreen: {fileID: 0}
   comboManager: {fileID: 0}
-  gunAnimator: {fileID: 0}
-  ammoAnimator: {fileID: 0}
+  gunAnimator: {fileID: 428886830000267813}
+  ammoAnimator: {fileID: 7030360244307583229}
   audioSource: {fileID: 4861205450610780568}
   weaponAudioClip: {fileID: 8300000, guid: 8aa1b64e751f24fefb7beb9275f952b6, type: 3}
   reloadAudioClip: {fileID: 8300000, guid: 5cb340e63d53543a3953b0961398e39d, type: 3}
@@ -3078,6 +3078,12 @@ PrefabInstance:
 --- !u!4 &118685632770754562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 701492508579234132, guid: dd76b6a0c524d0845a14dd779fc91927,
+    type: 3}
+  m_PrefabInstance: {fileID: 583660681116043606}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &7030360244307583229 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7604696482292410795, guid: dd76b6a0c524d0845a14dd779fc91927,
     type: 3}
   m_PrefabInstance: {fileID: 583660681116043606}
   m_PrefabAsset: {fileID: 0}
