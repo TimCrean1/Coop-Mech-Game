@@ -28,9 +28,9 @@ public class KillhouseStartScript : MonoBehaviour
             {
                 killhouseManager.StartTrial();
             }
-            else
-            {
-                killhouseManager.CancelTrial();
-            }
+            // else
+            // {
+            //     killhouseManager.CancelTrial();
+            // }
     }
 }

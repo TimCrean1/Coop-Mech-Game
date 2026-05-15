@@ -8137,8 +8137,8 @@ Transform:
   m_GameObject: {fileID: 1272582719}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.39, y: 2.33, z: -24.68456}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -1.46, y: 2.33, z: -24.68456}
+  m_LocalScale: {x: 8, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -10185,6 +10185,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PlayerTeamOne_V4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1110307106174362958, guid: 32f865506c4ef0d4fb1669d81760c2fd,
+        type: 3}
+      propertyPath: m_TagString
+      value: TeamOne
       objectReference: {fileID: 0}
     - target: {fileID: 1381198712679646777, guid: 32f865506c4ef0d4fb1669d81760c2fd,
         type: 3}
@@ -12347,6 +12352,21 @@ PrefabInstance:
     - target: {fileID: 45411662938235591, guid: 7ca8620a251034daf95d8fca4b2c71a7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520485983646394285, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: m_StartAxis
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520485983646394285, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: m_StartCorner
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 520485983646394285, guid: 7ca8620a251034daf95d8fca4b2c71a7,
+        type: 3}
+      propertyPath: m_ChildAlignment
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3234333482762723898, guid: 7ca8620a251034daf95d8fca4b2c71a7,
