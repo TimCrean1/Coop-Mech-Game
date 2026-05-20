@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -20,6 +21,8 @@ public class GridManager : MonoBehaviour
     [SerializeField][Range(0,100)] private int tileAnimationStartHeightMin = 10;
     [SerializeField][Range(0,100)] private int tileAnimationStartHeightMax = 30;
     [SerializeField] private float tileAnimationDuration;
+    [Header("DEBUG")]
+    [SerializeField] private bool startUpTilesOnStart;
             
     private void Awake()
     {
@@ -84,7 +87,10 @@ public class GridManager : MonoBehaviour
 
             tilesGrid2D.Add(row);
         }
-        // StartUpTiles();
+        if (startUpTilesOnStart) //Debug code to test tile animation without having to start a match
+        {
+            StartUpTiles();
+        }
     }
 
     public void StartUpTiles()
@@ -94,7 +100,7 @@ public class GridManager : MonoBehaviour
             foreach (GameObject tile in row)
             {
                 Vector3 position = tile.transform.position;
-                position.y -= Random.Range(tileAnimationStartHeightMin, tileAnimationStartHeightMax);
+                position.y -= UnityEngine.Random.Range(tileAnimationStartHeightMin, tileAnimationStartHeightMax);
                 tile.transform.position = position;
             }
         }
@@ -111,14 +117,17 @@ public class GridManager : MonoBehaviour
             {
                 foreach (GameObject tile in row)
                 {
-                    Vector3 targetPosition = tile.transform.position;
-                    targetPosition.y = 0;
+                    if (Math.Sqrt(Math.Pow(tile.transform.position.y - gridOrigin.y, 2)) > 0.01f) // Check if tile is still above the target position (with a small threshold)
+                    {
+                        Vector3 targetPosition = tile.transform.position;
+                        targetPosition.y = 0;
 
-                    tile.transform.position = Vector3.Lerp(
-                        tile.transform.position,
-                        targetPosition,
-                        elapsedTime / tileAnimationDuration
-                    );
+                        tile.transform.position = Vector3.Lerp(
+                            tile.transform.position,
+                            targetPosition,
+                            elapsedTime / tileAnimationDuration
+                        );
+                    }
                 }
             }
 

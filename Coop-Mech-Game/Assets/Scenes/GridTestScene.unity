@@ -302,8 +302,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1769131079}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4.25, z: -34.28}
+  m_LocalRotation: {x: 0.09651058, y: 0, z: 0, w: 0.995332}
+  m_LocalPosition: {x: 67, y: 89, z: -400}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,7 +369,7 @@ PrefabInstance:
     - target: {fileID: 5222976377347264704, guid: 11c7cb001857047bfb677b9dd4b6b918,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.57453
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5222976377347264704, guid: 11c7cb001857047bfb677b9dd4b6b918,
         type: 3}
@@ -379,7 +379,7 @@ PrefabInstance:
     - target: {fileID: 5222976377347264704, guid: 11c7cb001857047bfb677b9dd4b6b918,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.05859
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5222976377347264704, guid: 11c7cb001857047bfb677b9dd4b6b918,
         type: 3}
@@ -415,6 +415,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8038153849733425794, guid: 11c7cb001857047bfb677b9dd4b6b918,
+        type: 3}
+      propertyPath: startUpTilesOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8038153849733425794, guid: 11c7cb001857047bfb677b9dd4b6b918,
+        type: 3}
+      propertyPath: tileAnimationDuration
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
