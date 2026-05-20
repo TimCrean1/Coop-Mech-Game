@@ -141,7 +141,7 @@ public class GameManager : NetworkBehaviour
                 StartCoroutine(StartTimeDelay());
             }
 
-            GameManagerReadyEvent.Invoke();
+            GameManagerReadyEvent?.Invoke();
         }
     }
 

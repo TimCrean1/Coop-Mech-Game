@@ -84,7 +84,7 @@ public class GridManager : MonoBehaviour
 
             tilesGrid2D.Add(row);
         }
-        StartUpTiles();
+        // StartUpTiles();
     }
 
     public void StartUpTiles()
