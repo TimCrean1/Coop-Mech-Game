@@ -15,21 +15,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
 
-    
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
-
-        //Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
-
-        //Player localPlayer = lobby.Players.Find(p =>
-        //p.Id == AuthenticationService.Instance.PlayerId);
-
-        //playerIndex = AuthenticationService.Instance.PlayerId;
-
-        //playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
-
-        //playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
 
         playerIndex = BootstrapScript.Instance.playerIndex;
 
@@ -37,13 +25,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         playerNumber = BootstrapScript.Instance.playerNumber;
         
-
-        
-
-        
         // for running code on tick rather than update
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
+        GameManager.Instance.GameManagerReadyEvent.AddListener(Initialize);
+    }
+
+    private void Initialize()
+    {
         if (GameManager.Instance._playerControllers.Count < 0)
         {
             Debug.Log("Playercontroller list is empty");
@@ -68,27 +57,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[1].indicatorCanvas.gameObject.SetActive(true);
         }
 
-        
-
-        //if (GameManager.Instance._playerControllers[0].player1 == null)
-        //{
-        //    GameManager.Instance._playerControllers[0].player1 = this;
-        //    isPlayerOne = true;
-        //}
-        //else
-        //{
-        //    GameManager.Instance._playerControllers[0].player2 = this;
-        //    isPlayerOne = false;
-        //}
         playerInputActions = new PlayerInputActions();
         SubscribeInputActions();
         playerInputActions.Player.Enable();
     }
-    //[ServerRpc]
-    //private void AskServerForIdServerRpc()
-    //{
-
-    //}
 
     #region Getters
 
@@ -325,32 +297,6 @@ public class TestPlayerObjectScript : NetworkBehaviour
             Debug.Log("playerInputActions is null");
         }
         //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
-    }
-    void Update()
-    {
-        //if (!IsOwner) { return; }
-        //// Get mouse position in screen space and normalize
-        //mousePos = Input.mousePosition;
-        //mousePos.x = mousePos.x / Screen.width;
-        //mousePos.y = mousePos.y / Screen.height;
-        ////mouseNetPos.Value = mousePos;
-
-        //// Send mouse position to PlayerController
-        //if (OwnerClientId == 0 || OwnerClientId == 1)
-        //{
-        //    playerController.ProcessMouse1InputServerRpc(mousePos);
-        //    //Debug.Log("player one" + mousePos);
-
-        //}
-        //else if (OwnerClientId == 2 || OwnerClientId == 3)
-        //{
-        //    playerController.ProcessMouse2InputServerRpc(mousePos);
-        //    //Debug.Log("player two" + mousePos);
-        //}
-        //if (playerInputActions == null)
-        //{
-        //    Debug.Log("playerInputActions is null");
-        //}
     }
     #endregion
 

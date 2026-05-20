@@ -52,26 +52,6 @@ public class PlayerController : NetworkBehaviour
 
     #region Unity Functions
 
-     
-    public override void OnNetworkSpawn()
-    {
-        //if(!IsOwner) { return; }
-        //mainCamera.GetComponent<Camera>().enabled = true;
-        //GameManager.Instance.AddController(this);
-    }
-   
-    private void Awake()
-    {
-        //GameManager.Instance.AddController(this);
-        //playerInputActions = new PlayerInputActions();
-    }
-
-    private void Start()
-    {
-        // GameManager.Instance.AddController(this);
-        //mainCamera.GetComponent<Camera>().enabled = true;
-    }
-
     private void OnEnable()
     {
         if (!IsOwner) { return; }

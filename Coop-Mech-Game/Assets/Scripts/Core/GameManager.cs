@@ -82,6 +82,7 @@ public class GameManager : NetworkBehaviour
     public UnityEvent OnStartupSequence;
     public UnityEvent OnRoundEnd;
     public UnityEvent OnBuyRoundStart;
+    public UnityEvent GameManagerReadyEvent;
     
 
     #endregion
@@ -139,6 +140,8 @@ public class GameManager : NetworkBehaviour
             {
                 StartCoroutine(StartTimeDelay());
             }
+
+            GameManagerReadyEvent.Invoke();
         }
     }
 
