@@ -104,37 +104,31 @@ public class GridManager : MonoBehaviour
                 tile.transform.position = position;
             }
         }
-        StartCoroutine(AnimateTiles());
+        AnimateTiles();
     }
 
-    private IEnumerator AnimateTiles()
+    private void AnimateTiles()
     {
-        float elapsedTime = 0f;
-
-        while (elapsedTime < tileAnimationDuration)
+        foreach (List<GameObject> row in tilesGrid2D)
         {
-            foreach (List<GameObject> row in tilesGrid2D)
+            foreach (GameObject tile in row)
             {
-                foreach (GameObject tile in row)
-                {
-                    if (Math.Sqrt(Math.Pow(tile.transform.position.y - gridOrigin.y, 2)) > 0.01f) // Check if tile is still above the target position (with a small threshold)
-                    {
-                        Vector3 targetPosition = tile.transform.position;
-                        targetPosition.y = 0;
-
-                        tile.transform.position = Vector3.Lerp(
-                            tile.transform.position,
-                            targetPosition,
-                            elapsedTime / tileAnimationDuration
-                        );
-                    }
-                }
+                StartCoroutine(AnimateSingleTile(tile));
             }
-
-            elapsedTime += Time.deltaTime;
-
-            yield return null; // wait one frame
         }
+    }
+
+    private IEnumerator AnimateSingleTile(GameObject tile)
+    {
+        Vector3 targetPosition = tile.transform.position;
+        targetPosition.y = gridOrigin.y;
+
+        while (Math.Sqrt(Math.Pow(tile.transform.position.y - gridOrigin.y, 2)) > 0.01f)
+        {
+            tile.transform.position = Vector3.Lerp(tile.transform.position, targetPosition, tileAnimationDuration * Time.deltaTime);
+            yield return null;
+        }
+        yield return null;
     }
 
     public void ClearGrid()
