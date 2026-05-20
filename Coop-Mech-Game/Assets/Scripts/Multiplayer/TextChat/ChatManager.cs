@@ -47,11 +47,11 @@ public class ChatManager : NetworkBehaviour
     {
         if (string.IsNullOrWhiteSpace(_message)) { return; }
 
-        if (_team == playerTeam)
-        {
-            string S = _fromWho + " > " + _message;
-            SendChatMessageServerRpc(S);
-        }
+        
+         // wait this doesnt actually work
+         string S = _fromWho + " > " + _message;
+         SendChatMessageServerRpc(S, _team);
+        
     }
     void AddMessage(string msg)
     {
@@ -60,9 +60,12 @@ public class ChatManager : NetworkBehaviour
     }
 
     [Rpc(SendTo.Server)]
-    void SendChatMessageServerRpc(string message)
+    void SendChatMessageServerRpc(string message, string team = null)
     {
-        ReceiveChatMessageClientRpc(message);
+        if (playerTeam == team) {
+            // hopefully only the player's team should receive this message
+            ReceiveChatMessageClientRpc(message);
+        }
     }
 
     [Rpc(SendTo.Everyone)]
