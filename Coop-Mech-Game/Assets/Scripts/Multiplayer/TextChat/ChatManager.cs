@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Unity.Netcode;
 using TMPro;
+using Unity.VisualScripting;
+using System;
 
 public class ChatManager : NetworkBehaviour
 {
@@ -13,9 +15,16 @@ public class ChatManager : NetworkBehaviour
     [SerializeField] TMP_InputField chatInput;
 
     public string playerName;
+    public string playerTeam;
+    
 
     void Awake()
     { ChatManager.Singleton = this; }
+
+    public override void OnNetworkSpawn()
+    {
+        SetPlayerInfo();
+    }
 
     void Update()
     {
@@ -34,6 +43,16 @@ public class ChatManager : NetworkBehaviour
         SendChatMessageServerRpc(S);
     }
 
+    public void SendTeamChatMessage(string _message, string _team, string _fromWho = null)
+    {
+        if (string.IsNullOrWhiteSpace(_message)) { return; }
+
+        if (_team == playerTeam)
+        {
+            string S = _fromWho + " > " + _message;
+            SendChatMessageServerRpc(S);
+        }
+    }
     void AddMessage(string msg)
     {
         ChatMessage CM = Instantiate(chatMessagePrefab, chatContent.transform.position, chatContent.transform.rotation, chatContent.transform);
@@ -50,5 +69,22 @@ public class ChatManager : NetworkBehaviour
     void ReceiveChatMessageClientRpc(string message)
     {
         AddMessage(message);
+    }
+
+    private void SetPlayerInfo()
+    {
+        if (NetworkManager.Singleton.IsConnectedClient) {
+
+            var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
+
+            if (client.PlayerObject.GetComponent<TestPlayerObjectScript>()) { 
+
+                var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
+            
+                playerTeam = playerObject.GetPlayerTeam();
+                playerName = playerObject.GetPlayerName();
+
+            }
+        }
     }
 }
