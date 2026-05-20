@@ -36,7 +36,7 @@ public class ChatManager : NetworkBehaviour
 
     void AddMessage(string msg)
     {
-        ChatMessage CM = Instantiate(chatMessagePrefab, chatContent.transform);
+        ChatMessage CM = Instantiate(chatMessagePrefab, chatContent.transform.position, chatContent.transform.rotation, chatContent.transform);
         CM.SetText(msg);
     }
 
@@ -46,9 +46,9 @@ public class ChatManager : NetworkBehaviour
         ReceiveChatMessageClientRpc(message);
     }
 
-    [Rpc(SendTo.NotServer)]
+    [Rpc(SendTo.Everyone)]
     void ReceiveChatMessageClientRpc(string message)
     {
-        ChatManager.Singleton.AddMessage(message);
+        AddMessage(message);
     }
 }
