@@ -1,7 +1,6 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -17,7 +16,11 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Vector3 gridOrigin = Vector3.zero;
     [SerializeField] private Vector2 p1SpawnTileIndex = new Vector2(0, 0);
     [SerializeField] private Vector2 p2SpawnTileIndex = new Vector2(0, 0);
-
+    [Header("Tile Animation Settings")]
+    [SerializeField][Range(0,100)] private int tileAnimationStartHeightMin = 10;
+    [SerializeField][Range(0,100)] private int tileAnimationStartHeightMax = 30;
+    [SerializeField] private float tileAnimationDuration;
+            
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,15 +43,33 @@ public class GridManager : MonoBehaviour
     {
         tilesGrid2D.Clear();
 
+        if (p1SpawnTileIndex == p2SpawnTileIndex)
+        {
+            Debug.LogError($"P1 and P2 spawn tile indices cannot be the same. Both are set to {p1SpawnTileIndex}. Please set different spawn tile indices for P1 and P2.");
+            return;
+        }
+
         for (int i = 0; i < gridSize.y; i++)
         {
             List<GameObject> row = new List<GameObject>();
 
             for (int j = 0; j < gridSize.x; j++)
             {
-                int randomIndex = UnityEngine.Random.Range(0, tilesList.Count);
+                GameObject tile;
+                if(i == p1SpawnTileIndex.y && j == p1SpawnTileIndex.x)
+                {
+                    tile = Instantiate(tilesList[14], transform);
+                }
+                else if(i == p2SpawnTileIndex.y && j == p2SpawnTileIndex.x)
+                {
+                    tile = Instantiate(tilesList[15], transform);
+                }
+                else
+                {
+                    int randomIndex = UnityEngine.Random.Range(0, tilesList.Count);
 
-                GameObject tile = Instantiate(tilesList[randomIndex], transform);
+                    tile = Instantiate(tilesList[randomIndex], transform);
+                }
 
                 Vector3 position = new Vector3(
                     gridOrigin.x + (j * tileDimensions2D.x),
@@ -63,33 +84,60 @@ public class GridManager : MonoBehaviour
 
             tilesGrid2D.Add(row);
         }
-
-        SpawnTiles();
+        StartUpTiles();
     }
 
-    private void SpawnTiles()
+    public void StartUpTiles()
     {
-        // Spawn P1 tile
-        if (IsValidTileIndex(p1SpawnTileIndex))
+        foreach (List<GameObject> row in tilesGrid2D)
         {
-            GameObject p1Tile = tilesGrid2D[(int)p1SpawnTileIndex.y][(int)p1SpawnTileIndex.x];
-            // Add code to spawn P1 on p1Tile
+            foreach (GameObject tile in row)
+            {
+                Vector3 position = tile.transform.position;
+                position.y -= Random.Range(tileAnimationStartHeightMin, tileAnimationStartHeightMax);
+                tile.transform.position = position;
+            }
         }
-        else
-        {
-            Debug.LogWarning($"P1 spawn tile index {p1SpawnTileIndex} is invalid. No tile will be spawned for P1.");
-        }
+        StartCoroutine(AnimateTiles());
+    }
 
-        // Spawn P2 tile
-        if (IsValidTileIndex(p2SpawnTileIndex))
+    private IEnumerator AnimateTiles()
+    {
+        float elapsedTime = 0f;
+
+        while (elapsedTime < tileAnimationDuration)
         {
-            GameObject p2Tile = tilesGrid2D[(int)p2SpawnTileIndex.y][(int)p2SpawnTileIndex.x];
-            // Add code to spawn P2 on p2Tile
+            foreach (List<GameObject> row in tilesGrid2D)
+            {
+                foreach (GameObject tile in row)
+                {
+                    Vector3 targetPosition = tile.transform.position;
+                    targetPosition.y = 0;
+
+                    tile.transform.position = Vector3.Lerp(
+                        tile.transform.position,
+                        targetPosition,
+                        elapsedTime / tileAnimationDuration
+                    );
+                }
+            }
+
+            elapsedTime += Time.deltaTime;
+
+            yield return null; // wait one frame
         }
-        else
+    }
+
+    public void ClearGrid()
+    {
+        foreach (List<GameObject> row in tilesGrid2D)
         {
-            Debug.LogWarning($"P2 spawn tile index {p2SpawnTileIndex} is invalid. No tile will be spawned for P2.");
+            foreach (GameObject tile in row)
+            {
+                Destroy(tile);
+            }
         }
+        tilesGrid2D.Clear();
     }
 
     private bool IsValidTileIndex(Vector2 index)
