@@ -647,7 +647,8 @@ AudioSource:
   m_GameObject: {fileID: 1110307106174362958}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6642821644448112126, guid: 54b710fef364f49f1acb61ccaba72efd,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
@@ -768,7 +769,8 @@ AudioSource:
   m_GameObject: {fileID: 1110307106174362958}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6642821644448112126, guid: 54b710fef364f49f1acb61ccaba72efd,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -865,7 +867,8 @@ AudioSource:
   m_GameObject: {fileID: 1110307106174362958}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -6642821644448112126, guid: 54b710fef364f49f1acb61ccaba72efd,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
@@ -1456,6 +1459,11 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 574296119
       objectReference: {fileID: 0}
+    - target: {fileID: 1949382280841367569, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 454488228189125500}
     - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
@@ -1481,6 +1489,21 @@ PrefabInstance:
       propertyPath: GlobalObjectIdHash
       value: 2046069547
       objectReference: {fileID: 0}
+    - target: {fileID: 7146601827955257013, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 454488228189125500}
+    - target: {fileID: 7161120623322642914, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 454488228189125500}
+    - target: {fileID: 7594193759761375716, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: audioManager
+      value: 
+      objectReference: {fileID: 454488228189125500}
     - target: {fileID: 7594674067440219324, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -60,11 +60,13 @@ public class MainMenuUI : MonoBehaviour
     }
     private void Hide()
     {
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
+        GetComponent<Canvas>().enabled = false;
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        // gameObject.SetActive(true);
+        GetComponent<Canvas>().enabled = true;
     }
 }
