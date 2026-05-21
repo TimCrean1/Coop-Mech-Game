@@ -26,13 +26,19 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private IEnumerator InitializeRoutine()
     {
         // Wait for network objects to fully exist
-        for (int i = 0; i < 10; i++)
+        while (
+            GameManager.Instance == null ||
+            !GameManager.Instance.IsSpawned ||
+            NetworkManager.Singleton == null ||
+            !NetworkManager.Singleton.IsConnectedClient
+        )
         {
-            if (GameManager.Instance != null && GameManager.Instance._playerControllers.Count > 0)
-            {
-                break;
-            }
-            yield return new WaitForSeconds(0.5f);
+            yield return null;
+        }
+
+        while (GameManager.Instance._playerControllers.Count < 2)
+        {
+            yield return null;
         }
 
         playerIndex = BootstrapScript.Instance.playerIndex;
@@ -49,7 +55,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void Initialize()
     {
-        if (GameManager.Instance._playerControllers.Count < 0)
+        if (GameManager.Instance._playerControllers.Count <= 0)
         {
             Debug.Log("Playercontroller list is empty");
         }

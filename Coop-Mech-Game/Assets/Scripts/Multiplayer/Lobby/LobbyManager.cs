@@ -159,6 +159,7 @@ public class LobbyManager : MonoBehaviour {
 
     private async void HandleLobbyPolling() {
         //Debug.Log("POLL UPDATE");
+
         if (joinedLobby != null) {
             lobbyPollTimer -= Time.deltaTime;
             if (lobbyPollTimer < 0f) {
@@ -169,8 +170,11 @@ public class LobbyManager : MonoBehaviour {
 
                 OnJoinedLobbyUpdate?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
 
-                if (!IsLobbyHost()) {
-                    if (joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value != "") {
+                if (!IsLobbyHost() && !alreadyStartedGame)
+                {
+                    if (joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value != "")
+                    {
+                        alreadyStartedGame = true;
                         JoinGame(joinedLobby.Data[KEY_RELAY_JOIN_CODE].Value);
                     }
                 }
@@ -528,25 +532,23 @@ public class LobbyManager : MonoBehaviour {
     }
     IEnumerator LoadSceneAsync(int sceneId)
     {
-        FadeImageScript.Instance.StartCoroutine(FadeImageScript.Instance.FadeToBlack());
-        yield return new WaitForSeconds(FadeImageScript.Instance.duration);
-        
-        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
-        
         LoadingScreen.SetActive(true);
+
+        // Start fade and scene loading simultaneously
+        StartCoroutine(FadeImageScript.Instance.FadeToBlack());
+
+        AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
 
         while (!operation.isDone)
         {
-
             float progressValue = Mathf.Clamp01(operation.progress / 0.9f);
 
             LoadingBarFill.fillAmount = progressValue;
 
             yield return null;
         }
-
-
     }
+
     public async void StartGame() {
         try {
             Debug.Log("StartGame");
@@ -597,7 +599,7 @@ public class LobbyManager : MonoBehaviour {
         {
             LoadScene(2);
         }
-        alreadyStartedGame = true;
+        // alreadyStartedGame = true;
         OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
     }
 
