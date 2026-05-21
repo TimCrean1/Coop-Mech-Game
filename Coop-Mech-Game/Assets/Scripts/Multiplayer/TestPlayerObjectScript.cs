@@ -26,8 +26,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private IEnumerator InitializeRoutine()
     {
         // Wait for network objects to fully exist
-        yield return null;
-        yield return null;
+        for (int i = 0; i < 10; i++)
+        {
+            if (GameManager.Instance != null && GameManager.Instance._playerControllers.Count > 0)
+            {
+                break;
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
 
         playerIndex = BootstrapScript.Instance.playerIndex;
         playerTeam = BootstrapScript.Instance.playerTeam;

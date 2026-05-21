@@ -19,12 +19,24 @@ public class AbilityIndicator : NetworkBehaviour
 
     private void Start()
     {
-        utilMatRight = rightUtilMat.GetComponent<Material>();
-        utilMatLeft = leftUtilMat.GetComponent<Material>();
+        Renderer rightRenderer = rightUtilMat.GetComponent<Renderer>();
+        Renderer leftRenderer = leftUtilMat.GetComponent<Renderer>();
+
+        if (rightRenderer != null)
+            utilMatRight = rightRenderer.material;
+
+        if (leftRenderer != null)
+            utilMatLeft = leftRenderer.material;
     }
+
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialActiveRpc(string materialToSet, bool setOn)
     {
+        if (!IsSpawned)
+        {
+            // Debug.LogWarning("AbilityIndicator not spawned.");
+            return;
+        }
         switch (materialToSet)
         {
             case "dash":

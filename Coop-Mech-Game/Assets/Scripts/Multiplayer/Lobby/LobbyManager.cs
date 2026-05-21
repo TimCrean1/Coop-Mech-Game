@@ -528,7 +528,9 @@ public class LobbyManager : MonoBehaviour {
     }
     IEnumerator LoadSceneAsync(int sceneId)
     {
-
+        FadeImageScript.Instance.StartCoroutine(FadeImageScript.Instance.FadeToBlack());
+        yield return new WaitForSeconds(FadeImageScript.Instance.duration);
+        
         AsyncOperation operation = SceneManager.LoadSceneAsync(sceneId);
         
         LoadingScreen.SetActive(true);
