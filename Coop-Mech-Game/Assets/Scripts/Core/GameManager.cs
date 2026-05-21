@@ -90,6 +90,46 @@ public class GameManager : NetworkBehaviour
 
     #region Unity Lifecycle
 
+    // public override void OnNetworkSpawn()
+    // {
+    //     InitTeamHealthRpc();
+    // }
+
+    // private void Awake()
+    // {
+    //     if (NetworkManager.Singleton != null)
+    //     {
+    //         NetworkManager.Singleton.OnClientConnectedCallback += WaitForConnectedPlayers;
+    //     }
+
+    //     if (_instance == null)
+    //     {
+    //         _instance = this;
+    //     }
+    //     else
+    //     {
+    //         Destroy(gameObject);
+    //     }
+
+    //     OnRoundEnd.AddListener(OnRoundEndTriggered);
+    // }
+
+    // private void Start()
+    // {
+    //     gameState = GameState.Instance;
+
+    //     Cursor.visible = true;
+
+    //     ResumeGame();
+    // }
+
+    #endregion
+
+
+    #region Game Start / Connection
+
+    private HashSet<ulong> readyClients = new HashSet<ulong>();
+
     public override void OnNetworkSpawn()
     {
         InitTeamHealthRpc();
@@ -97,11 +137,6 @@ public class GameManager : NetworkBehaviour
 
     private void Awake()
     {
-        if (NetworkManager.Singleton != null)
-        {
-            NetworkManager.Singleton.OnClientConnectedCallback += WaitForConnectedPlayers;
-        }
-
         if (_instance == null)
         {
             _instance = this;
@@ -123,25 +158,40 @@ public class GameManager : NetworkBehaviour
         ResumeGame();
     }
 
-    #endregion
+    /// <summary>
+    /// Called by clients AFTER they are fully loaded and initialized.
+    /// </summary>
+    [Rpc(SendTo.Server)]
+    public void ClientReadyRpc(RpcParams rpcParams = default)
+    {
+        ulong clientId = rpcParams.Receive.SenderClientId;
 
+        if (!readyClients.Contains(clientId))
+        {
+            readyClients.Add(clientId);
 
-    #region Game Start / Connection
+            Debug.Log($"Client ready: {clientId}");
+        }
 
-    private void WaitForConnectedPlayers(ulong clientId)
+        CheckAllClientsReady();
+    }
+
+    private void CheckAllClientsReady()
     {
         lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
 
-        if (NetworkManager.Singleton.ConnectedClients.Count >= lobbyMaxPlayers)
-        {
-            Debug.Log("GameManagerStartupSequence");
+        Debug.Log($"Ready Clients: {readyClients.Count}/{lobbyMaxPlayers}");
 
-            if (IsOwner)
+        if (readyClients.Count >= lobbyMaxPlayers)
+        {
+            Debug.Log("ALL CLIENTS READY");
+
+            if (IsServer)
             {
                 StartCoroutine(StartTimeDelay());
-            }
 
-            GameManagerReadyEvent?.Invoke();
+                GameManagerReadyEvent?.Invoke();
+            }
         }
     }
 
@@ -150,6 +200,7 @@ public class GameManager : NetworkBehaviour
         yield return new WaitForSeconds(3f);
 
         StartGameRpc();
+
         OnStartupSequence?.Invoke();
     }
 

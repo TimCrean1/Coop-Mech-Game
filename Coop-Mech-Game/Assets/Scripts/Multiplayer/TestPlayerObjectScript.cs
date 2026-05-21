@@ -4,6 +4,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Unity.Services.Authentication;
+using System.Collections;
 
 public class TestPlayerObjectScript : NetworkBehaviour
 {
@@ -19,16 +20,25 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         if (!IsOwner) { return; }
 
+        StartCoroutine(InitializeRoutine());
+    }
+
+    private IEnumerator InitializeRoutine()
+    {
+        // Wait for network objects to fully exist
+        yield return null;
+        yield return null;
+
         playerIndex = BootstrapScript.Instance.playerIndex;
-
         playerTeam = BootstrapScript.Instance.playerTeam;
-
         playerNumber = BootstrapScript.Instance.playerNumber;
-        
-        // for running code on tick rather than update
+
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
-        GameManager.Instance.GameManagerReadyEvent.AddListener(Initialize);
+        Initialize();
+
+        // Tell the server THIS CLIENT is fully initialized
+        GameManager.Instance.ClientReadyRpc();
     }
 
     private void Initialize()
@@ -394,4 +404,13 @@ public class TestPlayerObjectScript : NetworkBehaviour
         GameManager.Instance.OnRoundEnd.Invoke();
     }
     #endregion
+
+    public override void OnNetworkDespawn()
+    {
+        if (NetworkManager != null &&
+            NetworkManager.NetworkTickSystem != null)
+        {
+            NetworkManager.NetworkTickSystem.Tick -= Tick;
+        }
+    }
 }
