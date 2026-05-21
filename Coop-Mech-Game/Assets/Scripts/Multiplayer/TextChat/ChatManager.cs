@@ -17,6 +17,8 @@ public class ChatManager : NetworkBehaviour
     public string playerName;
     public string playerTeam;
     
+    // need some way to detect if the player wants to chat in team/all chat
+    // possibly enum?
 
     void Awake()
     { ChatManager.Singleton = this; }
@@ -62,10 +64,10 @@ public class ChatManager : NetworkBehaviour
     [Rpc(SendTo.Server)]
     void SendChatMessageServerRpc(string message, string team = null)
     {
-        if (playerTeam == team) {
+        //if (playerTeam == team) {
             // hopefully only the player's team should receive this message
             ReceiveChatMessageClientRpc(message);
-        }
+        //}
     }
 
     [Rpc(SendTo.Everyone)]
