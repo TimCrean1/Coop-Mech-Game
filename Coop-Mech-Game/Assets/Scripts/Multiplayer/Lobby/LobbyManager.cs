@@ -58,7 +58,8 @@ public class LobbyManager : MonoBehaviour {
 
     public enum GameMode {
         Practice,
-        Duel
+        Duel,
+        Sandbox
     }
 
     public enum PlayerTeam
@@ -259,6 +260,9 @@ public class LobbyManager : MonoBehaviour {
                     
                     break;
                 case GameMode.Duel:
+                    gameMode = GameMode.Sandbox;
+                    break;
+                case GameMode.Sandbox:
                     gameMode = GameMode.Practice;
                     break;
             }
@@ -572,7 +576,11 @@ public class LobbyManager : MonoBehaviour {
             {
                 
                 LoadScene(2);
+            }else if (lobby.Data[KEY_GAME_MODE].Value == "Sandbox")
+            {
+                LoadScene(3);
             }
+            
            
 
             OnLobbyStartGame?.Invoke(this, new LobbyEventArgs { lobby = joinedLobby });
