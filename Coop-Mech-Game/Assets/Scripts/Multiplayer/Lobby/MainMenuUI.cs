@@ -1,4 +1,6 @@
+using System.Collections;
 using Unity.Cinemachine;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +13,10 @@ public class MainMenuUI : MonoBehaviour
 
     [SerializeField] private CinemachineCamera _camera;
     [SerializeField] private CinemachineCamera _camera2;
+
+    [SerializeField] private float fadeSpeed = 0.1f;
+
+    private CanvasGroup canvasGroup;
     public static MainMenuUI Instance { get; private set; }
 
     private void Awake()
@@ -24,11 +30,12 @@ public class MainMenuUI : MonoBehaviour
     }
     void Start()
     {
+        canvasGroup = gameObject.GetComponent<CanvasGroup>();
         PlayButton.onClick.AddListener(() =>
         {
             giveCameraTwoPriority();
-            Hide();
-            
+            StartCoroutine(FadeOut());
+
         });
 
         OptionsButton.onClick.AddListener(() =>
@@ -46,6 +53,38 @@ public class MainMenuUI : MonoBehaviour
         });
     }
 
+    private IEnumerator FadeOut()
+    {
+        while (canvasGroup.alpha > 0.01f)
+        {
+            canvasGroup.alpha = Mathf.Lerp(
+                canvasGroup.alpha,
+                0,
+                fadeSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        canvasGroup.alpha = 0;
+        Hide();
+    }
+    public IEnumerator FadeIn()
+    {
+        while (canvasGroup.alpha < 0.99f)
+        {
+            canvasGroup.alpha = Mathf.Lerp(
+                canvasGroup.alpha,
+                1,
+                fadeSpeed * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        canvasGroup.alpha = 1;
+        
+    }
 
     public void giveCameraOnePriority()
     {
