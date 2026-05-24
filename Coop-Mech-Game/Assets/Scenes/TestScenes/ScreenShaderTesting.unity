@@ -822,7 +822,13 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 6, y: 1, z: 20}
+        m_Name: BeamEnd
+        m_Overridden: 1
+      - m_Value: {x: 6, y: 1, z: 0}
+        m_Name: BeamStart
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -848,7 +854,7 @@ Transform:
   m_GameObject: {fileID: 327891881}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6, y: 3, z: 0}
+  m_LocalPosition: {x: 6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
