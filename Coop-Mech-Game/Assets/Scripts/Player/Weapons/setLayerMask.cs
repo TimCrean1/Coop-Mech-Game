@@ -3,12 +3,14 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
-public class setLayerMask : MonoBehaviour
+public class setLayerMask : NetworkBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public override void OnNetworkSpawn()
     {
-        if (!TryGetComponent<NetworkObject>(out var netObj))
+        NetworkObject netObj = GetComponentInParent<NetworkObject>();
+
+        if (netObj == null)
         {
             Debug.LogError("No NetworkObject found!");
             return;
@@ -44,7 +46,6 @@ public class setLayerMask : MonoBehaviour
 
         SetLayerRecursively(gameObject, layer);
     }
-
     void SetLayerRecursively(GameObject obj, int layer)
     {
         obj.layer = layer;
