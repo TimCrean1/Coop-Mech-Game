@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class WeaponSniper : BaseWeapon
@@ -52,7 +53,24 @@ public class WeaponSniper : BaseWeapon
 
         ChangeAmmoText();
     }
-    
+    [Rpc(SendTo.ClientsAndHost)]
+    protected override void FireEventMethodClientRpc()
+    {
+        if (muzzleComp && isMultiShot == false)
+        {
+            Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit);
+            gunAnimator.SetTrigger("shot");
+            ammoAnimator.SetTrigger("shot");
+
+        }
+
+        if (audioSource != null && weaponAudioClip != null)
+        {
+            audioSource.PlayOneShot(weaponAudioClip);
+        }
+        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); }
+        else if (muzzleComp && isMultiShot == true) { Debug.Log("BaseWeapon: hits list count is: " + hits.Count); muzzleComp.SendFireEventList(hits); }
+    }
     protected override void AdjustDistanceBasedStats(float mouseDistance)
     {
         currentDamage = damage * mouseDistance;

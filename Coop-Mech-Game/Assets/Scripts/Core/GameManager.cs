@@ -36,8 +36,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject MechOne;
     [SerializeField] private GameObject MechTwo;
 
-    [SerializeField] private MechScreen t1HealthScreen;
-    [SerializeField] private MechScreen t2HealthScreen;
+    
 
     [SerializeField] private UI_Manager t1UIMgr;
     [SerializeField] private UI_Manager t2UIMgr;
@@ -365,15 +364,15 @@ public class GameManager : NetworkBehaviour
         _teamOneHealth.Value = teamOneMaxHealth;
         _teamTwoHealth.Value = teamTwoMaxHealth;
 
-        if (t1HealthScreen != null)
-        {
-            Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
-        }
+        //if (t1HealthScreen != null)
+        //{
+        //    Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+        //}
 
-        if (t2HealthScreen != null)
-        {
-            Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
-        }
+        //if (t2HealthScreen != null)
+        //{
+        //    Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+        //}
     }
 
     [Rpc(SendTo.Server)]
@@ -385,7 +384,7 @@ public class GameManager : NetworkBehaviour
             Showt1DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
-            if (t1HealthScreen != null)
+            if (t1UIMgr != null)
             {
                 //Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
                 t1UIMgr.SetHealthBarPercent(teamOneMaxHealth, _teamOneHealth.Value);
@@ -401,7 +400,7 @@ public class GameManager : NetworkBehaviour
             Showt2DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
-            if (t2HealthScreen != null)
+            if (t2UIMgr != null)
             {
                 //Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
                 t2UIMgr.SetHealthBarPercent(teamTwoMaxHealth, _teamTwoHealth.Value);
@@ -444,10 +443,10 @@ public class GameManager : NetworkBehaviour
 
             Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamOneHealth.Value);
 
-            if (t1HealthScreen != null)
-            {
-                Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
-            }
+            //if (t1HealthScreen != null)
+            //{
+            //    Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+            //}
         }
         else if (teamNumToHeal == 2)
         {
@@ -466,10 +465,10 @@ public class GameManager : NetworkBehaviour
 
             Debug.Log("Healing Team: " + teamNumToHeal + " by: " + healAmt + " health to new health: " + _teamTwoHealth.Value);
 
-            if (t2HealthScreen != null)
-            {
-                Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
-            }
+            //if (t2HealthScreen != null)
+            //{
+            //    Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+            //}
         }
     }
 
