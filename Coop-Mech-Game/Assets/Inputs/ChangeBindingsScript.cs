@@ -343,6 +343,16 @@ public class ChangeBindingsScript : MonoBehaviour
             .ToDisplayString();
     }
 
+    /// <summary>
+    /// Resets all bindings to their default values.
+    /// </summary>
+    public void SetBindingsDefault()
+    {
+        inputActions.asset.RemoveAllBindingOverrides();
+        PlayerPrefs.DeleteKey("rebinds");
+        RefreshUI();
+    }
+
     // =====================================================
     // DISPLAY HELPERS
     // =====================================================
