@@ -75,18 +75,6 @@ public class TeamWeaponManager : NetworkBehaviour
             weaponTranformTwo = P2WeaponsList[_p2EquippedWeapon].transform;
         }
     }
-    public override void OnNetworkSpawn()
-    {
-        //if (IsOwner)
-        //{
-        //    PurchaseWeaponRpc(0, 0);
-        //    PurchaseWeaponRpc(1, 1);
-        //}
-
-       
-
-        
-    }
 
     #endregion
 

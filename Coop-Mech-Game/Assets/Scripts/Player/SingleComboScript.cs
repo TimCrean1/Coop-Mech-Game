@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using Unity.VisualScripting;
 using Unity.Netcode;
+using System.Collections;
 
 public class SingleComboScript : NetworkBehaviour
 {
@@ -25,6 +26,21 @@ public class SingleComboScript : NetworkBehaviour
 
     public override void OnNetworkSpawn()
     {
+        // NetworkManager.NetworkTickSystem.Tick += Tick;
+        StartCoroutine(InitializeCoroutine());
+    }
+
+    private IEnumerator InitializeCoroutine()
+    {
+        while (
+            GameManager.Instance == null ||
+            !GameManager.Instance.IsSpawned ||
+            NetworkManager.Singleton == null ||
+            !NetworkManager.Singleton.IsConnectedClient
+        )
+        {
+            yield return null;
+        }
         NetworkManager.NetworkTickSystem.Tick += Tick;
     }
 
