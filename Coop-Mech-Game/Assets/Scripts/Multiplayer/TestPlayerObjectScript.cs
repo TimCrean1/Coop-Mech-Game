@@ -79,7 +79,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[1].indicatorCanvas.gameObject.SetActive(true);
         }
 
-        playerInputActions = new PlayerInputActions();
+        // playerInputActions = new PlayerInputActions();
+        playerInputActions = InputManager.Instance.InputActions;
         SubscribeInputActions();
         playerInputActions.Player.Enable();
     }
