@@ -33,6 +33,7 @@ public class ChangeBindingsScript : MonoBehaviour
     {
         // Enable all input actions
         inputActions.Enable();
+        RefreshUI();
     }
 
     private void OnDisable()

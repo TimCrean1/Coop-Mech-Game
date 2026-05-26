@@ -33,4 +33,9 @@ public class InputManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    void OnApplicationQuit()
+    {
+        PlayerPrefs.SetString("rebinds", InputActions.asset.SaveBindingOverridesAsJson());
+    }
 }
