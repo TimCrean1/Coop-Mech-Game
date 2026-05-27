@@ -10,32 +10,35 @@ public class ChatManager : NetworkBehaviour
 {
     public static ChatManager Singleton;
 
-    [SerializeField] ChatMessage chatMessagePrefab;
-    [SerializeField] CanvasGroup chatContent;
-    [SerializeField] TMP_InputField chatInput;
+    public static event Action<string> OnMessageReceived;
+
+    //[SerializeField] ChatMessage chatMessagePrefab;
+    //[SerializeField] CanvasGroup chatContent;
+    //[SerializeField] TMP_InputField chatInput;
+    // moved to ChatUI
 
     public string playerName;
     public string playerTeam;
-    
+
     // need some way to detect if the player wants to chat in team/all chat
     // possibly enum?
 
     void Awake()
-    { ChatManager.Singleton = this; }
+    { Singleton = this; }
 
     public override void OnNetworkSpawn()
     {
         SetPlayerInfo();
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            SendChatMessage(chatInput.text, playerName);
-            chatInput.text = "";
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.Return))
+    //    {
+    //        SendChatMessage(chatInput.text, playerName);
+    //        chatInput.text = "";
+    //    }
+    //}
 
     public void SendChatMessage(string _message, string _fromWho = null)
     {
@@ -55,11 +58,11 @@ public class ChatManager : NetworkBehaviour
          SendChatMessageServerRpc(S, _team);
         
     }
-    void AddMessage(string msg)
-    {
-        ChatMessage CM = Instantiate(chatMessagePrefab, chatContent.transform.position, chatContent.transform.rotation, chatContent.transform);
-        CM.SetText(msg);
-    }
+    //void AddMessage(string msg)
+    //{
+    //    ChatMessage CM = Instantiate(chatMessagePrefab, chatContent.transform.position, chatContent.transform.rotation, chatContent.transform);
+    //    CM.SetText(msg);
+    //}
 
     [Rpc(SendTo.Server)]
     void SendChatMessageServerRpc(string message, string team = null)
@@ -73,7 +76,8 @@ public class ChatManager : NetworkBehaviour
     [Rpc(SendTo.Everyone)]
     void ReceiveChatMessageClientRpc(string message)
     {
-        AddMessage(message);
+        //AddMessage(message);
+        OnMessageReceived?.Invoke(message);
     }
 
     private void SetPlayerInfo()

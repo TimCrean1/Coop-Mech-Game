@@ -120,8 +120,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8198817969647022286}
   m_HandleRect: {fileID: 1989690265643478744}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 2
+  m_Size: 0.9999987
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 4620038812496934500}
   - component: {fileID: 2710789563317649763}
   - component: {fileID: 8877962940366750677}
+  - component: {fileID: 3002253674934315972}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -446,6 +447,22 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3002253674934315972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4294284196154241380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b296407f1ff06a944a92ad46f25c5941, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ChatUI
+  chatMessagePrefab: {fileID: 3105236472809020981, guid: 45aedb47108da7e48ad450e637dba426,
+    type: 3}
+  chatContent: {fileID: 1027228866860079399}
+  chatInput: {fileID: 6572877883005674998}
 --- !u!1 &5836511639825731408
 GameObject:
   m_ObjectHideFlags: 0
