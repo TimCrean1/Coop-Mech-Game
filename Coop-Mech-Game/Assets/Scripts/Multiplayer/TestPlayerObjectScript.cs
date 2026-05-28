@@ -188,35 +188,35 @@ public class TestPlayerObjectScript : NetworkBehaviour
             // playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
             // playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
 
-            playerInputActions.Player.P1Move.started += P1MoveAction;
+            // playerInputActions.Player.P1Move.started += P1MoveAction;
             playerInputActions.Player.P1Move.performed += P1MoveAction;
             playerInputActions.Player.P1Move.canceled += P1MoveAction;
 
-            playerInputActions.Player.P1Shoot.started += P1ShootAction;
+            // playerInputActions.Player.P1Shoot.started += P1ShootAction;
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
 
-            playerInputActions.Player.P1Jump.started += P1JumpAction;
+            // playerInputActions.Player.P1Jump.started += P1JumpAction;
             playerInputActions.Player.P1Jump.performed += P1JumpAction;
             playerInputActions.Player.P1Jump.canceled += P1JumpAction;
 
-            playerInputActions.Player.P1Dash.started += P1DashAction;
+            // playerInputActions.Player.P1Dash.started += P1DashAction;
             playerInputActions.Player.P1Dash.performed += P1DashAction;
             playerInputActions.Player.P1Dash.canceled += P1DashAction;
 
-            playerInputActions.Player.P1Utility.started += P1UtilityAction;
+            // playerInputActions.Player.P1Utility.started += P1UtilityAction;
             playerInputActions.Player.P1Utility.performed += P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled += P1UtilityAction;
 
-            playerInputActions.Player.P1Reload.started += P1ReloadAction;
+            // playerInputActions.Player.P1Reload.started += P1ReloadAction;
             playerInputActions.Player.P1Reload.performed += P1ReloadAction;
             playerInputActions.Player.P1Reload.canceled += P1ReloadAction;
 
-            playerInputActions.Player.P1Countdown.started += P1CountdownAction;
+            // playerInputActions.Player.P1Countdown.started += P1CountdownAction;
             playerInputActions.Player.P1Countdown.performed += P1CountdownAction;
             playerInputActions.Player.P1Countdown.canceled += P1CountdownAction;
 
-            playerInputActions.Player.RoundEnd.started += EndRound;
+            // playerInputActions.Player.RoundEnd.started += EndRound;
             playerInputActions.Player.RoundEnd.performed += EndRound;
             playerInputActions.Player.RoundEnd.canceled += EndRound;
         }
@@ -229,31 +229,31 @@ public class TestPlayerObjectScript : NetworkBehaviour
             // playerInputActions.Player.P2Shoot.started += playerController.P2ShootAction;
             // playerInputActions.Player.P2Shoot.canceled += playerController.P2ShootAction;
 
-            playerInputActions.Player.P2Move.started += P2MoveAction;
+            // playerInputActions.Player.P2Move.started += P2MoveAction;
             playerInputActions.Player.P2Move.performed += P2MoveAction;
             playerInputActions.Player.P2Move.canceled += P2MoveAction;
 
-            playerInputActions.Player.P2Shoot.started += P2ShootAction;
+            // playerInputActions.Player.P2Shoot.started += P2ShootAction;
             playerInputActions.Player.P2Shoot.performed += P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
 
-            playerInputActions.Player.P2Jump.started += P2JumpAction;
+            // playerInputActions.Player.P2Jump.started += P2JumpAction;
             playerInputActions.Player.P2Jump.performed += P2JumpAction;
             playerInputActions.Player.P2Jump.canceled += P2JumpAction;
 
-            playerInputActions.Player.P2Dash.started += P2DashAction;
+            // playerInputActions.Player.P2Dash.started += P2DashAction;
             playerInputActions.Player.P2Dash.performed += P2DashAction;
             playerInputActions.Player.P2Dash.canceled += P2DashAction;
 
-            playerInputActions.Player.P2Utility.started += P2UtilityAction;
+            // playerInputActions.Player.P2Utility.started += P2UtilityAction;
             playerInputActions.Player.P2Utility.performed += P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled += P2UtilityAction;
 
-            playerInputActions.Player.P2Countdown.started += P2CountdownAction;
+            // playerInputActions.Player.P2Countdown.started += P2CountdownAction;
             playerInputActions.Player.P2Countdown.performed += P2CountdownAction;
             playerInputActions.Player.P2Countdown.canceled += P2CountdownAction;
 
-            playerInputActions.Player.P2Reload.started += P2ReloadAction;
+            // playerInputActions.Player.P2Reload.started += P2ReloadAction;
             playerInputActions.Player.P2Reload.performed += P2ReloadAction;
             playerInputActions.Player.P2Reload.canceled += P2ReloadAction;
         }
