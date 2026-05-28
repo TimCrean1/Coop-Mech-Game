@@ -45,7 +45,7 @@ public abstract class BaseWeapon : NetworkBehaviour
     [SerializeField] protected float cooldownTime = 1.0f;
     [SerializeField] protected float damage = 50;
     [SerializeField] protected float baseKnockbackForce = 1;
-    [SerializeField] [Range(1,5)] private float damageMultiplier = 2.5f;
+    [SerializeField] [Range(1,5)] protected float damageMultiplier = 2.5f;
     [SerializeField] private Vector3 maxRotationAxes = Vector3.zero;
     private bool isReloading = false;
 
@@ -154,20 +154,28 @@ public abstract class BaseWeapon : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     protected virtual void FireEventMethodClientRpc()
     {
-        if (muzzleComp && isMultiShot == false) { Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit); 
-            if (gunAnimator.GetBool("isShooting") == false) {
-                gunAnimator.SetBool("isShooting", true); }
-            if (ammoAnimator.GetBool("isShooting") == false) {
-                ammoAnimator.SetBool("isShooting", true);
-            }
-            ammoAnimator.SetInteger("AmmoCount", ammoCount.Value);
-            if (shootingRoutine != null)
+        if (gunAnimator != null)
+        {
+            if (muzzleComp && isMultiShot == false)
             {
-                StopCoroutine(shootingRoutine);
-            }
+                Debug.Log("hit pos is:" + hit.point); muzzleComp.SendFireEvent(hit);
+                if (gunAnimator.GetBool("isShooting") == false)
+                {
+                    gunAnimator.SetBool("isShooting", true);
+                }
+                if (ammoAnimator.GetBool("isShooting") == false)
+                {
+                    ammoAnimator.SetBool("isShooting", true);
+                }
+                ammoAnimator.SetInteger("AmmoCount", ammoCount.Value);
+                if (shootingRoutine != null)
+                {
+                    StopCoroutine(shootingRoutine);
+                }
 
-            shootingRoutine = StartCoroutine(StopShootingRoutine());
-            
+                shootingRoutine = StartCoroutine(StopShootingRoutine());
+
+            }
         }
         
         if (audioSource != null && weaponAudioClip != null){
