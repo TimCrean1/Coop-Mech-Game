@@ -16,6 +16,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string playerName;
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
+    private bool isInitialized = false;
 
     public override void OnNetworkSpawn()
     {
@@ -84,15 +85,20 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerInputActions = InputManager.Instance.InputActions;
         SubscribeInputActions();
         playerInputActions.Player.Enable();
+
+        isInitialized = true;
     }
 
     void FixedUpdate()
     {
-        if (playerController.currentState == EPlayerState.Moving)
+        if (isInitialized)
         {
-            if (Application.isFocused == false)
+            if (playerController.currentState == EPlayerState.Moving)
             {
-                SwitchActionMap(EPlayerState.Paused);
+                if (Application.isFocused == false)
+                {
+                    SwitchActionMap(EPlayerState.Paused);
+                }
             }
         }
     }
