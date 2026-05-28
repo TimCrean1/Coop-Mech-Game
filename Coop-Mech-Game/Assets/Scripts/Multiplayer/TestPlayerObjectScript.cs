@@ -18,6 +18,15 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private PlayerInputActions playerInputActions;
     private bool isInitialized = false;
 
+    private Vector2 lastSentMousePos;
+    private float nextMouseSendTime = 0f;
+
+    // 20 updates/sec
+    private const float MOUSE_SEND_INTERVAL = 0.05f;
+
+    // Ignore tiny movement changes
+    private const float MOUSE_SEND_THRESHOLD = 0.01f;
+
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
@@ -333,32 +342,71 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     void Tick()
     {
-        if (!IsOwner) { return; }
+        //if (!IsOwner) { return; }
 
-        // Send mouse position to PlayerController
-        if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
+        //// Send mouse position to PlayerController
+        //if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
+        //{
+        //    // Get mouse position in screen space and normalize
+        //    mousePos = Input.mousePosition;
+        //    mousePos.x = mousePos.x / Screen.width;
+        //    mousePos.y = mousePos.y / Screen.height;
+        //    //mouseNetPos.Value = mousePos;
+
+        //    if (playerNumber == "One")
+        //    {
+        //        playerController.ProcessMouse1InputServerRpc(mousePos);
+        //        //Debug.Log("player one" + mousePos);
+
+        //    }
+        //    else if (playerNumber == "Two")
+        //    {
+        //        playerController.ProcessMouse2InputServerRpc(mousePos);
+        //        //Debug.Log("player two" + mousePos);
+        //    }
+        //    if (playerInputActions == null)
+        //    {
+        //        Debug.Log("playerInputActions is null");
+        //    }
+        //}
+        if (!IsOwner)
+            return;
+
+        if (!isInitialized)
+            return;
+
+        if (playerController.currentState != EPlayerState.Moving)
+            return;
+
+        if (!Application.isFocused)
+            return;
+
+        // Throttle network sends
+        if (Time.time < nextMouseSendTime)
+            return;
+
+        nextMouseSendTime = Time.time + MOUSE_SEND_INTERVAL;
+
+        // Normalize mouse position
+        Vector2 currentMousePos = Input.mousePosition;
+
+        currentMousePos.x /= Screen.width;
+        currentMousePos.y /= Screen.height;
+
+        // Only send if movement is meaningful
+        if (Vector2.Distance(currentMousePos, lastSentMousePos) < MOUSE_SEND_THRESHOLD)
+            return;
+
+        lastSentMousePos = currentMousePos;
+
+        // Send to server
+        if (playerNumber == "One")
         {
-            // Get mouse position in screen space and normalize
-            mousePos = Input.mousePosition;
-            mousePos.x = mousePos.x / Screen.width;
-            mousePos.y = mousePos.y / Screen.height;
-            //mouseNetPos.Value = mousePos;
-
-            if (playerNumber == "One")
-            {
-                playerController.ProcessMouse1InputServerRpc(mousePos);
-                //Debug.Log("player one" + mousePos);
-
-            }
-            else if (playerNumber == "Two")
-            {
-                playerController.ProcessMouse2InputServerRpc(mousePos);
-                //Debug.Log("player two" + mousePos);
-            }
-            if (playerInputActions == null)
-            {
-                Debug.Log("playerInputActions is null");
-            }
+            playerController.ProcessMouse1InputServerRpc(currentMousePos);
+        }
+        else if (playerNumber == "Two")
+        {
+            playerController.ProcessMouse2InputServerRpc(currentMousePos);
         }
         //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
     }
