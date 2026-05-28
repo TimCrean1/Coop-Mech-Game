@@ -13,6 +13,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string playerIndex;
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
+    [SerializeField] private string playerName;
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
 
@@ -106,6 +107,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public string GetPlayerNum()
     {
         return playerNumber;
+    }
+
+    public string GetPlayerName()
+    {
+        return playerName;
     }
     #endregion
 
