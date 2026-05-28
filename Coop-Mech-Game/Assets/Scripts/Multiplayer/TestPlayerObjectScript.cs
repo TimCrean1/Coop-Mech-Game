@@ -85,6 +85,17 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerInputActions.Player.Enable();
     }
 
+    void FixedUpdate()
+    {
+        if (playerController.currentState == EPlayerState.Moving)
+        {
+            if (Application.isFocused == false)
+            {
+                SwitchActionMap(EPlayerState.Paused);
+            }
+        }
+    }
+
     #region Getters
 
     public string GetPlayerTeam()
@@ -110,7 +121,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public void SwitchActionMap(EPlayerState state)
     {
         playerInputActions.Player.Disable();
-        playerInputActions.UI.Disable();
+        playerInputActions.Pause.Disable();
 
         switch (state)
         {
@@ -120,8 +131,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
                 break;
 
             case EPlayerState.Paused:
-                playerInputActions.UI.Enable();
-                // Cursor.visible = true;
+                playerInputActions.Pause.Enable();
+                Cursor.visible = true;
                 // Cursor.lockState = CursorLockMode.None;
                 break;
 
@@ -217,6 +228,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Reload.performed += P2ReloadAction;
             playerInputActions.Player.P2Reload.canceled += P2ReloadAction;
         }
+
+        playerInputActions.Player.Pause.performed += PauseAction;
+        playerInputActions.Pause.Resume.performed += ResumeAction;
     }
 
     private void UnsubscribeInputActions()
@@ -290,6 +304,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Countdown.performed -= P2CountdownAction;
             playerInputActions.Player.P2Countdown.canceled -= P2CountdownAction;
         }
+
+        playerInputActions.Player.Pause.performed -= PauseAction;
+        playerInputActions.Pause.Resume.performed -= ResumeAction;
     }
 #endregion
 #region Tick
@@ -297,27 +314,31 @@ public class TestPlayerObjectScript : NetworkBehaviour
     void Tick()
     {
         if (!IsOwner) { return; }
-        // Get mouse position in screen space and normalize
-        mousePos = Input.mousePosition;
-        mousePos.x = mousePos.x / Screen.width;
-        mousePos.y = mousePos.y / Screen.height;
-        //mouseNetPos.Value = mousePos;
 
         // Send mouse position to PlayerController
-        if (playerNumber == "One")
+        if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
         {
-            playerController.ProcessMouse1InputServerRpc(mousePos);
-            //Debug.Log("player one" + mousePos);
+            // Get mouse position in screen space and normalize
+            mousePos = Input.mousePosition;
+            mousePos.x = mousePos.x / Screen.width;
+            mousePos.y = mousePos.y / Screen.height;
+            //mouseNetPos.Value = mousePos;
 
-        }
-        else if (playerNumber == "Two")
-        {
-            playerController.ProcessMouse2InputServerRpc(mousePos);
-            //Debug.Log("player two" + mousePos);
-        }
-        if (playerInputActions == null)
-        {
-            Debug.Log("playerInputActions is null");
+            if (playerNumber == "One")
+            {
+                playerController.ProcessMouse1InputServerRpc(mousePos);
+                //Debug.Log("player one" + mousePos);
+
+            }
+            else if (playerNumber == "Two")
+            {
+                playerController.ProcessMouse2InputServerRpc(mousePos);
+                //Debug.Log("player two" + mousePos);
+            }
+            if (playerInputActions == null)
+            {
+                Debug.Log("playerInputActions is null");
+            }
         }
         //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
     }
@@ -415,6 +436,16 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private void EndRound(InputAction.CallbackContext context)
     {
         GameManager.Instance.OnRoundEnd.Invoke();
+    }
+
+    private void PauseAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Paused);
+    }
+
+    private void ResumeAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Moving);
     }
     #endregion
 
