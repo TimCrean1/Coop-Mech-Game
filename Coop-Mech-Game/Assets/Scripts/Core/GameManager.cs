@@ -271,12 +271,12 @@ public class GameManager : NetworkBehaviour
     #region Game End
 
     [Rpc(SendTo.NotServer)]
-    private void OnGameEndClientRpc()
+    public void OnGameEndClientRpc()
     {
         StartCoroutine(EndTimeDelay());
     }
     [Rpc(SendTo.Server)]
-    private void OnGameEndServerRpc()
+    public void OnGameEndServerRpc()
     {
         StartCoroutine(EndTimeDelay());
     }

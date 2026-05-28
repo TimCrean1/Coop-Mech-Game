@@ -127,11 +127,19 @@ public class TestPlayerObjectScript : NetworkBehaviour
         {
             case EPlayerState.Moving:
                 playerInputActions.Player.Enable();
+                if (PauseMenu.Instance.isShowing == true)
+                {
+                    PauseMenu.Instance.Hide();
+                }
                 Cursor.visible = false;
                 break;
 
             case EPlayerState.Paused:
                 playerInputActions.Pause.Enable();
+                if (PauseMenu.Instance.isShowing == false)
+                {
+                    PauseMenu.Instance.Show();
+                }
                 Cursor.visible = true;
                 // Cursor.lockState = CursorLockMode.None;
                 break;
