@@ -214,6 +214,22 @@ public class PlayerCoroutineManager : NetworkBehaviour
         }
         return false;
     }
+
+    public bool TryGetSyncedShoot(out bool isSynced)
+    {
+        // Check if inputs are within the sync window and that inputs are identical
+        if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow && Mathf.Approximately(p1ShootInput.Value, p2ShootInput.Value))
+        {
+            isSynced = true;
+            return true;
+        }
+        else
+        {
+            isSynced = false;
+            return false;
+        }
+    }
+
     #endregion
     #region Jumping
     public bool TryGetSyncedJump(out float syncedJumpInput)

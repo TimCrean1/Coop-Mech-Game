@@ -355,6 +355,12 @@ public class CharacterMovement : BaseMovement
         if (shootInput <= 0f) return;
         weaponMgr.FireWeapons(shootInput);
     }
+
+    public override void ShootSpecial(bool isSynced)
+    {
+        if (!canMove || isSynced == false) return;
+        weaponMgr.FireSpecial();
+    }
     #endregion
 
     #region Jumping
