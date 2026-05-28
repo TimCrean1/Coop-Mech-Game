@@ -97,8 +97,4 @@ public class WeaponSpecialBeam : BaseWeapon
         currentDamage *= damageMultiplier;
     }
 
-    protected override void FireEventMethodClientRpc()
-    {
-        base.FireEventMethodClientRpc();
-    }
 }
