@@ -4,6 +4,7 @@ using Unity.Services.Lobbies.Models;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using Unity.Services.Authentication;
+using System.Collections;
 
 public class TestPlayerObjectScript : NetworkBehaviour
 {
@@ -16,36 +17,46 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
 
-    
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
 
-        //Lobby lobby = LobbyManager.Instance.GetJoinedLobby();
+        StartCoroutine(InitializeRoutine());
+    }
 
-        //Player localPlayer = lobby.Players.Find(p =>
-        //p.Id == AuthenticationService.Instance.PlayerId);
+    private IEnumerator InitializeRoutine()
+    {
+        // Wait for network objects to fully exist
+        while (
+            GameManager.Instance == null ||
+            !GameManager.Instance.IsSpawned ||
+            NetworkManager.Singleton == null ||
+            !NetworkManager.Singleton.IsConnectedClient
+        )
+        {
+            yield return null;
+        }
 
-        //playerIndex = AuthenticationService.Instance.PlayerId;
-
-        //playerTeam = localPlayer.Data[LobbyManager.KEY_PLAYER_TEAM].Value;
-
-        //playerNumber = localPlayer.Data[LobbyManager.KEY_PLAYER_NUMBER].Value;
+        while (GameManager.Instance._playerControllers.Count < 2)
+        {
+            yield return null;
+        }
 
         playerIndex = BootstrapScript.Instance.playerIndex;
-
         playerTeam = BootstrapScript.Instance.playerTeam;
-
         playerNumber = BootstrapScript.Instance.playerNumber;
-        
 
-        
-
-        
-        // for running code on tick rather than update
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
-        if (GameManager.Instance._playerControllers.Count < 0)
+        Initialize();
+
+        // Tell the server THIS CLIENT is fully initialized
+        GameManager.Instance.ClientReadyRpc();
+    }
+
+    private void Initialize()
+    {
+        if (GameManager.Instance._playerControllers.Count <= 0)
         {
             Debug.Log("Playercontroller list is empty");
         }
@@ -69,27 +80,22 @@ public class TestPlayerObjectScript : NetworkBehaviour
             GameManager.Instance._playerControllers[1].indicatorCanvas.gameObject.SetActive(true);
         }
 
-        
-
-        //if (GameManager.Instance._playerControllers[0].player1 == null)
-        //{
-        //    GameManager.Instance._playerControllers[0].player1 = this;
-        //    isPlayerOne = true;
-        //}
-        //else
-        //{
-        //    GameManager.Instance._playerControllers[0].player2 = this;
-        //    isPlayerOne = false;
-        //}
-        playerInputActions = new PlayerInputActions();
+        // playerInputActions = new PlayerInputActions();
+        playerInputActions = InputManager.Instance.InputActions;
         SubscribeInputActions();
         playerInputActions.Player.Enable();
     }
-    //[ServerRpc]
-    //private void AskServerForIdServerRpc()
-    //{
 
-    //}
+    void FixedUpdate()
+    {
+        if (playerController.currentState == EPlayerState.Moving)
+        {
+            if (Application.isFocused == false)
+            {
+                SwitchActionMap(EPlayerState.Paused);
+            }
+        }
+    }
 
     #region Getters
 
@@ -121,7 +127,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public void SwitchActionMap(EPlayerState state)
     {
         playerInputActions.Player.Disable();
-        playerInputActions.UI.Disable();
+        playerInputActions.Pause.Disable();
 
         switch (state)
         {
@@ -131,8 +137,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
                 break;
 
             case EPlayerState.Paused:
-                playerInputActions.UI.Enable();
-                // Cursor.visible = true;
+                playerInputActions.Pause.Enable();
+                Cursor.visible = true;
                 // Cursor.lockState = CursorLockMode.None;
                 break;
 
@@ -228,6 +234,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Reload.performed += P2ReloadAction;
             playerInputActions.Player.P2Reload.canceled += P2ReloadAction;
         }
+
+        playerInputActions.Player.Pause.performed += PauseAction;
+        playerInputActions.Pause.Resume.performed += ResumeAction;
     }
 
     private void UnsubscribeInputActions()
@@ -301,6 +310,9 @@ public class TestPlayerObjectScript : NetworkBehaviour
             playerInputActions.Player.P2Countdown.performed -= P2CountdownAction;
             playerInputActions.Player.P2Countdown.canceled -= P2CountdownAction;
         }
+
+        playerInputActions.Player.Pause.performed -= PauseAction;
+        playerInputActions.Pause.Resume.performed -= ResumeAction;
     }
 #endregion
 #region Tick
@@ -308,55 +320,33 @@ public class TestPlayerObjectScript : NetworkBehaviour
     void Tick()
     {
         if (!IsOwner) { return; }
-        // Get mouse position in screen space and normalize
-        mousePos = Input.mousePosition;
-        mousePos.x = mousePos.x / Screen.width;
-        mousePos.y = mousePos.y / Screen.height;
-        //mouseNetPos.Value = mousePos;
 
         // Send mouse position to PlayerController
-        if (playerNumber == "One")
+        if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
         {
-            playerController.ProcessMouse1InputServerRpc(mousePos);
-            //Debug.Log("player one" + mousePos);
+            // Get mouse position in screen space and normalize
+            mousePos = Input.mousePosition;
+            mousePos.x = mousePos.x / Screen.width;
+            mousePos.y = mousePos.y / Screen.height;
+            //mouseNetPos.Value = mousePos;
 
-        }
-        else if (playerNumber == "Two")
-        {
-            playerController.ProcessMouse2InputServerRpc(mousePos);
-            //Debug.Log("player two" + mousePos);
-        }
-        if (playerInputActions == null)
-        {
-            Debug.Log("playerInputActions is null");
+            if (playerNumber == "One")
+            {
+                playerController.ProcessMouse1InputServerRpc(mousePos);
+                //Debug.Log("player one" + mousePos);
+
+            }
+            else if (playerNumber == "Two")
+            {
+                playerController.ProcessMouse2InputServerRpc(mousePos);
+                //Debug.Log("player two" + mousePos);
+            }
+            if (playerInputActions == null)
+            {
+                Debug.Log("playerInputActions is null");
+            }
         }
         //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
-    }
-    void Update()
-    {
-        //if (!IsOwner) { return; }
-        //// Get mouse position in screen space and normalize
-        //mousePos = Input.mousePosition;
-        //mousePos.x = mousePos.x / Screen.width;
-        //mousePos.y = mousePos.y / Screen.height;
-        ////mouseNetPos.Value = mousePos;
-
-        //// Send mouse position to PlayerController
-        //if (OwnerClientId == 0 || OwnerClientId == 1)
-        //{
-        //    playerController.ProcessMouse1InputServerRpc(mousePos);
-        //    //Debug.Log("player one" + mousePos);
-
-        //}
-        //else if (OwnerClientId == 2 || OwnerClientId == 3)
-        //{
-        //    playerController.ProcessMouse2InputServerRpc(mousePos);
-        //    //Debug.Log("player two" + mousePos);
-        //}
-        //if (playerInputActions == null)
-        //{
-        //    Debug.Log("playerInputActions is null");
-        //}
     }
     #endregion
 
@@ -453,5 +443,24 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         GameManager.Instance.OnRoundEnd.Invoke();
     }
+
+    private void PauseAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Paused);
+    }
+
+    private void ResumeAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Moving);
+    }
     #endregion
+
+    public override void OnNetworkDespawn()
+    {
+        if (NetworkManager != null &&
+            NetworkManager.NetworkTickSystem != null)
+        {
+            NetworkManager.NetworkTickSystem.Tick -= Tick;
+        }
+    }
 }

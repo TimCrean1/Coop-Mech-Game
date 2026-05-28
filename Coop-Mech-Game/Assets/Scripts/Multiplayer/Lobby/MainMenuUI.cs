@@ -10,6 +10,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button PlayButton;
     [SerializeField] private Button OptionsButton;
     [SerializeField] private Button QuitButton;
+    [SerializeField] private OptionsUI OptionsCanvas;
 
     [SerializeField] private CinemachineCamera _camera;
     [SerializeField] private CinemachineCamera _camera2;
@@ -40,7 +41,8 @@ public class MainMenuUI : MonoBehaviour
 
         OptionsButton.onClick.AddListener(() =>
         {
-            
+            OptionsCanvas.Show();
+            Hide();
         });
 
         QuitButton.onClick.AddListener(() =>
@@ -99,11 +101,13 @@ public class MainMenuUI : MonoBehaviour
     }
     private void Hide()
     {
-        gameObject.SetActive(false);
+        // gameObject.SetActive(false);
+        GetComponent<Canvas>().enabled = false;
     }
 
     public void Show()
     {
-        gameObject.SetActive(true);
+        // gameObject.SetActive(true);
+        GetComponent<Canvas>().enabled = true;
     }
 }

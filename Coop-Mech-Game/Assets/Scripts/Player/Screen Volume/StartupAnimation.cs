@@ -40,6 +40,10 @@ public class StartupAnimation : MonoBehaviour
     private void StartFunction()
     {
         StartCoroutine(StartStartupRoutine());
+        if (GridManager.Instance != null)
+        {
+            GridManager.Instance.StartUpTiles();
+        }
     }
 
     private void ShutdownFunction()

@@ -84,6 +84,10 @@ public class LobbyCreateUI : MonoBehaviour {
                     maxPlayers = 4;
                     break;
                 case LobbyManager.GameMode.Duel:
+                    gameMode = LobbyManager.GameMode.Sandbox;
+                    maxPlayers = 2;
+                    break;
+                case LobbyManager.GameMode.Sandbox:
                     gameMode = LobbyManager.GameMode.Practice;
                     maxPlayers = 2;
                     break;

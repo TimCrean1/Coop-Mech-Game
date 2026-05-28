@@ -212,7 +212,7 @@ MonoBehaviour:
   ammoAnimator: {fileID: 0}
   audioSource: {fileID: -4503897998585247377}
   weaponAudioClip: {fileID: 8300000, guid: c89dd077a9fdd4c87b869bb031837ec1, type: 3}
-  reloadAudioClip: {fileID: 8300000, guid: 5cb340e63d53543a3953b0961398e39d, type: 3}
+  reloadAudioClip: {fileID: 8300000, guid: ba2b9ef88854a4023ad777db2b618f86, type: 3}
   weaponType: 1
   owningPlayer: 0
   ammo: 1
@@ -240,7 +240,8 @@ AudioSource:
   m_GameObject: {fileID: 4233974594380943137}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2883316924115336672, guid: 54b710fef364f49f1acb61ccaba72efd,
+    type: 2}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1

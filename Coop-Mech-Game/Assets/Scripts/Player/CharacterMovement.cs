@@ -95,14 +95,17 @@ public class CharacterMovement : BaseMovement
 
     private void FixedUpdate()
     {
-        //if (!IsOwner) { return; }
+        if (!IsOwner) return;
+
         CheckIsGrounded();
-        if (!canMove) { return; }
+
+        if (!canMove) return;
+
         MoveCharacter();
         CharacterLook();
 
         if (limitingMotion && !currentlyDashing && !isBeingKnockedBack)
-            LimitVelocity(); //TODO: play with limit velocity tuning, especially for synced/unsynced movement
+            LimitVelocity();
 
         if (!currentlyRechargingDash && currentDashes > 0)
         {
@@ -113,6 +116,7 @@ public class CharacterMovement : BaseMovement
 
     private void Update()
     {
+        if (!IsOwner) return;
         Cursor.visible = true;
         // RotateCharacter();
         if (rigidbody.linearVelocity.sqrMagnitude > 0.01f)
@@ -404,7 +408,18 @@ public class CharacterMovement : BaseMovement
     private IEnumerator JumpCooldownCoroutine()
     {
         yield return new WaitForSeconds(jumpCoolDown);
+
+        if (abilityIndicator == null)
+            yield break;
+
+        if (!abilityIndicator.IsSpawned)
+            yield break;
+
+        if (abilityIndicator.NetworkObject == null)
+            yield break;
+
         abilityIndicator.SetMaterialActiveRpc("jump", true);
+
         canJump = true;
     }
 
@@ -478,9 +493,19 @@ public class CharacterMovement : BaseMovement
     private IEnumerator DashCooldownCoroutine()
     {
         Debug.Log("Dash Cooling Down!");
+
         audioManager.PlayDashSoundClientRpc();
+
         yield return new WaitForSeconds(dashCooldown);
+
+        if (abilityIndicator == null)
+            yield break;
+
+        if (!abilityIndicator.IsSpawned)
+            yield break;
+
         abilityIndicator.SetMaterialActiveRpc("dash", false);
+
         canDash = true;
     }
 

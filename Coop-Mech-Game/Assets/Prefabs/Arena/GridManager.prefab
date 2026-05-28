@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &246245528450518113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5222976377347264704}
+  - component: {fileID: 8038153849733425794}
+  m_Layer: 0
+  m_Name: GridManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5222976377347264704
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246245528450518113}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 3.57453, y: 0, z: -18.05859}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8038153849733425794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 246245528450518113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b62bd0beaeee4f55b4fe9388b5eb709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  tilesList:
+  - {fileID: 8876449807208047342, guid: 3a6ab8e75fe8fc146a68032c9de7730b, type: 3}
+  - {fileID: 5290277468603453992, guid: 4e16887fd54552049846ab28e1ab132a, type: 3}
+  - {fileID: 1084783724449764167, guid: ca084630a8b4ebe4db96badea2510794, type: 3}
+  - {fileID: 5126217759101077086, guid: fa2ca1cea7cb2cb489d3b2c4f4534534, type: 3}
+  - {fileID: 2595627210886596083, guid: d9f3c666e3a7acc459c43372d125aef3, type: 3}
+  - {fileID: 995579149595825041, guid: a09d757d686715d40b7fc62cf4f1390e, type: 3}
+  - {fileID: 5917177492882705185, guid: 0ad7e534a90df9e44af12ea4f58e3e90, type: 3}
+  - {fileID: 3890412758741849274, guid: d66bb5e3714c57e45848b72a5c2866a9, type: 3}
+  - {fileID: 8214120811912784467, guid: 4985ecfbcc3c87e4c9175198be7976c0, type: 3}
+  - {fileID: 4413688948856575175, guid: c13cc5e83ca276d46bfb5cdd95e74bab, type: 3}
+  - {fileID: 8567584767822133722, guid: d8e1c78472a2c9648b3fb9c70c1457e1, type: 3}
+  - {fileID: 4733507231871912668, guid: dac9bb32f0036f3458eeb3e4bfa8cadf, type: 3}
+  - {fileID: 3333973023962197518, guid: 99be4f419b4d55f40ab50370f90fe99c, type: 3}
+  - {fileID: 6411879778768402462, guid: cc9baa686450bfd45ad53a6eb9b12ec3, type: 3}
+  - {fileID: 7631202259931325532, guid: 47efa1e0d8b4fe34db9c43abbdef145e, type: 3}
+  - {fileID: 2715801561175077409, guid: 0b1a588a6a69f2b4da57c6cc5fa0be82, type: 3}
+  gridSize: {x: 4, y: 4}
+  tileDimensions2D: {x: 50, y: 50}
+  gridOrigin: {x: 0, y: 0, z: 0}
+  p1SpawnTileIndex: {x: 0, y: 0}
+  p2SpawnTileIndex: {x: 3, y: 3}
+  tileAnimationStartHeightMin: 10
+  tileAnimationStartHeightMax: 70
+  tileAnimationDuration: 120
+  startUpTilesOnStart: 0
