@@ -26,20 +26,27 @@ public class ChangeBindingsScript : MonoBehaviour
 
     private void Awake()
     {
-        inputActions = InputManager.Instance.InputActions;
     }
 
     private void OnEnable()
     {
         // Enable all input actions
-        inputActions.Enable();
-        RefreshUI();
+        // inputActions.Enable();
+        // RefreshUI();
     }
 
     private void OnDisable()
     {
         // Disable all input actions
         // inputActions.Disable();
+    }
+    
+    void Start()
+    {
+        inputActions = InputManager.Instance.InputActions;
+
+        inputActions.Enable();
+        RefreshUI();
     }
 
     // =====================================================
