@@ -3520,11 +3520,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3246865457656478173, guid: d4118cbdf76c6463cbbbd752af9ecb3b,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5986837759763032493, guid: d4118cbdf76c6463cbbbd752af9ecb3b,
         type: 3}
       propertyPath: m_Name
@@ -18463,6 +18458,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4859256936336187513, guid: d0699af7c88d87f4fac976c235d1670e,
+        type: 3}
+      propertyPath: m_MaxPacketQueueSize
+      value: 512
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
