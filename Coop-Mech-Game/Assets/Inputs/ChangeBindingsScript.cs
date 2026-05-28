@@ -39,7 +39,7 @@ public class ChangeBindingsScript : MonoBehaviour
     private void OnDisable()
     {
         // Disable all input actions
-        inputActions.Disable();
+        // inputActions.Disable();
     }
 
     // =====================================================
