@@ -12,8 +12,8 @@ LightingSettings:
   m_EnableRealtimeLightmaps: 0
   m_RealtimeEnvironmentLighting: 1
   m_BounceScale: 1
-  m_AlbedoBoost: 1
-  m_IndirectOutputScale: 1
+  m_AlbedoBoost: 1.05
+  m_IndirectOutputScale: 1.25
   m_UsingShadowmask: 1
   m_BakeBackend: 2
   m_LightmapMaxSize: 2048
@@ -36,7 +36,7 @@ LightingSettings:
   m_MixedBakeMode: 2
   m_LightmapsBakeMode: 1
   m_FilterMode: 1
-  m_LightmapParameters: {fileID: 111300000, guid: 03ca588ff967f214badf9e7abaca93fb,
+  m_LightmapParameters: {fileID: 111300000, guid: ddc21d736bdc2014c9e47c1b1f10dff0,
     type: 2}
   m_ExportTrainingData: 0
   m_EnableWorkerProcessBaking: 1
@@ -46,8 +46,8 @@ LightingSettings:
   m_ForceUpdates: 0
   m_PVRCulling: 1
   m_PVRSampling: 1
-  m_PVRDirectSampleCount: 128
-  m_PVRSampleCount: 2048
+  m_PVRDirectSampleCount: 256
+  m_PVRSampleCount: 4096
   m_PVREnvironmentSampleCount: 512
   m_PVREnvironmentReferencePointCount: 2048
   m_LightProbeSampleCountMultiplier: 4
