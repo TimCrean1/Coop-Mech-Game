@@ -298,11 +298,11 @@ public class GameManager : NetworkBehaviour
     {
         StartCoroutine(EndTimeDelay());
     }
-    // [Rpc(SendTo.Server)]
-    // public void OnGameEndServerRpc()
-    // {
-    //     StartCoroutine(EndTimeDelay());
-    // }
+    [Rpc(SendTo.Server)]
+    public void OnGameEndServerRpc()
+    {
+        StartCoroutine(EndTimeDelay());
+    }
     private IEnumerator EndTimeDelay()
     {
         yield return new WaitForSeconds(3f);
