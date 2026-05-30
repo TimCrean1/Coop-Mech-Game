@@ -14,8 +14,19 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string playerIndex;
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
+    [SerializeField] private string playerName;
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
+    private bool isInitialized = false;
+
+    private Vector2 lastSentMousePos;
+    private float nextMouseSendTime = 0f;
+
+    // 20 updates/sec
+    private const float MOUSE_SEND_INTERVAL = 0.05f;
+
+    // Ignore tiny movement changes
+    private const float MOUSE_SEND_THRESHOLD = 0.01f;
 
     public override void OnNetworkSpawn()
     {
@@ -76,6 +87,8 @@ public class TestPlayerObjectScript : NetworkBehaviour
         SubscribeInputActions();
 
         playerInputActions.Player.Enable();
+
+        isInitialized = true;
     }
 
     private void FixedUpdate()
@@ -99,6 +112,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public string GetPlayerNum()
     {
         return playerNumber;
+    }
+
+    public string GetPlayerName()
+    {
+        return playerName;
     }
     #endregion
 
@@ -150,162 +168,119 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void SubscribeInputActions()
     {
-        if (playerNumber == "One") 
+        if (playerNumber == "One")
         {
-            //Debug.Log("Inputs are being subscribed - one");
-            // OwnerClientId 0 is player 1 of mech 1
-            // OwnerClientId 2 is player 1 of mech 2
-
-            // playerInputActions.Player.P1Move.started += playerController.P1MoveAction;
-            // playerInputActions.Player.P1Move.canceled += playerController.P1MoveAction;
-
-            // playerInputActions.Player.P1Shoot.performed += playerController.P1ShootAction;
-            // playerInputActions.Player.P1Shoot.canceled += playerController.P1ShootAction;
-
-            playerInputActions.Player.P1Move.started += P1MoveAction;
+            // MOVEMENT
             playerInputActions.Player.P1Move.performed += P1MoveAction;
             playerInputActions.Player.P1Move.canceled += P1MoveAction;
 
-            playerInputActions.Player.P1Shoot.started += P1ShootAction;
+            // SHOOT
             playerInputActions.Player.P1Shoot.performed += P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled += P1ShootAction;
 
-            playerInputActions.Player.P1Jump.started += P1JumpAction;
+            // JUMP
             playerInputActions.Player.P1Jump.performed += P1JumpAction;
             playerInputActions.Player.P1Jump.canceled += P1JumpAction;
 
-            playerInputActions.Player.P1Dash.started += P1DashAction;
+            // DASH
             playerInputActions.Player.P1Dash.performed += P1DashAction;
             playerInputActions.Player.P1Dash.canceled += P1DashAction;
 
-            playerInputActions.Player.P1Utility.started += P1UtilityAction;
+            // UTILITY
             playerInputActions.Player.P1Utility.performed += P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled += P1UtilityAction;
 
-            playerInputActions.Player.P1Reload.started += P1ReloadAction;
+            // RELOAD
             playerInputActions.Player.P1Reload.performed += P1ReloadAction;
-            playerInputActions.Player.P1Reload.canceled += P1ReloadAction;
 
-            playerInputActions.Player.P1Countdown.started += P1CountdownAction;
+            // COUNTDOWN
             playerInputActions.Player.P1Countdown.performed += P1CountdownAction;
-            playerInputActions.Player.P1Countdown.canceled += P1CountdownAction;
 
-            playerInputActions.Player.RoundEnd.started += EndRound;
+            // DEBUG ROUND END
             playerInputActions.Player.RoundEnd.performed += EndRound;
-            playerInputActions.Player.RoundEnd.canceled += EndRound;
         }
-        else if (playerNumber == "Two") 
+        else if (playerNumber == "Two")
         {
-            Debug.Log("Inputs are being subscribed - two");
-            // playerInputActions.Player.P2Move.started += playerController.P2MoveAction;
-            // playerInputActions.Player.P2Move.canceled += playerController.P2MoveAction;
-
-            // playerInputActions.Player.P2Shoot.started += playerController.P2ShootAction;
-            // playerInputActions.Player.P2Shoot.canceled += playerController.P2ShootAction;
-
-            playerInputActions.Player.P2Move.started += P2MoveAction;
+            // MOVEMENT
             playerInputActions.Player.P2Move.performed += P2MoveAction;
             playerInputActions.Player.P2Move.canceled += P2MoveAction;
 
-            playerInputActions.Player.P2Shoot.started += P2ShootAction;
+            // SHOOT
             playerInputActions.Player.P2Shoot.performed += P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled += P2ShootAction;
 
-            playerInputActions.Player.P2Jump.started += P2JumpAction;
+            // JUMP
             playerInputActions.Player.P2Jump.performed += P2JumpAction;
             playerInputActions.Player.P2Jump.canceled += P2JumpAction;
 
-            playerInputActions.Player.P2Dash.started += P2DashAction;
+            // DASH
             playerInputActions.Player.P2Dash.performed += P2DashAction;
             playerInputActions.Player.P2Dash.canceled += P2DashAction;
 
-            playerInputActions.Player.P2Utility.started += P2UtilityAction;
+            // UTILITY
             playerInputActions.Player.P2Utility.performed += P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled += P2UtilityAction;
 
-            playerInputActions.Player.P2Countdown.started += P2CountdownAction;
-            playerInputActions.Player.P2Countdown.performed += P2CountdownAction;
-            playerInputActions.Player.P2Countdown.canceled += P2CountdownAction;
-
-            playerInputActions.Player.P2Reload.started += P2ReloadAction;
+            // RELOAD
             playerInputActions.Player.P2Reload.performed += P2ReloadAction;
-            playerInputActions.Player.P2Reload.canceled += P2ReloadAction;
+
+            // COUNTDOWN
+            playerInputActions.Player.P2Countdown.performed += P2CountdownAction;
         }
 
+        // PAUSE
         playerInputActions.Player.Pause.performed += PauseAction;
         playerInputActions.Pause.Resume.performed += ResumeAction;
     }
 
     private void UnsubscribeInputActions()
     {
+        if (playerInputActions == null)
+            return;
+
         if (playerNumber == "One")
         {
-            // playerInputActions.Player.P1Move.started -= playerController.P1MoveAction;
-            // playerInputActions.Player.P1Move.canceled -= playerController.P1MoveAction;
-            playerInputActions.Player.P1Move.started -= P1MoveAction;
             playerInputActions.Player.P1Move.performed -= P1MoveAction;
             playerInputActions.Player.P1Move.canceled -= P1MoveAction;
 
-            // playerInputActions.Player.P1Shoot.started -= playerController.P1ShootAction;
-            // playerInputActions.Player.P1Shoot.canceled -= playerController.P1ShootAction;
-
-            playerInputActions.Player.P1Shoot.started -= P1ShootAction;
             playerInputActions.Player.P1Shoot.performed -= P1ShootAction;
             playerInputActions.Player.P1Shoot.canceled -= P1ShootAction;
 
-            playerInputActions.Player.P1Jump.started -= P1JumpAction;
             playerInputActions.Player.P1Jump.performed -= P1JumpAction;
             playerInputActions.Player.P1Jump.canceled -= P1JumpAction;
 
-            playerInputActions.Player.P1Dash.started -= P1DashAction;
             playerInputActions.Player.P1Dash.performed -= P1DashAction;
             playerInputActions.Player.P1Dash.canceled -= P1DashAction;
 
-            playerInputActions.Player.P1Utility.started -= P1UtilityAction;
             playerInputActions.Player.P1Utility.performed -= P1UtilityAction;
             playerInputActions.Player.P1Utility.canceled -= P1UtilityAction;
 
-            playerInputActions.Player.P1Reload.started -= P1ReloadAction;
             playerInputActions.Player.P1Reload.performed -= P1ReloadAction;
-            playerInputActions.Player.P1Reload.canceled -= P1ReloadAction;
 
-            playerInputActions.Player.P1Countdown.started -= P1CountdownAction;
             playerInputActions.Player.P1Countdown.performed -= P1CountdownAction;
-            playerInputActions.Player.P1Countdown.canceled -= P1CountdownAction;
+
+            playerInputActions.Player.RoundEnd.performed -= EndRound;
         }
         else if (playerNumber == "Two")
         {
-            // playerInputActions.Player.P2Move.started -= playerController.P2MoveAction;
-            // playerInputActions.Player.P2Move.canceled -= playerController.P2MoveAction;
-            playerInputActions.Player.P2Move.started -= P2MoveAction;
             playerInputActions.Player.P2Move.performed -= P2MoveAction;
             playerInputActions.Player.P2Move.canceled -= P2MoveAction;
 
-            // playerInputActions.Player.P2Shoot.started -= playerController.P2ShootAction;
-            // playerInputActions.Player.P2Shoot.canceled -= playerController.P2ShootAction;
-            playerInputActions.Player.P2Shoot.started -= P2ShootAction;
             playerInputActions.Player.P2Shoot.performed -= P2ShootAction;
             playerInputActions.Player.P2Shoot.canceled -= P2ShootAction;
 
-            playerInputActions.Player.P2Jump.started -= P2JumpAction;
             playerInputActions.Player.P2Jump.performed -= P2JumpAction;
             playerInputActions.Player.P2Jump.canceled -= P2JumpAction;
 
-            playerInputActions.Player.P2Dash.started -= P2DashAction;
             playerInputActions.Player.P2Dash.performed -= P2DashAction;
             playerInputActions.Player.P2Dash.canceled -= P2DashAction;
 
-            playerInputActions.Player.P2Utility.started -= P2UtilityAction;
             playerInputActions.Player.P2Utility.performed -= P2UtilityAction;
             playerInputActions.Player.P2Utility.canceled -= P2UtilityAction;
 
-            playerInputActions.Player.P2Reload.started -= P2ReloadAction;
             playerInputActions.Player.P2Reload.performed -= P2ReloadAction;
-            playerInputActions.Player.P2Reload.canceled -= P2ReloadAction;
 
-            playerInputActions.Player.P2Countdown.started -= P2CountdownAction;
             playerInputActions.Player.P2Countdown.performed -= P2CountdownAction;
-            playerInputActions.Player.P2Countdown.canceled -= P2CountdownAction;
         }
 
         playerInputActions.Player.Pause.performed -= PauseAction;
@@ -356,91 +331,84 @@ public class TestPlayerObjectScript : NetworkBehaviour
 #endregion
 
     #region Input Actions
+
     private void P1MoveAction(InputAction.CallbackContext context)
     {
-        // Debug.Log("P1 Move Action triggered");
         Vector2 moveInput = context.ReadValue<Vector2>();
         playerController.P1MoveActionServerRpc(moveInput);
     }
 
     private void P2MoveAction(InputAction.CallbackContext context)
     {
-        // Debug.Log("P2 Move Action triggered");
         Vector2 moveInput = context.ReadValue<Vector2>();
         playerController.P2MoveActionServerRpc(moveInput);
     }
 
     private void P1ShootAction(InputAction.CallbackContext context)
     {
-        
-        float isShooting = context.ReadValue<float>();
-        playerController.P1ShootActionServerRpc(isShooting);
+        bool isShooting = context.phase != InputActionPhase.Canceled;
+        playerController.P1ShootActionServerRpc(isShooting ? 1f : 0f);
     }
 
     private void P2ShootAction(InputAction.CallbackContext context)
     {
-        
-        float isShooting = context.ReadValue<float>();
-        playerController.P2ShootActionServerRpc(isShooting);
+        bool isShooting = context.phase != InputActionPhase.Canceled;
+        playerController.P2ShootActionServerRpc(isShooting ? 1f : 0f);
     }
 
     private void P1JumpAction(InputAction.CallbackContext context)
     {
-        float isJumping = context.ReadValue<float>();
-        playerController.P1JumpInputServerRpc(isJumping);
+        bool isJumping = context.phase != InputActionPhase.Canceled;
+        playerController.P1JumpInputServerRpc(isJumping ? 1f : 0f);
     }
 
     private void P2JumpAction(InputAction.CallbackContext context)
     {
-        float isJumping = context.ReadValue<float>();
-        playerController.P2JumpInputServerRpc(isJumping);
+        bool isJumping = context.phase != InputActionPhase.Canceled;
+        playerController.P2JumpInputServerRpc(isJumping ? 1f : 0f);
     }
 
     private void P1DashAction(InputAction.CallbackContext context)
     {
-        float isDashing = context.ReadValue<float>();
-        playerController.P1DashInputServerRpc(isDashing);
+        bool isDashing = context.phase != InputActionPhase.Canceled;
+        playerController.P1DashInputServerRpc(isDashing ? 1f : 0f);
     }
 
     private void P2DashAction(InputAction.CallbackContext context)
     {
-        float isDashing = context.ReadValue<float>();
-        playerController.P2DashInputServerRpc(isDashing);
+        bool isDashing = context.phase != InputActionPhase.Canceled;
+        playerController.P2DashInputServerRpc(isDashing ? 1f : 0f);
     }
 
     private void P1UtilityAction(InputAction.CallbackContext context)
     {
-        float isUsingUtility = context.ReadValue<float>();
-        playerController.P1UtilityInputServerRpc(isUsingUtility);
+        bool isUsingUtility = context.phase != InputActionPhase.Canceled;
+        playerController.P1UtilityInputServerRpc(isUsingUtility ? 1f : 0f);
     }
 
     private void P2UtilityAction(InputAction.CallbackContext context)
     {
-        float isUsingUtility = context.ReadValue<float>();
-        playerController.P2UtilityInputServerRpc(isUsingUtility);
+        bool isUsingUtility = context.phase != InputActionPhase.Canceled;
+        playerController.P2UtilityInputServerRpc(isUsingUtility ? 1f : 0f);
     }
 
     private void P1ReloadAction(InputAction.CallbackContext context)
     {
-        float isReloading = context.ReadValue<float>();
-        playerController.P1ReloadInputServerRpc(isReloading);
+        playerController.P1ReloadInputServerRpc(1f);
     }
 
     private void P2ReloadAction(InputAction.CallbackContext context)
     {
-        float isReloading = context.ReadValue<float>();
-        playerController.P2ReloadInputServerRpc(isReloading);
+        playerController.P2ReloadInputServerRpc(1f);
     }
 
     private void P1CountdownAction(InputAction.CallbackContext context)
     {
-        // float isStartingCountdown = context.ReadValue<float>();
         playerController.P1CountdownInputServerRpc();
     }
 
     private void P2CountdownAction(InputAction.CallbackContext context)
     {
-        // float isStartingCountdown = context.ReadValue<float>();
         playerController.P2CountdownInputServerRpc();
     }
 
@@ -458,7 +426,84 @@ public class TestPlayerObjectScript : NetworkBehaviour
     {
         SwitchActionMap(EPlayerState.Moving);
     }
+
+#endregion
+
+#region Tick
+
+    void Tick()
+    {
+        //if (!IsOwner) { return; }
+
+        //// Send mouse position to PlayerController
+        //if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
+        //{
+        //    // Get mouse position in screen space and normalize
+        //    mousePos = Input.mousePosition;
+        //    mousePos.x = mousePos.x / Screen.width;
+        //    mousePos.y = mousePos.y / Screen.height;
+        //    //mouseNetPos.Value = mousePos;
+
+        //    if (playerNumber == "One")
+        //    {
+        //        playerController.ProcessMouse1InputServerRpc(mousePos);
+        //        //Debug.Log("player one" + mousePos);
+
+        //    }
+        //    else if (playerNumber == "Two")
+        //    {
+        //        playerController.ProcessMouse2InputServerRpc(mousePos);
+        //        //Debug.Log("player two" + mousePos);
+        //    }
+        //    if (playerInputActions == null)
+        //    {
+        //        Debug.Log("playerInputActions is null");
+        //    }
+        //}
+        if (!IsOwner)
+            return;
+
+        if (!isInitialized)
+            return;
+
+        if (playerController.currentState != EPlayerState.Moving)
+            return;
+
+        if (!Application.isFocused)
+            return;
+
+        // Throttle network sends
+        if (Time.time < nextMouseSendTime)
+            return;
+
+        nextMouseSendTime = Time.time + MOUSE_SEND_INTERVAL;
+
+        // Normalize mouse position
+        Vector2 currentMousePos = Input.mousePosition;
+
+        currentMousePos.x /= Screen.width;
+        currentMousePos.y /= Screen.height;
+
+        // Only send if movement is meaningful
+        if (Vector2.Distance(currentMousePos, lastSentMousePos) < MOUSE_SEND_THRESHOLD)
+            return;
+
+        lastSentMousePos = currentMousePos;
+
+        // Send to server
+        if (playerNumber == "One")
+        {
+            playerController.ProcessMouse1InputServerRpc(currentMousePos);
+        }
+        else if (playerNumber == "Two")
+        {
+            playerController.ProcessMouse2InputServerRpc(currentMousePos);
+        }
+        //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
+    }
     #endregion
+
+
 
     public override void OnNetworkDespawn()
     {

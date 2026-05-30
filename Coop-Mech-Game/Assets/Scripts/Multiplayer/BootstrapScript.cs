@@ -8,6 +8,7 @@ public class BootstrapScript : MonoBehaviour
     [SerializeField] public string playerIndex;
     [SerializeField] public string playerTeam;
     [SerializeField] public string playerNumber;
+    [SerializeField] public string playerName;
     [SerializeField] public int maxPlayers;
     private Lobby lobby;
     private Player localPlayer;
@@ -43,5 +44,7 @@ public class BootstrapScript : MonoBehaviour
         playerTeam = localPlayer.Data[KEY_PLAYER_TEAM].Value;
 
         playerNumber = localPlayer.Data[KEY_PLAYER_NUMBER].Value;
+
+        playerName = localPlayer.Data[KEY_PLAYER_NAME].Value;
     }
 }

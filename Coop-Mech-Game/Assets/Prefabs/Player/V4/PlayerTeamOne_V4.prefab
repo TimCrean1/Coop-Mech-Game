@@ -402,7 +402,7 @@ MonoBehaviour:
   SyncPositionX: 1
   SyncPositionY: 1
   SyncPositionZ: 1
-  SyncRotAngleX: 0
+  SyncRotAngleX: 1
   SyncRotAngleY: 1
   SyncRotAngleZ: 0
   SyncScaleX: 0
@@ -1447,17 +1447,17 @@ PrefabInstance:
     - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2257969353
+      value: 2378890549
       objectReference: {fileID: 0}
     - target: {fileID: 1330996404785541496, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 687276931
+      value: 2661399363
       objectReference: {fileID: 0}
     - target: {fileID: 1521511219856952440, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 574296119
+      value: 2121092769
       objectReference: {fileID: 0}
     - target: {fileID: 1949382280841367569, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1467,17 +1467,17 @@ PrefabInstance:
     - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4060531322
+      value: 4133631241
       objectReference: {fileID: 0}
     - target: {fileID: 2857579150957444151, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1344875601
+      value: 3134382113
       objectReference: {fileID: 0}
     - target: {fileID: 3370495565128322997, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3031894326
+      value: 117147381
       objectReference: {fileID: 0}
     - target: {fileID: 4117379163095567091, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1487,7 +1487,7 @@ PrefabInstance:
     - target: {fileID: 6763796303144256128, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2046069547
+      value: 1691716894
       objectReference: {fileID: 0}
     - target: {fileID: 7146601827955257013, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1557,7 +1557,7 @@ PrefabInstance:
     - target: {fileID: 8011232418076987577, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3992637921
+      value: 1462083873
       objectReference: {fileID: 0}
     - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1567,12 +1567,16 @@ PrefabInstance:
     - target: {fileID: 9182145967457460236, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3339546273
+      value: 2397846805
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6904837902533801230, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 625619130728975668}
     - targetCorrespondingSourceObject: {fileID: 3840101978351165485, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       insertIndex: -1
@@ -1636,6 +1640,52 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 8937003791386793600}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &625619130728975668
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2581817009960641422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e96cb6065543e43c4a752faaa1468eb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.Components.NetworkTransform
+  ShowTopMostFoldoutHeaderGroup: 1
+  NetworkTransformExpanded: 0
+  AutoOwnerAuthorityTickOffset: 1
+  PositionInterpolationType: 0
+  RotationInterpolationType: 0
+  ScaleInterpolationType: 0
+  PositionLerpSmoothing: 1
+  PositionMaxInterpolationTime: 0.1
+  RotationLerpSmoothing: 1
+  RotationMaxInterpolationTime: 0.1
+  ScaleLerpSmoothing: 1
+  ScaleMaxInterpolationTime: 0.1
+  AuthorityMode: 0
+  TickSyncChildren: 0
+  UseUnreliableDeltas: 0
+  SyncPositionX: 1
+  SyncPositionY: 1
+  SyncPositionZ: 1
+  SyncRotAngleX: 1
+  SyncRotAngleY: 0
+  SyncRotAngleZ: 0
+  SyncScaleX: 0
+  SyncScaleY: 0
+  SyncScaleZ: 0
+  PositionThreshold: 0.001
+  RotAngleThreshold: 0.01
+  ScaleThreshold: 0.01
+  UseQuaternionSynchronization: 0
+  UseQuaternionCompression: 0
+  UseHalfFloatPrecision: 0
+  InLocalSpace: 0
+  SwitchTransformSpaceWhenParented: 0
+  Interpolate: 1
+  SlerpPosition: 0
 --- !u!20 &3034908931880406222 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 6203906403619936846, guid: f28c5bc8f70f03d46827447274e6a194,

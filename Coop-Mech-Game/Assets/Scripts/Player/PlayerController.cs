@@ -134,7 +134,7 @@ public class PlayerController : NetworkBehaviour
     #endregion
 
     #region Input Actions
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1MoveActionServerRpc(Vector2 P1MovementInput)
     {
         if (isScrambled)
@@ -144,7 +144,7 @@ public class PlayerController : NetworkBehaviour
         playerCoroutineManager.SetP1Input(P1MovementInput);
         leftIndicator.SetMoveInput(P1MovementInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2MoveActionServerRpc(Vector2 P2MovementInput)
     {
         if (isScrambled)
@@ -155,7 +155,7 @@ public class PlayerController : NetworkBehaviour
         rightIndicator.SetMoveInput(P2MovementInput);
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1ShootActionServerRpc(float P1ShootInput)
     {
         if (!isScrambled)
@@ -168,7 +168,7 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2ShootActionServerRpc(float P2ShootInput)
     {
         if (!isScrambled)
@@ -180,69 +180,69 @@ public class PlayerController : NetworkBehaviour
             playerCoroutineManager.SetP1Shoot(P2ShootInput);
         }
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void ProcessMouse1InputServerRpc(Vector2 mousePos)
     {
         if (!isScrambled) mouse1Pos.Value = mousePos;
         else {mouse1Pos.Value = new Vector2(1 - mousePos.x, 1 - mousePos.y);} // If scrambled, invert the mouse position for player 1
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void ProcessMouse2InputServerRpc(Vector2 mousePos)
     {
         if (!isScrambled) mouse2Pos.Value = mousePos;
         else {mouse2Pos.Value = new Vector2(1 - mousePos.x, 1 - mousePos.y);} // If scrambled, invert the mouse position for player 2
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1JumpInputServerRpc(float P1JumpInput)
     {
         playerCoroutineManager.SetP1Jump(P1JumpInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2JumpInputServerRpc(float P2JumpInput)
     {
         playerCoroutineManager.SetP2Jump(P2JumpInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1DashInputServerRpc(float P1DashInput)
     {
         playerCoroutineManager.SetP1Dash(P1DashInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2DashInputServerRpc(float P2DashInput)
     {
         playerCoroutineManager.SetP2Dash(P2DashInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1UtilityInputServerRpc(float P1UtilityInput)
     {
         utilityManager.P1Utility();
         playerCoroutineManager.SetP1Utility(P1UtilityInput);
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2UtilityInputServerRpc(float P2UtilityInput)
     {
         utilityManager.P2Utility();
         playerCoroutineManager.SetP2Utility(P2UtilityInput);
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1ReloadInputServerRpc(float P1ReloadInput)
     {
         teamWeaponManager.P1Reload();
     }
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2ReloadInputServerRpc(float P2ReloadInput)
     {
         teamWeaponManager.P2Reload();
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P1CountdownInputServerRpc()
     {
         uiManager.SetCountdownRpc();
     }
 
-    [Rpc(SendTo.Server)]
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
     public void P2CountdownInputServerRpc()
     {
         uiManager.SetCountdownRpc();
