@@ -406,10 +406,12 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void ChatAction(InputAction.CallbackContext context)
     {
+        playerController.ChatOpenRpc(playerNumber);
         SwitchActionMap(EPlayerState.Chatting);
     }
     private void CancelAction(InputAction.CallbackContext context) 
     {
+        playerController.ChatCloseRpc(playerNumber);
         SwitchActionMap(EPlayerState.Moving);
     }
 
