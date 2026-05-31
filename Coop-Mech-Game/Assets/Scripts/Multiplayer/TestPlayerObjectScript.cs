@@ -6,6 +6,7 @@ using UnityEngine;
 using Unity.Services.Authentication;
 using System.Collections;
 
+
 public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
@@ -165,6 +166,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
                 // Cursor.lockState = CursorLockMode.None;
                 break;
 
+            case EPlayerState.Chatting:
+                playerInputActions.Chat.Enable();
+
+                Cursor.visible = true;
+                break;
             default:
                 // Cursor.visible = true;
                 // Cursor.lockState = CursorLockMode.None;
@@ -239,6 +245,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
         // PAUSE
         playerInputActions.Player.Pause.performed += PauseAction;
         playerInputActions.Pause.Resume.performed += ResumeAction;
+
+        // CHAT
+        playerInputActions.Player.Chat.performed += ChatAction;
+        playerInputActions.Chat.Cancel.performed += CancelAction;
     }
 
     private void UnsubscribeInputActions()
@@ -390,6 +400,15 @@ public class TestPlayerObjectScript : NetworkBehaviour
     }
 
     private void ResumeAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Moving);
+    }
+
+    private void ChatAction(InputAction.CallbackContext context)
+    {
+        SwitchActionMap(EPlayerState.Chatting);
+    }
+    private void CancelAction(InputAction.CallbackContext context) 
     {
         SwitchActionMap(EPlayerState.Moving);
     }

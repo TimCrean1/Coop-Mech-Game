@@ -5,7 +5,8 @@ using System;
 public enum EPlayerState
 {
     Moving,
-    Paused
+    Paused,
+    Chatting
 }
 
 public class PlayerController : NetworkBehaviour
@@ -33,6 +34,8 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private UtilityManagerScript utilityManager;
     [SerializeField] private UI_Manager uiManager;
     [SerializeField] private PlayerAudioManager audioManager;
+    [SerializeField] private GameObject P1Chat;
+    [SerializeField] private GameObject P2Chat;
 
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
