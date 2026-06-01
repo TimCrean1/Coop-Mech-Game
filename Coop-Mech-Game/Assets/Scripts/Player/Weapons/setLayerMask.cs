@@ -1,12 +1,20 @@
 using System;
+using Unity.Collections;
 using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
 public class setLayerMask : NetworkBehaviour
 {
+
+   
     
     public override void OnNetworkSpawn()
+    {
+        TeamLayering(); 
+    }
+    
+    private void TeamLayering()
     {
         NetworkObject netObj = GetComponentInParent<NetworkObject>();
 
@@ -26,7 +34,7 @@ public class setLayerMask : NetworkBehaviour
 
         var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
 
-        string team = playerObject.GetPlayerTeam();
+        FixedString32Bytes team = playerObject.GetPlayerTeam();
 
         int layer = 0;
 
@@ -43,7 +51,9 @@ public class setLayerMask : NetworkBehaviour
             Debug.LogError($"Invalid team: {team}");
             return;
         }
-
+        Debug.Log(
+                $"Gun spawned. Owner={ownerId}, Team={team}, IsServer={IsServer}"
+            );
         SetLayerRecursively(gameObject, layer);
     }
     void SetLayerRecursively(GameObject obj, int layer)

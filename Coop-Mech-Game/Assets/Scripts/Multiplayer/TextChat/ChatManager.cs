@@ -5,6 +5,7 @@ using Unity.Netcode;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using Unity.Collections;
 
 public class ChatManager : NetworkBehaviour
 {
@@ -18,7 +19,7 @@ public class ChatManager : NetworkBehaviour
     // moved to ChatUI
 
     public string playerName;
-    public string playerTeam;
+    public FixedString32Bytes playerTeam;
 
     // need some way to detect if the player wants to chat in team/all chat
     // possibly enum?

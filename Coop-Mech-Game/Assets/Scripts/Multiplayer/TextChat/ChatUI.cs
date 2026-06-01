@@ -9,7 +9,10 @@ public class ChatUI : MonoBehaviour
 
     private string myName;
     private string myTeam;
-
+    private void Start()
+    {
+        
+    }
     void OnEnable()
     {
         ChatManager.OnMessageReceived += AddMessage;
