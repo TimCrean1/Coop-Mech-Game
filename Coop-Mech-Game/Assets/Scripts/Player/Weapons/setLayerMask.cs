@@ -3,52 +3,58 @@ using Unity.Netcode;
 using Unity.Services.Matchmaker.Models;
 using UnityEngine;
 
-public class setLayerMask : MonoBehaviour
+public class setLayerMask : NetworkBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    
+    public override void OnNetworkSpawn()
     {
-        var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
+        NetworkObject netObj = GetComponentInParent<NetworkObject>();
+
+        if (netObj == null)
+        {
+            Debug.LogError("No NetworkObject found!");
+            return;
+        }
+
+        ulong ownerId = netObj.OwnerClientId;
+
+        if (!NetworkManager.Singleton.ConnectedClients.TryGetValue(ownerId, out var client))
+        {
+            Debug.LogError("Could not find owner client");
+            return;
+        }
+
         var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
 
         string team = playerObject.GetPlayerTeam();
-        string num = playerObject.GetPlayerNum();
-        ShopManager.Instance.GrabPlayerFunction();
-        
+
+        int layer = 0;
 
         if (team == "Red")
         {
-            //controller = GameManager.Instance._playerControllers[0];
-            gameObject.layer = 15;
+            layer = 15;
         }
         else if (team == "Blue")
         {
-            gameObject.layer = 16;
-            // controller = GameManager.Instance._playerControllers[1];
+            layer = 16;
         }
         else
         {
             Debug.LogError($"Invalid team: {team}");
-        }
-        foreach (Transform child in gameObject.GetComponentsInChildren<Transform>(true))
-        {
-            if (team == "Red")
-            {
-                //controller = GameManager.Instance._playerControllers[0];
-                child.gameObject.layer = 15;
-            }
-            else if (team == "Blue")
-            {
-                child.gameObject.layer = 16;
-                // controller = GameManager.Instance._playerControllers[1];
-            }
-            else
-            {
-                Debug.LogError($"Invalid team: {team}");
-            }
+            return;
         }
 
+        SetLayerRecursively(gameObject, layer);
+    }
+    void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
     }
 
-   
+
 }

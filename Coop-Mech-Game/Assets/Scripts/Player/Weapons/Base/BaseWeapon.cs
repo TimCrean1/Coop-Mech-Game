@@ -311,8 +311,6 @@ public abstract class BaseWeapon : NetworkBehaviour
             {
                 SetAmmoRpc(ammo);
             }
-            if (reloadAudioClip != null) {audioSource.PlayOneShot(reloadAudioClip);}
-            else {Debug.LogError("Reload sound effect reference is not set!");}
         }
         canFire = true;
         isCooldownOn = false;
@@ -327,6 +325,8 @@ public abstract class BaseWeapon : NetworkBehaviour
     private void PlayCooldownClientRpc()
     {
         ammoAnimator.SetTrigger("Reload");
+        if (reloadAudioClip != null) {audioSource.PlayOneShot(reloadAudioClip);}
+        else {Debug.LogError("Reload sound effect reference is not set!");}
         StartCoroutine(CooldownRotuine());
     }
     public void Reload()

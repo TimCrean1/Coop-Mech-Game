@@ -30,6 +30,7 @@ public class LobbyListUI : MonoBehaviour {
         {
             MainMenuUI.Instance.giveCameraOnePriority();
             MainMenuUI.Instance.Show();
+            StartCoroutine(MainMenuUI.Instance.FadeIn());
         });
     }
 

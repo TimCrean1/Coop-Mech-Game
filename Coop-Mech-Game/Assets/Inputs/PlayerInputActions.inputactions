@@ -158,6 +158,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "b0477848-2e2c-4181-a5f8-788447ff6068",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -468,15 +477,26 @@
                     "action": "P2Countdown",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1c6ccae2-0be6-4c86-a804-fe73e6bbde89",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "UI",
+            "name": "Pause",
             "id": "8fce163f-2922-4e9e-ae30-e92becc113fc",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "Resume",
                     "type": "Button",
                     "id": "6fdcddd2-ef7d-4b38-aa4b-eed214892f40",
                     "expectedControlType": "",
@@ -489,11 +509,11 @@
                 {
                     "name": "",
                     "id": "c48ae64b-77c0-4a26-8983-5416de506f71",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Resume",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
