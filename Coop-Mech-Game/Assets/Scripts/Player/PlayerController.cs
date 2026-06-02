@@ -83,6 +83,10 @@ public class PlayerController : NetworkBehaviour
             {
                 baseMovement.Shoot(syncedShootInput);
             }
+            if(playerCoroutineManager.TryGetSyncedShoot(out bool isSynced))
+            {
+                baseMovement.ShootSpecial(isSynced);
+            }
 
             baseMovement.SetLookInput(mouse1Pos.Value, mouse2Pos.Value);
 

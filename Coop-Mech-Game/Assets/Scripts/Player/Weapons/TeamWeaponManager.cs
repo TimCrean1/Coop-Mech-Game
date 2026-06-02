@@ -557,6 +557,11 @@ public class TeamWeaponManager : NetworkBehaviour
         shootingImpulseSource.GenerateImpulse();
     }
 
+    public void FireSpecial()
+    {
+        P1WeaponsList[P1WeaponsList.Count-1].Fire(mouseDistance);
+    }
+
     #endregion
 
     #region Reloading

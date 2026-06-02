@@ -55,6 +55,7 @@ public abstract class BaseMovement : NetworkBehaviour
         //Debug.Log("Client lookInput:" + mouse1pos + ", " + mouse2pos);
     }
     public abstract void Shoot(float shootInput);
+    public abstract void ShootSpecial(bool isSynced);
     #endregion
     #region Movement
     protected abstract void MoveCharacter(); //child classes must implement abstract functions
