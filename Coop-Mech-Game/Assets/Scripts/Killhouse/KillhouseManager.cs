@@ -68,22 +68,22 @@ public class KillhouseManager : MonoBehaviour
     {
         foreach (KillhouseEnemy enemy in enemiesList)
         {
-            if (!enemy.isActive)
-            {
-                enemy.Activate();
-                enemy.ActivateRpc();
-            }
+            //if (!enemy.isActive)
+            //{
+            //    enemy.Activate();
+            //    enemy.ActivateRpc();
+            //}
         }
     }
     private void DeactivateEnemies()
     {
         foreach (KillhouseEnemy enemy in enemiesList)
         {
-            if (enemy.isActive)
-            {
-                enemy.Deactivate();
-                enemy.DeactivateRpc();
-            }
+            //if (enemy.isActive)
+            //{
+            //    enemy.Deactivate();
+            //    enemy.DeactivateRpc();
+            //}
         }
     }
     public void StartTrial()

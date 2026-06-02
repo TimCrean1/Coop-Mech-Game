@@ -252,7 +252,7 @@ public abstract class BaseWeapon : NetworkBehaviour
         }
         else if (other.CompareTag("Target"))
         {
-            other.GetComponent<KillhouseEnemy>().Deactivate();
+            //other.GetComponent<KillhouseEnemy>().Deactivate();
             other.GetComponent<KillhouseEnemy>().DeactivateRpc();
         }
 
