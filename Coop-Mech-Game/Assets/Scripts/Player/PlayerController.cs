@@ -80,7 +80,7 @@ public class PlayerController : NetworkBehaviour
             {
                 baseMovement.Shoot(syncedShootInput);
             }
-            if(playerCoroutineManager.TryGetSyncedShoot(out bool isSynced))
+            if(playerCoroutineManager.TryGetSpecialSyncedShoot(out bool isSynced))
             {
                 baseMovement.ShootSpecial(isSynced);
             }

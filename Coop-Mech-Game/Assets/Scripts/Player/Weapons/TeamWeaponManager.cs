@@ -559,7 +559,10 @@ public class TeamWeaponManager : NetworkBehaviour
 
     public void FireSpecial()
     {
-        P1WeaponsList[P1WeaponsList.Count-1].Fire(mouseDistance);
+        if(P1WeaponsList.Count > 1)
+        {
+            P1WeaponsList[P1WeaponsList.Count - 1].Fire(mouseDistance);
+        }
     }
 
     #endregion
