@@ -83,7 +83,9 @@ public class GameManager : NetworkBehaviour
     public UnityEvent OnRoundEnd;
     public UnityEvent OnBuyRoundStart;
     public UnityEvent GameManagerReadyEvent;
-    
+
+    public UnityEvent<int, int> OnTeamDamage;
+    public UnityEvent<int> OnTeamDeath;
 
     #endregion
 
@@ -438,6 +440,18 @@ public class GameManager : NetworkBehaviour
             Showt1DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
+            if(_teamOneHealth.Value <= teamOneMaxHealth * 0.5f && _teamOneHealth.Value > teamOneMaxHealth * 0.25f)
+            {
+                OnTeamDamage.Invoke(1, 1);
+            } else if(_teamOneHealth.Value <= teamOneMaxHealth * 0.25f && _teamOneHealth.Value > 10f)
+            {
+                OnTeamDamage.Invoke(1, 2);
+            }
+            else if(_teamOneHealth.Value < 10f)
+            {
+                OnTeamDamage.Invoke(1, 3);
+            }
+
             if (t1UIMgr != null)
             {
                 //Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
@@ -454,6 +468,19 @@ public class GameManager : NetworkBehaviour
             Showt2DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
+            if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.5f && _teamTwoHealth.Value > teamTwoMaxHealth * 0.25f)
+            {
+                OnTeamDamage.Invoke(2, 1);
+            }
+            else if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.25f && _teamTwoHealth.Value > 10f)
+            {
+                OnTeamDamage.Invoke(2, 2);
+            }
+            else if (_teamTwoHealth.Value < 10f)
+            {
+                OnTeamDamage.Invoke(2, 3);
+            }
+
             if (t2UIMgr != null)
             {
                 //Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
@@ -469,14 +496,26 @@ public class GameManager : NetworkBehaviour
         {
             //add win here
             if (IsServer) { _teamTwoWins.Value += 1; }
-            
-            OnRoundEnd?.Invoke();
+            OnTeamDeath?.Invoke(1);
+
+            //OnRoundEnd?.Invoke();
+            StartCoroutine(RoundEndRoutine());
         }
         else if (_teamTwoHealth.Value <= 0f && roundOver == false)
         {
             if (IsServer) { _teamOneWins.Value += 1; }
-            OnRoundEnd?.Invoke();
+            OnTeamDeath?.Invoke(2);
+
+            //OnRoundEnd?.Invoke();
+            StartCoroutine(RoundEndRoutine());
         }
+    }
+
+    //delays the end of round to allow particles to play
+    private IEnumerator RoundEndRoutine()
+    {
+        yield return new WaitForSeconds(8f);
+        OnRoundEnd?.Invoke();
     }
 
     [Rpc(SendTo.Server)]
