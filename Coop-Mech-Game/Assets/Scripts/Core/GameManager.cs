@@ -438,7 +438,7 @@ public class GameManager : NetworkBehaviour
         {
             _teamOneHealth.Value = _teamOneHealth.Value - damage;
             Showt1DamageIndicatorRpc(damageDirection);
-            // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
+             Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
             if(_teamOneHealth.Value <= teamOneMaxHealth * 0.5f && _teamOneHealth.Value > teamOneMaxHealth * 0.25f)
             {
@@ -466,7 +466,7 @@ public class GameManager : NetworkBehaviour
         {
             _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
             Showt2DamageIndicatorRpc(damageDirection);
-            // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
+             Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
             if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.5f && _teamTwoHealth.Value > teamTwoMaxHealth * 0.25f)
             {
