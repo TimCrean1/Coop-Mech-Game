@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,22 +11,20 @@ public class ChatUI : MonoBehaviour
     [SerializeField] private PlayerInputActions playerInputActions;
 
     private string myName;
-    private string myTeam;
+    private FixedString32Bytes myTeam;
  
     void OnEnable()
     {
         ChatManager.OnMessageReceived += AddMessage;
         myName = ChatManager.Singleton.playerName;
-        //playerInputActions.Chat.SendMessage.performed += SendMessage;
-        //playerInputActions.Chat.SendMessage.canceled += SendMessage;
+        
         chatInput.onSubmit.AddListener(SubmitChatMessage);
     }
 
     void OnDisable()
     {
         ChatManager.OnMessageReceived -= AddMessage;
-        //playerInputActions.Chat.SendMessage.performed -= SendMessage;
-        //playerInputActions.Chat.SendMessage.canceled -= SendMessage;
+        chatInput.onSubmit.RemoveListener(SubmitChatMessage);
     }
     private void SubmitChatMessage(string message)
     {
@@ -35,7 +34,7 @@ public class ChatUI : MonoBehaviour
 
         chatInput.text = "";
 
-        chatInput.Select();
+        chatInput.ActivateInputField();
 
     }
 

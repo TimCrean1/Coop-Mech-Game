@@ -26,10 +26,9 @@ public class ChatManager : NetworkBehaviour
 
     void Awake()
     { Singleton = this; }
-
-    public override void OnNetworkSpawn()
+    private void Start()
     {
-        SetPlayerInfo();
+        GameManager.Instance.OnStartupSequence.AddListener(SetPlayerInfo);
     }
 
     //void Update()
@@ -83,6 +82,7 @@ public class ChatManager : NetworkBehaviour
 
     private void SetPlayerInfo()
     {
+        Debug.Log("Attempting to get player info");
         if (NetworkManager.Singleton.IsConnectedClient) {
 
             var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];

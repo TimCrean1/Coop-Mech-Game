@@ -69,6 +69,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerIndex = BootstrapScript.Instance.playerIndex;
         playerTeam = BootstrapScript.Instance.playerTeam;
         playerNumber = BootstrapScript.Instance.playerNumber;
+        playerName = BootstrapScript.Instance.playerName;
 
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
