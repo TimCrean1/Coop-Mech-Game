@@ -18,19 +18,31 @@ public class ChatUI : MonoBehaviour
         ChatManager.OnMessageReceived += AddMessage;
         myName = ChatManager.Singleton.playerName;
         
-        chatInput.onSubmit.AddListener(SubmitChatMessage);
+        //chatInput.onSubmit.AddListener(SubmitChatMessage);
     }
 
     void OnDisable()
     {
         ChatManager.OnMessageReceived -= AddMessage;
-        chatInput.onSubmit.RemoveListener(SubmitChatMessage);
+        //chatInput.onSubmit.RemoveListener(SubmitChatMessage);
     }
-    private void SubmitChatMessage(string message)
+    public void SubmitChatMessage(string message)
     {
         Debug.Log("Send message: " + chatInput.text);
 
+        if(chatInput.text == null)
+        {
+            Debug.LogError("chatInput could not be read");
+        }
+
+        if(chatInput.text == "")
+        {
+            Debug.Log("Message is empty");
+        }
+
         ChatManager.Singleton.SendChatMessage(chatInput.text, myName);
+
+
 
         chatInput.text = "";
 
