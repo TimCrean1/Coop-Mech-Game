@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5155284120341787130}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_01.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6050825981436557642}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: RightAmmoCannon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,7 +77,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2365357895404438981}
   - component: {fileID: 7355408433796701756}
-  m_Layer: 0
+  - component: {fileID: 5833680131677134607}
+  m_Layer: 15
   m_Name: CannonAmmoReloadRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -131,6 +132,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5833680131677134607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532671121310572585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dec42ed2038244d4cbf5a4c04176deb9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::setLayerMask
 --- !u!1 &712100108753792901
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3691570552539197196}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: cablebonelock.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -174,7 +187,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 559093412035625347}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_04.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -207,7 +220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4192576829574970491}
   - component: {fileID: 7239197890002699587}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: NurbsPath.069
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -254,7 +267,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -326,7 +339,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5575526598883278646}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammoshell.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -357,7 +370,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3074940494390124572}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_01.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -388,7 +401,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8258046257662404121}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_01.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -419,7 +432,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2711840647421985749}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_03.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -451,7 +464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2869874804546226286}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_08.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -484,7 +497,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8947485260449851471}
   - component: {fileID: 5964130502510590959}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cylinder.018
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +544,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -603,7 +616,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8041717323151433281}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_02.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -635,7 +648,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7736885978482302271}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_03.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -667,7 +680,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5393217580409304318}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_05.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,7 +713,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7888294197815771076}
   - component: {fileID: 1943438492140338034}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cylinder.019
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -747,7 +760,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -819,7 +832,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5495480778210332601}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_07.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -851,7 +864,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5847383944144777684}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_05.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -883,7 +896,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3996853750208187807}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_05.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -915,7 +928,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1544832273059178028}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_02.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +959,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4193339152119487976}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_06.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -979,7 +992,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3968870847268171130}
   - component: {fileID: 8572398461468616164}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cylinder.020
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1026,7 +1039,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1098,7 +1111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3257670542870958720}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_01.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1129,7 +1142,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 231424426382016694}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_02.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1161,7 +1174,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7920783959575622624}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_07.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1194,7 +1207,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5047092905923669895}
   - component: {fileID: 5268646911584087466}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: NurbsPath.068
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1241,7 +1254,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1313,7 +1326,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1245981494594496335}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: staticbone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1346,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 157844397093602400}
   - component: {fileID: 7386946406158848891}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cube.031
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1393,7 +1406,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1465,7 +1478,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7090948861898773831}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_02.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1497,7 +1510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4896447445145334998}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_04.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1529,7 +1542,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3242485867836422953}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammoarm.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1560,7 +1573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6567296682613662126}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_01.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1592,7 +1605,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6896870407808192880}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_03.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1624,7 +1637,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2714916884733959835}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammocontainer.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1655,7 +1668,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7322728207417228709}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_02.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1686,7 +1699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2239350770456166113}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_02.r_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1717,7 +1730,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2575183323127780028}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammotray.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1753,7 +1766,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2244191840383709841}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammocontainer.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1786,7 +1799,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5673121737707694111}
   - component: {fileID: 1240424695033475048}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: NurbsPath.067
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1833,7 +1846,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1906,7 +1919,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7670944024260134220}
   - component: {fileID: 6991207244752916220}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cube.032
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1953,7 +1966,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2025,7 +2038,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3164386943846976271}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammoshell.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2057,7 +2070,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5048921841132499384}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: staticbone_end
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2088,7 +2101,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7220826618114330201}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_01.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2120,7 +2133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3267943567910331357}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_07.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2152,7 +2165,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1409746976299090651}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: ammoarm.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2184,7 +2197,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7654966052763745792}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: smallcable_06.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2216,7 +2229,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 748186083876428469}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: medcable_06.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2249,7 +2262,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6711531467569333881}
   - component: {fileID: 8223372752285480062}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Cube.033
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2296,7 +2309,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ede7060550e2f034ba2c6808f9d37c3c, type: 2}
+  - {fileID: 3327362897740824023, guid: 9cb6281c837c97843bcb93fc1c12f84a, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2368,7 +2381,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1213554855237236886}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: largecable_04.r
   m_TagString: Untagged
   m_Icon: {fileID: 0}
