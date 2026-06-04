@@ -13,28 +13,40 @@ public class setLayerMask : NetworkBehaviour
     {
         TeamLayering(); 
     }
-    
+
+    //public Tuple<int, PlayerController> GrabPlayerFunction()
+    //{
+    //    var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
+    //    var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
+
+    //    FixedString32Bytes team = playerObject.GetPlayerTeam();
+    //    FixedString32Bytes num = playerObject.GetPlayerNum();
+
+    //    PlayerController controller;
+
+    //    if (team == "Red")
+    //    {
+    //        controller = GameManager.Instance._playerControllers[0];
+    //    }
+    //    else if (team == "Blue")
+    //    {
+    //        controller = GameManager.Instance._playerControllers[1];
+    //    }
+    //    else
+    //    {
+    //        Debug.LogError($"Invalid team: {team}");
+    //        return new Tuple<int, PlayerController>(-1, null);
+    //    }
+
+        
+    //}
     private void TeamLayering()
     {
-        NetworkObject netObj = GetComponentInParent<NetworkObject>();
-
-        if (netObj == null)
-        {
-            Debug.LogError("No NetworkObject found!");
-            return;
-        }
-
-        ulong ownerId = netObj.OwnerClientId;
-
-        if (!NetworkManager.Singleton.ConnectedClients.TryGetValue(ownerId, out var client))
-        {
-            Debug.LogError("Could not find owner client");
-            return;
-        }
-
+        var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
         var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
 
         FixedString32Bytes team = playerObject.GetPlayerTeam();
+        
 
         int layer = 0;
 
@@ -51,9 +63,7 @@ public class setLayerMask : NetworkBehaviour
             Debug.LogError($"Invalid team: {team}");
             return;
         }
-        Debug.Log(
-                $"Gun spawned. Owner={ownerId}, Team={team}, IsServer={IsServer}"
-            );
+       
         SetLayerRecursively(gameObject, layer);
     }
     void SetLayerRecursively(GameObject obj, int layer)
