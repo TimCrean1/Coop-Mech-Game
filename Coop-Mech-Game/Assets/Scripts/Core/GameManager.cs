@@ -585,13 +585,13 @@ public class GameManager : NetworkBehaviour
     private void InvokeDamageClientRpc(int team, int tier)
     {
         OnTeamDamage?.Invoke(team, tier);
-        OnRoundEnd?.Invoke();
     }
 
     [Rpc(SendTo.ClientsAndHost)]
     private void InvokeDeathClientRpc(int team)
     {
         OnTeamDeath?.Invoke(team);
+        OnRoundEnd?.Invoke();
     }
 
     [Rpc(SendTo.Server)]
