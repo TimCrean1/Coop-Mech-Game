@@ -19,6 +19,7 @@ public class GameManager : NetworkBehaviour
 
     #endregion
 
+    private bool gameStarted;
 
     #region Serialized Fields
 
@@ -95,6 +96,23 @@ public class GameManager : NetworkBehaviour
     //     InitTeamHealthRpc();
     // }
 
+    public override void OnNetworkSpawn()
+    {
+        _teamOneHealth.OnValueChanged += OnTeamOneHealthChanged;
+        _teamTwoHealth.OnValueChanged += OnTeamTwoHealthChanged;
+
+        if (IsServer)
+        {
+            InitTeamHealth();
+        }
+    }
+
+    public override void OnNetworkDespawn()
+    {
+        _teamOneHealth.OnValueChanged -= OnTeamOneHealthChanged;
+        _teamTwoHealth.OnValueChanged -= OnTeamTwoHealthChanged;
+    }
+
     // private void Awake()
     // {
     //     if (NetworkManager.Singleton != null)
@@ -130,10 +148,10 @@ public class GameManager : NetworkBehaviour
 
     private HashSet<ulong> readyClients = new HashSet<ulong>();
 
-    public override void OnNetworkSpawn()
-    {
-        InitTeamHealthRpc();
-    }
+    // public override void OnNetworkSpawn()
+    // {
+    //     InitTeamHealthRpc();
+    // }
 
     private void Awake()
     {
@@ -178,18 +196,18 @@ public class GameManager : NetworkBehaviour
 
     private void CheckAllClientsReady()
     {
-        lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
+        if (gameStarted)
+            return;
 
-        Debug.Log($"Ready Clients: {readyClients.Count}/{lobbyMaxPlayers}");
+        lobbyMaxPlayers = BootstrapScript.Instance.maxPlayers;
 
         if (readyClients.Count >= lobbyMaxPlayers)
         {
-            Debug.Log("ALL CLIENTS READY");
+            gameStarted = true;
 
             if (IsServer)
             {
                 StartCoroutine(StartTimeDelay());
-
                 GameManagerReadyEvent?.Invoke();
             }
         }
@@ -230,8 +248,11 @@ public class GameManager : NetworkBehaviour
             if (IsServer)
             {
                 // Server tells clients to return back to the menu
+                // OnGameEndClientRpc();
+                // OnGameEndServerRpc();
+
+                StartCoroutine(EndTimeDelay());
                 OnGameEndClientRpc();
-                OnGameEndServerRpc();
 
             }
 
@@ -257,8 +278,10 @@ public class GameManager : NetworkBehaviour
         SetTimeScaleClientRpc(1f);
 
         // DisablePlayerMovement();
-        ResetPlayerPositionRpc();
-        InitTeamHealthRpc();
+        // ResetPlayerPositionRpc();
+        ResetPlayerPositions();
+        // InitTeamHealthRpc();
+        InitTeamHealth();
 
         OnBuyRoundStart.Invoke();
 
@@ -400,11 +423,22 @@ public class GameManager : NetworkBehaviour
 
     #region Position Reset
 
-    [Rpc(SendTo.Server)]
-    private void ResetPlayerPositionRpc()
+    // [Rpc(SendTo.Server)]
+    // private void ResetPlayerPositionRpc()
+    // {
+    //     MechOne.transform.position = teamOneSpawnPoint.transform.position;
+    //     MechTwo.transform.position = teamTwoSpawnPoint.transform.position;
+    // }
+    private void ResetPlayerPositions()
     {
-        MechOne.transform.position = teamOneSpawnPoint.transform.position;
-        MechTwo.transform.position = teamTwoSpawnPoint.transform.position;
+        if (!IsServer)
+            return;
+
+        if (MechOne != null)
+            MechOne.transform.position = teamOneSpawnPoint.position;
+
+        if (MechTwo != null)
+            MechTwo.transform.position = teamTwoSpawnPoint.position;
     }
 
     #endregion
@@ -412,21 +446,46 @@ public class GameManager : NetworkBehaviour
 
     #region Health System
 
-    [Rpc(SendTo.Server)]
-    private void InitTeamHealthRpc()
+    // [Rpc(SendTo.Server)]
+    // private void InitTeamHealthRpc()
+    // {
+    //     _teamOneHealth.Value = teamOneMaxHealth;
+    //     _teamTwoHealth.Value = teamTwoMaxHealth;
+
+    //     //if (t1HealthScreen != null)
+    //     //{
+    //     //    Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
+    //     //}
+
+    //     //if (t2HealthScreen != null)
+    //     //{
+    //     //    Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+    //     //}
+    // }
+
+    private void InitTeamHealth()
     {
+        if (!IsServer)
+            return;
+
         _teamOneHealth.Value = teamOneMaxHealth;
         _teamTwoHealth.Value = teamTwoMaxHealth;
+    }
 
-        //if (t1HealthScreen != null)
-        //{
-        //    Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
-        //}
+    private void OnTeamOneHealthChanged(float previous, float current)
+    {
+        if (t1UIMgr != null)
+        {
+            t1UIMgr.SetHealthBarPercent(teamOneMaxHealth, current);
+        }
+    }
 
-        //if (t2HealthScreen != null)
-        //{
-        //    Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
-        //}
+    private void OnTeamTwoHealthChanged(float previous, float current)
+    {
+        if (t2UIMgr != null)
+        {
+            t2UIMgr.SetHealthBarPercent(teamTwoMaxHealth, current);
+        }
     }
 
     [Rpc(SendTo.Server)]
@@ -434,7 +493,8 @@ public class GameManager : NetworkBehaviour
     {
         if (teamNumToDamage == 1)
         {
-            _teamOneHealth.Value = _teamOneHealth.Value - damage;
+            // _teamOneHealth.Value = _teamOneHealth.Value - damage;
+            _teamOneHealth.Value -= damage;
             Showt1DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
@@ -450,7 +510,8 @@ public class GameManager : NetworkBehaviour
         }
         else if (teamNumToDamage == 2)
         {
-            _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
+            // _teamTwoHealth.Value = _teamTwoHealth.Value - damage;
+            _teamTwoHealth.Value -= damage;
             Showt2DamageIndicatorRpc(damageDirection);
             // Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
 
@@ -504,15 +565,26 @@ public class GameManager : NetworkBehaviour
         }
         else if (teamNumToHeal == 2)
         {
+            // float h = teamTwoMaxHealth - _teamTwoHealth.Value;
+
+            // if (h > healAmt)
+            // {
+            //     _teamTwoHealth.Value = _teamTwoHealth.Value + healAmt;
+            // }
+            // else
+            // {
+            //     _teamTwoHealth.Value = _teamTwoHealth.Value + h;
+            // }
+
             float h = teamTwoMaxHealth - _teamTwoHealth.Value;
 
             if (h > healAmt)
             {
-                _teamTwoHealth.Value = _teamTwoHealth.Value + healAmt;
+                _teamTwoHealth.Value += healAmt;
             }
             else
             {
-                _teamTwoHealth.Value = _teamTwoHealth.Value + h;
+                _teamTwoHealth.Value += h;
             }
 
             _teamTwoHealth.Value = _teamTwoHealth.Value + healAmt;

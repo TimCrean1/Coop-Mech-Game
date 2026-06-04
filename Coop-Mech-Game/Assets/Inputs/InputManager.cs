@@ -27,6 +27,7 @@ public class InputManager : MonoBehaviour
             }
 
             InputActions.Enable();
+            
         }
         else
         {

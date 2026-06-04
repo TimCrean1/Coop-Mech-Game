@@ -30,12 +30,19 @@ public class UtilityManagerScript : MonoBehaviour
     // Activates Player 1's utility if ready, then starts cooldown
     public void P1Utility()
     {
-        if (p1UtilReady)
+        if (p1Utility != null)
         {
-            p1Utility.ActivateUtilityRpc(); // Activate the utility (possibly networked)
-            p1UtilReady = false;
-            StartCoroutine(P1CooldownCorotuine()); // Begin cooldown
-            // audioManager.PlayP1UtilitySound();
+            if (p1UtilReady)
+            {
+                p1Utility.ActivateUtilityRpc(); // Activate the utility (possibly networked)
+                p1UtilReady = false;
+                StartCoroutine(P1CooldownCorotuine()); // Begin cooldown
+                // audioManager.PlayP1UtilitySound();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("P1 Utility is null or has not been purchased.");
         }
     }
 
@@ -43,12 +50,19 @@ public class UtilityManagerScript : MonoBehaviour
     // Activates Player 2's utility if ready, then starts cooldown
     public void P2Utility()
     {
-        if (p2UtilReady)
+        if (p2Utility != null)
         {
-            p2Utility.ActivateUtilityRpc(); // Activate the utility (possibly networked)
-            p2UtilReady = false;
-            StartCoroutine(P2CooldownCorotuine()); // Begin cooldown
-            // audioManager.PlayP2UtilitySound();
+            if (p2UtilReady)
+            {
+                p2Utility.ActivateUtilityRpc(); // Activate the utility (possibly networked)
+                p2UtilReady = false;
+                StartCoroutine(P2CooldownCorotuine()); // Begin cooldown
+                // audioManager.PlayP2UtilitySound();
+            }
+        }
+        else
+        {
+            Debug.LogWarning("P2 Utility is null or has not been purchased.");
         }
     }
 

@@ -215,8 +215,16 @@ public class PlayerCoroutineManager : NetworkBehaviour
         return false;
     }
 
-    public bool TryGetSyncedShoot(out bool isSynced)
+    public bool TryGetSpecialSyncedShoot(out bool isSynced)
     {
+        isSynced = false;
+        
+        if(p1ShootInput.Value  == 0f || p2ShootInput.Value == 0f)
+        {
+            isSynced = false;
+            return false;
+        }
+
         // Check if inputs are within the sync window and that inputs are identical
         if (Mathf.Abs(p1ShootTime - p2ShootTime) <= shootSyncWindow && Mathf.Approximately(p1ShootInput.Value, p2ShootInput.Value))
         {

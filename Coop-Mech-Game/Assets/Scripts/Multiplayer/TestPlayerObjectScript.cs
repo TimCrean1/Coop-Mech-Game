@@ -12,6 +12,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 {
     public PlayerController playerController;
     private Vector2 mousePos;
+    private Vector2 lastSentMousePos;
     [SerializeField] private string playerIndex;
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
@@ -25,7 +26,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
     private PlayerInputActions playerInputActions;
     private bool isInitialized = false;
 
-    private Vector2 lastSentMousePos;
+    // private Vector2 lastSentMousePos;
     private float nextMouseSendTime = 0f;
 
     // 20 updates/sec
@@ -81,49 +82,38 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void Initialize()
     {
-        if (GameManager.Instance._playerControllers.Count <= 0)
+        if (GameManager.Instance._playerControllers.Count < 2)
         {
-            Debug.Log("Playercontroller list is empty");
-        }
-        
-        // ask the server for an id based on connected clients
-        // host currently struggles to join the game properly (not getting player controller)
-        if (playerTeam == "Red")
-        {
-            playerController = GameManager.Instance._playerControllers[0];
-            GameManager.Instance._playerControllers[0].baseCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[0].overlayCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[0].uiCanvas.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[0].indicatorCanvas.gameObject.SetActive(true);
-
-        } else if (playerTeam == "Blue")
-        {
-            playerController = GameManager.Instance._playerControllers[1];
-            GameManager.Instance._playerControllers[1].baseCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[1].overlayCamera.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[1].uiCanvas.gameObject.SetActive(true);
-            GameManager.Instance._playerControllers[1].indicatorCanvas.gameObject.SetActive(true);
+            Debug.LogError("PlayerController list is not fully initialized.");
+            return;
         }
 
-        // playerInputActions = new PlayerInputActions();
+        playerController = playerTeam == "Red"
+            ? GameManager.Instance._playerControllers[0]
+            : GameManager.Instance._playerControllers[1];
+
+        playerController.baseCamera.gameObject.SetActive(true);
+        playerController.overlayCamera.gameObject.SetActive(true);
+        playerController.uiCanvas.SetActive(true);
+        playerController.indicatorCanvas.SetActive(true);
+
         playerInputActions = InputManager.Instance.InputActions;
+
         SubscribeInputActions();
+
         playerInputActions.Player.Enable();
 
         isInitialized = true;
     }
 
-    void FixedUpdate()
+    private void FixedUpdate()
     {
-        if (isInitialized)
+        if (playerController == null)
+            return;
+
+        if (playerController.currentState == EPlayerState.Moving && !Application.isFocused)
         {
-            if (playerController.currentState == EPlayerState.Moving)
-            {
-                if (Application.isFocused == false)
-                {
-                    SwitchActionMap(EPlayerState.Paused);
-                }
-            }
+            SwitchActionMap(EPlayerState.Paused);
         }
     }
 
@@ -148,10 +138,12 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
 
     
-    void OnDisable()
+    private void OnDisable()
     {
-        UnsubscribeInputActions();
-        
+        if (playerInputActions != null)
+        {
+            UnsubscribeInputActions();
+        }
     }
 
     public void SwitchActionMap(EPlayerState state)
@@ -318,8 +310,49 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerInputActions.Player.Pause.performed -= PauseAction;
         playerInputActions.Pause.Resume.performed -= ResumeAction;
     }
+#endregion
+#region Tick
 
-    #endregion
+    private const float MouseThreshold = 0.005f;
+
+    private void Tick()
+    {
+        if (!IsOwner)
+            return;
+
+        if (playerController == null)
+            return;
+
+        if (playerController.currentState != EPlayerState.Moving)
+            return;
+
+        if (!Application.isFocused)
+            return;
+
+        Vector2 currentMousePos = Input.mousePosition;
+
+        currentMousePos.x /= Screen.width;
+        currentMousePos.y /= Screen.height;
+
+        // Only send updates if the mouse actually moved
+        if (Vector2.SqrMagnitude(currentMousePos - lastSentMousePos) <
+            MouseThreshold * MouseThreshold)
+        {
+            return;
+        }
+
+        lastSentMousePos = currentMousePos;
+
+        if (playerNumber == "One")
+        {
+            playerController.ProcessMouse1InputServerRpc(currentMousePos);
+        }
+        else if (playerNumber == "Two")
+        {
+            playerController.ProcessMouse2InputServerRpc(currentMousePos);
+        }
+    }
+#endregion
 
     #region Input Actions
 
@@ -433,82 +466,87 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
 #region Tick
 
-    void Tick()
-    {
-        if (!IsOwner) { return; }
+    // void Tick()
+    // {
+    //     //if (!IsOwner) { return; }
 
-        // Send mouse position to PlayerController
-        if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
-        {
-            // Get mouse position in screen space and normalize
-            mousePos = Input.mousePosition;
-            mousePos.x = mousePos.x / Screen.width;
-            mousePos.y = mousePos.y / Screen.height;
-            //mouseNetPos.Value = mousePos;
+    //     //// Send mouse position to PlayerController
+    //     //if (playerController.currentState == EPlayerState.Moving && Application.isFocused)
+    //     //{
+    //     //    // Get mouse position in screen space and normalize
+    //     //    mousePos = Input.mousePosition;
+    //     //    mousePos.x = mousePos.x / Screen.width;
+    //     //    mousePos.y = mousePos.y / Screen.height;
+    //     //    //mouseNetPos.Value = mousePos;
 
-            if (playerNumber == "One")
-            {
-                playerController.ProcessMouse1InputServerRpc(mousePos);
-                //Debug.Log("player one" + mousePos);
+    //     //    if (playerNumber == "One")
+    //     //    {
+    //     //        playerController.ProcessMouse1InputServerRpc(mousePos);
+    //     //        //Debug.Log("player one" + mousePos);
 
-            }
-            else if (playerNumber == "Two")
-            {
-                playerController.ProcessMouse2InputServerRpc(mousePos);
-                //Debug.Log("player two" + mousePos);
-            }
-            if (playerInputActions == null)
-            {
-                Debug.Log("playerInputActions is null");
-            }
-        }
-        //if (!IsOwner)
-        //    return;
+    //     //    }
+    //     //    else if (playerNumber == "Two")
+    //     //    {
+    //     //        playerController.ProcessMouse2InputServerRpc(mousePos);
+    //     //        //Debug.Log("player two" + mousePos);
+    //     //    }
+    //     //    if (playerInputActions == null)
+    //     //    {
+    //     //        Debug.Log("playerInputActions is null");
+    //     //    }
+    //     //}
+    //     if (!IsOwner)
+    //         return;
 
-        //if (!isInitialized)
-        //    return;
+    //     if (!isInitialized)
+    //         return;
 
-        //if (playerController.currentState != EPlayerState.Moving)
-        //    return;
+    //     if (playerController.currentState != EPlayerState.Moving)
+    //         return;
 
-        //if (!Application.isFocused)
-        //    return;
+    //     if (!Application.isFocused)
+    //         return;
 
-        //// Throttle network sends
-        //if (Time.time < nextMouseSendTime)
-        //    return;
+    //     // Throttle network sends
+    //     if (Time.time < nextMouseSendTime)
+    //         return;
 
-        //nextMouseSendTime = Time.time + MOUSE_SEND_INTERVAL;
+    //     nextMouseSendTime = Time.time + MOUSE_SEND_INTERVAL;
 
-        //// Normalize mouse position
-        //Vector2 currentMousePos = Input.mousePosition;
+    //     // Normalize mouse position
+    //     Vector2 currentMousePos = Input.mousePosition;
 
-        //currentMousePos.x /= Screen.width;
-        //currentMousePos.y /= Screen.height;
+    //     currentMousePos.x /= Screen.width;
+    //     currentMousePos.y /= Screen.height;
 
-        //// Only send if movement is meaningful
-        //if (Vector2.Distance(currentMousePos, lastSentMousePos) < MOUSE_SEND_THRESHOLD)
-        //    return;
+    //     // Only send if movement is meaningful
+    //     if (Vector2.Distance(currentMousePos, lastSentMousePos) < MOUSE_SEND_THRESHOLD)
+    //         return;
 
-        //lastSentMousePos = currentMousePos;
+    //     lastSentMousePos = currentMousePos;
 
-        //// Send to server
-        //if (playerNumber == "One")
-        //{
-        //    playerController.ProcessMouse1InputServerRpc(currentMousePos);
-        //}
-        //else if (playerNumber == "Two")
-        //{
-        //    playerController.ProcessMouse2InputServerRpc(currentMousePos);
-        //}
-        ////Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
-    }
+    //     // Send to server
+    //     if (playerNumber == "One")
+    //     {
+    //         playerController.ProcessMouse1InputServerRpc(currentMousePos);
+    //     }
+    //     else if (playerNumber == "Two")
+    //     {
+    //         playerController.ProcessMouse2InputServerRpc(currentMousePos);
+    //     }
+    //     //Debug.Log($"Tick: {NetworkManager.LocalTime.Tick}");
+    // }
     #endregion
 
 
 
     public override void OnNetworkDespawn()
     {
+        if (playerInputActions != null)
+        {
+            UnsubscribeInputActions();
+        }
+
         if (NetworkManager != null &&
             NetworkManager.NetworkTickSystem != null)
         {
