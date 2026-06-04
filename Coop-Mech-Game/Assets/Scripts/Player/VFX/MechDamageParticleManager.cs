@@ -80,12 +80,13 @@ public class MechDamageParticleManager : MonoBehaviour
             vfxDeath.SendEvent("OnDeath");
             Debug.Log("Sending death event!");
 
-            StartCoroutine(DeathRoutine());
+            StartCoroutine(DeathRoutine(team));
         }
     }
 
-    private IEnumerator DeathRoutine()
+    private IEnumerator DeathRoutine(int team)
     {
+        if(team != teamNum) { yield break; }
         //wait to allow fire to be seen
         yield return new WaitForSeconds(0.8f);
 
