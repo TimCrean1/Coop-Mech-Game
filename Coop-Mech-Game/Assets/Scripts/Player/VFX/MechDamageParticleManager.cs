@@ -44,9 +44,13 @@ public class MechDamageParticleManager : MonoBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void TriggerTeamDamageClientRpc(int team, int tier)
     {
-        if (team != teamNum) return;
+        if (team != teamNum)
+        {
+            Debug.LogWarning("Team " + team + " does not match team num " + teamNum + " in damage trigger");
+            return;
+        }
 
-        switch(tier)
+        switch (tier)
         {
             case 1:
                 vfxDamage.SendEvent("Tier1");
@@ -66,7 +70,11 @@ public class MechDamageParticleManager : MonoBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     private void TriggerTeamDeathClientRpc(int team)
     {
-        if (team != teamNum) return;
+        if (team != teamNum)
+        {
+            Debug.LogWarning("Team " + team + " does not match team num " + teamNum + " in death trigger");
+            return;
+        }
         else
         {
             vfxDeath.SendEvent("OnDeath");
