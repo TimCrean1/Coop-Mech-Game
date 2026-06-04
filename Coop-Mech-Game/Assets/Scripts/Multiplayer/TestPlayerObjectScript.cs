@@ -81,6 +81,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerController.overlayCamera.gameObject.SetActive(true);
         playerController.uiCanvas.SetActive(true);
         playerController.indicatorCanvas.SetActive(true);
+        playerController.mechDeathCanvas.SetActive(true);
 
         playerInputActions = InputManager.Instance.InputActions;
 

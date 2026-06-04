@@ -289,9 +289,15 @@ public class GameManager : NetworkBehaviour
         // InitTeamHealthRpc();
         InitTeamHealth();
 
-        OnBuyRoundStart.Invoke();
-
+        //OnBuyRoundStart.Invoke();
+        InvokeBuyRoundClientRpc();
         roundOver = false;
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void InvokeBuyRoundClientRpc()
+    {
+        OnBuyRoundStart.Invoke();
     }
 
     #endregion

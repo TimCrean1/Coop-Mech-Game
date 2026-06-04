@@ -295,6 +295,7 @@ MonoBehaviour:
   utilityManager: {fileID: 8344997588642178835}
   uiManager: {fileID: 1310812323474829952}
   audioManager: {fileID: 454488228189125500}
+  mechDeathCanvas: {fileID: 176363853100244684}
   mouse1Pos:
     m_InternalValue: {x: 0, y: 0}
   mouse2Pos:
@@ -1669,11 +1670,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MechDeathExplosionCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 5986837759763032493, guid: 336aa463a02f1ec4996d93df4e18a905,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 336aa463a02f1ec4996d93df4e18a905, type: 3}
+--- !u!1 &176363853100244684 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5986837759763032493, guid: 336aa463a02f1ec4996d93df4e18a905,
+    type: 3}
+  m_PrefabInstance: {fileID: 5865679873360557921}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1525767694131185392 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4921178089744282001, guid: 336aa463a02f1ec4996d93df4e18a905,
