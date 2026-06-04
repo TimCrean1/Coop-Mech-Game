@@ -80,7 +80,7 @@ public class UI_Manager : NetworkBehaviour
 
         //set point in weapon manager
         Ray ray = playerCamera.ScreenPointToRay(averagePlayerPos);
-        weaponMgr.SetScreenRay(ray);
+        if (weaponMgr != null) weaponMgr.SetScreenRay(ray);
         
     }
 
@@ -140,12 +140,12 @@ public class UI_Manager : NetworkBehaviour
 
     public void SetComboBarPercent(float factor01)
     {
-        if (comboBarObject != null)
-        {
-            float h = factor01.MapRange(0f, 1f, 1f, 0f);
-            Debug.Log("setting combo factor to: " +h);
-            comboBarObject.SetGradientFactor(h);
-        }
+        // if (comboBarObject != null)
+        // {
+        //     float h = factor01.MapRange(0f, 1f, 1f, 0f);
+        //     Debug.Log("setting combo factor to: " +h);
+        //     comboBarObject.SetGradientFactor(h);
+        // }
         return;
 
         #region Archive

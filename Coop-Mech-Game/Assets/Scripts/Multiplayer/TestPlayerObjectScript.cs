@@ -61,7 +61,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         Initialize();
 
-        while (NetworkManager.Singleton != null)
+        while (NetworkManager.Singleton == null)
         {
             yield return null;
         }

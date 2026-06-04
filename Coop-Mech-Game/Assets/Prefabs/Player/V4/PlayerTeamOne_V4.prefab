@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Netcode.Runtime::Unity.Netcode.NetworkObject
-  GlobalObjectIdHash: 2752707343
+  GlobalObjectIdHash: 517045948
   InScenePlacedSourceGlobalObjectIdHash: 2752707343
   DeferredDespawnTick: 0
   Ownership: 1
@@ -1101,6 +1101,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1787830087806188225}
     m_Modifications:
+    - target: {fileID: 814880293085648705, guid: e9e37917f70ebb649ab43803e0c91a66,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3953204645434222281, guid: e9e37917f70ebb649ab43803e0c91a66,
         type: 3}
       propertyPath: m_Name
@@ -1214,6 +1219,16 @@ PrefabInstance:
     - target: {fileID: 6062406439275913513, guid: e9e37917f70ebb649ab43803e0c91a66,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8452604932136293009, guid: e9e37917f70ebb649ab43803e0c91a66,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8707833042107620255, guid: e9e37917f70ebb649ab43803e0c91a66,
+        type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1447,17 +1462,22 @@ PrefabInstance:
     - target: {fileID: 1091837618511526773, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2378890549
+      value: 1423404890
+      objectReference: {fileID: 0}
+    - target: {fileID: 1312107185168340700, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1330996404785541496, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2661399363
+      value: 4009423370
       objectReference: {fileID: 0}
     - target: {fileID: 1521511219856952440, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2121092769
+      value: 1869723234
       objectReference: {fileID: 0}
     - target: {fileID: 1949382280841367569, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1467,27 +1487,32 @@ PrefabInstance:
     - target: {fileID: 2815977085428823921, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 4133631241
+      value: 972191884
       objectReference: {fileID: 0}
     - target: {fileID: 2857579150957444151, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 3134382113
+      value: 3839097919
       objectReference: {fileID: 0}
     - target: {fileID: 3370495565128322997, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 117147381
+      value: 1938675987
       objectReference: {fileID: 0}
     - target: {fileID: 4117379163095567091, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: m_Name
       value: SpiderMech
       objectReference: {fileID: 0}
+    - target: {fileID: 5821927497349877203, guid: f28c5bc8f70f03d46827447274e6a194,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6763796303144256128, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1691716894
+      value: 2731217135
       objectReference: {fileID: 0}
     - target: {fileID: 7146601827955257013, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1557,7 +1582,7 @@ PrefabInstance:
     - target: {fileID: 8011232418076987577, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 1462083873
+      value: 1205011422
       objectReference: {fileID: 0}
     - target: {fileID: 8570350743131225385, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
@@ -1567,7 +1592,7 @@ PrefabInstance:
     - target: {fileID: 9182145967457460236, guid: f28c5bc8f70f03d46827447274e6a194,
         type: 3}
       propertyPath: GlobalObjectIdHash
-      value: 2397846805
+      value: 2930455157
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
