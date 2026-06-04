@@ -11,6 +11,8 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private Button OptionsButton;
     [SerializeField] private Button QuitButton;
     [SerializeField] private OptionsUI OptionsCanvas;
+    [SerializeField] private Button CreditsButton;
+    [SerializeField] private CreditsUI CreditsCanvas;
 
     [SerializeField] private CinemachineCamera _camera;
     [SerializeField] private CinemachineCamera _camera2;
@@ -52,6 +54,12 @@ public class MainMenuUI : MonoBehaviour
             {
                EditorApplication.isPlaying = false;
             }
+        });
+
+        CreditsButton.onClick.AddListener(() =>
+        {
+            CreditsCanvas.Show();
+            Hide();
         });
     }
 
