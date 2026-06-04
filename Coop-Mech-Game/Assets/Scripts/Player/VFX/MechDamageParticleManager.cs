@@ -41,7 +41,7 @@ public class MechDamageParticleManager : MonoBehaviour
         brightColor.a = 1f;
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.NotServer)]
     private void TriggerTeamDamageClientRpc(int team, int tier)
     {
         if (team != teamNum)
@@ -67,7 +67,7 @@ public class MechDamageParticleManager : MonoBehaviour
         }
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
+    [Rpc(SendTo.NotServer)]
     private void TriggerTeamDeathClientRpc(int team)
     {
         if (team != teamNum)
