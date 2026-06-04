@@ -148,6 +148,14 @@ public class TeamWeaponManager : NetworkBehaviour
 
             // Notify clients to update references
             addWeaponReferencesRpc(player, netObj.NetworkObjectId);
+            if (player == 0)
+            {
+                newWeapon.layer = 15;
+            }
+            else if (player == 1)
+            {
+                newWeapon.layer = 16;
+            }
         }
     }
 
