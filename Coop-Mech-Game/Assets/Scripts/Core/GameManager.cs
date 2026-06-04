@@ -570,14 +570,14 @@ public class GameManager : NetworkBehaviour
             if (IsServer) { _teamTwoWins.Value += 1; }
             InvokeDeathClientRpc(1);
 
-            OnRoundEnd?.Invoke();
+            //OnRoundEnd?.Invoke();
         }
         else if (_teamTwoHealth.Value <= 0f && roundOver == false)
         {
             if (IsServer) { _teamOneWins.Value += 1; }
             InvokeDeathClientRpc(2);
 
-            OnRoundEnd?.Invoke();
+            //OnRoundEnd?.Invoke();
         }
     }
 
@@ -585,6 +585,7 @@ public class GameManager : NetworkBehaviour
     private void InvokeDamageClientRpc(int team, int tier)
     {
         OnTeamDamage?.Invoke(team, tier);
+        OnRoundEnd?.Invoke();
     }
 
     [Rpc(SendTo.ClientsAndHost)]
