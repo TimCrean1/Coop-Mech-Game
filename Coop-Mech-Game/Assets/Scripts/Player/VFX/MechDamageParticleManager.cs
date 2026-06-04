@@ -67,10 +67,13 @@ public class MechDamageParticleManager : MonoBehaviour
     private void TriggerTeamDeathClientRpc(int team)
     {
         if (team != teamNum) return;
-        vfxDeath.SendEvent("OnDeath");
-        Debug.Log("Sending death event!");
+        else
+        {
+            vfxDeath.SendEvent("OnDeath");
+            Debug.Log("Sending death event!");
 
-        StartCoroutine(DeathRoutine());
+            StartCoroutine(DeathRoutine());
+        }
     }
 
     private IEnumerator DeathRoutine()
