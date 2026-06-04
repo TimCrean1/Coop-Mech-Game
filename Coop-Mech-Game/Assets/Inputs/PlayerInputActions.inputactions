@@ -167,6 +167,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Chat",
+                    "type": "Button",
+                    "id": "2ac6f512-2f3a-4b97-8e39-94715cdccab2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -488,6 +497,17 @@
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "070dad8a-6308-4676-a3ad-734e653f601c",
+                    "path": "<Keyboard>/y",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Chat",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -514,6 +534,34 @@
                     "processors": "",
                     "groups": "",
                     "action": "Resume",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Chat",
+            "id": "50577628-279b-4ff7-ac3d-951d534dcb73",
+            "actions": [
+                {
+                    "name": "Cancel",
+                    "type": "Button",
+                    "id": "7c2b3a66-5a93-452c-abd9-ceee37e022da",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d45fdff2-e5ef-4eed-a950-129f00b728dc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
