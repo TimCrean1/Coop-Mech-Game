@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.UI;
 using System.Collections;
+using Unity.Netcode;
 
 public class MechDamageParticleManager : MonoBehaviour
 {
@@ -14,9 +15,9 @@ public class MechDamageParticleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.Instance.OnTeamDamage.AddListener(TriggerTeamDamage);
-        GameManager.Instance.OnTeamDeath.AddListener(TriggerTeamDeath);
-        GameManager.Instance.OnBuyRoundStart.AddListener(LocalReset);
+        GameManager.Instance.OnTeamDamage.AddListener(TriggerTeamDamageClientRpc);
+        GameManager.Instance.OnTeamDeath.AddListener(TriggerTeamDeathClientRpc);
+        GameManager.Instance.OnBuyRoundStart.AddListener(LocalResetClientRpc);
 
         if(teamNum == -1)
         {
@@ -40,7 +41,8 @@ public class MechDamageParticleManager : MonoBehaviour
         brightColor.a = 1f;
     }
 
-    private void TriggerTeamDamage(int team, int tier)
+    [Rpc(SendTo.ClientsAndHost)]
+    private void TriggerTeamDamageClientRpc(int team, int tier)
     {
         if (team != teamNum) return;
 
@@ -48,20 +50,25 @@ public class MechDamageParticleManager : MonoBehaviour
         {
             case 1:
                 vfxDamage.SendEvent("Tier1");
+                Debug.Log("Sending tier 1 event!");
                 break;
             case 2:
                 vfxDamage.SendEvent("Tier2");
+                Debug.Log("Sending tier 2 event!");
                 break;
             case 3:
                 vfxDamage.SendEvent("Tier3");
+                Debug.Log("Sending tier 3 event!");
                 break;
         }
     }
 
-    private void TriggerTeamDeath(int team)
+    [Rpc(SendTo.ClientsAndHost)]
+    private void TriggerTeamDeathClientRpc(int team)
     {
         if (team != teamNum) return;
         vfxDeath.SendEvent("OnDeath");
+        Debug.Log("Sending death event!");
 
         StartCoroutine(DeathRoutine());
     }
@@ -84,7 +91,8 @@ public class MechDamageParticleManager : MonoBehaviour
 
     }
 
-    private void LocalReset()
+    [Rpc(SendTo.NotServer)]
+    private void LocalResetClientRpc()
     {
         //reset the image back to transparent black and stop particles
         Color col = Color.black;
@@ -92,5 +100,6 @@ public class MechDamageParticleManager : MonoBehaviour
         img.color = col;
 
         vfxDamage.SendEvent("OnStopParticles");
+        Debug.Log("Sending stop particles event!");
     }
 }

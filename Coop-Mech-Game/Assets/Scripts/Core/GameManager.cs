@@ -271,6 +271,10 @@ public class GameManager : NetworkBehaviour
 
     private IEnumerator RoundEndCoroutine()
     {
+        yield return new WaitForSeconds(8f);
+
+        //allow time for particles to play
+
         SetTimeScale(0.5f);
         SetTimeScaleClientRpc(0.5f);
 
@@ -500,18 +504,6 @@ public class GameManager : NetworkBehaviour
             Showt1DamageIndicatorRpc(damageDirection);
              Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamOneHealth.Value);
 
-            if(_teamOneHealth.Value <= teamOneMaxHealth * 0.5f && _teamOneHealth.Value > teamOneMaxHealth * 0.25f)
-            {
-                OnTeamDamage.Invoke(1, 1);
-            } else if(_teamOneHealth.Value <= teamOneMaxHealth * 0.25f && _teamOneHealth.Value > 10f)
-            {
-                OnTeamDamage.Invoke(1, 2);
-            }
-            else if(_teamOneHealth.Value < 10f)
-            {
-                OnTeamDamage.Invoke(1, 3);
-            }
-
             if (t1UIMgr != null)
             {
                 //Changet1HealthTextClientRpc(teamOneMaxHealth, _teamOneHealth.Value);
@@ -521,6 +513,19 @@ public class GameManager : NetworkBehaviour
             {
                 _playerControllers[0].GetAudioManager().PlayDamageClip();
             }
+
+            if (_teamOneHealth.Value <= teamOneMaxHealth * 0.5f && _teamOneHealth.Value > teamOneMaxHealth * 0.25f)
+            {
+                OnTeamDamage.Invoke(1, 1);
+            }
+            else if (_teamOneHealth.Value <= teamOneMaxHealth * 0.25f && _teamOneHealth.Value > 10f)
+            {
+                OnTeamDamage.Invoke(1, 2);
+            }
+            else if (_teamOneHealth.Value < 10f)
+            {
+                OnTeamDamage.Invoke(1, 3);
+            }
         }
         else if (teamNumToDamage == 2)
         {
@@ -528,6 +533,16 @@ public class GameManager : NetworkBehaviour
             _teamTwoHealth.Value -= damage;
             Showt2DamageIndicatorRpc(damageDirection);
              Debug.Log("Damaging Team: " + teamNumToDamage + " by: " + damage + " damage to new health: " + _teamTwoHealth.Value);
+
+            if (t2UIMgr != null)
+            {
+                //Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
+                t2UIMgr.SetHealthBarPercent(teamTwoMaxHealth, _teamTwoHealth.Value);
+            }
+            if (_playerControllers.Count > 1)
+            {
+                _playerControllers[1].GetAudioManager().PlayDamageClip();
+            }
 
             if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.5f && _teamTwoHealth.Value > teamTwoMaxHealth * 0.25f)
             {
@@ -541,16 +556,6 @@ public class GameManager : NetworkBehaviour
             {
                 OnTeamDamage.Invoke(2, 3);
             }
-
-            if (t2UIMgr != null)
-            {
-                //Changet2HealthTextClientRpc(teamTwoMaxHealth, _teamTwoHealth.Value);
-                t2UIMgr.SetHealthBarPercent(teamTwoMaxHealth, _teamTwoHealth.Value);
-            }
-            if (_playerControllers.Count > 1)
-            {
-                _playerControllers[1].GetAudioManager().PlayDamageClip();
-            }
         }
 
         if (_teamOneHealth.Value <= 0f && roundOver == false)
@@ -559,24 +564,15 @@ public class GameManager : NetworkBehaviour
             if (IsServer) { _teamTwoWins.Value += 1; }
             OnTeamDeath?.Invoke(1);
 
-            //OnRoundEnd?.Invoke();
-            StartCoroutine(RoundEndRoutine());
+            OnRoundEnd?.Invoke();
         }
         else if (_teamTwoHealth.Value <= 0f && roundOver == false)
         {
             if (IsServer) { _teamOneWins.Value += 1; }
             OnTeamDeath?.Invoke(2);
 
-            //OnRoundEnd?.Invoke();
-            StartCoroutine(RoundEndRoutine());
+            OnRoundEnd?.Invoke();
         }
-    }
-
-    //delays the end of round to allow particles to play
-    private IEnumerator RoundEndRoutine()
-    {
-        yield return new WaitForSeconds(8f);
-        OnRoundEnd?.Invoke();
     }
 
     [Rpc(SendTo.Server)]
