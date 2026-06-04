@@ -33,6 +33,8 @@ public class StartupAnimation : MonoBehaviour
 
         GameManager.Instance.OnStartupSequence.AddListener(StartFunction);
         GameManager.Instance.OnRoundEnd.AddListener(ShutdownFunction);
+        ShopManager.Instance.OnShopEnd.AddListener(StartFunction);
+        
 
         charMovement = GetComponent<CharacterMovement>();
     }
@@ -49,11 +51,12 @@ public class StartupAnimation : MonoBehaviour
     private void ShutdownFunction()
     {
         StartCoroutine(StartShutdownRoutine());
+        Debug.Log("Shutting down screens!");
     }
 
     private IEnumerator StartStartupRoutine() //start each screen
     {
-        Debug.Log("StartingUpRoutine");
+        //Debug.Log("StartingUpRoutine");
         for(int i = 0; i< refStrings.Count; i++)
         {
             if (i.IsValidIndex(refStrings))
@@ -93,7 +96,11 @@ public class StartupAnimation : MonoBehaviour
 
     private IEnumerator StartShutdownRoutine()
     {
-        for(int i = 0; i < refStrings.Count; i++)
+        yield return new WaitForSeconds(7f);
+
+        charMovement.SetCanMove(false);
+
+        for (int i = 0; i < refStrings.Count; i++)
         {
             if (i.IsValidIndex(refStrings))
             {
@@ -106,6 +113,7 @@ public class StartupAnimation : MonoBehaviour
 
     private IEnumerator ShutdownRoutine(string target)
     {
+        Debug.Log("Shutting down screen: " +  target);
         float count = startTime;
         float interval = 0.02f;
         float brightness = 1f;
@@ -114,6 +122,7 @@ public class StartupAnimation : MonoBehaviour
         {
             count -= interval;
             brightness = Random.Range(0f, SlerpValue(count / startTime));
+            _material.SetFloat(target, brightness);
             yield return null;
         }
     }

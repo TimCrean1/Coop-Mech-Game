@@ -6,6 +6,7 @@ using UnityEngine.Events;
 using TMPro;
 using Unity.Netcode;
 using Unity.VisualScripting;
+using Unity.Collections;
 
 #region Enums
 public enum CurrentBuyRound
@@ -274,8 +275,8 @@ public class ShopManager : MonoBehaviour
         var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];
         var playerObject = client.PlayerObject.GetComponent<TestPlayerObjectScript>();
 
-        string team = playerObject.GetPlayerTeam();
-        string num = playerObject.GetPlayerNum();
+        FixedString32Bytes team = playerObject.GetPlayerTeam();
+        FixedString32Bytes num = playerObject.GetPlayerNum();
 
         PlayerController controller;
 

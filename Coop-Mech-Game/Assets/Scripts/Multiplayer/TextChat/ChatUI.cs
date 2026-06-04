@@ -1,38 +1,53 @@
 using TMPro;
+using Unity.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ChatUI : MonoBehaviour
 {
     [SerializeField] private ChatMessage chatMessagePrefab;
     [SerializeField] private Transform chatContent;
     [SerializeField] private TMP_InputField chatInput;
+    [SerializeField] private PlayerInputActions playerInputActions;
 
     private string myName;
-    private string myTeam;
-
+    private FixedString32Bytes myTeam;
+ 
     void OnEnable()
     {
         ChatManager.OnMessageReceived += AddMessage;
         myName = ChatManager.Singleton.playerName;
+        
+        //chatInput.onSubmit.AddListener(SubmitChatMessage);
     }
 
     void OnDisable()
     {
         ChatManager.OnMessageReceived -= AddMessage;
+        //chatInput.onSubmit.RemoveListener(SubmitChatMessage);
     }
-
-    void Update()
+    public void SubmitChatMessage(string message)
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            
-            ChatManager.Singleton.SendChatMessage(chatInput.text,myName);
+        Debug.Log("Send message: " + chatInput.text);
 
-            chatInput.text = "";
-                
-            
-           
+        if(chatInput.text == null)
+        {
+            Debug.LogError("chatInput could not be read");
         }
+
+        if(chatInput.text == "")
+        {
+            Debug.Log("Message is empty");
+        }
+
+        ChatManager.Singleton.SendChatMessage(chatInput.text, myName);
+
+
+
+        chatInput.text = "";
+
+        chatInput.ActivateInputField();
+
     }
 
     void AddMessage(string msg)

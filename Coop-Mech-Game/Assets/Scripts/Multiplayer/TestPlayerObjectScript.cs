@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 using UnityEngine;
 using Unity.Services.Authentication;
 using System.Collections;
+using Unity.Collections;
+
 
 public class TestPlayerObjectScript : NetworkBehaviour
 {
@@ -15,6 +17,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
     [SerializeField] private string playerTeam;
     [SerializeField] private string playerNumber;
     [SerializeField] private string playerName;
+    public NetworkVariable<FixedString32Bytes> PlayerTeam =
+    new(writePerm: NetworkVariableWritePermission.Server);
+    public NetworkVariable<FixedString32Bytes> PlayerNumber =
+    new(writePerm: NetworkVariableWritePermission.Server);
+    
     [SerializeField] private string idCheck;
     private PlayerInputActions playerInputActions;
     private bool isInitialized = false;
@@ -31,10 +38,17 @@ public class TestPlayerObjectScript : NetworkBehaviour
     public override void OnNetworkSpawn()
     {
         if (!IsOwner) { return; }
-
+        SetPublicInfoRpc(BootstrapScript.Instance.playerTeam,BootstrapScript.Instance.playerNumber);
         StartCoroutine(InitializeRoutine());
     }
 
+    [Rpc(SendTo.Server)]
+    private void SetPublicInfoRpc(string team, string number)
+    {
+        PlayerTeam.Value = team;
+        PlayerNumber.Value = number;
+        
+    }
     private IEnumerator InitializeRoutine()
     {
         // Wait for network objects to fully exist
@@ -56,6 +70,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerIndex = BootstrapScript.Instance.playerIndex;
         playerTeam = BootstrapScript.Instance.playerTeam;
         playerNumber = BootstrapScript.Instance.playerNumber;
+        playerName = BootstrapScript.Instance.playerName;
 
         NetworkManager.NetworkTickSystem.Tick += Tick;
 
@@ -86,6 +101,7 @@ public class TestPlayerObjectScript : NetworkBehaviour
         playerController.overlayCamera.gameObject.SetActive(true);
         playerController.uiCanvas.SetActive(true);
         playerController.indicatorCanvas.SetActive(true);
+        playerController.mechDeathCanvas.SetActive(true);
 
         playerInputActions = InputManager.Instance.InputActions;
 
@@ -109,14 +125,14 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     #region Getters
 
-    public string GetPlayerTeam()
+    public FixedString32Bytes GetPlayerTeam()
     {
-        return playerTeam;
+        return PlayerTeam.Value;
     }
 
-    public string GetPlayerNum()
+    public FixedString32Bytes GetPlayerNum()
     {
-        return playerNumber;
+        return PlayerNumber.Value;
     }
 
     public string GetPlayerName()
@@ -162,6 +178,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
                 // Cursor.lockState = CursorLockMode.None;
                 break;
 
+            case EPlayerState.Chatting:
+                playerInputActions.Chat.Enable();
+
+                Cursor.visible = true;
+                break;
             default:
                 // Cursor.visible = true;
                 // Cursor.lockState = CursorLockMode.None;
@@ -236,6 +257,10 @@ public class TestPlayerObjectScript : NetworkBehaviour
         // PAUSE
         playerInputActions.Player.Pause.performed += PauseAction;
         playerInputActions.Pause.Resume.performed += ResumeAction;
+
+        // CHAT
+        playerInputActions.Player.Chat.performed += ChatAction;
+        playerInputActions.Chat.Cancel.performed += CancelAction;
     }
 
     private void UnsubscribeInputActions()
@@ -429,6 +454,17 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
     private void ResumeAction(InputAction.CallbackContext context)
     {
+        SwitchActionMap(EPlayerState.Moving);
+    }
+
+    private void ChatAction(InputAction.CallbackContext context)
+    {
+        playerController.ChatOpenRpc(playerNumber);
+        SwitchActionMap(EPlayerState.Chatting);
+    }
+    private void CancelAction(InputAction.CallbackContext context) 
+    {
+        playerController.ChatCloseRpc(playerNumber);
         SwitchActionMap(EPlayerState.Moving);
     }
 

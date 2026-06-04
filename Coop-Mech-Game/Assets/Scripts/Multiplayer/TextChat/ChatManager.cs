@@ -5,6 +5,7 @@ using Unity.Netcode;
 using TMPro;
 using Unity.VisualScripting;
 using System;
+using Unity.Collections;
 
 public class ChatManager : NetworkBehaviour
 {
@@ -18,17 +19,16 @@ public class ChatManager : NetworkBehaviour
     // moved to ChatUI
 
     public string playerName;
-    public string playerTeam;
+    public FixedString32Bytes playerTeam;
 
     // need some way to detect if the player wants to chat in team/all chat
     // possibly enum?
 
     void Awake()
     { Singleton = this; }
-
-    public override void OnNetworkSpawn()
+    private void Start()
     {
-        SetPlayerInfo();
+        GameManager.Instance.OnStartupSequence.AddListener(SetPlayerInfo);
     }
 
     //void Update()
@@ -82,6 +82,7 @@ public class ChatManager : NetworkBehaviour
 
     private void SetPlayerInfo()
     {
+        Debug.Log("Attempting to get player info");
         if (NetworkManager.Singleton.IsConnectedClient) {
 
             var client = NetworkManager.Singleton.ConnectedClients[NetworkManager.Singleton.LocalClientId];

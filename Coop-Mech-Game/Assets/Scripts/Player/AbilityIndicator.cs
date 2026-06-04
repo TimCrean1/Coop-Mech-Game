@@ -32,7 +32,7 @@ public class AbilityIndicator : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void SetMaterialActiveRpc(string materialToSet, bool setOn)
     {
-        if (!IsSpawned || NetworkManager.Singleton == null)
+        if (!IsSpawned || !NetworkManager.isActiveAndEnabled || NetworkManager == null)
         {
             // Debug.LogWarning("AbilityIndicator not spawned.");
             return;

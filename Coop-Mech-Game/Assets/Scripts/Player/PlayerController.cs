@@ -1,11 +1,15 @@
 using UnityEngine;
 using Unity.Netcode;
 using System;
+using UnityEngine.UIElements;
+using UnityEngine.UI;
+using TMPro;
 
 public enum EPlayerState
 {
     Moving,
-    Paused
+    Paused,
+    Chatting
 }
 
 public class PlayerController : NetworkBehaviour
@@ -33,6 +37,11 @@ public class PlayerController : NetworkBehaviour
     [SerializeField] private UtilityManagerScript utilityManager;
     [SerializeField] private UI_Manager uiManager;
     [SerializeField] private PlayerAudioManager audioManager;
+    [SerializeField] public GameObject mechDeathCanvas;
+    [SerializeField] private Animator P1Chat;
+    [SerializeField] private TMP_InputField p1input;
+    [SerializeField] private Animator P2Chat;
+    [SerializeField] private TMP_InputField p2input;
 
     public NetworkVariable<Vector2> mouse1Pos = new NetworkVariable<Vector2>();
     public NetworkVariable<Vector2> mouse2Pos = new NetworkVariable<Vector2>();
@@ -265,6 +274,34 @@ public class PlayerController : NetworkBehaviour
         uiManager.SetCountdownRpc();
     }
 
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
+    public void ChatOpenRpc(string playerNum)
+    {
+        if (playerNum == "One")
+        {
+            p1input.Select();
+            P1Chat.SetBool("isOpen", true);
+        }
+
+        if (playerNum == "Two") 
+        {
+            p2input.Select();
+            P2Chat.SetBool("isOpen", true);
+        }
+    }
+    [Rpc(SendTo.Server, Delivery = RpcDelivery.Unreliable)]
+    public void ChatCloseRpc(string playerNum)
+    {
+        if (playerNum == "One")
+        {
+            P1Chat.SetBool("isOpen", false);
+        }
+
+        if (playerNum == "Two")
+        {
+            P2Chat.SetBool("isOpen", false);
+        }
+    }
     #endregion
 
     #region Callbacks
