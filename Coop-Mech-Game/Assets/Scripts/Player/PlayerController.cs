@@ -44,6 +44,9 @@ public class PlayerController : NetworkBehaviour
     [Header("Inventory")]
     public Tuple<ShopItemSO,ShopItemSO> playerWeapons;
     public Tuple<ShopItemSO,ShopItemSO> playerUtilities;
+
+    [Header("Misc")]
+    private bool gameManagerStarted = false;
     
     #endregion
 
@@ -57,6 +60,14 @@ public class PlayerController : NetworkBehaviour
         if (player2 != null){player2.SwitchActionMap(EPlayerState.Moving);}
     }
 
+    void Start()
+    {
+        GameManager.Instance.OnStartupSequence.AddListener(() =>
+        {
+            gameManagerStarted = true;
+        });
+    }
+
     private void OnDisable()
     {
         // UnsubscribeInputActions();
@@ -66,6 +77,8 @@ public class PlayerController : NetworkBehaviour
 
     private void FixedUpdate()
     {
+        if (!gameManagerStarted) return;
+
         if (currentState == EPlayerState.Moving)
         {    
             if (playerCoroutineManager.TryGetSyncedMove(out Vector2 syncedMoveInput))

@@ -56,6 +56,7 @@ public class PlayerAudioManager : NetworkBehaviour
     [Rpc(SendTo.ClientsAndHost)]
     public void PlayWalkSoundClientRpc()
     {
+        if (NetworkManager.Singleton == null) {return;}
         moveSource.PlayOneShot(walkSound);
         Debug.Log("Playing Walk Sound");
     }
@@ -74,49 +75,5 @@ public class PlayerAudioManager : NetworkBehaviour
     {
         damageSource.PlayOneShot(damageClip);
     }
-
-    // public void SetP1GunClip(AudioClip clip)
-    // {
-    //     p1GunSource.clip = clip;
-    // }
-
-    // public void PlayP1GunSound()
-    // {
-    //     p1GunSource.PlayOneShot(p1GunSource.clip);
-    //     Debug.Log("Playing P1 Gun Sound");
-    // }
-
-    // public void SetP2GunClip(AudioClip clip)
-    // {
-    //     p2GunSource.clip = clip;
-    // }
-
-    // public void PlayP2GunSound()
-    // {
-    //     p2GunSource.PlayOneShot(p2GunSource.clip);
-    //     Debug.Log("Playing P2 Gun Sound");
-    // }
-
-    // public void SetP1UtilityClip(AudioClip clip)
-    // {
-    //     p1UtilitySource.clip = clip;
-    // }
-
-    // public void PlayP1UtilitySound()
-    // {
-    //     p1UtilitySource.PlayOneShot(p1UtilitySource.clip);
-    //     Debug.Log("Playing P1 Utility Sound");
-    // }
-
-    // public void SetP2UtilityClip(AudioClip clip)
-    // {
-    //     p2UtilitySource.clip = clip;
-    // }
-
-    // public void PlayP2UtilitySound()
-    // {
-    //     p2UtilitySource.PlayOneShot(p2UtilitySource.clip);
-    //     Debug.Log("Playing P2 Utility Sound");
-    // }
     #endregion
 }

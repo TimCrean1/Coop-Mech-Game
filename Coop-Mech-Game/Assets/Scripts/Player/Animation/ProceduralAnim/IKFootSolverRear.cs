@@ -1,3 +1,4 @@
+using Unity.Netcode;
 using UnityEngine;
 
 public class IKFootSolverRear : MonoBehaviour
@@ -52,7 +53,7 @@ public class IKFootSolverRear : MonoBehaviour
                 lerp = 0;
                 int direction = body.InverseTransformPoint(info.point).z > body.InverseTransformPoint(newPosition).z ? 1 : -1;
                 newPosition = info.point + (-body.transform.forward * stepLength * direction) + (footOffset);
-                if (audioManager != null)
+                if (audioManager != null && audioManager.IsSpawned && NetworkManager.Singleton != null)
                 {
                     audioManager.PlayWalkSoundClientRpc();
                 }

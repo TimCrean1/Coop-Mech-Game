@@ -61,6 +61,11 @@ public class TestPlayerObjectScript : NetworkBehaviour
 
         Initialize();
 
+        while (NetworkManager.Singleton != null)
+        {
+            yield return null;
+        }
+
         // Tell the server THIS CLIENT is fully initialized
         GameManager.Instance.ClientReadyRpc();
     }

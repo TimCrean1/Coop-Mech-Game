@@ -69,7 +69,8 @@ public class WeaponSpecialBeam : BaseWeapon
                 else if (other.CompareTag("Target"))
                 {
                     //other.GetComponent<KillhouseEnemy>().Deactivate();
-                    other.GetComponent<KillhouseEnemy>().DeactivateRpc();
+                    // other.GetComponent<KillhouseEnemy>().DeactivateRpc();
+                    other.GetComponent<KillhouseEnemy>().Deactivate();
                 }
             }
 

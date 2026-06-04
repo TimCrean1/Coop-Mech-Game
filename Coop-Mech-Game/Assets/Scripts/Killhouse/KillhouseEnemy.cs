@@ -1,92 +1,57 @@
-using System;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
-using Unity.Netcode;
+
 [RequireComponent(typeof(Collider))]
 [RequireComponent(typeof(MeshRenderer))]
 [RequireComponent(typeof(AudioSource))]
-[RequireComponent(typeof(NetworkObject))]
-    
-
-public class KillhouseEnemy : NetworkBehaviour
+public class KillhouseEnemy : MonoBehaviour
 {
     [Header("Component References")]
-    //[SerializeField] private KillhouseManager killhouseManager;
     [SerializeField] private MeshRenderer meshRenderer;
+
     [Header("Instance Values")]
     [SerializeField] private float deactivationTime = 7f;
-    //[SerializeField] private float pointsValue;
-    //[SerializeField] private bool isFriendly;
-    //public bool isActive = true;
 
-    void Start()
+    private void Awake()
     {
-        //killhouseManager = KillhouseManager.Instance;
-        //killhouseManager.PopulateEnemiesList(this);
-        //if (isFriendly)
-        //{
-        //    pointsValue = -1;
-        //}
-        //else {pointsValue = 1;}
+        if (meshRenderer == null)
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+        }
     }
 
     public void Activate()
     {
-        GetComponent<MeshRenderer>().enabled = true;
-        //isActive = true;
-    }
-    [Rpc(SendTo.Everyone)]
-    public void ActivateRpc()
-    {
-        Debug.Log("Activating On The Server");
-        GetComponent<MeshRenderer>().enabled = true;
-        //isActive = true;
+        meshRenderer.enabled = true;
     }
 
     public void Deactivate()
     {
-        GetComponent<MeshRenderer>().enabled = false;
-        //isActive = false;
+        meshRenderer.enabled = false;
     }
 
-    [Rpc(SendTo.ClientsAndHost)]
-    public void DeactivateRpc()
+    public void Hit()
     {
-        Debug.Log("Deactivating target, starting coroutine on: " + gameObject);
-        //GetComponent<MeshRenderer>().enabled = false;
-        //isActive = false;
+        Debug.Log("Target hit, starting deactivate routine on: " + gameObject.name);
         StartCoroutine(DeactivateRoutine());
     }
 
     private IEnumerator DeactivateRoutine()
     {
         meshRenderer.enabled = false;
+
         yield return new WaitForSeconds(deactivationTime);
+
         meshRenderer.enabled = true;
-        //isActive = false;
     }
 
-    void OnDisable()
-    {
-        //if (killhouseManager.currentKHStatus == KillhouseManager.KillhouseStatus.Playing)
-        //{
-        //    killhouseManager.UpdatePoints(pointsValue);
-        //}
-    }
-
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Projectile"))
         {
-            //killhouseManager.UpdatePoints(pointsValue);
-            // audioSource.Play();
             Destroy(collision.gameObject);
-            Deactivate();
-            if (!IsServer)
-            {
-                DeactivateRpc();
-            }
+
+            Hit();
         }
     }
 }

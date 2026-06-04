@@ -71,6 +71,7 @@ public class CharacterMovement : BaseMovement
     private bool isBeingKnockedBack = false;
     [SerializeField] private PlayerAudioManager audioManager;
     [SerializeField] private AbilityIndicator abilityIndicator;
+    private bool gameManagerStarted = false;
 
     #endregion
 
@@ -91,10 +92,16 @@ public class CharacterMovement : BaseMovement
 
         GameManager.Instance.OnRoundEnd.AddListener(SetCanMoveFalse);
         ShopManager.Instance.OnShopEnd.AddListener(SetCanMoveTrue);
+
+        GameManager.Instance.OnStartupSequence.AddListener(() =>
+        {
+            gameManagerStarted = true;
+        });
     }
 
     private void FixedUpdate()
     {
+        if (!gameManagerStarted) return;
         if (!IsOwner) return;
 
         CheckIsGrounded();
