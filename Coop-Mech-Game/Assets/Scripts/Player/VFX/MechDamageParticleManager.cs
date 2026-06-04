@@ -76,7 +76,7 @@ public class MechDamageParticleManager : MonoBehaviour
         else
         {
             vfxDeath.SendEvent("OnDeath");
-            Debug.Log("Sending death event!");
+            //Debug.Log("Sending death event!");
 
             StartCoroutine(DeathRoutine(team));
         }
@@ -109,6 +109,7 @@ public class MechDamageParticleManager : MonoBehaviour
         img.color = col;
 
         vfxDamage.SendEvent("OnStopParticles");
-        Debug.Log("Sending stop particles event!");
+        vfxDeath.SendEvent("OnStop");
+        //Debug.Log("Sending stop particles event!");
     }
 }
