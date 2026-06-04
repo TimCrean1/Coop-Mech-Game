@@ -15,9 +15,9 @@ public class MechDamageParticleManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        GameManager.Instance.OnTeamDamage.AddListener(TriggerTeamDamageClientRpc);
-        GameManager.Instance.OnTeamDeath.AddListener(TriggerTeamDeathClientRpc);
-        GameManager.Instance.OnBuyRoundStart.AddListener(LocalResetClientRpc);
+        GameManager.Instance.OnTeamDamage.AddListener(TriggerTeamDamage);
+        GameManager.Instance.OnTeamDeath.AddListener(TriggerTeamDeath);
+        GameManager.Instance.OnBuyRoundStart.AddListener(LocalReset);
 
         if(teamNum == -1)
         {
@@ -41,8 +41,7 @@ public class MechDamageParticleManager : MonoBehaviour
         brightColor.a = 1f;
     }
 
-    [Rpc(SendTo.NotServer)]
-    private void TriggerTeamDamageClientRpc(int team, int tier)
+    private void TriggerTeamDamage(int team, int tier)
     {
         if (team != teamNum)
         {
@@ -67,8 +66,7 @@ public class MechDamageParticleManager : MonoBehaviour
         }
     }
 
-    [Rpc(SendTo.NotServer)]
-    private void TriggerTeamDeathClientRpc(int team)
+    private void TriggerTeamDeath(int team)
     {
         if (team != teamNum)
         {
@@ -86,7 +84,7 @@ public class MechDamageParticleManager : MonoBehaviour
 
     private IEnumerator DeathRoutine(int team)
     {
-        if(team != teamNum) { yield break; }
+        //if(team != teamNum) { yield break; }
         //wait to allow fire to be seen
         yield return new WaitForSeconds(0.8f);
 
@@ -103,8 +101,7 @@ public class MechDamageParticleManager : MonoBehaviour
 
     }
 
-    [Rpc(SendTo.NotServer)]
-    private void LocalResetClientRpc()
+    private void LocalReset()
     {
         //reset the image back to transparent black and stop particles
         Color col = Color.black;

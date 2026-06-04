@@ -516,15 +516,15 @@ public class GameManager : NetworkBehaviour
 
             if (_teamOneHealth.Value <= teamOneMaxHealth * 0.5f && _teamOneHealth.Value > teamOneMaxHealth * 0.25f)
             {
-                OnTeamDamage.Invoke(1, 1);
+                InvokeDamageClientRpc(1, 1);
             }
             else if (_teamOneHealth.Value <= teamOneMaxHealth * 0.25f && _teamOneHealth.Value > 10f)
             {
-                OnTeamDamage.Invoke(1, 2);
+                InvokeDamageClientRpc(1, 2);
             }
             else if (_teamOneHealth.Value < 10f)
             {
-                OnTeamDamage.Invoke(1, 3);
+                InvokeDamageClientRpc(1, 3);
             }
         }
         else if (teamNumToDamage == 2)
@@ -546,15 +546,15 @@ public class GameManager : NetworkBehaviour
 
             if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.5f && _teamTwoHealth.Value > teamTwoMaxHealth * 0.25f)
             {
-                OnTeamDamage.Invoke(2, 1);
+                InvokeDamageClientRpc(2, 1);
             }
             else if (_teamTwoHealth.Value <= teamTwoMaxHealth * 0.25f && _teamTwoHealth.Value > 10f)
             {
-                OnTeamDamage.Invoke(2, 2);
+                InvokeDamageClientRpc(2, 2);
             }
             else if (_teamTwoHealth.Value < 10f)
             {
-                OnTeamDamage.Invoke(2, 3);
+                InvokeDamageClientRpc(2, 3);
             }
         }
 
@@ -562,17 +562,29 @@ public class GameManager : NetworkBehaviour
         {
             //add win here
             if (IsServer) { _teamTwoWins.Value += 1; }
-            OnTeamDeath?.Invoke(1);
+            InvokeDeathClientRpc(1);
 
             OnRoundEnd?.Invoke();
         }
         else if (_teamTwoHealth.Value <= 0f && roundOver == false)
         {
             if (IsServer) { _teamOneWins.Value += 1; }
-            OnTeamDeath?.Invoke(2);
+            InvokeDeathClientRpc(2);
 
             OnRoundEnd?.Invoke();
         }
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void InvokeDamageClientRpc(int team, int tier)
+    {
+        OnTeamDamage?.Invoke(team, tier);
+    }
+
+    [Rpc(SendTo.ClientsAndHost)]
+    private void InvokeDeathClientRpc(int team)
+    {
+        OnTeamDeath?.Invoke(team);
     }
 
     [Rpc(SendTo.Server)]
