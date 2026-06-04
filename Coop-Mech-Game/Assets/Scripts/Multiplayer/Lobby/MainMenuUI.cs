@@ -50,10 +50,10 @@ public class MainMenuUI : MonoBehaviour
         QuitButton.onClick.AddListener(() =>
         {
             Application.Quit();
-            if (Application.isEditor)
-            {
-               EditorApplication.isPlaying = false;
-            }
+            // if (Application.isEditor)
+            // {
+            //    EditorApplication.isPlaying = false;
+            // }
         });
 
         CreditsButton.onClick.AddListener(() =>
